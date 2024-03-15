@@ -72,7 +72,7 @@ const AdminListPage = () => {
     console.log("uni", selectedAdmin);
     const [customerDeleteId, setCustomerDeleteId] = useState(null);
 
-    const [adminType, setAdminType] = useState('')
+    const [viewType, setViewType] = useState('')
 
     useEffect(() => {
       dispatch(getSystemAdmins());
@@ -193,6 +193,22 @@ const AdminListPage = () => {
               );
             return (
               <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+
+              {/* <Tooltip title="View">
+                <IconButton 
+                  color="secondary" 
+                  // onClick={row.getToggleExpandedHandler()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedForumType(row.original);
+                    setCustomerModal(true);
+                    setViewType('view');
+                  }}
+                  >
+                  {collapseIcon}
+                </IconButton>
+              </Tooltip> */}
+
                 <Tooltip title="Edit">
                   <IconButton
                     color="primary"
@@ -200,6 +216,7 @@ const AdminListPage = () => {
                       e.stopPropagation();
                       setSelectedAdmin(row.original);
                       setCustomerModal(true);
+                      setViewType('edit');
                     }}
                   >
                     <EditOutlined />
@@ -239,7 +256,7 @@ const AdminListPage = () => {
             modalToggler: () => {
               setCustomerModal(true);
               setSelectedAdmin(null);
-              setAdminType('create');
+              // setAdminType('create');
             }
             // bulkModalToggler: () => {
             //   setCustomerModal(true);
@@ -250,7 +267,9 @@ const AdminListPage = () => {
           }}
         />
         <AlertAdminDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
-        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} adminType={adminType} setAdminType={setAdminType}/>
+        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} 
+        // viewType={viewType}
+        />
       </>
     );
   };

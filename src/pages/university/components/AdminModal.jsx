@@ -11,17 +11,20 @@ import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import CircularWithPath from 'components/@extended/progress/CircularWithPath';
 
+
+
 import { useGetCustomer } from 'api/customer';
+import AdminView from './AdminView';
 // import BulkUploadCSV from './BulkUploadCSV';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //
 
-const AdminModal = ({ open, modalToggler, admin, adminType, setAdminType }) => {
+const AdminModal = ({ open, modalToggler, admin, viewType }) => {
   const { customersLoading: loading } = useGetCustomer();
 
   const closeModal = () => modalToggler(false);
 
-  const adminyForm = useMemo(
+  const adminFormAdd = useMemo(
     () => !loading && <FormAdminAdd 
                            admin={admin || null} 
                            closeModal={closeModal} />,
@@ -29,9 +32,9 @@ const AdminModal = ({ open, modalToggler, admin, adminType, setAdminType }) => {
     [admin, loading]
   );
 
-  // const universityBulkUpload = useMemo(
-  //   () => !loading && <BulkUploadCSV closeModal={closeModal} setUniversityType={setUniversityType}/>
-  // );
+  const viewAdmin = useMemo(
+    () => !loading && <AdminView admin={admin || null} closeModal={closeModal} />,
+  );
 
   return (
     <>
@@ -53,7 +56,8 @@ const AdminModal = ({ open, modalToggler, admin, adminType, setAdminType }) => {
             modal
             content={false}
           >
-            {/* <SimpleBar
+
+          <SimpleBar
               sx={{
                 maxHeight: `calc(100vh - 48px)`,
                 '& .simplebar-content': {
@@ -69,9 +73,10 @@ const AdminModal = ({ open, modalToggler, admin, adminType, setAdminType }) => {
                   </Stack>
                 </Box>
               ) : (
-                universityType === 'file' ? universityBulkUpload : universityForm
+                viewType === 'view' ? viewAdmin : adminFormAdd
               )}
-            </SimpleBar> */}
+            </SimpleBar>
+
           </MainCard>
         </Modal>
       )}
@@ -82,7 +87,7 @@ const AdminModal = ({ open, modalToggler, admin, adminType, setAdminType }) => {
 AdminModal.propTypes = {
   open: PropTypes.bool,
   modalToggler: PropTypes.func,
-  adminType: PropTypes.string,
+  viewType: PropTypes.string,
   customer: PropTypes.object
 };
 

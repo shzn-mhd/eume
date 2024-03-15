@@ -56,7 +56,7 @@ import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 import { CameraOutlined, CloseOutlined, DeleteFilled } from '@ant-design/icons';
 import { dispatch } from 'store';
 // import { createUniversity, getUniversities, updateUniversity } from 'store/reducers/university';
-import { createSystemAdmin,  updateSystemAdmin } from 'store/reducers/admin';
+import { createSystemAdmin,  getSystemAdmins,  updateSystemAdmin } from 'store/reducers/admin';
 import { useDispatch } from 'store';
 import countries from 'data/countries';
 import { Icon } from '@iconify/react';
@@ -184,7 +184,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
               }
             });
             setSubmitting(false);
-            dispatch(getsyStemAdmins());
+            dispatch(getSystemAdmins());
             closeModal();
           });
         } else {
@@ -212,7 +212,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
     dispatch(getSystemAdmins());
   }, [dispatch]);
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
   if (loading)
     return (

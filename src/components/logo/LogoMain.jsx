@@ -13,7 +13,7 @@ import { ThemeMode } from 'config';
  * import logo from 'assets/images/logo.svg';
  *
  */
-import logoDark from 'assets/images/LOGO_1.png';
+import logoDark from 'assets/images/bloonsoo_1.jpg';
 // import logo from 'assets/images/LOGO 2 - Copy.jpeg';
 
 // ==============================|| LOGO SVG ||============================== //
