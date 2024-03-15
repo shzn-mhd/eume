@@ -110,7 +110,7 @@ const AppECommCheckout = Loadable(
   lazy(() => import("pages/apps/e-commerce/checkout"))
 );
 const AppECommAddProduct = Loadable(
-  lazy(() => import("pages/apps/e-commerce/add-product"))
+  lazy(() => import("pages/apps/e-commerce/add-product")) 
 );
 
 // render - forms & tables
