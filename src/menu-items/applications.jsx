@@ -90,8 +90,8 @@ const applications = {
       url: "/dashboard/default",
     },
     {
-      id: "university",
-      title: <FormattedMessage id="University" />,
+      id: "system-admin",
+      title: <FormattedMessage id="System Admin" />,
       type: "item",
       icon: icons.BankOutlined,
       url: "/university/university-list",

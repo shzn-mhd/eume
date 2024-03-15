@@ -47,13 +47,14 @@ import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-de
 import UniversityModal from './components/UniversityModal';
 import AlertUniversityDelete from './components/AlertUniversityDelete';
 import ReactTable from './components/UniversityTable';
-import { getUniversities } from 'store/reducers/university';
+// import { getUniversities } from 'store/reducers/university';
+import { getAdmins } from 'store/reducers/admin';
 import { dispatch } from 'store';
 
 // ==============================|| CUSTOMER LIST ||============================== //
 
 
-const UniversityListPage = () => {
+const AdminListPage = () => {
     const theme = useTheme();
   
     // const {universities: {universities, total}} = useSelector((state)=> state.university);
@@ -71,7 +72,7 @@ const UniversityListPage = () => {
     const [universityType, setUniversityType] = useState('')
 
     useEffect(() => {
-      dispatch(getUniversities());
+      dispatch(getAdmins());
     }, []);
   
   
@@ -118,20 +119,61 @@ const UniversityListPage = () => {
         },
 
         {
-          header: 'University Name',
-          accessorKey: 'universityName',
+          header: 'First Name',
+          accessorKey: 'firstName',
           meta: {
             className: 'cell-center'
           },
         },
 
         {
-          header: 'Country Code',
-          accessorKey: 'countryCode',
+          header: 'Last Name',
+          accessorKey: 'lastName',
           meta: {
             className: 'cell-center'
           },
         },
+
+        {
+          header: 'Role',
+          accessorKey: 'role',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'Email',
+          accessorKey: 'email',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'User Name',
+          accessorKey: 'username',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'Password',
+          accessorKey: 'password',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'Commission Rate',
+          accessorKey: 'commissionRate',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
 
         {
           header: 'Actions',
@@ -204,12 +246,12 @@ const UniversityListPage = () => {
             }
           }}
         />
-        <AlertUniversityDelete id={customerDeleteId?._id} title={customerDeleteId?.universityName} open={open} handleClose={handleClose} />
+        <AlertUniversityDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
         <UniversityModal open={customerModal} modalToggler={setCustomerModal} university={selectedUniversity} universityType={universityType} setUniversityType={setUniversityType}/>
       </>
     );
   };
   
-  export default UniversityListPage;
+  export default AdminListPage;
 
 
