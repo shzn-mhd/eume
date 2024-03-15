@@ -44,9 +44,12 @@ import { useGetCustomer } from 'api/customer';
 
 // assets
 import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import UniversityModal from './components/UniversityModal';
-import AlertUniversityDelete from './components/AlertUniversityDelete';
-import ReactTable from './components/UniversityTable';
+// import UniversityModal from './components/AdminModal';
+import AdminModal from './components/AdminModal';
+// import AlertUniversityDelete from './components/AlertAdminDelete';
+// import AlertAdminDelete from './components/AlertAdminDelete';
+import AlertAdminDelete from './components/AlertAdminDelete';
+import ReactTable from './components/AdminTable';
 // import { getUniversities } from 'store/reducers/university';
 import { getAdmins } from 'store/reducers/admin';
 import { dispatch } from 'store';
@@ -64,12 +67,12 @@ const AdminListPage = () => {
   
     const [customerModal, setCustomerModal] = useState(false);
     console.log("cus mod", customerModal);
-    const [selectedUniversity, setSelectedUniversity] = useState(null);
+    const [selectedAdmin, setSelectedAdmin] = useState(null);
   
-    console.log("uni", selectedUniversity);
+    console.log("uni", selectedAdmin);
     const [customerDeleteId, setCustomerDeleteId] = useState(null);
 
-    const [universityType, setUniversityType] = useState('')
+    const [adminType, setAdminType] = useState('')
 
     useEffect(() => {
       dispatch(getAdmins());
@@ -195,7 +198,7 @@ const AdminListPage = () => {
                     color="primary"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedUniversity(row.original);
+                      setSelectedAdmin(row.original);
                       setCustomerModal(true);
                     }}
                   >
@@ -235,19 +238,19 @@ const AdminListPage = () => {
             columns,
             modalToggler: () => {
               setCustomerModal(true);
-              setSelectedUniversity(null);
-              setUniversityType('create');
-            },
-            bulkModalToggler: () => {
-              setCustomerModal(true);
-              setSelectedUniversity(null);
-              setUniversityType('file');
-              
+              setSelectedAdmin(null);
+              setAdminType('create');
             }
+            // bulkModalToggler: () => {
+            //   setCustomerModal(true);
+            //   setSelectedUniversity(null);
+            //   setUniversityType('file');
+              
+            // }
           }}
         />
-        <AlertUniversityDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
-        <UniversityModal open={customerModal} modalToggler={setCustomerModal} university={selectedUniversity} universityType={universityType} setUniversityType={setUniversityType}/>
+        <AlertAdminDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
+        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} adminType={adminType} setAdminType={setAdminType}/>
       </>
     );
   };

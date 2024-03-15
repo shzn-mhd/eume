@@ -49,28 +49,51 @@ export function setActionAdmin() {
     dispatch(adminSlice.actions.setAction());
 }
 
-export function getAdmins(
-    pageIndex = 0, pageSize = 10, name) {
+
+
+export function getAdmins(pageIndex = 0, pageSize = 10, name) {
     // console.log("university get all");
     return async () => {
         try {
-            let requestUrl = `/system-admin/?page=
-            ${pageIndex + 1}&limit=${pageSize}`;
+            let requestUrl = `/system-admin/?page=${pageIndex + 1}&limit=${pageSize}`;
+            
 
             if (name) {
-                requestUrl = `${requestUrl}&name=${name}`;
+                // requestUrl = `${requestUrl}&name=${name}`;
+                requestUrl += `&name=${encodeURIComponent(name)}`;
               }
             const response = await axios.get(requestUrl);
             console.log("admin res", response);
             if(response.status === 200) {
-                dispatch(adminSlice.actions.
-                    getAdminSuccess(response.data));
+                dispatch(adminSlice.actions.getAdminSuccess(response.data));
             }
         } catch (error) {
             dispatch(adminSlice.actions.hasError(error));
         }
     }
 }
+
+// export function getAdmins(pageIndex = 0, pageSize = 10, name) {
+//     return async (dispatch) => { // Assuming dispatch is available in scope
+//         try {
+//             let requestUrl = `/system-admin/?page=${pageIndex + 1}&limit=${pageSize}`;
+
+//             if (name) {
+//                 requestUrl += `&name=${encodeURIComponent(name)}`; // Encode name to handle special characters
+//             }
+
+//             const response = await axios.get(requestUrl);
+//             console.log("admin res", response);
+//             if (response.status === 200) {
+//                 dispatch(adminSlice.actions.getAdminSuccess(response.data));
+//             }
+//         } catch (error) {
+//             dispatch(adminSlice.actions.hasError(error));
+//         }
+//     }
+// }
+
+
 
 export function createAdmin(values) {
     return async () => {

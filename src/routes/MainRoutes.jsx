@@ -47,7 +47,7 @@ const AppCustomerCard = Loadable(
 );
 
 const UniversityListPage = Loadable(
-  lazy(() => import("pages/university/university"))
+  lazy(() => import("pages/university/admin"))
 );
 const AppInvoiceCreate = Loadable(
   lazy(() => import("pages/apps/invoice/create"))

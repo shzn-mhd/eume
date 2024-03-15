@@ -13,25 +13,26 @@ import { openSnackbar } from 'api/snackbar';
 // assets
 import { DeleteFilled } from '@ant-design/icons';
 import { dispatch } from 'store';
-import { deleteUniversity, getUniversities } from 'store/reducers/university';
+// import { deleteUniversity, getUniversities } from 'store/reducers/university';
+import { deleteAdmin, getAdmins } from 'store/reducers/admin';
 
 // ==============================|| CUSTOMER - DELETE ||============================== //
 
-export default function AlertUniversityDelete({ id, title, open, handleClose }) {
+export default function AlertAdminDelete({ id, title, open, handleClose }) {
   console.log();("del>>>", title);
   console.log();("del id>>>", id);
   const deletehandler = async () => {
-    dispatch(deleteUniversity(id)).then(() => {
+    dispatch(deleteAdmin(id)).then(() => {
       openSnackbar({
         open: true,
-        message: 'University deleted successfully',
+        message: 'System Admin deleted successfully',
         anchorOrigin: { vertical: 'top', horizontal: 'right' },
         variant: 'alert',
         alert: {
           color: 'success'
         }
       });
-      dispatch(getUniversities());
+      dispatch(getAdmins());
       handleClose();
     });
   };
@@ -61,7 +62,7 @@ export default function AlertUniversityDelete({ id, title, open, handleClose }) 
                 {' '}
                 &quot;{title}&quot;{' '}
               </Typography>
-              University, all task assigned to that university will also be deleted.
+              Admins, all attributes assigned to that admins will also be deleted.
             </Typography>
           </Stack>
 
@@ -79,7 +80,7 @@ export default function AlertUniversityDelete({ id, title, open, handleClose }) 
   );
 }
 
-AlertUniversityDelete.propTypes = {
+AlertAdminDelete.propTypes = {
   id: PropTypes.any,
   title: PropTypes.any,
   open: PropTypes.bool,
