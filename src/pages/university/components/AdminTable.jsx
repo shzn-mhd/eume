@@ -50,7 +50,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'store';
 import { dispatch } from 'store';
 // import { getUniversities } from 'store/reducers/university';
-import { getAdmins } from 'store/reducers/admin';
+import { getSystemAdmins } from 'store/reducers/admin';
 
 
 export const fuzzyFilter = (row, columnId, value, addMeta) => {
@@ -68,8 +68,8 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
   
   function ReactTable({ columns, modalToggler, bulkModalToggler}) {
     const theme = useTheme();
-    const {admins: {admins, total},action} =
-                useSelector((state)=> state.admin);
+    const {systemAdmins: {systemAdmins, total},action} =
+                useSelector((state)=> state.systemAdmin);
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
   
     const [sorting, setSorting] = useState([
@@ -85,7 +85,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
     const [numOfPages, setNumOfPages] = useState(10);
     const [name, setName] = useState('');
     const table = useReactTable({
-      data : admins,
+      data : systemAdmins,
       columns,
       state: {
         sorting,
@@ -119,7 +119,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
       table.setPageSize(pageSize)
       table.setPageIndex(pageIndex)
       setNumOfPages(pageSize)
-      dispatch(getAdmins(pageIndex,pageSize,name));
+      dispatch(getSystemAdmins(pageIndex,pageSize,name));
       // console.log(pageIndex,pageSize,'university event')
     },[action,pageIndex,pageSize,name]);
 
@@ -155,7 +155,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
             <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
             <Stack direction="row" spacing={2} alignItems="center">
               <Button variant="contained" startIcon={<PlusOutlined />} onClick={modalToggler}>
-                Add Admin
+                Add System Admin
               </Button>
               {/* <Button variant="contained" startIcon={<PlusOutlined />} onClick={bulkModalToggler}>
                 Bulk Upload

@@ -56,7 +56,7 @@ import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 import { CameraOutlined, CloseOutlined, DeleteFilled } from '@ant-design/icons';
 import { dispatch } from 'store';
 // import { createUniversity, getUniversities, updateUniversity } from 'store/reducers/university';
-import { createAdmin, getAdmins, updateAdmin } from 'store/reducers/admin';
+import { createSystemAdmin,  updateSystemAdmin } from 'store/reducers/admin';
 import { useDispatch } from 'store';
 import countries from 'data/countries';
 import { Icon } from '@iconify/react';
@@ -104,24 +104,7 @@ const skills = [
   'Wordpress'
 ];
 
-// constant
-const getInitialValues = (admin) => {
-  const newCustomer = {
-    firstName: '',
-    lastName: '',
-    role: '',
-    email: '',
-    userName: '',
-    password: '',
-    commissionRate: ''
-  };
 
-  if (admin) {
-    return _.merge({}, newCustomer, admin);
-  }
-
-  return newCustomer;
-};
 
 
 // ==============================|| CUSTOMER ADD / EDIT - FORM ||============================== //
@@ -191,7 +174,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
         let newAdmin = values;
 
         if (admin) {
-          dispatch(updateAdmin(admin._id, newAdmin)).then(() => {
+          dispatch(updateSystemAdmin(admin._id, newAdmin)).then(() => {
             openSnackbar({
               open: true,
               message: 'System Admin update successfully.',
@@ -201,11 +184,11 @@ const FormAdminAdd = ({ admin, closeModal }) => {
               }
             });
             setSubmitting(false);
-            dispatch(getAdmins());
+            dispatch(getsyStemAdmins());
             closeModal();
           });
         } else {
-          dispatch(createAdmin(values)).then(() => {
+          dispatch(createSystemAdmin(values)).then(() => {
             openSnackbar({
               open: true,
               message: 'System Admin added successfully.',
@@ -215,7 +198,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
               }
             });
             setSubmitting(false);
-            dispatch(getAdmins());
+            dispatch(getSystemAdmins());
             closeModal();
           });
         }
@@ -226,7 +209,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
   });
 
   useEffect(() => {
-    dispatch(getAdmins());
+    dispatch(getSystemAdmins());
   }, [dispatch]);
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;

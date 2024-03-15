@@ -6,52 +6,52 @@ import { openSnackbar } from "./snackbar";
 const initialState = {
     action: false,
     error: null,
-    admin: {},
-    admins: {
-        admins: [],
+    systemAdmin: {},
+    systemAdmins: {
+        systemAdmins: [],
         page: null,
         total: null,
         limit: null,
     },
-    deletedAdmin: {},
+    deletedSystemAdmin: {},
 }; 
 
-const adminSlice = createSlice({
-    name: 'admins',
+const systemAdminSlice = createSlice({
+    name: 'systemAdmins',
     initialState,
     reducers: {
         hasError(state, action) {
             state.error = action.payload;
         },
 
-        getAdminSuccess(state, action) {
-            state.admins = action.payload;
+        getSystemAdminSuccess(state, action) {
+            state.systemAdmins = action.payload;
         },
 
-        deleteAdminSuccess(state, action) {
-            state.deletedAdmin = action.payload;
+        deleteSystemAdminSuccess(state, action) {
+            state.deletedSystemAdmin = action.payload;
         },
 
         setAction(state) {
             state.action = !state.action;
         },
 
-        findAdminSuccess(state, action) {
-            state.admin = action.payload;
+        findSystemAdminSuccess(state, action) {
+            state.systemAdmin = action.payload;
         },
 
     },
 });
 
-export default adminSlice.reducer;
+export default systemAdminSlice.reducer;
 
-export function setActionAdmin() {
-    dispatch(adminSlice.actions.setAction());
+export function setActionSystemAdmin() {
+    dispatch(systemAdminSlice.actions.setAction());
 }
 
 
 
-export function getAdmins(pageIndex = 0, pageSize = 10, name) {
+export function getSystemAdmins(pageIndex = 0, pageSize = 10, name) {
     // console.log("university get all");
     return async () => {
         try {
@@ -65,10 +65,10 @@ export function getAdmins(pageIndex = 0, pageSize = 10, name) {
             const response = await axios.get(requestUrl);
             console.log("admin res", response);
             if(response.status === 200) {
-                dispatch(adminSlice.actions.getAdminSuccess(response.data));
+                dispatch(systemAdminSlice.actions.getSystemAdminSuccess(response.data));
             }
         } catch (error) {
-            dispatch(adminSlice.actions.hasError(error));
+            dispatch(systemAdminSlice.actions.hasError(error));
         }
     }
 }
@@ -95,7 +95,7 @@ export function getAdmins(pageIndex = 0, pageSize = 10, name) {
 
 
 
-export function createAdmin(values) {
+export function createSystemAdmin(values) {
     return async () => {
         try {
             const response = await axios.post(
@@ -110,7 +110,7 @@ export function createAdmin(values) {
 }
 
 
-export function updateAdmin(adminId, values) {
+export function updateSystemAdmin(adminId, values) {
     return async () => {
         console.log("update admin",values);
         try {
@@ -118,23 +118,23 @@ export function updateAdmin(adminId, values) {
                 `/system-admin/update/${adminId}`,
                  {...values});
             if(response.status === 200) {
-                setActionAdmin();
+                setActionSystemAdmin();
             }
         } catch (error) {
-            dispatch(adminSlice.actions.hasError(error));
+            dispatch(systemAdminSlice.actions.hasError(error));
         }
     }
 }
 
-export function deleteAdmin(adminId) {
+export function deleteSystemAdmin(adminId) {
     return async () => {
         try {
             const response = await axios.delete(`/system-admin/${adminId}`);
             if(response.status === 200) {
-                dispatch(adminSlice.actions.deleteAdminSuccess(response.data))
+                dispatch(systemAdminSlice.actions.deleteSystemAdminSuccess(response.data))
             }
         } catch (error) {
-            dispatch(adminSlice.actions.hasError(error));
+            dispatch(systemAdminSlice.actions.hasError(error));
         }
     }
 }

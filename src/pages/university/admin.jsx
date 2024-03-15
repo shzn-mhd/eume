@@ -51,7 +51,7 @@ import AdminModal from './components/AdminModal';
 import AlertAdminDelete from './components/AlertAdminDelete';
 import ReactTable from './components/AdminTable';
 // import { getUniversities } from 'store/reducers/university';
-import { getAdmins } from 'store/reducers/admin';
+import { getSystemAdmins } from 'store/reducers/admin';
 import { dispatch } from 'store';
 
 // ==============================|| CUSTOMER LIST ||============================== //
@@ -75,7 +75,7 @@ const AdminListPage = () => {
     const [adminType, setAdminType] = useState('')
 
     useEffect(() => {
-      dispatch(getAdmins());
+      dispatch(getSystemAdmins());
     }, []);
   
   

@@ -14,7 +14,7 @@ import { openSnackbar } from 'api/snackbar';
 import { DeleteFilled } from '@ant-design/icons';
 import { dispatch } from 'store';
 // import { deleteUniversity, getUniversities } from 'store/reducers/university';
-import { deleteAdmin, getAdmins } from 'store/reducers/admin';
+import { deleteSystemAdmin, getSystemAdmins } from 'store/reducers/admin';
 
 // ==============================|| CUSTOMER - DELETE ||============================== //
 
@@ -22,7 +22,7 @@ export default function AlertAdminDelete({ id, title, open, handleClose }) {
   console.log();("del>>>", title);
   console.log();("del id>>>", id);
   const deletehandler = async () => {
-    dispatch(deleteAdmin(id)).then(() => {
+    dispatch(deleteSystemAdmin(id)).then(() => {
       openSnackbar({
         open: true,
         message: 'System Admin deleted successfully',
@@ -32,7 +32,7 @@ export default function AlertAdminDelete({ id, title, open, handleClose }) {
           color: 'success'
         }
       });
-      dispatch(getAdmins());
+      dispatch(getSystemAdmins());
       handleClose();
     });
   };
