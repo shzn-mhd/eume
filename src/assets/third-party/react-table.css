@@ -1,0 +1,53 @@
+.cell-center {
+  text-align: center;
+  justify-content: center;
+}
+.cell-center > * {
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.cell-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+.cell-right .MuiOutlinedInput-input {
+  text-align: right;
+}
+
+.cell-right > * {
+  justify-content: flex-end;
+  margin: 0 0 0 auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.sticky-header {
+  margin: 0;
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+}
+
+.resizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+
+.resizer.isResizing {
+  opacity: 1;
+}
