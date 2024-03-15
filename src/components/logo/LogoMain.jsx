@@ -21,7 +21,7 @@ import logoDark from 'assets/images/bloonsoo_1.jpg';
 const LogoMain = ({ reverse }) => {
   const theme = useTheme();
   return (
-    <img src={theme.palette.mode === ThemeMode.DARK ? logoDark : logoDark} alt="MyUnivrs" width="100" />
+    <img src={theme.palette.mode === ThemeMode.DARK ? logoDark : logoDark} alt="MyUnivrs" width="200" />
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
      *
