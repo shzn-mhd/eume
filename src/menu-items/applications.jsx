@@ -94,7 +94,7 @@ const applications = {
       title: <FormattedMessage id="System Admin" />,
       type: "item",
       icon: icons.BankOutlined,
-      url: "/university/university-list",
+      url: "/system-admin/system-admin-list",  
       // actions: [
       //   {
       //     type: NavActionType.FUNCTION,

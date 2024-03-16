@@ -93,7 +93,7 @@ const Header = () => {
               }}
               spacing={2}
             >
-              <Link className="header-link" color="white" component={RouterLink} to="/university/university-list" target="_blank" underline="none">
+              <Link className="header-link" color="white" component={RouterLink} to="/system-admin/system-admin-list"  target="_blank" underline="none">
                 Dashboard
               </Link>
               <Link className="header-link" color="white" component={RouterLink} to="/components-overview/buttons" underline="none">

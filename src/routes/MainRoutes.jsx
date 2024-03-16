@@ -46,8 +46,8 @@ const AppCustomerCard = Loadable(
   lazy(() => import("pages/apps/customer/card"))
 );
 
-const UniversityListPage = Loadable(
-  lazy(() => import("pages/university/admin"))
+const SystemAdminListPage = Loadable(
+  lazy(() => import("pages/system-admin/admin"))
 );
 const AppInvoiceCreate = Loadable(
   lazy(() => import("pages/apps/invoice/create"))
@@ -304,11 +304,11 @@ const MainRoutes = {
         },
 
         {
-          path: "university",
+          path: "system-admin",
           children: [
             {
-              path: "university-list",
-              element: <UniversityListPage />,
+              path: "system-admin-list",
+              element: <SystemAdminListPage />,
             },
             {
               path: "university-card",

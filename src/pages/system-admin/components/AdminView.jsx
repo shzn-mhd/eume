@@ -29,13 +29,13 @@ const AdminView = ({ admin, closeModal }) => {
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">firstName</Typography>
+                      <Typography color="secondary">First Name</Typography>
                       <Typography>{admin?.firstName}</Typography>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">lastName</Typography>
+                      <Typography color="secondary">Last Name</Typography>
                       <Typography>{admin?.lastName}</Typography>
                     </Stack>
                   </Grid>
@@ -49,13 +49,13 @@ const AdminView = ({ admin, closeModal }) => {
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">username</Typography>
+                      <Typography color="secondary">Username</Typography>
                       <Typography>{admin?.username}</Typography>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">role</Typography>
+                      <Typography color="secondary">Role</Typography>
                       <Typography>{admin?.role}</Typography>
                     </Stack>
                   </Grid>
@@ -69,7 +69,7 @@ const AdminView = ({ admin, closeModal }) => {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">email</Typography>
+                      <Typography color="secondary">Email</Typography>
                       <Typography>{admin?.email}</Typography>
                     </Stack>
                   </Grid>
