@@ -5,31 +5,35 @@ import { useMemo } from 'react';
 import { Box, Modal, Stack } from '@mui/material';
 
 // project-imports
-import FormUniversityAdd from './FormUniversityAdd';
+// import FormUniversityAdd from './FormUniversityAdd';
+import FormAdminAdd from './FormAdminAdd';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import CircularWithPath from 'components/@extended/progress/CircularWithPath';
 
+
+
 import { useGetCustomer } from 'api/customer';
-import BulkUploadCSV from './BulkUploadCSV';
+import AdminView from './AdminView';
+// import BulkUploadCSV from './BulkUploadCSV';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //
 
-const UniversityModal = ({ open, modalToggler, university, universityType, setUniversityType }) => {
+const AdminModal = ({ open, modalToggler, admin, viewType }) => {
   const { customersLoading: loading } = useGetCustomer();
 
   const closeModal = () => modalToggler(false);
 
-  const universityForm = useMemo(
-    () => !loading && <FormUniversityAdd 
-                           university={university || null} 
+  const adminFormAdd = useMemo(
+    () => !loading && <FormAdminAdd 
+                           admin={admin || null} 
                            closeModal={closeModal} />,
     // eslint-disable-next-line
-    [university, loading]
+    [admin, loading]
   );
 
-  const universityBulkUpload = useMemo(
-    () => !loading && <BulkUploadCSV closeModal={closeModal} setUniversityType={setUniversityType}/>
+  const viewAdmin = useMemo(
+    () => !loading && <AdminView admin={admin || null} closeModal={closeModal} />,
   );
 
   return (
@@ -52,7 +56,8 @@ const UniversityModal = ({ open, modalToggler, university, universityType, setUn
             modal
             content={false}
           >
-            <SimpleBar
+
+          <SimpleBar
               sx={{
                 maxHeight: `calc(100vh - 48px)`,
                 '& .simplebar-content': {
@@ -68,9 +73,10 @@ const UniversityModal = ({ open, modalToggler, university, universityType, setUn
                   </Stack>
                 </Box>
               ) : (
-                universityType === 'file' ? universityBulkUpload : universityForm
+                viewType === 'view' ? viewAdmin : adminFormAdd
               )}
             </SimpleBar>
+
           </MainCard>
         </Modal>
       )}
@@ -78,11 +84,11 @@ const UniversityModal = ({ open, modalToggler, university, universityType, setUn
   );
 };
 
-UniversityModal.propTypes = {
+AdminModal.propTypes = {
   open: PropTypes.bool,
   modalToggler: PropTypes.func,
-  universityType: PropTypes.string,
+  viewType: PropTypes.string,
   customer: PropTypes.object
 };
 
-export default UniversityModal;
+export default AdminModal;

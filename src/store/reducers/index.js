@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 // import menu from './menu';
 import cartReducer from './cart';
 import university from './university';
+import systemAdmin from  './admin';
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 
@@ -21,6 +22,8 @@ const reducers = combineReducers({
     cartReducer
   ),
   university,
+  systemAdmin
+  
 });
 
 export default reducers;

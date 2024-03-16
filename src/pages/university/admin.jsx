@@ -44,16 +44,20 @@ import { useGetCustomer } from 'api/customer';
 
 // assets
 import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import UniversityModal from './components/UniversityModal';
-import AlertUniversityDelete from './components/AlertUniversityDelete';
-import ReactTable from './components/UniversityTable';
-import { getUniversities } from 'store/reducers/university';
+// import UniversityModal from './components/AdminModal';
+import AdminModal from './components/AdminModal';
+// import AlertUniversityDelete from './components/AlertAdminDelete';
+// import AlertAdminDelete from './components/AlertAdminDelete';
+import AlertAdminDelete from './components/AlertAdminDelete';
+import ReactTable from './components/AdminTable';
+// import { getUniversities } from 'store/reducers/university';
+import { getSystemAdmins } from 'store/reducers/admin';
 import { dispatch } from 'store';
 
 // ==============================|| CUSTOMER LIST ||============================== //
 
 
-const UniversityListPage = () => {
+const AdminListPage = () => {
     const theme = useTheme();
   
     // const {universities: {universities, total}} = useSelector((state)=> state.university);
@@ -63,15 +67,15 @@ const UniversityListPage = () => {
   
     const [customerModal, setCustomerModal] = useState(false);
     console.log("cus mod", customerModal);
-    const [selectedUniversity, setSelectedUniversity] = useState(null);
+    const [selectedAdmin, setSelectedAdmin] = useState(null);
   
-    console.log("uni", selectedUniversity);
+    console.log("uni", selectedAdmin);
     const [customerDeleteId, setCustomerDeleteId] = useState(null);
 
-    const [universityType, setUniversityType] = useState('')
+    const [viewType, setViewType] = useState('')
 
     useEffect(() => {
-      dispatch(getUniversities());
+      dispatch(getSystemAdmins());
     }, []);
   
   
@@ -118,20 +122,61 @@ const UniversityListPage = () => {
         },
 
         {
-          header: 'University Name',
-          accessorKey: 'universityName',
+          header: 'First Name',
+          accessorKey: 'firstName',
           meta: {
             className: 'cell-center'
           },
         },
 
         {
-          header: 'Country Code',
-          accessorKey: 'countryCode',
+          header: 'Last Name',
+          accessorKey: 'lastName',
           meta: {
             className: 'cell-center'
           },
         },
+
+        {
+          header: 'Role',
+          accessorKey: 'role',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'Email',
+          accessorKey: 'email',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        {
+          header: 'User Name',
+          accessorKey: 'username',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
+        // {
+        //   header: 'Password',
+        //   accessorKey: 'password',
+        //   meta: {
+        //     className: 'cell-center'
+        //   },
+        // },
+
+        {
+          header: 'Commission Rate',
+          accessorKey: 'commissionRate',
+          meta: {
+            className: 'cell-center'
+          },
+        },
+
 
         {
           header: 'Actions',
@@ -148,13 +193,30 @@ const UniversityListPage = () => {
               );
             return (
               <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+
+              {/* <Tooltip title="View">
+                <IconButton 
+                  color="secondary" 
+                  // onClick={row.getToggleExpandedHandler()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedForumType(row.original);
+                    setCustomerModal(true);
+                    setViewType('view');
+                  }}
+                  >
+                  {collapseIcon}
+                </IconButton>
+              </Tooltip> */}
+
                 <Tooltip title="Edit">
                   <IconButton
                     color="primary"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedUniversity(row.original);
+                      setSelectedAdmin(row.original);
                       setCustomerModal(true);
+                      setViewType('edit');
                     }}
                   >
                     <EditOutlined />
@@ -193,23 +255,25 @@ const UniversityListPage = () => {
             columns,
             modalToggler: () => {
               setCustomerModal(true);
-              setSelectedUniversity(null);
-              setUniversityType('create');
-            },
-            bulkModalToggler: () => {
-              setCustomerModal(true);
-              setSelectedUniversity(null);
-              setUniversityType('file');
-              
+              setSelectedAdmin(null);
+              // setAdminType('create');
             }
+            // bulkModalToggler: () => {
+            //   setCustomerModal(true);
+            //   setSelectedUniversity(null);
+            //   setUniversityType('file');
+              
+            // }
           }}
         />
-        <AlertUniversityDelete id={customerDeleteId?._id} title={customerDeleteId?.universityName} open={open} handleClose={handleClose} />
-        <UniversityModal open={customerModal} modalToggler={setCustomerModal} university={selectedUniversity} universityType={universityType} setUniversityType={setUniversityType}/>
+        <AlertAdminDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
+        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} 
+        // viewType={viewType}
+        />
       </>
     );
   };
   
-  export default UniversityListPage;
+  export default AdminListPage;
 
 
