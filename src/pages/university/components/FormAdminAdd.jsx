@@ -29,6 +29,7 @@ import {
   Radio,
   Autocomplete,
   Chip,
+  InputAdornment,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -53,7 +54,7 @@ import { Gender } from 'data/react-table';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
 // assets
-import { CameraOutlined, CloseOutlined, DeleteFilled } from '@ant-design/icons';
+import { CameraOutlined, CloseOutlined, DeleteFilled, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { dispatch } from 'store';
 // import { createUniversity, getUniversities, updateUniversity } from 'store/reducers/university';
 import { createSystemAdmin,  getSystemAdmins,  updateSystemAdmin } from 'store/reducers/admin';
@@ -122,6 +123,15 @@ const FormAdminAdd = ({ admin, closeModal }) => {
        admin?.avatar ? admin.avatar : 1}.png`,
         ImagePath.USERS)
   );
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   useEffect(() => {
     if (selectedImage) {
@@ -310,14 +320,46 @@ const FormAdminAdd = ({ admin, closeModal }) => {
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
                         <InputLabel htmlFor="password">Password</InputLabel>
-                        <TextField
+                        {/* <TextField
                           fullWidth
                           id="password"
                           placeholder="Enter password"
                           {...getFieldProps('password')}
                           error={Boolean(touched.password && errors.password)}
                           helperText={touched.password && errors.password}
-                        />
+                        /> */}
+                        <OutlinedInput
+                          fullWidth
+                          id="password"
+                          type={showPassword ? 'text' : 'password'}
+                          // value={values.password}
+                          name="password"
+                          {...getFieldProps('password')}
+                          error={Boolean(touched.password && errors.password)}
+                          helperText={touched.password && errors.password}
+                          // onBlur={handleBlur}
+                          // onChange={(e) => {
+                          //   handleChange(e);
+                          //   changePassword(e.target.value);
+                          // }}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                                color="secondary"
+                              >
+                                {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                          placeholder="******"
+                          inputProps={{}}
+                      />
+                        
+
                       </Stack>
                     </Grid>
                     
@@ -370,6 +412,7 @@ const FormAdminAdd = ({ admin, closeModal }) => {
             </DialogActions>
           </Form>
         </LocalizationProvider>
+        
       </FormikProvider>
       {admin &&
        <AlertAdminDelete 
