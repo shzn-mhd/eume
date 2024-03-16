@@ -6,7 +6,7 @@ import { Box, Modal, Stack } from '@mui/material';
 
 // project-imports
 // import FormUniversityAdd from './FormUniversityAdd';
-import FormAdminAdd from './FormAdminAdd';
+// import FormAdminAdd from './FormAdminAdd';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import CircularWithPath from 'components/@extended/progress/CircularWithPath';
@@ -15,6 +15,9 @@ import CircularWithPath from 'components/@extended/progress/CircularWithPath';
 
 import { useGetCustomer } from 'api/customer';
 import AdminView from './AdminView';
+import FormAdminAdd from './FormAdminAdd';
+
+// import AdminView from './AdminView';
 // import BulkUploadCSV from './BulkUploadCSV';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //

@@ -194,20 +194,20 @@ const AdminListPage = () => {
             return (
               <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
 
-              {/* <Tooltip title="View">
+              <Tooltip title="View">
                 <IconButton 
                   color="secondary" 
                   // onClick={row.getToggleExpandedHandler()}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedForumType(row.original);
+                    setSelectedAdmin(row.original);
                     setCustomerModal(true);
                     setViewType('view');
                   }}
                   >
                   {collapseIcon}
                 </IconButton>
-              </Tooltip> */}
+              </Tooltip>
 
                 <Tooltip title="Edit">
                   <IconButton
@@ -267,9 +267,7 @@ const AdminListPage = () => {
           }}
         />
         <AlertAdminDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
-        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} 
-        // viewType={viewType}
-        />
+        <AdminModal open={customerModal} modalToggler={setCustomerModal} admin={selectedAdmin} viewType={viewType}/>
       </>
     );
   };
