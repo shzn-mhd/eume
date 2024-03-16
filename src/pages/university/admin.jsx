@@ -161,13 +161,13 @@ const AdminListPage = () => {
           },
         },
 
-        {
-          header: 'Password',
-          accessorKey: 'password',
-          meta: {
-            className: 'cell-center'
-          },
-        },
+        // {
+        //   header: 'Password',
+        //   accessorKey: 'password',
+        //   meta: {
+        //     className: 'cell-center'
+        //   },
+        // },
 
         {
           header: 'Commission Rate',
