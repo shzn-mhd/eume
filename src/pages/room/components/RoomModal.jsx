@@ -14,29 +14,30 @@ import CircularWithPath from 'components/@extended/progress/CircularWithPath';
 
 
 import { useGetCustomer } from 'api/customer';
-import AdminView from './AdminView';
-import FormAdminAdd from './FormAdminAdd';
+import RoomView from './RoomView'
+import FormRoomAdd from './FormRoomAdd';
+
 
 // import AdminView from './AdminView';
 // import BulkUploadCSV from './BulkUploadCSV';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //
 
-const AdminModal = ({ open, modalToggler, admin, viewType }) => {
+const RoomModal = ({ open, modalToggler, room, viewType }) => {
   const { customersLoading: loading } = useGetCustomer();
 
   const closeModal = () => modalToggler(false);
 
-  const adminFormAdd = useMemo(
-    () => !loading && <FormAdminAdd 
-                           admin={admin || null} 
+  const roomFormAdd = useMemo(
+    () => !loading && <FormRoomAdd 
+                           room={room || null} 
                            closeModal={closeModal} />,
     // eslint-disable-next-line
-    [admin, loading]
+    [room, loading]
   );
 
-  const viewAdmin = useMemo(
-    () => !loading && <AdminView admin={admin || null} closeModal={closeModal} />,
+  const viewRoom = useMemo(
+    () => !loading && <RoomView room={room || null} closeModal={closeModal} />,
   );
 
   return (
@@ -76,7 +77,7 @@ const AdminModal = ({ open, modalToggler, admin, viewType }) => {
                   </Stack>
                 </Box>
               ) : (
-                viewType === 'view' ? viewAdmin : adminFormAdd
+                viewType === 'view' ? viewRoom : roomFormAdd
               )}
             </SimpleBar>
 
@@ -87,11 +88,11 @@ const AdminModal = ({ open, modalToggler, admin, viewType }) => {
   );
 };
 
-AdminModal.propTypes = {
+RoomModal.propTypes = {
   open: PropTypes.bool,
   modalToggler: PropTypes.func,
   viewType: PropTypes.string,
   customer: PropTypes.object
 };
 
-export default AdminModal;
+export default RoomModal;

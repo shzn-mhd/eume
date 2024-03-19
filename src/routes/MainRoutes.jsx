@@ -52,7 +52,7 @@ const SystemAdminListPage = Loadable(
 
 //room
 const RoomListPage = Loadable(
-  lazy(() => import("pages/room/admin"))
+  lazy(() => import("pages/room/room"))
 );
 const AppInvoiceCreate = Loadable(
   lazy(() => import("pages/apps/invoice/create"))

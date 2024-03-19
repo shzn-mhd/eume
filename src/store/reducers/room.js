@@ -3,11 +3,11 @@ import { dispatch } from "store";
 import axios from "utils/axios";
 import { openSnackbar } from "./snackbar";
 
-const roomInitialState = {
+const initialState = {
     action: false,
     error: null,
     room: {},
-    room: {
+    rooms: {
         rooms: [],
         page: null,
         total: null,
@@ -18,7 +18,7 @@ const roomInitialState = {
   
   const roomSlice = createSlice({
     name: 'rooms',
-    initialState: roomInitialState,
+    initialState,
     reducers: {
         hasError(state, action) {
             state.error = action.payload;
@@ -43,7 +43,7 @@ const roomInitialState = {
     },
   });
   
-  export const roomReducer = roomSlice.reducer;
+  export default roomSlice.reducer;
   
   export function setActionRoom() {
     dispatch(roomSlice.actions.setAction());

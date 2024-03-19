@@ -14,25 +14,25 @@ import { openSnackbar } from 'api/snackbar';
 import { DeleteFilled } from '@ant-design/icons';
 import { dispatch } from 'store';
 // import { deleteUniversity, getUniversities } from 'store/reducers/university';
-import { deleteSystemAdmin, getSystemAdmins } from 'store/reducers/admin';
+import { deleteRoom, getRooms } from 'store/reducers/room';
 
 // ==============================|| CUSTOMER - DELETE ||============================== //
 
-export default function AlertAdminDelete({ id, title, open, handleClose }) {
+export default function AlertRoomDelete({ id, title, open, handleClose }) {
   console.log();("del>>>", title);
   console.log();("del id>>>", id);
   const deletehandler = async () => {
-    dispatch(deleteSystemAdmin(id)).then(() => {
+    dispatch(deleteRoom(id)).then(() => {
       openSnackbar({
         open: true,
-        message: 'System Admin deleted successfully',
+        message: 'Room deleted successfully',
         anchorOrigin: { vertical: 'top', horizontal: 'right' },
         variant: 'alert',
         alert: {
           color: 'success'
         }
       });
-      dispatch(getSystemAdmins());
+      dispatch(getRooms());
       handleClose();
     });
   };
@@ -80,7 +80,7 @@ export default function AlertAdminDelete({ id, title, open, handleClose }) {
   );
 }
 
-AlertAdminDelete.propTypes = {
+AlertRoomDelete.propTypes = {
   id: PropTypes.any,
   title: PropTypes.any,
   open: PropTypes.bool,

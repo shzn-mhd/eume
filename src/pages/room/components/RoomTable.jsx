@@ -50,7 +50,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'store';
 import { dispatch } from 'store';
 // import { getUniversities } from 'store/reducers/university';
-import { getRooms } from 'store/reducers/admin';
+import { getRooms } from 'store/reducers/room';
 
 
 export const fuzzyFilter = (row, columnId, value, addMeta) => {
