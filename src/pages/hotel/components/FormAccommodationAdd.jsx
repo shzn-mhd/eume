@@ -311,7 +311,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                           fullWidth
                           id="city"
                           placeholder="Enter City"
-                          {...getFieldProps('address')}
+                          {...getFieldProps('city')}
                           error={Boolean(touched.city && errors.city)}
                           helperText={touched.city && errors.city}
                         />
@@ -341,7 +341,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                           fullWidth
                           id="description"
                           placeholder="Enter Description"
-                          {...getFieldProps('address')}
+                          {...getFieldProps('description')}
                           error={Boolean(touched.description && errors.description)}
                           helperText={touched.description && errors.description}
                         />
