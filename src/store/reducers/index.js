@@ -8,6 +8,7 @@ import storage from 'redux-persist/lib/storage';
 import cartReducer from './cart';
 import university from './university';
 import systemAdmin from  './admin';
+import accommodation from './accommodation';
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 
@@ -22,7 +23,8 @@ const reducers = combineReducers({
     cartReducer
   ),
   university,
-  systemAdmin
+  systemAdmin,
+  accommodation
   
 });
 
