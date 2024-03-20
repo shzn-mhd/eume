@@ -6,8 +6,8 @@ import storage from 'redux-persist/lib/storage';
 // project import
 // import menu from './menu';
 import cartReducer from './cart';
-
 import systemAdmin from  './admin';
+import room from './room';
 import accommodation from './accommodation';
 import university from './university'
 import systemBooking from './booking';
@@ -25,6 +25,7 @@ const reducers = combineReducers({
   ),
   university,
   systemAdmin,
+  room,
   accommodation,
   systemAdmin,
   systemBooking

@@ -136,6 +136,21 @@ const applications = {
       //   }
       // ]
     },
+    {
+      id: "room",
+      title: <FormattedMessage id="Room" />,
+      type: "item",
+      icon: icons.BankOutlined,
+      url: "/room/room-list",  
+      // actions: [
+      //   {
+      //     type: NavActionType.FUNCTION,
+      //     label: 'Add University',
+      //     function: () => handlerCustomerDialog(true),
+      //     icon: icons.PlusOutlined
+      //   }
+      // ]
+    },
   ],
 };
 

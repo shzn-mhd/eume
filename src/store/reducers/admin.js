@@ -3,6 +3,8 @@ import { dispatch } from "store";
 import axios from "utils/axios";
 import { openSnackbar } from "./snackbar";
 
+//system-admin...
+
 const initialState = {
     action: false,
     error: null,
@@ -147,3 +149,4 @@ export function deleteSystemAdmin(adminId) {
         }
     }
 }
+
