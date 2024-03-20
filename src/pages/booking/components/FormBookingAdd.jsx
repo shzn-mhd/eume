@@ -114,7 +114,7 @@ const skills = [
 // ==============================|| CUSTOMER ADD / EDIT - FORM ||============================== //
 
 const FormBookingAdd = ({ booking, closeModal }) => { 
-  console.log("booking delete", booking);
+  //console.log("booking delete", booking);
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -148,13 +148,13 @@ const FormBookingAdd = ({ booking, closeModal }) => {
 
   const BookingSchema = Yup.object().shape({
     bookingID: Yup.string().max(255).required('Booking ID is required'),
-    hotelID: Yup.string().max(255).required('Hotel ID is required'),
-    name: Yup.string().max(50).required('User Name is required'),
-    total: Yup.number().required('Total is required'),
-    rating: Yup.number().required('Rating is required'),
-    action: Yup.string([]).max(255).required('Selecting a choice is required'),
-    bookingDate: Yup.date().required('Booking Date is required'),
-    adminApproval: Yup.boolean().required('Admin Approval is required')
+    // hotelID: Yup.string().max(255).required('Hotel ID is required'),
+    // name: Yup.string().max(50).required('User Name is required'),
+    // total: Yup.number().required('Total is required'),
+    // rating: Yup.number().required('Rating is required'),
+    // action: Yup.string([]).max(255).required('Selecting a choice is required'),
+    // //bookingDate: Yup.date().required('Booking Date is required'),
+    // adminApproval: Yup.boolean().required('Admin Approval is required')
   });
 
   const defaultValues = useMemo(
@@ -374,9 +374,9 @@ const FormBookingAdd = ({ booking, closeModal }) => {
 
 
                             
-                          {//THIS IS THE DATE PICKER. 
                           
-                          /* <FormControl fullWidth>
+
+                          {/* <FormControl fullWidth>
                           <DesktopDatePicker
                           inputFormat="dd/MM/yyyy"
                           format="dd/MM/yyyy"
@@ -391,7 +391,9 @@ const FormBookingAdd = ({ booking, closeModal }) => {
                           helperText={touched.bookingDate && errors.bookingDate}
                         />
                         
-                      </FormControl> */}
+                      </FormControl>  */}
+
+
                       </Stack>
                     </Grid>
 

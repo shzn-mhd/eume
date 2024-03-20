@@ -271,7 +271,7 @@ const BookingListPage = () => {
             // }
           }}
         />
-        <AlertBookingDelete id={customerDeleteId?._id} title={customerDeleteId?.firstName} open={open} handleClose={handleClose} />
+        <AlertBookingDelete id={customerDeleteId?._id} title={customerDeleteId?.bookingID} open={open} handleClose={handleClose} />
         <BookingModal open={customerModal} modalToggler={setCustomerModal} booking={selectedBooking} viewType={viewType}/>
       </>
     );

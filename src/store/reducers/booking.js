@@ -125,7 +125,7 @@ export function updateSystemBooking(bookingID, values) {
         console.log("Update Booking", values);
         try {
             const response = await axios.patch(
-                `/booking/update${bookingID}`,
+                `/bookings/${bookingID}`,
                  {...values});
             if(response.status === 200) {
                 setActionSystemBooking();
