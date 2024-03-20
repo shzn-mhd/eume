@@ -56,11 +56,8 @@ const AccommodationListPage = Loadable(
 
 const BookingListPage = Loadable(lazy(() => import("pages/booking/booking")));
 
-
 //room
-const RoomListPage = Loadable(
-  lazy(() => import("pages/room/room"))
-);
+const RoomListPage = Loadable(lazy(() => import("pages/room/room")));
 const AppInvoiceCreate = Loadable(
   lazy(() => import("pages/apps/invoice/create"))
 );
