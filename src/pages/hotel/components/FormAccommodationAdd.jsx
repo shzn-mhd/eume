@@ -206,7 +206,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
           dispatch(updateAccommodation(accommodation._id, newAccommodation)).then(() => {
             openSnackbar({
               open: true,
-              message: 'Accommodation update successfully.',
+              message: 'Hotel update successfully.',
               variant: 'alert',
               alert: {
                 color: 'success'
@@ -220,7 +220,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
           dispatch(createAccommodation(values)).then(() => {
             openSnackbar({
               open: true,
-              message: 'Accommodation added successfully.',
+              message: 'Hotel added successfully.',
               variant: 'alert',
               alert: {
                 color: 'success'
@@ -257,7 +257,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
       <FormikProvider value={formik}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-            <DialogTitle>{accommodation ? 'Edit Accommodation' : 'New Accommodation'}</DialogTitle>
+            <DialogTitle>{accommodation ? 'Edit Hotel' : 'New Hotel'}</DialogTitle>
             <Divider />
             <DialogContent sx={{ p: 5.5 }}>
               <Grid container spacing={3}>
@@ -594,7 +594,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
               <Grid container justifyContent="space-between" alignItems="center">
                 <Grid item>
                   {accommodation && (
-                    <Tooltip title="Delete Accommodation" placement="top">
+                    <Tooltip title="Delete Hotel" placement="top">
                       <IconButton onClick={() => setOpenAlert(true)} size="large" color="error">
                         <DeleteFilled />
                       </IconButton>

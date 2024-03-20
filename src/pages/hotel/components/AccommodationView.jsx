@@ -19,7 +19,7 @@ const AccommodationView = ({ accommodation, closeModal }) => {
   const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <>
-      <DialogTitle>Accommodation Details</DialogTitle>
+      <DialogTitle>Hotel Details</DialogTitle>
       <Divider />
       <DialogContent sx={{ p: 3.5 }}>
         <List sx={{ py: 0 }}>
