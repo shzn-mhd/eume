@@ -54,10 +54,7 @@ const AccommodationListPage = Loadable(
   lazy(() => import("pages/hotel/accommodation"))
 );
 
-
-const BookingListPage = Loadable(
-  lazy(() => import("pages/booking/booking"))
-);
+const BookingListPage = Loadable(lazy(() => import("pages/booking/booking")));
 
 const AppInvoiceCreate = Loadable(
   lazy(() => import("pages/apps/invoice/create"))
@@ -347,7 +344,6 @@ const MainRoutes = {
               path: "booking-list",
               element: <BookingListPage />,
             },
-            
           ],
         },
       ],

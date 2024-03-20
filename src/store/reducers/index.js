@@ -25,8 +25,7 @@ const reducers = combineReducers({
   ),
   university,
   systemAdmin,
-  accommodation
-  
+  accommodation,
   systemAdmin,
   systemBooking
   
