@@ -9,7 +9,7 @@ import cartReducer from './cart';
 
 import systemAdmin from  './admin';
 import accommodation from './accommodation';
-
+import university from './university'
 import systemBooking from './booking';
 // ==============================|| COMBINE REDUCERS ||============================== //
 
