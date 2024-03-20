@@ -104,6 +104,22 @@ const applications = {
       //   }
       // ]
     },
+
+    {
+      id: "accommodation",
+      title: <FormattedMessage id="Accommodation" />,
+      type: "item",
+      icon: icons.BankOutlined,
+      url: "/accommodation/accommodation-list",  
+      // actions: [
+      //   {
+      //     type: NavActionType.FUNCTION,
+      //     label: 'Add University',
+      //     function: () => handlerCustomerDialog(true),
+      //     icon: icons.PlusOutlined
+      //   }
+      // ]
+    },
   ],
 };
 
