@@ -50,6 +50,11 @@ const SystemAdminListPage = Loadable(
   lazy(() => import("pages/system-admin/admin"))
 );
 
+const AccommodationListPage = Loadable(
+  lazy(() => import("pages/hotel/accommodation"))
+);
+
+
 const BookingListPage = Loadable(
   lazy(() => import("pages/booking/booking"))
 );
@@ -115,7 +120,7 @@ const AppECommCheckout = Loadable(
   lazy(() => import("pages/apps/e-commerce/checkout"))
 );
 const AppECommAddProduct = Loadable(
-  lazy(() => import("pages/apps/e-commerce/add-product")) 
+  lazy(() => import("pages/apps/e-commerce/add-product"))
 );
 
 // render - forms & tables
@@ -314,6 +319,20 @@ const MainRoutes = {
             {
               path: "system-admin-list",
               element: <SystemAdminListPage />,
+            },
+            {
+              path: "university-card",
+              element: <AppCustomerCard />,
+            },
+          ],
+        },
+
+        {
+          path: "accommodation",
+          children: [
+            {
+              path: "accommodation-list",
+              element: <AccommodationListPage />,
             },
             {
               path: "university-card",

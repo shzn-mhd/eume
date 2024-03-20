@@ -94,7 +94,23 @@ const applications = {
       title: <FormattedMessage id="System Admin" />,
       type: "item",
       icon: icons.BankOutlined,
-      url: "/system-admin/system-admin-list",  
+      url: "/system-admin/system-admin-list",
+      // actions: [
+      //   {
+      //     type: NavActionType.FUNCTION,
+      //     label: 'Add University',
+      //     function: () => handlerCustomerDialog(true),
+      //     icon: icons.PlusOutlined
+      //   }
+      // ]
+    },
+
+    {
+      id: "accommodation",
+      title: <FormattedMessage id="Accommodation" />,
+      type: "item",
+      icon: icons.BankOutlined,
+      url: "/accommodation/accommodation-list",  
       // actions: [
       //   {
       //     type: NavActionType.FUNCTION,
