@@ -25,7 +25,7 @@ export default function AlertAccommodationDelete({ id, title, open, handleClose 
     dispatch(deleteAccommodation(id)).then(() => {
       openSnackbar({
         open: true,
-        message: 'Accommodation deleted successfully',
+        message: 'Hotel deleted successfully',
         anchorOrigin: { vertical: 'top', horizontal: 'right' },
         variant: 'alert',
         alert: {
@@ -62,7 +62,7 @@ export default function AlertAccommodationDelete({ id, title, open, handleClose 
                 {' '}
                 &quot;{title}&quot;{' '}
               </Typography>
-              Admins, all attributes assigned to that accommodation will also be deleted.
+              Admins, all attributes assigned to that Hotel will also be deleted.
             </Typography>
           </Stack>
 

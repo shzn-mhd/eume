@@ -107,7 +107,7 @@ const applications = {
 
     {
       id: "accommodation",
-      title: <FormattedMessage id="Accommodation" />,
+      title: <FormattedMessage id="Hotel" />,
       type: "item",
       icon: icons.BankOutlined,
       url: "/accommodation/accommodation-list",  

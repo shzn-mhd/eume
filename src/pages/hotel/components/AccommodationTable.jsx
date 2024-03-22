@@ -155,7 +155,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
             <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
             <Stack direction="row" spacing={2} alignItems="center">
               <Button variant="contained" startIcon={<PlusOutlined />} onClick={modalToggler}>
-                Add Accommodation
+                Add Hotel
               </Button>
               {/* <Button variant="contained" startIcon={<PlusOutlined />} onClick={bulkModalToggler}>
                 Bulk Upload
