@@ -120,6 +120,22 @@ const applications = {
       //   }
       // ]
     },
+
+    {
+      id: "offer",
+      title: <FormattedMessage id="Offer" />,
+      type: "item",
+      icon: icons.BankOutlined,
+      url: "/offer/offer-list",  
+      // actions: [
+      //   {
+      //     type: NavActionType.FUNCTION,
+      //     label: 'Add University',
+      //     function: () => handlerCustomerDialog(true),
+      //     icon: icons.PlusOutlined
+      //   }
+      // ]
+    },
   ],
 };
 

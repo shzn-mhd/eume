@@ -9,6 +9,7 @@ import cartReducer from './cart';
 import university from './university';
 import systemAdmin from  './admin';
 import accommodation from './accommodation';
+import offer from './offer';
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 
@@ -24,7 +25,8 @@ const reducers = combineReducers({
   ),
   university,
   systemAdmin,
-  accommodation
+  accommodation,
+  offer
   
 });
 
