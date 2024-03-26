@@ -50,7 +50,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from 'store';
 import { dispatch } from 'store';
 // import { getUniversities } from 'store/reducers/university';
-import { getAccommodations } from 'store/reducers/accommodation';
+import { getOffers } from 'store/reducers/offer';
 
 
 export const fuzzyFilter = (row, columnId, value, addMeta) => {
@@ -68,8 +68,8 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
   
   function ReactTable({ columns, modalToggler, bulkModalToggler}) {
     const theme = useTheme();
-    const {accommodations: {accommodations, total},action} =
-                useSelector((state)=> state.accommodation);
+    const {offers: {offers, total},action} =
+                useSelector((state)=> state.offer);
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
   
     const [sorting, setSorting] = useState([
@@ -85,7 +85,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
     const [numOfPages, setNumOfPages] = useState(10);
     const [name, setName] = useState('');
     const table = useReactTable({
-      data : accommodations,
+      data : offers,
       columns,
       state: {
         sorting,
@@ -119,7 +119,7 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
       table.setPageSize(pageSize)
       table.setPageIndex(pageIndex)
       setNumOfPages(pageSize)
-      dispatch(getAccommodations(pageIndex,pageSize,name));
+      dispatch(getOffers(pageIndex,pageSize,name));
       // console.log(pageIndex,pageSize,'university event')
     },[action,pageIndex,pageSize,name]);
 
