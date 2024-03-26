@@ -6,7 +6,7 @@ import { Box, Modal, Stack } from '@mui/material';
 
 // project-imports
 // import FormUniversityAdd from './FormUniversityAdd';
-// import FormAccommodationAdd from './FormAccommodationAdd';
+// import FormOfferAdd from './FormOfferAdd';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import CircularWithPath from 'components/@extended/progress/CircularWithPath';
@@ -14,29 +14,29 @@ import CircularWithPath from 'components/@extended/progress/CircularWithPath';
 
 
 import { useGetCustomer } from 'api/customer';
-import AccommodationView from './OfferView';
-import FormAccommodationAdd from './FormOfferAdd';
+import OfferView from './OfferView';
+import FormOfferAdd from './FormOfferAdd';
 
-// import AccommodationView from './AccommodationView';
+// import OfferView from './OfferView';
 // import BulkUploadCSV from './BulkUploadCSV';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //
 
-const AccommodationModal = ({ open, modalToggler, accommodation, viewType }) => {
+const OfferModal = ({ open, modalToggler, offer, viewType }) => {
   const { customersLoading: loading } = useGetCustomer();
 
   const closeModal = () => modalToggler(false);
 
-  const accommodationFormAdd = useMemo(
-    () => !loading && <FormAccommodationAdd 
-                           accommodation={accommodation || null} 
+  const offerFormAdd = useMemo(
+    () => !loading && <FormOfferAdd 
+                           offer={offer || null} 
                            closeModal={closeModal} />,
     // eslint-disable-next-line
-    [accommodation, loading]
+    [offer, loading]
   );
 
-  const viewAccommodation = useMemo(
-    () => !loading && <AccommodationView accommodation={accommodation || null} closeModal={closeModal} />,
+  const viewOffer = useMemo(
+    () => !loading && <OfferView offer={offer || null} closeModal={closeModal} />,
   );
 
   return (
@@ -76,7 +76,7 @@ const AccommodationModal = ({ open, modalToggler, accommodation, viewType }) => 
                   </Stack>
                 </Box>
               ) : (
-                viewType === 'view' ? viewAccommodation : accommodationFormAdd
+                viewType === 'view' ? viewOffer : offerFormAdd
               )}
             </SimpleBar>
 
@@ -87,11 +87,11 @@ const AccommodationModal = ({ open, modalToggler, accommodation, viewType }) => 
   );
 };
 
-AccommodationModal.propTypes = {
+OfferModal.propTypes = {
   open: PropTypes.bool,
   modalToggler: PropTypes.func,
   viewType: PropTypes.string,
   customer: PropTypes.object
 };
 
-export default AccommodationModal;
+export default OfferModal;

@@ -8,7 +8,7 @@ const initialState = {
     error: null,
     offer: {},
     offers: {
-      offers: [],
+        offers: [],
         page: null,
         total: null,
         limit: null,
@@ -79,7 +79,7 @@ export function createOffer(values) {
       try {
         const convertedValues = {
           ...values,
-          commissionRate: parseInt(values.commissionRate)
+          //commissionRate: parseInt(values.commissionRate)
         };
         const response = await axios.post(`/offers`, convertedValues);
         if (response.status === 200) {
@@ -102,7 +102,7 @@ export function createOffer(values) {
   
         const updatedValues = {
           ...values,
-          commissionRate: parseInt(values.commissionRate)
+          //commissionRate: parseInt(values.commissionRate)
         };
   
   
