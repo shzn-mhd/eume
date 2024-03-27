@@ -67,7 +67,7 @@ const OfferListPage = () => {
   
     const [customerModal, setCustomerModal] = useState(false);
     console.log("cus mod", customerModal);
-    const [selectedOffer, setSelectedoOffer] = useState(null);
+    const [selectedOffer, setSelectedOffer] = useState(null);
   
     console.log("uni", selectedOffer);
     const [customerDeleteId, setCustomerDeleteId] = useState(null);

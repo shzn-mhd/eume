@@ -6,14 +6,14 @@ import { openSnackbar } from "./snackbar";
 const initialState = {
     action: false,
     error: null,
-    offer: {},
+    offers: {},
     offers: {
         offers: [],
         page: null,
         total: null,
         limit: null,
     },
-    deletedOffer: {},
+    deletedOffers: {},
 }; 
 
 const offerSlice = createSlice({
