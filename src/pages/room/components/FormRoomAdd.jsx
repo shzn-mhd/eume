@@ -30,6 +30,9 @@ import {
   Autocomplete,
   Chip,
   InputAdornment,
+  ToggleButton,
+  ToggleButtonGroup,
+
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -148,8 +151,9 @@ const FormRoomAdd = ({ room, closeModal }) => {
   const RoomSchema = Yup.object().shape({
     roomId: Yup.number().required('Room ID is required'),
     hotelId: Yup.number().required('Hotel ID is required'),
-    type: Yup.string().max(50).required('Type is required'),
-    capacity: Yup.number().required('Capacity is required'),
+    //hotelID: Yup.string([]).max(255).required('Hotel ID is required'),
+    //type: Yup.string().max(50).required('Type is required'),
+    capacity: Yup.number().required('Room Capacity is required'),
     price: Yup.number().required('Price is required'),
     commissionRate: Yup.number().required('Commission Rate is required'),
     adminApproval: Yup.boolean().required('Admin Approval is required'),
@@ -167,11 +171,11 @@ const FormRoomAdd = ({ room, closeModal }) => {
     () => ({
       roomId: room ? room.roomId : '',
       hotelId: room ? room.hotelId : '',
-      type: room ? room.type : '',
+      //type: room ? room.type : '',
       capacity: room ? room.capacity : '',
       price: room ? room.price : '',
       commissionRate: room ? room.commissionRate : '',
-      adminApproval: room ? room.adminApproval : false,
+      adminApproval: room ? room.adminApproval : '',
       roomType: room ? room.roomType : '',
       beddingOptions: room ? room.beddingOptions : '',
       roomSize: room ? room.roomSize : '',
@@ -270,8 +274,34 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       helperText={touched.roomId && errors.roomId}
                       type="number"
                     />
-                  </Grid>
+                    </Grid>
+
+
+
+                  
                   <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel id="hotelId-label">Hotel Name</InputLabel>
+                <Select
+                  labelId="hotelId-label"
+                  id="hotelId"
+                  {...getFieldProps('hotelId')}
+                  error={Boolean(touched.hotelId && errors.hotelId)}
+                  helperText={touched.hotelId && errors.hotelId}
+                >
+                  {[1, 2, 3, 4, 5, 6].map(id => (
+                    <MenuItem key={id} value={id}>
+                      {id}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {errors.hotelId && touched.hotelId && (
+                  <FormHelperText error>{errors.hotelId}</FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+
+                  {/* <Grid item xs={12} sm={6}> 
                     <TextField
                       fullWidth
                       id="hotelId"
@@ -282,8 +312,11 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       helperText={touched.hotelId && errors.hotelId}
                       type="number"
                     />
-                  </Grid>
-                  <Grid item xs={12}>
+                  </Grid> */}
+
+
+
+                 <Grid item xs={12}>
                     <TextField
                       fullWidth
                       id="type"
@@ -293,13 +326,13 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       error={Boolean(touched.type && errors.type)}
                       helperText={touched.type && errors.type}
                     />
-                  </Grid>
+                  </Grid> 
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
                       id="capacity"
-                      label="Capacity"
-                      placeholder="Enter Capacity. E.g.-1"
+                      label="Room Capacity"
+                      placeholder="Enter Room Capacity. E.g.-1"
                       {...getFieldProps('capacity')}
                       error={Boolean(touched.capacity && errors.capacity)}
                       helperText={touched.capacity && errors.capacity}
@@ -346,7 +379,30 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     )}
                   </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+
+                <Grid item xs={12} sm={6}>
+                <FormControl component="fieldset" fullWidth>
+                <FormLabel component="legend">Room Type</FormLabel>
+                <ToggleButtonGroup
+                fullWidth
+                exclusive
+                {...getFieldProps('roomType')}
+                value={formik.values.roomType.toString()}
+                onChange={(e, newValue) => formik.setFieldValue('roomType', newValue)}
+                >
+                <ToggleButton value="Single">Single</ToggleButton>
+                <ToggleButton value="Double">Double</ToggleButton>
+                <ToggleButton value="Triple">Triple</ToggleButton>
+                <ToggleButton value="Quad">Quad</ToggleButton>
+                </ToggleButtonGroup>
+                {errors.roomType && touched.roomType && (
+                <FormHelperText error>{errors.roomType}</FormHelperText>
+                )}
+                </FormControl>
+                </Grid>
+
+
+                 {/* <Grid item xs={12}>
                   <TextField
                     fullWidth
                     id="roomType"
@@ -356,8 +412,34 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     error={Boolean(touched.roomType && errors.roomType)}
                     helperText={touched.roomType && errors.roomType}
                   />
-                </Grid>
-                <Grid item xs={12}>
+                </Grid> */}
+
+
+              <Grid item xs={12} sm={6}>
+                <FormControl component="fieldset" fullWidth>
+                <FormLabel component="legend">Bedding Options</FormLabel>
+                <ToggleButtonGroup
+                fullWidth
+                exclusive
+                {...getFieldProps('beddingOptions')}
+                // value={formik.values.beddingOptions.toString()}
+                value={(formik.values.beddingOptions || '').toString()}
+                onChange={(e, newValue) => formik.setFieldValue('beddingOptions', newValue)}
+                >
+                <ToggleButton value="Single Bed">Single Bed</ToggleButton>
+                <ToggleButton value="Double Bed">Double Bed</ToggleButton>
+                <ToggleButton value="Queen Bed">Queen Bed</ToggleButton>
+                <ToggleButton value="King Bed">King Bed</ToggleButton>
+                <ToggleButton value="Twin XL Bed">Twin XL Bed</ToggleButton>
+                <ToggleButton value="Full XL Bed">Full XL Bed</ToggleButton>
+                </ToggleButtonGroup>
+                {errors.beddingOptions && touched.beddingOptions && (
+                <FormHelperText error>{errors.beddingOptions}</FormHelperText>
+                )}
+                </FormControl>
+              </Grid>
+
+                {/* <Grid item xs={12}>
                   <TextField
                     fullWidth
                     id="beddingOptions"
@@ -367,7 +449,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     error={Boolean(touched.beddingOptions && errors.beddingOptions)}
                     helperText={touched.beddingOptions && errors.beddingOptions}
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
@@ -411,7 +493,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     error={Boolean(touched.bathroom && errors.bathroom)}
                     helperText={touched.bathroom && errors.bathroom}
                   />
-                </Grid>
+                    </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
