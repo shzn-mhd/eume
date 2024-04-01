@@ -74,14 +74,24 @@ export function getAccommodations(pageIndex = 0, pageSize = 10, name) {
 }
 
 
-export function createAccommodation(values) {
+export function createAccommodation(values,image) {
     return async () => {
       try {
         const convertedValues = {
           ...values,
           //commissionRate: parseInt(values.commissionRate)
         };
-        const response = await axios.post(`/accommodations`, convertedValues);
+        const formData = new FormData();
+        formData.append("files",image)
+        for(const key in convertedValues){
+          formData.append(key,convertedValues[key])
+        }
+        // formData.append(convertedValues)
+        const response = await axios.post(`/accommodations`, formData,{
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      });
         if (response.status === 200) {
       setActionAccommodation();
       console.log( "created accommodation ", response );
@@ -96,17 +106,21 @@ export function createAccommodation(values) {
    };
   }
 
-  export function updateAccommodation(accommodationId, values) {
+  export function updateAccommodation(accommodationId, values,image) {
     return async () => {
       try {
   
-        const updatedValues = {
-          ...values,
-          //commissionRate: parseInt(values.commissionRate)//Check here
-        };
+        const formData = new FormData();
+        formData.append("files", image);
+        for (const key in values) {
+          formData.append(key, values[key]);
+        }
   
-  
-        const response = await axios.patch(`/accommodations/${accommodationId}`,updatedValues)
+        const response = await axios.patch(`/accommodations/${accommodationId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
          console.log("hiiiiiii",values)
         if (response.status === 200) {
           setActionAccommodation();

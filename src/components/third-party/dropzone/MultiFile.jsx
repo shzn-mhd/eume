@@ -63,6 +63,7 @@ const MultiFileUpload = ({ error, showList = false, files, setFieldValue, sx, ty
       <Box
         sx={{
           width: '100%',
+          minWidth:'300px',
           ...(type === 'STANDARD' && { width: 'auto', display: 'flex' }),
           ...sx
         }}
