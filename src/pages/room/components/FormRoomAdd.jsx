@@ -151,7 +151,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
   const RoomSchema = Yup.object().shape({
     roomId: Yup.number().required('Room ID is required'),
     hotelId: Yup.number().required('Hotel ID is required'),
-    //hotelID: Yup.string([]).max(255).required('Hotel ID is required'),
+    // hotelID: Yup.string([]).max(255).required('Hotel ID is required'),
     //type: Yup.string().max(50).required('Type is required'),
     capacity: Yup.number().required('Room Capacity is required'),
     price: Yup.number().required('Price is required'),
@@ -281,7 +281,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                   
                   <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
-                <InputLabel id="hotelId-label">Hotel Name</InputLabel>
+                <InputLabel id="hotelId-label">Hotel ID</InputLabel>
                 <Select
                   labelId="hotelId-label"
                   id="hotelId"
@@ -327,6 +327,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       helperText={touched.type && errors.type}
                     />
                   </Grid> 
+
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
@@ -349,6 +350,12 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       error={Boolean(touched.price && errors.price)}
                       helperText={touched.price && errors.price}
                       type="number"
+                      sx={{
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                          appearance: "none",
+                          margin: 0, 
+                        },
+                      }}
                     />
                     </Grid>
                 <Grid item xs={12} sm={6}>
