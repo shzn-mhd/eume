@@ -89,7 +89,7 @@ const RoomView = ({ room, closeModal }) => {
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
-                      <Typography color="secondary">Type</Typography>
+                      <Typography color="secondary">Rules & regulation</Typography>
                       <Typography>{room?.type}</Typography>
                     </Stack>
                   </Grid>

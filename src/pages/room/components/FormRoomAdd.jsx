@@ -152,7 +152,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
     roomId: Yup.number().required('Room ID is required'),
     hotelId: Yup.number().required('Hotel ID is required'),
     // hotelID: Yup.string([]).max(255).required('Hotel ID is required'),
-    //type: Yup.string().max(50).required('Type is required'),
+    type: Yup.string().max(250).required('Rules & regulation is required'),
     capacity: Yup.number().required('Room Capacity is required'),
     price: Yup.number().required('Price is required'),
     commissionRate: Yup.number().required('Commission Rate is required'),
@@ -171,7 +171,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
     () => ({
       roomId: room ? room.roomId : '',
       hotelId: room ? room.hotelId : '',
-      //type: room ? room.type : '',
+      type: room ? room.type : '',
       capacity: room ? room.capacity : '',
       price: room ? room.price : '',
       commissionRate: room ? room.commissionRate : '',
@@ -316,7 +316,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
 
 
 
-                 <Grid item xs={12}>
+                 {/* <Grid item xs={12}>
                     <TextField
                       fullWidth
                       id="type"
@@ -326,7 +326,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                       error={Boolean(touched.type && errors.type)}
                       helperText={touched.type && errors.type}
                     />
-                  </Grid> 
+                  </Grid>  */}
 
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -457,12 +457,13 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     helperText={touched.beddingOptions && errors.beddingOptions}
                   />
                 </Grid> */}
+
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
                     id="roomSize"
                     label="Room Size"
-                    placeholder="Enter Room Size. E.g.-20 sqm"
+                    placeholder="Enter Room Size. E.g.- 20 sqm"
                     {...getFieldProps('roomSize')}
                     error={Boolean(touched.roomSize && errors.roomSize)}
                     helperText={touched.roomSize && errors.roomSize}
@@ -473,7 +474,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     fullWidth
                     id="roomView"
                     label="Room View"
-                    placeholder="Enter Room View. E.g.-City View"
+                    placeholder="Enter Room View. E.g.- City View"
                     {...getFieldProps('roomView')}
                     error={Boolean(touched.roomView && errors.roomView)}
                     helperText={touched.roomView && errors.roomView}
@@ -484,7 +485,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     fullWidth
                     id="roomOccupancy"
                     label="Room Occupancy"
-                    placeholder="Enter Room Occupancy. E.g.-2 Adults, 1 Child"
+                    placeholder="Enter Room Occupancy. E.g.- 2 Adults, 1 Child"
                     {...getFieldProps('roomOccupancy')}
                     error={Boolean(touched.roomOccupancy && errors.roomOccupancy)}
                     helperText={touched.roomOccupancy && errors.roomOccupancy}
@@ -495,7 +496,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     fullWidth
                     id="bathroom"
                     label="Bathroom"
-                    placeholder="Enter Bathroom. E.g.-Shared"
+                    placeholder="Enter Bathroom. E.g.- Shared"
                     {...getFieldProps('bathroom')}
                     error={Boolean(touched.bathroom && errors.bathroom)}
                     helperText={touched.bathroom && errors.bathroom}
@@ -506,7 +507,7 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     fullWidth
                     id="roomAccessibility"
                     label="Room Accessibility"
-                    placeholder="Enter Room Accessibility. E.g.-Wheelchair Accessible"
+                    placeholder="Enter Room Accessibility. E.g.- Wheelchair Accessible"
                     {...getFieldProps('roomAccessibility')}
                     error={Boolean(touched.roomAccessibility && errors.roomAccessibility)}
                     helperText={touched.roomAccessibility && errors.roomAccessibility}
@@ -517,12 +518,23 @@ const FormRoomAdd = ({ room, closeModal }) => {
                     fullWidth
                     id="roomFeatures"
                     label="Room Features"
-                    placeholder="Enter Room Features. E.g.-Wi-Fi, TV, Air Conditioning"
+                    placeholder="Enter Room Features. E.g.- Wi-Fi, TV, Air Conditioning"
                     {...getFieldProps('roomFeatures')}
                     error={Boolean(touched.roomFeatures && errors.roomFeatures)}
                     helperText={touched.roomFeatures && errors.roomFeatures}
                   />
                 </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="type"
+                      label="Rules & regulation"
+                      placeholder="Enter Rules & regulation. E.g.- No pets allowed"
+                      {...getFieldProps('type')}
+                      error={Boolean(touched.type && errors.type)}
+                      helperText={touched.type && errors.type}
+                    />
+                  </Grid> 
               </Grid>
             </DialogContent>
             <Divider />
