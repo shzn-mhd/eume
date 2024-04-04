@@ -349,16 +349,17 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                       </Stack>
                     </Grid>
 
+
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
-                        <InputLabel htmlFor="description">Description</InputLabel>
+                        <InputLabel htmlFor="owner">Owner</InputLabel>
                         <TextField
                           fullWidth
-                          id="description"
-                          placeholder="Enter Description"
-                          {...getFieldProps('description')}
-                          error={Boolean(touched.description && errors.description)}
-                          helperText={touched.description && errors.description}
+                          id="owner"
+                          placeholder="Enter Owner"
+                          {...getFieldProps('owner')}
+                          error={Boolean(touched.owner && errors.owner)}
+                          helperText={touched.owner && errors.owner}
                         />
                       </Stack>
                     </Grid>
@@ -532,14 +533,14 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
 
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
-                        <InputLabel htmlFor="owner">Owner</InputLabel>
+                        <InputLabel htmlFor="description">Description</InputLabel>
                         <TextField
                           fullWidth
-                          id="owner"
-                          placeholder="Enter Owner"
-                          {...getFieldProps('owner')}
-                          error={Boolean(touched.owner && errors.owner)}
-                          helperText={touched.owner && errors.owner}
+                          id="description"
+                          placeholder="Enter Description"
+                          {...getFieldProps('description')}
+                          error={Boolean(touched.description && errors.description)}
+                          helperText={touched.description && errors.description}
                         />
                       </Stack>
                     </Grid>
