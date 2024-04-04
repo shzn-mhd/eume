@@ -61,6 +61,7 @@ import { createAccommodation,  getAccommodations,  updateAccommodation} from 'st
 import { useDispatch } from 'store';
 import countries from 'data/countries';
 import { Icon } from '@iconify/react';
+import { event } from 'jquery';
 
 
 const skills = [
@@ -152,7 +153,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
     description: Yup.string().max(255).required('Description is required'),
     //amenities: Yup.string().max(255).required('Amenities is required'),
     amenities: Yup.array().of(Yup.string().max(50)).required('Amenities are required'),
-    contactNumber: Yup.string().max(25).required('Contact Number is required'),
+    contactNumber: Yup.number().required('Contact Number is required'),
     email: Yup.string().email().required('Email is required'),
     websiteLink: Yup.string().max(255).required('Website Link is required'),
     rating: Yup.number().required('Rating is required'),
@@ -265,15 +266,26 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1}>
-                        <InputLabel htmlFor="type">Type</InputLabel>
-                        <TextField
+                        <InputLabel htmlFor="type">Select Type</InputLabel>
+                        <Select 
+                          labelId='type'
+                          id='type'
+                          placeholder='Select Type'
+                          {...getFieldProps('type')}
+                          onChange={(event) => setFieldValue('type', event.target.value)}
+                        >
+                          <MenuItem value={'Hotel'}>Hotel</MenuItem>
+                          <MenuItem value={'Villa'}>Villa</MenuItem>
+                          <MenuItem value={'Flat'}>Flat</MenuItem>
+                        </Select>
+                        {/* <TextField
                           fullWidth
                           id="type"
                           placeholder="Enter Type"
                           {...getFieldProps('type')}
                           error={Boolean(touched.type && errors.type)}
                           helperText={touched.type && errors.type}
-                        />
+                        /> */}
                       </Stack>
                     </Grid>
 
