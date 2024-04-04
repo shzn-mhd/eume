@@ -145,7 +145,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
   }, []);
 
   const AccommodationSchema = Yup.object().shape({
-    type: Yup.string().max(25).required('Type is required'),
+    type: Yup.string([]).max(25).required('Type is required'),
     name: Yup.string().max(255).required('Name is required'),
     address: Yup.string().max(255).required('Address is required'),
     city: Yup.string().max(50).required('City is required'),
@@ -242,7 +242,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
     dispatch(getAccommodations());
   }, [dispatch]);
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;
 
   if (loading)
     return (
