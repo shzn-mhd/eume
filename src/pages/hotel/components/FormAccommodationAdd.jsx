@@ -105,6 +105,58 @@ const skills = [
   'User Interface Designing',
   'Wordpress'
 ];
+const amenities = [
+  'Free Wi-Fi',
+  'Parking',
+  'Room service',
+  'Air conditioning',
+  'Swimming pool',
+  'Fitness center',
+  'Restaurant',
+  'Bar/lounge',
+  'Business center',
+  'Concierge service',
+  '24-hour front desk',
+  'Daily housekeeping',
+  'In-room safe',
+  'Laundry service',
+  'Ironing facilities',
+  'Mini-bar',
+  'Tea/coffee maker',
+  'Satellite TV',
+  'Hairdryer',
+  'Toiletries',
+  'Spa',
+  'Hot tub',
+  'Shuttle service',
+  'Conference facilities',
+  'Babysitting service',
+  'Airport transportation',
+  'Express check-in/check-out',
+  'Pet-friendly amenities',
+  'Valet parking',
+  'Gift shop',
+  'Luggage storage',
+  'Currency exchange',
+  'Bicycle rental',
+  'Car rental service',
+  'On-site ATM',
+  'Disabled access',
+  'Elevator',
+  'Fax/photocopying',
+  'Meeting/banquet facilities',
+  'Newspapers',
+  'Wake-up service',
+  'Turndown service',
+  'Dry cleaning',
+  'Shoe shining service',
+  'Beauty salon',
+  'Ticket service',
+  'Library/lounge area',
+  'Board games/puzzles',
+  'Outdoor seating area',
+  'VIP room facilities'
+];
 
 
 
@@ -372,7 +424,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                     <Autocomplete
                       multiple
                       id="amenities"
-                      options={[]}
+                      options={amenities}
                       value={formik.values.amenities} // Set the value directly from formik
                       onChange={(event, newValue) => {
                         formik.setFieldValue('amenities', newValue); // Update formik field value
