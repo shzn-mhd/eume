@@ -460,14 +460,28 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
                         <InputLabel htmlFor="rating">Rating</InputLabel>
-                        <TextField
+                        <Select 
+                          labelId='rating'
+                          id='rating'
+                          placeholder='Select Rating'
+                          {...getFieldProps('rating')}
+                          onChange={(event) => setFieldValue('rating', event.target.value)}
+                        >
+                          <MenuItem value={'1 Star'}>1 Star </MenuItem>
+                          <MenuItem value={'2 Star'}>2 Star </MenuItem>
+                          <MenuItem value={'3 Star'}>3 Star </MenuItem>
+                          <MenuItem value={'4 Star'}>4 Star </MenuItem>
+                          <MenuItem value={'5 Star'}>5 Star </MenuItem>
+
+                        </Select>
+                        {/* <TextField
                           fullWidth
                           id="rating"
                           placeholder="Enter Rating"
                           {...getFieldProps('rating')}
                           error={Boolean(touched.rating && errors.rating)}
                           helperText={touched.rating && errors.rating}
-                        />
+                        /> */}
                       </Stack>
                     </Grid>
 
