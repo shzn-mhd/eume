@@ -128,13 +128,13 @@ const RoomListPage = () => {
           className: 'cell-center'
         },
       },
-      {
-        header: 'Type',
-        accessorKey: 'type',
-        meta: {
-          className: 'cell-center'
-        },
-      },
+      // {
+      //   header: 'Type',
+      //   accessorKey: 'type',
+      //   meta: {
+      //     className: 'cell-center'
+      //   },
+      // },
       {
         header: 'Capacity',
         accessorKey: 'capacity',
@@ -220,6 +220,13 @@ const RoomListPage = () => {
       {
         header: 'Room Features',
         accessorKey: 'roomFeatures',
+        meta: {
+          className: 'cell-center'
+        },
+      },
+      {
+        header: 'Rules & regulation',
+        accessorKey: 'type',
         meta: {
           className: 'cell-center'
         },
