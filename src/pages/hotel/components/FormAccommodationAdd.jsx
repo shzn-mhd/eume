@@ -54,23 +54,14 @@ import { Gender } from "data/react-table";
 import { getImageUrl, ImagePath } from "utils/getImageUrl";
 
 // assets
-import {
-  CameraOutlined,
-  CloseOutlined,
-  DeleteFilled,
-  EyeInvisibleOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
-import { dispatch } from "store";
-import {
-  createAccommodation,
-  getAccommodations,
-  updateAccommodation,
-} from "store/reducers/accommodation";
-import { useDispatch } from "store";
-import countries from "data/countries";
-import { Icon } from "@iconify/react";
-import SimpleUploader from "components/third-party/dropzone/simpleUploader";
+import { CameraOutlined, CloseOutlined, DeleteFilled, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { dispatch } from 'store';
+// import { createUniversity, getUniversities, updateUniversity } from 'store/reducers/university';
+import { createAccommodation,  getAccommodations,  updateAccommodation} from 'store/reducers/accommodation';
+import { useDispatch } from 'store';
+import countries from 'data/countries';
+import { Icon } from '@iconify/react';
+
 
 const skills = [
   "Adobe XD",
@@ -114,6 +105,9 @@ const skills = [
   "Wordpress",
 ];
 
+
+
+
 // ==============================|| CUSTOMER ADD / EDIT - FORM ||============================== //
 
 const FormAccommodationAdd = ({ accommodation, closeModal }) => {
@@ -149,24 +143,20 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
   }, []);
 
   const AccommodationSchema = Yup.object().shape({
-    type: Yup.string().max(25).required("Type is required"),
-    name: Yup.string().max(255).required("Name is required"),
-    address: Yup.string().max(255).required("Address is required"),
-    city: Yup.string().max(50).required("City is required"),
-    country: Yup.string().max(50).required("Country is required"),
-    description: Yup.string().max(255).required("Description is required"),
+    type: Yup.string().max(25).required('Type is required'),
+    name: Yup.string().max(255).required('Name is required'),
+    address: Yup.string().max(255).required('Address is required'),
+    city: Yup.string().max(50).required('City is required'),
+    country: Yup.string().max(50).required('Country is required'),
+    description: Yup.string().max(255).required('Description is required'),
     //amenities: Yup.string().max(255).required('Amenities is required'),
-    amenities: Yup.array()
-      .of(Yup.string().max(50))
-      .required("Amenities are required"),
-    contactNumber: Yup.string().max(25).required("Contact Number is required"),
-    email: Yup.string().email().required("Email is required"),
-    websiteLink: Yup.string().max(255).required("Website Link is required"),
-    rating: Yup.number().required("Rating is required"),
-    numberOfRooms: Yup.number().required("Number of Rooms is required"),
-    images: Yup.array()
-      .of(Yup.string().max(255))
-      .required("Images are required"),
+    amenities: Yup.array().of(Yup.string().max(50)).required('Amenities are required'),
+    contactNumber: Yup.string().max(25).required('Contact Number is required'),
+    email: Yup.string().email().required('Email is required'),
+    websiteLink: Yup.string().max(255).required('Website Link is required'),
+    rating: Yup.number().required('Rating is required'),
+    numberOfRooms: Yup.number().required('Number of Rooms is required'),
+    images: Yup.array().of(Yup.string().max(255)).required('Images are required'),
     //images: Yup.string().max(255).required('Images is required'),
     owner: Yup.string().max(50).required("Owner is required"),
   });
@@ -249,7 +239,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
     dispatch(getAccommodations());
   }, [dispatch]);
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;
 
   if (loading)
     return (
@@ -275,15 +265,26 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1}>
-                        <InputLabel htmlFor="type">Type</InputLabel>
-                        <TextField
+                        <InputLabel htmlFor="type">Select Type</InputLabel>
+                        <Select 
+                          labelId='type'
+                          id='type'
+                          placeholder='Select Type'
+                          {...getFieldProps('type')}
+                          onChange={(event) => setFieldValue('type', event.target.value)}
+                        >
+                          <MenuItem value={'Hotel'}>Hotel</MenuItem>
+                          <MenuItem value={'Villa'}>Villa</MenuItem>
+                          <MenuItem value={'Flat'}>Flat</MenuItem>
+                        </Select>
+                        {/* <TextField
                           fullWidth
                           id="type"
                           placeholder="Enter Type"
                           {...getFieldProps("type")}
                           error={Boolean(touched.type && errors.type)}
                           helperText={touched.type && errors.type}
-                        />
+                        /> */}
                       </Stack>
                     </Grid>
 
@@ -347,63 +348,53 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                       </Stack>
                     </Grid>
 
+
                     <Grid item xs={12} sm={6}>
-                      <Stack spacing={1} sx={{ pt: 1 }}>
-                        <InputLabel htmlFor="description">
-                          Description
-                        </InputLabel>
+                      <Stack spacing={1} sx={{pt:1}}>
+                        <InputLabel htmlFor="description">Description</InputLabel>
                         <TextField
                           fullWidth
                           id="description"
                           placeholder="Enter Description"
-                          {...getFieldProps("description")}
-                          error={Boolean(
-                            touched.description && errors.description
-                          )}
+                          {...getFieldProps('description')}
+                          error={Boolean(touched.description && errors.description)}
                           helperText={touched.description && errors.description}
                         />
                       </Stack>
                     </Grid>
                   </Grid>
 
-                  <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                      <Stack spacing={1}>
-                        <InputLabel htmlFor="amenities">Amenities</InputLabel>
-                        <Autocomplete
-                          multiple
-                          id="amenities"
-                          options={[]}
-                          value={formik.values.amenities} // Set the value directly from formik
-                          onChange={(event, newValue) => {
-                            formik.setFieldValue("amenities", newValue); // Update formik field value
-                          }}
-                          freeSolo
-                          renderTags={(value, getTagProps) =>
-                            value.map((option, index) => (
-                              <Chip
-                                variant="outlined"
-                                label={option}
-                                {...getTagProps({ index })}
-                              />
-                            ))
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              placeholder="Enter Amenities"
-                            />
-                          )}
-                          error={Boolean(
-                            formik.touched.amenities && formik.errors.amenities
-                          )}
-                          helperText={
-                            formik.touched.amenities && formik.errors.amenities
-                          }
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="amenities">Amenities</InputLabel>
+                    <Autocomplete
+                      multiple
+                      id="amenities"
+                      options={[]}
+                      value={formik.values.amenities} // Set the value directly from formik
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('amenities', newValue); // Update formik field value
+                      }}
+                      freeSolo
+                      renderTags={(value, getTagProps) =>
+                        value.map((option, index) => (
+                          <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                        ))
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          placeholder="Enter Amenities"
                         />
-                      </Stack>
-                    </Grid>
+                      )}
+                      error={Boolean(formik.touched.amenities && formik.errors.amenities)}
+                      helperText={formik.touched.amenities && formik.errors.amenities}
+                    />
+                  </Stack>
+                </Grid>
+
 
                     {/*<Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
@@ -479,14 +470,28 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{ pt: 1 }}>
                         <InputLabel htmlFor="rating">Rating</InputLabel>
-                        <TextField
+                        <Select 
+                          labelId='rating'
+                          id='rating'
+                          placeholder='Select Rating'
+                          {...getFieldProps('rating')}
+                          onChange={(event) => setFieldValue('rating', event.target.value)}
+                        >
+                          <MenuItem value={'1 Star'}>1 Star </MenuItem>
+                          <MenuItem value={'2 Star'}>2 Star </MenuItem>
+                          <MenuItem value={'3 Star'}>3 Star </MenuItem>
+                          <MenuItem value={'4 Star'}>4 Star </MenuItem>
+                          <MenuItem value={'5 Star'}>5 Star </MenuItem>
+
+                        </Select>
+                        {/* <TextField
                           fullWidth
                           id="rating"
                           placeholder="Enter Rating"
                           {...getFieldProps("rating")}
                           error={Boolean(touched.rating && errors.rating)}
                           helperText={touched.rating && errors.rating}
-                        />
+                        /> */}
                       </Stack>
                     </Grid>
 
@@ -527,13 +532,27 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                      <Stack spacing={1} sx={{ pt: 1 }}>
+                      <Stack spacing={1} sx={{pt:1}}>
+                        <InputLabel htmlFor="images">Images</InputLabel>
+                        <TextField
+                          fullWidth
+                          id="images"
+                          placeholder="Enter Images"
+                          {...getFieldProps('images')}
+                          error={Boolean(touched.images && errors.images)}
+                          helperText={touched.images && errors.images}
+                        />
+                      </Stack>
+                    </Grid>*/}
+
+                    <Grid item xs={12} sm={6}>
+                      <Stack spacing={1} sx={{pt:1}}>
                         <InputLabel htmlFor="owner">Owner</InputLabel>
                         <TextField
                           fullWidth
                           id="owner"
                           placeholder="Enter Owner"
-                          {...getFieldProps("owner")}
+                          {...getFieldProps('owner')}
                           error={Boolean(touched.owner && errors.owner)}
                           helperText={touched.owner && errors.owner}
                         />

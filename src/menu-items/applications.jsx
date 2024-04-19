@@ -53,34 +53,6 @@ const applications = {
   icon: icons.AppstoreAddOutlined,
   type: "group",
   children: [
-    // {
-    //   id: 'customer',
-    //   title: <FormattedMessage id="customer" />,
-    //   type: 'collapse',
-    //   icon: icons.CustomerServiceOutlined,
-    //   children: [
-    //     {
-    //       id: 'customer-list',
-    //       title: <FormattedMessage id="list" />,
-    //       type: 'item',
-    //       url: '/customer/customer-list',
-    //       actions: [
-    //         {
-    //           type: NavActionType.FUNCTION,
-    //           label: 'Add Customer',
-    //           function: () => handlerCustomerDialog(true),
-    //           icon: icons.PlusOutlined
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       id: 'customer-card',
-    //       title: <FormattedMessage id="cards" />,
-    //       type: 'item',
-    //       url: '/customer/customer-card'
-    //     }
-    //   ]
-    // },
 
     {
       id: "dashboard",
@@ -111,6 +83,14 @@ const applications = {
       type: "item",
       icon: icons.BankOutlined,
       url: "/accommodation/accommodation-list",  
+    },
+
+    {
+      id: "offer",
+      title: <FormattedMessage id="Offer" />,
+      type: "item",
+      icon: icons.BankOutlined,
+      url: "/offer/offer-list",  
       // actions: [
       //   {
       //     type: NavActionType.FUNCTION,
