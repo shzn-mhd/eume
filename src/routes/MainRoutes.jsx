@@ -11,7 +11,6 @@ import { SimpleLayoutType } from "config";
 import { loader as productsLoader, productLoader } from "api/products";
 import AuthGuard from "utils/route-guard/AuthGuard";
 import MainLayout from "layout/MainLayout";
-import EditableTablePage from "pages/eume/EditableTablePage";
 
 // render - dashboard
 const DashboardDefault = Loadable(
@@ -51,7 +50,7 @@ const SystemAdminListPage = Loadable(
   lazy(() => import("pages/system-admin/admin"))
 );
 
-const EumeLoadingPagee = Loadable(
+const EditableTableListPage = Loadable(
   lazy(() => import("pages/eume/EditableTablePage"))
 );
 
@@ -334,12 +333,13 @@ const MainRoutes = {
             },
           ],
         },
+
         {
           path: "eume",
           children: [
             {
               path: "EditableTablePage",
-              element: <EumeLoadingPagee />,
+              element: <EditableTableListPage />,
             },
             {
               path: "university-card",

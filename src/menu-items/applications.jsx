@@ -66,7 +66,7 @@ const applications = {
     //   title: <FormattedMessage id="System Admin" />,
     //   type: "item",
     //   icon: icons.BankOutlined,
-    //   url: "/ystem-admins/system-admin-list",
+    //   url: "/system-admin/system-admin-list",
     //   // actions: [
     //   //   {
     //   //     type: NavActionType.FUNCTION,
@@ -79,27 +79,11 @@ const applications = {
 
     {
       id: "eume",
-      title: <FormattedMessage id="EUME Table" />,
+      title: <FormattedMessage id="EUME" />,
       type: "item",
       icon: icons.BankOutlined,
-      url: "/eume/editableTablePage",
-      // actions: [
-      //   {
-      //     type: NavActionType.FUNCTION,
-      //     label: 'Add University',
-      //     function: () => handlerCustomerDialog(true),
-      //     icon: icons.PlusOutlined
-      //   }
-      // ]
+      url: "/eume/EditableTablePage",  
     },
-
-    // {
-    //   id: "accommodation",
-    //   title: <FormattedMessage id="Hotel" />,
-    //   type: "item",
-    //   icon: icons.BankOutlined,
-    //   url: "/accommodation/accommodation-list",  
-    // },
 
     // {
     //   id: "offer",
@@ -107,14 +91,14 @@ const applications = {
     //   type: "item",
     //   icon: icons.BankOutlined,
     //   url: "/offer/offer-list",  
-    //   actions: [
-    //     {
-    //       type: NavActionType.FUNCTION,
-    //       label: 'Add University',
-    //       function: () => handlerCustomerDialog(true),
-    //       icon: icons.PlusOutlined
-    //     }
-      // ]
+    //   // actions: [
+    //   //   {
+    //   //     type: NavActionType.FUNCTION,
+    //   //     label: 'Add University',
+    //   //     function: () => handlerCustomerDialog(true),
+    //   //     icon: icons.PlusOutlined
+    //   //   }
+    //   // ]
     // },
 
     // {
