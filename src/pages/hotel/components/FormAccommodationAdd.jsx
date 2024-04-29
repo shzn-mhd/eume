@@ -61,6 +61,7 @@ import { createAccommodation,  getAccommodations,  updateAccommodation} from 'st
 import { useDispatch } from 'store';
 import countries from 'data/countries';
 import { Icon } from '@iconify/react';
+import SimpleUploader from "components/third-party/dropzone/simpleUploader";
 
 
 const skills = [
@@ -531,7 +532,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                       </Stack>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    {/* <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
                         <InputLabel htmlFor="images">Images</InputLabel>
                         <TextField
@@ -543,7 +544,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                           helperText={touched.images && errors.images}
                         />
                       </Stack>
-                    </Grid>*/}
+                    </Grid> */}
 
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>
@@ -560,7 +561,8 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                      <SimpleUploader imagesExist={accommodation?.images}  handleFiles={(e) => {
+                      <SimpleUploader imagesExist={accommodation?.images}  
+                                  handleFiles={(e) => {
                                     console.log(e)
                                     setImage(e)
                                 }} multiple={true} />

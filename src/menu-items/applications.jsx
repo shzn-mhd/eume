@@ -61,12 +61,28 @@ const applications = {
       icon: icons.DashboardOutlined,
       url: "/dashboard/default",
     },
+    // {
+    //   id: "system-admin",
+    //   title: <FormattedMessage id="System Admin" />,
+    //   type: "item",
+    //   icon: icons.BankOutlined,
+    //   url: "/ystem-admins/system-admin-list",
+    //   // actions: [
+    //   //   {
+    //   //     type: NavActionType.FUNCTION,
+    //   //     label: 'Add University',
+    //   //     function: () => handlerCustomerDialog(true),
+    //   //     icon: icons.PlusOutlined
+    //   //   }
+    //   // ]
+    // },
+
     {
-      id: "system-admin",
-      title: <FormattedMessage id="System Admin" />,
+      id: "eume",
+      title: <FormattedMessage id="EUME Table" />,
       type: "item",
       icon: icons.BankOutlined,
-      url: "/system-admin/system-admin-list",
+      url: "/eume/editableTablePage",
       // actions: [
       //   {
       //     type: NavActionType.FUNCTION,
@@ -77,60 +93,60 @@ const applications = {
       // ]
     },
 
-    {
-      id: "accommodation",
-      title: <FormattedMessage id="Hotel" />,
-      type: "item",
-      icon: icons.BankOutlined,
-      url: "/accommodation/accommodation-list",  
-    },
+    // {
+    //   id: "accommodation",
+    //   title: <FormattedMessage id="Hotel" />,
+    //   type: "item",
+    //   icon: icons.BankOutlined,
+    //   url: "/accommodation/accommodation-list",  
+    // },
 
-    {
-      id: "offer",
-      title: <FormattedMessage id="Offer" />,
-      type: "item",
-      icon: icons.BankOutlined,
-      url: "/offer/offer-list",  
-      // actions: [
-      //   {
-      //     type: NavActionType.FUNCTION,
-      //     label: 'Add University',
-      //     function: () => handlerCustomerDialog(true),
-      //     icon: icons.PlusOutlined
-      //   }
+    // {
+    //   id: "offer",
+    //   title: <FormattedMessage id="Offer" />,
+    //   type: "item",
+    //   icon: icons.BankOutlined,
+    //   url: "/offer/offer-list",  
+    //   actions: [
+    //     {
+    //       type: NavActionType.FUNCTION,
+    //       label: 'Add University',
+    //       function: () => handlerCustomerDialog(true),
+    //       icon: icons.PlusOutlined
+    //     }
       // ]
-    },
+    // },
 
-    {
-      id: "booking",
-      title: <FormattedMessage id="Booking" />,
-      type: "item",
-      icon: icons.BankOutlined,
-      url: "/booking/booking-list",  
-      // actions: [
-      //   {
-      //     type: NavActionType.FUNCTION,
-      //     label: 'Add University',
-      //     function: () => handlerCustomerDialog(true),
-      //     icon: icons.PlusOutlined
-      //   }
-      // ]
-    },
-    {
-      id: "room",
-      title: <FormattedMessage id="Room" />,
-      type: "item",
-      icon: icons.BankOutlined,
-      url: "/room/room-list",  
-      // actions: [
-      //   {
-      //     type: NavActionType.FUNCTION,
-      //     label: 'Add University',
-      //     function: () => handlerCustomerDialog(true),
-      //     icon: icons.PlusOutlined
-      //   }
-      // ]
-    },
+    // {
+    //   id: "booking",
+    //   title: <FormattedMessage id="Booking" />,
+    //   type: "item",
+    //   icon: icons.BankOutlined,
+    //   url: "/booking/booking-list",  
+    //   // actions: [
+    //   //   {
+    //   //     type: NavActionType.FUNCTION,
+    //   //     label: 'Add University',
+    //   //     function: () => handlerCustomerDialog(true),
+    //   //     icon: icons.PlusOutlined
+    //   //   }
+    //   // ]
+    // },
+    // {
+    //   id: "room",
+    //   title: <FormattedMessage id="Room" />,
+    //   type: "item",
+    //   icon: icons.BankOutlined,
+    //   url: "/room/room-list",  
+    //   // actions: [
+    //   //   {
+    //   //     type: NavActionType.FUNCTION,
+    //   //     label: 'Add University',
+    //   //     function: () => handlerCustomerDialog(true),
+    //   //     icon: icons.PlusOutlined
+    //   //   }
+    //   // ]
+    // },
   ],
 };
 

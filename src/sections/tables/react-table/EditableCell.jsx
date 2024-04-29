@@ -12,8 +12,6 @@ import ScrollX from 'components/ScrollX';
 import MainCard from 'components/MainCard';
 import { CSVExport, CellEditable } from 'components/third-party/react-table';
 
-import makeData from 'data/react-table';
-
 // ==============================|| REACT TABLE ||============================== //
 
 ReactTable.propTypes = {
@@ -63,7 +61,7 @@ function ReactTable({ columns, data, setData }) {
   return (
     <MainCard
       content={false}
-      title="Editable Cell"
+      title="Eume Table"
       secondary={
         <CSVExport {...{ data: table.getRowModel().flatRows.map((row) => row.original), headers, filename: 'editable-cell.csv' }} />
       }
@@ -103,7 +101,14 @@ function ReactTable({ columns, data, setData }) {
 // ==============================|| REACT TABLE - EDITABLE CELL ||============================== //
 
 const EditableCell = () => {
-  const [data, setData] = useState(() => makeData(10));
+  // Hardcoded random values
+  const hardcodedData = [
+    { id: 1, fullName: 'John Doe', email: 'john.doe@example.com', age: 30, visits: 10, progress: 50 },
+    { id: 1, fullName: 'Rose Mary', email: 'rose.mary@example.com', age: 40, visits: 5, progress: 80 }
+  ];
+
+  // State to manage data
+  const [data, setData] = useState(hardcodedData);
 
   const columns = useMemo(
     () => [
@@ -132,11 +137,6 @@ const EditableCell = () => {
         meta: {
           className: 'cell-right'
         }
-      },
-      {
-        header: 'Status',
-        accessorKey: 'status',
-        dataType: 'select'
       },
       {
         header: 'Profile Progress',
