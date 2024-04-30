@@ -149,7 +149,7 @@ const Header = () => {
                 onKeyDown={drawerToggler(false)}
               >
                 <List>
-                  <Link style={{ textDecoration: 'none' }} href="/login" target="_blank">
+                  <Link style={{ textDecoration: 'none' }} href="/dashboard/default" target="_blank">
                     <ListItemButton component="span">
                       <ListItemIcon>
                         <LineOutlined />
