@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 // import EditableTable from 'sections/tables/react-table/EditableTable';
 import EditableTable from './EditableTable';
+import { db } from 'config/firebase';
 
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 

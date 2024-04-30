@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Table, TableBody, TableContainer, TableHead } from '@mui/material';
@@ -7,47 +7,76 @@ import MainCard from 'components/MainCard';
 import { CSVExport, CellEditable } from 'components/third-party/react-table';
 import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
-
+import { db } from 'config/firebase';
+import {getDocs, collection} from 'firebase/firestore'
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
-  const [tableData, setTableData] = useState(data);
+  const [tableData, setTableData] = useState(data); 
+
+  const [empList, setEmpList] = useState([])
+
+  const empCollectionRef = collection(db, "employees");
+
+  useEffect(() => {
+    const getEmpList = async () => {
+
+      try{
+      const data = await getDocs(empCollectionRef);
+      const filteredData = data.docs.map((doc)=>({
+        ...doc.data(), 
+        id: doc.id,
+      }));
+      console.log(filteredData);
+      setEmpList(filteredData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getEmpList();
+  }, []);
 
   const table = useReactTable({
-    data: tableData,
+    data: empList,
     columns: useMemo(
       () => [
         {
           header: 'Name',
-          accessorKey: 'fullName',
+          accessorKey: 'name',
           dataType: 'text',
         },
         {
-          header: 'Email',
-          accessorKey: 'email',
+          header: 'Country',
+          accessorKey: 'country',
           dataType: 'text',
         },
         {
-          header: 'Age',
-          accessorKey: 'age',
+          header: 'Status',
+          accessorKey: 'status',
           dataType: 'text',
-          meta: {
-            className: 'cell-right',
-          },
         },
-        {
-          header: 'Visits',
-          accessorKey: 'visits',
-          dataType: 'text',
-          meta: {
-            className: 'cell-right',
-          },
-        },
-        {
-          header: 'Profile Progress',
-          accessorKey: 'progress',
-          dataType: 'progress',
-        },
+        // {
+        //   header: 'Age',
+        //   accessorKey: 'age',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-right',
+        //   },
+        // },
+        // {
+        //   header: 'Visits',
+        //   accessorKey: 'visits',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-right',
+        //   },
+        // },
+        // {
+        //   header: 'Profile Progress',
+        //   accessorKey: 'progress',
+        //   dataType: 'progress',
+        // },
       ],
       []
     ),
@@ -57,7 +86,7 @@ const EditableTable = ({ data }) => {
     getCoreRowModel: getCoreRowModel(),
     meta: {
       updateData: (rowIndex, columnId, value) => {
-        setTableData((old) =>
+        setEmpList((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {
               return {
