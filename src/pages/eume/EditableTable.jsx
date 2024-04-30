@@ -42,6 +42,16 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
+          header: 'Accommodation Type',
+          accessorKey: 'accommodationType',
+          dataType: 'text',
+        },
+        {
+          header: 'Activity',
+          accessorKey: 'activity',
+          dataType: 'text',
+        },
+        {
           header: 'Date',
           accessorKey: 'date',
           dataType: 'text',
