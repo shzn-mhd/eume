@@ -16,7 +16,7 @@ const EditableTable = ({ data }) => {
 
   const [empList, setEmpList] = useState([])
 
-  const empCollectionRef = collection(db, "employees");
+  const empCollectionRef = collection(db, "survey_data");
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -42,18 +42,68 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: 'Name',
-          accessorKey: 'name',
+          header: 'Date',
+          accessorKey: 'date',
           dataType: 'text',
         },
         {
-          header: 'Country',
-          accessorKey: 'country',
+          header: 'Feedback',
+          accessorKey: 'feedback',
           dataType: 'text',
         },
         {
-          header: 'Status',
-          accessorKey: 'status',
+          header: 'Gender',
+          accessorKey: 'gender',
+          dataType: 'text',
+        },
+        {
+          header: 'Language',
+          accessorKey: 'language',
+          dataType: 'text',
+        },
+        {
+          header: 'Motivation',
+          accessorKey: 'motivation',
+          dataType: 'text',
+        },
+        {
+          header: 'Number of Days',
+          accessorKey: 'numOfDays',
+          dataType: 'text',
+        },
+        {
+          header: 'Number of People',
+          accessorKey: 'numOfPeople',
+          dataType: 'text',
+        },
+        {
+          header: 'Origin',
+          accessorKey: 'placeOfOrigin',
+          dataType: 'text',
+        },
+        {
+          header: 'Rating',
+          accessorKey: 'rating',
+          dataType: 'text',
+        },
+        {
+          header: 'Reason',
+          accessorKey: 'reason',
+          dataType: 'text',
+        },
+        {
+          header: 'Stay',
+          accessorKey: 'stayOvernight',
+          dataType: 'text',
+        },
+        {
+          header: 'Place',
+          accessorKey: 'stayPlace',
+          dataType: 'text',
+        },
+        {
+          header: 'Pet',
+          accessorKey: 'withPet',
           dataType: 'text',
         },
         // {
