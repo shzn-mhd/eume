@@ -97,9 +97,9 @@ const Header = () => {
                 Dashboard
               </Link>
 
-              <Link className="header-link" color="white" component={RouterLink} to="/booking/booking-list"  target="_blank" underline="none">
+              {/* <Link className="header-link" color="white" component={RouterLink} to="/booking/booking-list"  target="_blank" underline="none">
                 Dashboard
-              </Link>
+              </Link> */}
 
               <Link className="header-link" color="white" component={RouterLink} to="/components-overview/buttons" underline="none">
                 Components
