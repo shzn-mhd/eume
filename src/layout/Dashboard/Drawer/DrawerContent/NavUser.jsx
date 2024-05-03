@@ -85,10 +85,10 @@ const NavUser = () => {
           }
           sx={{ '& .MuiListItemSecondaryAction-root': { right: !drawerOpen ? -20 : -16 } }}
         >
-          <ListItemAvatar>
+          {/* <ListItemAvatar>
             <Avatar alt="Avatar" src={avatar1} sx={{ ...(drawerOpen && { width: 46, height: 46 }) }} />
-          </ListItemAvatar>
-          <ListItemText primary={user?.name} secondary="UI/UX Designer" />
+          </ListItemAvatar> */}
+          <ListItemText primary={user?.name} sx={{color:'white'}} secondary="EUME"   />
         </ListItem>
       </List>
       <Menu
@@ -108,13 +108,13 @@ const NavUser = () => {
           horizontal: 'right'
         }}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        {/* <MenuItem onClick={handleLogout}>Logout</MenuItem>
         <MenuItem component={Link} to="/apps/profiles/user/personal" onClick={handleClose}>
           Profile
         </MenuItem>
         <MenuItem component={Link} to="/apps/profiles/account/basic" onClick={handleClose}>
           My account
-        </MenuItem>
+        </MenuItem> */}
       </Menu>
     </Box>
   );

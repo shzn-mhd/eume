@@ -276,7 +276,8 @@ const SamplePage = Loadable(
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-const MainRoutes = {
+const MainRoutes = 
+{
   path: "/",
   children: [
     {

@@ -151,7 +151,7 @@ const Header = () => {
                 <List>
                   <Link style={{ textDecoration: 'none' }} href="/dashboard/default" target="_blank">
                     <ListItemButton component="span">
-                      <ListItemIcon>
+                      <ListItemIcon> 
                         <LineOutlined />
                       </ListItemIcon>
                       <ListItemText primary="Dashboard" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
