@@ -175,7 +175,7 @@ const EditableTable = ({ data }) => {
   return (
     <MainCard
       content={false}
-      title="EUME Table"
+      title="Survey Table"
       secondary={<CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />}
     >
       <ScrollX>

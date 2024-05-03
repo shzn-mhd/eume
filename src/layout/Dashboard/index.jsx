@@ -62,7 +62,7 @@ const DashboardLayout = () => {
           >
             <Breadcrumbs />
             <Outlet />
-            <Footer />
+            <Footer /> 
           </Container>
         </Box>
         <AddCustomer />
