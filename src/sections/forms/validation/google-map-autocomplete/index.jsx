@@ -63,8 +63,8 @@ function GoogleMapAutocomplete() {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    placeholder="Select Country"
-                    sx={{ '& .MuiAutocomplete-input.Mui-disabled': { WebkitTextFillColor: theme.palette.text.primary } }}
+                    // placeholder="Select Country"
+                    sx={{ '& .MuiAutocomplete-input.Mui-disabled': { WebkitTextFillColor: theme.palette.text.primary }}}
                   />
                 )}
               />
