@@ -57,7 +57,8 @@ const CellEditable = ({ getValue: initialValue, row: { index }, column: { id, co
       break;
     default:
       userInfoSchema = yup.object().shape({
-        userInfo: yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Name is Required')
+        userInfo: yup.string().min(2, 'Too Short!').max(50, 'Too Long!')
+        // .required('Name is Required')
       });
       break;
   }

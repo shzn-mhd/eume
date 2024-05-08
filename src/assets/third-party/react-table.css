@@ -51,3 +51,7 @@
 .resizer.isResizing {
   opacity: 1;
 }
+
+.cell-width {
+  width : 200px !important;
+}
