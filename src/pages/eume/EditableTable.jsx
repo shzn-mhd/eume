@@ -75,7 +75,15 @@ const EditableTable = ({ data }) => {
           searchedData = filteredData.filter(
             (item) =>
               item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.province.toLowerCase().includes(searchValue.toLowerCase())
+              item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.age.includes(searchValue) ||
+              item.noOfDays.includes(searchValue)
           );
         }
 
@@ -373,7 +381,7 @@ const EditableTable = ({ data }) => {
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <TextField
-            fullWidth
+            // fullWidth
             sx={{
               borderRadius: '4px',
               bgcolor: theme.palette.background.paper,
@@ -382,7 +390,7 @@ const EditableTable = ({ data }) => {
             }}
             InputProps={{
               startAdornment: <SearchOutlined />,
-              placeholder: 'Search Country/ Province',
+              placeholder: 'Search',
               type: 'search'
             }}
             value={searchValue}

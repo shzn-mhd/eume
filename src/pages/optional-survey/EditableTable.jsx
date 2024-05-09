@@ -39,6 +39,7 @@ const EditableTable = ({ data }) => {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedAccommodation, setSelectedAccommodation] = useState();
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -75,6 +76,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.gender === selectedGender);
         }
 
+        if (selectedAccommodation) {
+          searchedData = searchedData.filter((item) => item.accommodation === selectedAccommodation);
+        }
+
         if (selectedCountry) {
           searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
         }
@@ -90,7 +95,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince,selectedAccommodation]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -230,11 +235,11 @@ const EditableTable = ({ data }) => {
             }}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-          />
+          /> */}
 
-          <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
+          {/* <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} /> */}
 
-          <Button
+          {/* <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
             startIcon={<PlusOutlined />}
@@ -243,9 +248,9 @@ const EditableTable = ({ data }) => {
             onClick={() => setOpenFilterModal(true)}
           >
             Filter Options
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
             color="error"
@@ -309,6 +314,9 @@ const EditableTable = ({ data }) => {
           setSelectedCountry={setSelectedCountry}
           selectedProvince={selectedProvince}
           setSelectedProvince={setSelectedProvince}
+
+          selectedAccommodation={selectedAccommodation}
+          setSelectedAccommodation = {setSelectedAccommodation}
         />
       </Dialog>
     </MainCard>
