@@ -23,6 +23,7 @@ import {
   ReadOutlined,
   NotificationOutlined,
   ManOutlined,
+  FileSearchOutlined
 } from "@ant-design/icons";
 
 // icons
@@ -43,6 +44,7 @@ const icons = {
   ReadOutlined,
   NotificationOutlined,
   ManOutlined,
+  FileSearchOutlined
 };
 
 // ==============================|| MENU ITEMS - APPLICATIONS ||============================== //
@@ -83,6 +85,14 @@ const applications = {
       type: "item",
       icon: icons.BankOutlined,
       url: "/eume/EditableTablePage",  
+    },
+
+    {
+      id: "optional-survey",
+      title: <FormattedMessage id="Optional Survey" />,
+      type: "item",
+      icon: icons.FileSearchOutlined,
+      url: "/optional-survey/OptionalSurveyPage",  
     },
 
     // {
