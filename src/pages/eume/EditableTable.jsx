@@ -39,6 +39,15 @@ const EditableTable = ({ data }) => {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
+  const [selectedMotivation, setSelectedMotivation] = useState('');
+  const [selectedModality, setSelectedModality] = useState('');
+  const [selectedPet, setSelectedPet] = useState('');
+  const [selectedStay, setSelectedStay] = useState('');
+  const [selectedStayList, setSelectedStayList] = useState('');
+  const [selectedDayStay, setSelectedDayStay] = useState('');
+  const [selectedAcc, setSelectedAcc] = useState('');
+  const [selectedTrans, setSelectedTrans] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -82,6 +91,41 @@ const EditableTable = ({ data }) => {
         if (selectedProvince) {
           searchedData = searchedData.filter((item) => item.province === selectedProvince);
         }
+        if (selectedAge) {
+          searchedData = searchedData.filter((item) => item.age === selectedAge);
+        }
+
+        if(selectedMotivation) {
+          searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
+        }
+
+        if(selectedModality) {
+          searchedData = searchedData.filter((item) => item.modality === selectedModality);
+        }
+
+        if(selectedPet) {
+          searchedData = searchedData.filter((item) => item.withPet === selectedPet);
+        }
+
+        if(selectedStay) {
+          searchedData = searchedData.filter((item) => item.stayOvernight === selectedStay);
+        }
+
+        if(selectedStayList) {
+          searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
+        }
+        
+        if(selectedDayStay) {
+          searchedData = searchedData.filter((item) => item.staynoOfDays === selectedDayStay);
+        }
+
+        if(selectedAcc) {
+          searchedData = searchedData.filter((item) => item.accommodationType === selectedAcc);
+        }
+
+        if(selectedTrans) {
+          searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
+        }
 
         setEmpList(searchedData);
       } catch (err) {
@@ -90,7 +134,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet, selectedStay, selectedStayList, selectedDayStay, selectedAcc, selectedTrans]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -311,6 +355,15 @@ const EditableTable = ({ data }) => {
     setSearchValue('');
     setSelectedCountry('');
     setSelectedProvince('');
+    setSelectedAge('');
+    setSelectedMotivation('');
+    setSelectedModality('');
+    setSelectedPet('');
+    setSelectedStay('');
+    setSelectedStayList('');
+    setSelectedDayStay('');
+    setSelectedAcc('');
+    setSelectedTrans('');
   };
 
   return (
@@ -413,6 +466,24 @@ const EditableTable = ({ data }) => {
           setSelectedCountry={setSelectedCountry}
           selectedProvince={selectedProvince}
           setSelectedProvince={setSelectedProvince}
+          selectedAge={selectedAge}
+          setSelectedAge={setSelectedAge}
+          selectedMotivation={selectedMotivation}
+          setSelectedMotivation={setSelectedMotivation}
+          selectedModality={selectedModality}
+          setSelectedModality={setSelectedModality}
+          selectedPet={selectedPet}
+          setSelectedPet={setSelectedPet}
+          selectedStay={selectedStay}
+          setSelectedStay={setSelectedStay}
+          selectedStayList={selectedStayList}
+          setSelectedStayList={setSelectedStayList}
+          selectedDayStay={selectedDayStay}
+          setSelectedDayStay={setSelectedDayStay}
+          selectedAcc={selectedAcc}
+          setSelectedAcc={setSelectedAcc}
+          selectedTrans={selectedTrans}
+          setSelectedTrans={setSelectedTrans}
         />
       </Dialog>
     </MainCard>

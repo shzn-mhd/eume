@@ -81,7 +81,7 @@ const applications = {
 
     {
       id: "eume",
-      title: <FormattedMessage id="Survey" />,
+      title: <FormattedMessage id="Basic Survey" />,
       type: "item",
       icon: icons.BankOutlined,
       url: "/eume/EditableTablePage",  
