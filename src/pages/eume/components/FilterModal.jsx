@@ -32,12 +32,15 @@ const FilterModal = ({
     setSelectedStay,
     selectedStayList,
     setSelectedStayList,
+    selectedDayStay,
+    setSelectedDayStay,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
   const gender = ['Muller', 'Viro'];
   const pet = ['Yes', 'No'];
   const stay = ['Yes','No'];
+  const day = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   return (
     <MainCard
@@ -215,6 +218,24 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Stay List" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="noOfDays"
+            options={day}
+            getOptionLabel={(option) => option}
+              value={day.find((option) => option === selectedDayStay) || null}
+              onChange={(event, newValue) => {
+                setSelectedDayStay(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Stay Day" />}
           />
         </FormControl>
       </Stack>
