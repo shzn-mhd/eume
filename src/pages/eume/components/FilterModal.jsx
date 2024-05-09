@@ -12,6 +12,7 @@ import motivationList from 'data/motivation';
 import modalityList from 'data/modality';
 import stayList from 'data/stay';
 import accList from 'data/accomodation';
+import transList from 'data/transport';
 
 const FilterModal = ({ 
     onClose,
@@ -37,6 +38,8 @@ const FilterModal = ({
     setSelectedDayStay,
     selectedAcc,
     setSelectedAcc,
+    selectedTrans,
+    setSelectedTrans,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
@@ -257,6 +260,25 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Accomodation" />}
+          />
+        </FormControl>
+
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="transportation"
+            options={transList}
+            getOptionLabel={(option) => option}
+              value={transList.find((option) => option === selectedTrans) || null}
+              onChange={(event, newValue) => {
+                setSelectedTrans(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Transportation" />}
           />
         </FormControl>
       </Stack>
