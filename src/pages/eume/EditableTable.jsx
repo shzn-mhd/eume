@@ -5,6 +5,8 @@ import TableRow from '@mui/material/TableRow';
 import {
   Autocomplete,
   Box,
+  Button,
+  Dialog,
   FormControl,
   Pagination,
   Stack,
@@ -22,22 +24,25 @@ import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-tabl
 import { db } from 'config/firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import usePagination from 'hooks/usePagination';
-import { SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { PopupTransition } from 'components/@extended/Transitions';
+import FilterModal from './components/FilterModal';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
-  const [tableData, setTableData] = useState(data);
 
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
-
-  const gender = ['Muller', 'Viro'];
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const empCollectionRef = collection(db, 'survey_data');
+
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -47,31 +52,44 @@ const EditableTable = ({ data }) => {
           ...doc.data(),
           id: doc.id
         }));
-        console.log('fff', filteredData);
-        // setEmpList(filteredData.reverse());
-        setEmpList(filteredData);
+
+        let searchedData = filteredData;
+
+        // Apply search filtering if searchValue is present
+        if (searchValue) {
+          searchedData = filteredData.filter(
+            (item) =>
+              item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
+              item.province.toLowerCase().includes(searchValue.toLowerCase())
+          );
+        }
+
+        // Apply gender filtering only if selectedGender is present
+        if (selectedGender) {
+          searchedData = searchedData.filter((item) => item.gender === selectedGender);
+        }
+
+        if (selectedCountry) {
+          searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
+        }
+
+        if (selectedProvince) {
+          searchedData = searchedData.filter((item) => item.province === selectedProvince);
+        }
+
+        setEmpList(searchedData);
       } catch (err) {
         console.log(err);
       }
     };
 
     getEmpList();
-  }, []);
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
   const count = Math.ceil(empList.length / PER_PAGE);
   let _DATA = usePagination(empList, PER_PAGE);
-
-  console.log('empList', empList);
-  console.log('_Data', _DATA);
-
-  const handleChangePage = (e, p) => {
-    console.log('p', p);
-    console.log('e', e);
-    setPage(p);
-    _DATA.jump(p);
-  };
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -239,27 +257,6 @@ const EditableTable = ({ data }) => {
         //     className: 'cell-center'
         //   }
         // },
-        // {
-        //   header: 'Age',
-        //   accessorKey: 'age',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-right',
-        //   },
-        // },
-        // {
-        //   header: 'Visits',
-        //   accessorKey: 'visits',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-right',
-        //   },
-        // },
-        // {
-        //   header: 'Profile Progress',
-        //   accessorKey: 'progress',
-        //   dataType: 'progress',
-        // },
       ],
       []
     ),
@@ -295,85 +292,17 @@ const EditableTable = ({ data }) => {
     }
   });
 
-  const handleSearchValue = () => {
-    // Construct the Firestore query dynamically based on search input
-    let queryRef = empCollectionRef;
+  const handleModalClose = () => {
+    setOpenFilterModal(false);
+  }
 
-    if (searchValue !== '') {
-      const countryQuery = query(
-        empCollectionRef,
-        where('placeOfOrigin', '==', searchValue) // Filter by country
-        // orderBy('date', 'desc') // Example: Order by date
-      );
+  const ResetTable = () => {
+    setSelectedGender('');
+    setSearchValue('');
+    setSelectedCountry('');
+    setSelectedProvince('');
+  }
 
-      // Add another condition to filter by province
-      const provinceQuery = query(
-        empCollectionRef,
-        where('province', '==', searchValue) // Filter by province
-        // .orderBy('province') // Order by province
-      );
-
-      // Fetch data based on the constructed queries for country and province
-      Promise.all([getDocs(countryQuery), getDocs(provinceQuery)])
-        .then((querySnapshots) => {
-          const countryData = querySnapshots[0].docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id
-          }));
-          const provinceData = querySnapshots[1].docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id
-          }));
-          // Merge the results and remove duplicates
-          const filteredData = [...new Set([...countryData, ...provinceData])];
-          setEmpList(filteredData);
-        })
-        .catch((error) => {
-          console.error('Error fetching documents: ', error);
-        });
-    } else {
-      // Fetch data based on the constructed query
-      getDocs(queryRef)
-        .then((querySnapshot) => {
-          const filteredData = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id
-          }));
-          setEmpList(filteredData);
-        })
-        .catch((error) => {
-          console.error('Error fetching documents: ', error);
-        });
-    }
-  };
-
-  useEffect(() => {
-    handleSearchValue();
-  }, [searchValue]);
-
-  const handleGenderSearch = () => {
-    let genderQuery = empCollectionRef;
-
-    if (selectedGender !== '') {
-      genderQuery = query(empCollectionRef, where('gender', '==', selectedGender));
-    }
-
-    getDocs(genderQuery)
-      .then((querySnapshot) => {
-        const filteredData = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        setEmpList(filteredData);
-      })
-      .catch((error) => {
-        console.error('Error fetching documents: ', error);
-      });
-  };
-
-  useEffect(() => {
-    handleGenderSearch();
-  }, [selectedGender]);
 
   return (
     <MainCard
@@ -397,7 +326,7 @@ const EditableTable = ({ data }) => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <FormControl style={{ width: '220px' }}>
+          {/* <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="gender"
               options={gender}
@@ -405,7 +334,6 @@ const EditableTable = ({ data }) => {
               value={gender.find((option) => option === selectedGender) || null}
               onChange={(event, newValue) => {
                 setSelectedGender(newValue ? newValue : null);
-                // handleGenderSearch(newValue);
               }}
               sx={{
                 borderRadius: '4px',
@@ -415,7 +343,15 @@ const EditableTable = ({ data }) => {
               }}
               renderInput={(params) => <TextField {...params} label="Gender" />}
             />
-          </FormControl>
+          </FormControl> */}
+
+          <Button size="small" sx={{minWidth:'130px', minHeight: '41.13px'}} startIcon={<PlusOutlined />} color="primary" variant="contained" onClick={() => setOpenFilterModal(true)}>
+            Filter Options
+          </Button>
+
+          <Button size="small" sx={{minWidth:'130px', minHeight: '41.13px'}} color="error" variant="contained" onClick={() => ResetTable()}>
+            Reset
+          </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
         </Stack>
@@ -460,6 +396,20 @@ const EditableTable = ({ data }) => {
           </TableBody>
         </Table>
       </Box>
+
+      <Dialog TransitionComponent={PopupTransition}
+       onClose={handleModalClose} 
+       open={openFilterModal} scroll="body">
+        <FilterModal 
+        onClose={handleModalClose}
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedProvince={selectedProvince}
+        setSelectedProvince={setSelectedProvince}
+        />
+          </Dialog>
     </MainCard>
   );
 };
