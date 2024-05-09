@@ -18,7 +18,7 @@ import {
   useTheme
 } from '@mui/material';
 import MainCard from 'components/MainCard';
-import { CSVExport, CellEditable, TablePagination } from 'components/third-party/react-table';
+import { CSVExport, CellEditable, SelectColumnSorting, TablePagination } from 'components/third-party/react-table';
 import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { db } from 'config/firebase';
@@ -41,8 +41,14 @@ const EditableTable = ({ data }) => {
   const [selectedProvince, setSelectedProvince] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
-  const empCollectionRef = collection(db, 'survey_data');
+  const [sorting, setSorting] = useState([
+    {
+      id: 'date',
+      desc: true
+    }
+  ]);
 
+  const empCollectionRef = collection(db, 'survey_data');
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -260,6 +266,9 @@ const EditableTable = ({ data }) => {
       ],
       []
     ),
+    state: {
+      sorting
+    },
     defaultColumn: {
       cell: CellEditable
     },
@@ -279,6 +288,7 @@ const EditableTable = ({ data }) => {
         );
       }
     },
+    onSortingChange: setSorting,
     debugTable: true
   });
 
@@ -294,15 +304,14 @@ const EditableTable = ({ data }) => {
 
   const handleModalClose = () => {
     setOpenFilterModal(false);
-  }
+  };
 
   const ResetTable = () => {
     setSelectedGender('');
     setSearchValue('');
     setSelectedCountry('');
     setSelectedProvince('');
-  }
-
+  };
 
   return (
     <MainCard
@@ -326,31 +335,28 @@ const EditableTable = ({ data }) => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          {/* <FormControl style={{ width: '220px' }}>
-            <Autocomplete
-              id="gender"
-              options={gender}
-              getOptionLabel={(option) => option}
-              value={gender.find((option) => option === selectedGender) || null}
-              onChange={(event, newValue) => {
-                setSelectedGender(newValue ? newValue : null);
-              }}
-              sx={{
-                borderRadius: '4px',
-                bgcolor: theme.palette.background.paper,
-                boxShadow: theme.customShadows.primary,
-                border: `1px solid ${theme.palette.primary.main}`
-              }}
-              renderInput={(params) => <TextField {...params} label="Gender" />}
-            />
-          </FormControl> */}
 
-          <Button size="small" sx={{minWidth:'130px', minHeight: '41.13px'}} startIcon={<PlusOutlined />} color="primary" variant="contained" onClick={() => setOpenFilterModal(true)}>
+          <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
+
+          <Button
+            size="small"
+            sx={{ minWidth: '130px', minHeight: '41.13px' }}
+            startIcon={<PlusOutlined />}
+            color="primary"
+            variant="contained"
+            onClick={() => setOpenFilterModal(true)}
+          >
             Filter Options
           </Button>
 
-          <Button size="small" sx={{minWidth:'130px', minHeight: '41.13px'}} color="error" variant="contained" onClick={() => ResetTable()}>
-            Reset
+          <Button
+            size="small"
+            sx={{ minWidth: '130px', minHeight: '41.13px' }}
+            color="error"
+            variant="contained"
+            onClick={() => ResetTable()}
+          >
+            Reset Filter
           </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
@@ -397,19 +403,17 @@ const EditableTable = ({ data }) => {
         </Table>
       </Box>
 
-      <Dialog TransitionComponent={PopupTransition}
-       onClose={handleModalClose} 
-       open={openFilterModal} scroll="body">
-        <FilterModal 
-        onClose={handleModalClose}
-        selectedGender={selectedGender}
-        setSelectedGender={setSelectedGender}
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        selectedProvince={selectedProvince}
-        setSelectedProvince={setSelectedProvince}
+      <Dialog TransitionComponent={PopupTransition} onClose={handleModalClose} open={openFilterModal} scroll="body">
+        <FilterModal
+          onClose={handleModalClose}
+          selectedGender={selectedGender}
+          setSelectedGender={setSelectedGender}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          selectedProvince={selectedProvince}
+          setSelectedProvince={setSelectedProvince}
         />
-          </Dialog>
+      </Dialog>
     </MainCard>
   );
 };
