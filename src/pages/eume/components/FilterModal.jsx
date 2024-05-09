@@ -9,6 +9,7 @@ import countryList from 'data/country';
 import provinceList from 'data/province';
 import ageList from 'data/age';
 import motivationList from 'data/motivation';
+import modalityList from 'data/modality';
 
 const FilterModal = ({ 
     onClose,
@@ -20,6 +21,7 @@ const FilterModal = ({
     setSelectedProvince,
     setSelectedAge,
     setSelectedMotivation,
+    setSelectedModality,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
@@ -129,6 +131,24 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Motivation" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="modality"
+            options={modalityList}
+            getOptionLabel={(option) => option}
+              value={modalityList.find((option) => option === setSelectedModality) || null}
+              onChange={(event, newValue) => {
+                setSelectedModality(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Modality" />}
           />
         </FormControl>
       </Stack>

@@ -41,6 +41,7 @@ const EditableTable = ({ data }) => {
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedAge, setSelectedAge] = useState('');
   const [selectedMotivation, setSelectedMotivation] = useState('');
+  const [selectedModality, setSelectedModality] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -92,6 +93,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.motivation == selectedMotivation);
         }
 
+        if(selectedModality) {
+          searchedData = searchedData.filter((item) => item.modality == selectedModality);
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -99,7 +104,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -322,6 +327,7 @@ const EditableTable = ({ data }) => {
     setSelectedProvince('');
     setSelectedAge('');
     setSelectedMotivation('');
+    setSelectedModality('');
   };
 
   return (
@@ -427,6 +433,8 @@ const EditableTable = ({ data }) => {
           setSelectedAge={setSelectedAge}
           selectedMotivation={selectedMotivation}
           setSelectedMotivation={setSelectedMotivation}
+          selectedModality={selectedModality}
+          setSelectedModality={setSelectedModality}
         />
       </Dialog>
     </MainCard>
