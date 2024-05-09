@@ -42,6 +42,7 @@ const EditableTable = ({ data }) => {
   const [selectedAge, setSelectedAge] = useState('');
   const [selectedMotivation, setSelectedMotivation] = useState('');
   const [selectedModality, setSelectedModality] = useState('');
+  const [selectedPet, setSelectedPet] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -86,15 +87,19 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.province === selectedProvince);
         }
         if (selectedAge) {
-          searchedData = searchedData.filter((item) => item.age == selectedAge);
+          searchedData = searchedData.filter((item) => item.age === selectedAge);
         }
 
         if(selectedMotivation) {
-          searchedData = searchedData.filter((item) => item.motivation == selectedMotivation);
+          searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
         }
 
         if(selectedModality) {
-          searchedData = searchedData.filter((item) => item.modality == selectedModality);
+          searchedData = searchedData.filter((item) => item.modality === selectedModality);
+        }
+
+        if(selectedPet) {
+          searchedData = searchedData.filter((item) => item.withPet === selectedPet);
         }
 
         setEmpList(searchedData);
@@ -104,7 +109,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -328,6 +333,7 @@ const EditableTable = ({ data }) => {
     setSelectedAge('');
     setSelectedMotivation('');
     setSelectedModality('');
+    setSelectedPet('');
   };
 
   return (
@@ -435,6 +441,8 @@ const EditableTable = ({ data }) => {
           setSelectedMotivation={setSelectedMotivation}
           selectedModality={selectedModality}
           setSelectedModality={setSelectedModality}
+          selectedPet={selectedPet}
+          setSelectedPet={setSelectedPet}
         />
       </Dialog>
     </MainCard>

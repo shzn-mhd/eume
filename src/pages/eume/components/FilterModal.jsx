@@ -22,10 +22,13 @@ const FilterModal = ({
     setSelectedAge,
     setSelectedMotivation,
     setSelectedModality,
+    selectedPet,
+    setSelectedPet,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
   const gender = ['Muller', 'Viro'];
+  const pet = ['Yes', 'No'];
 
   return (
     <MainCard
@@ -149,6 +152,24 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Modality" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="withPet"
+            options={pet}
+            getOptionLabel={(option) => option}
+              value={pet.find((option) => option === selectedPet) || null}
+              onChange={(event, newValue) => {
+                setSelectedPet(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Pet" />}
           />
         </FormControl>
       </Stack>
