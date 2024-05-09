@@ -46,6 +46,7 @@ const EditableTable = ({ data }) => {
   const [selectedStay, setSelectedStay] = useState('');
   const [selectedStayList, setSelectedStayList] = useState('');
   const [selectedDayStay, setSelectedDayStay] = useState('');
+  const [selectedAcc, setSelectedAcc] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -117,6 +118,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.staynoOfDays === selectedDayStay);
         }
 
+        if(selectedAcc) {
+          searchedData = searchedData.filter((item) => item.accommodationType === selectedAcc);
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -124,7 +129,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet, selectedStay, selectedStayList, selectedDayStay]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet, selectedStay, selectedStayList, selectedDayStay, selectedAcc]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -352,6 +357,7 @@ const EditableTable = ({ data }) => {
     setSelectedStay('');
     setSelectedStayList('');
     setSelectedDayStay('');
+    setSelectedAcc('');
   };
 
   return (
@@ -467,6 +473,8 @@ const EditableTable = ({ data }) => {
           setSelectedStayList={setSelectedStayList}
           selectedDayStay={selectedDayStay}
           setSelectedDayStay={setSelectedDayStay}
+          selectedAcc={selectedAcc}
+          setSelectedAcc={setSelectedAcc}
         />
       </Dialog>
     </MainCard>
