@@ -90,7 +90,7 @@ const CellEditable = ({ getValue: initialValue, row: { index }, column: { id, co
                   error={touched.userInfo && Boolean(errors.userInfo)}
                   helperText={touched.userInfo && errors.userInfo && errors.userInfo}
                   sx={{
-                    '& .MuiOutlinedInput-input': { py: 0.75, px: 1, minWidth: { xs: 170 }, textAlign:'center' },
+                    '& .MuiOutlinedInput-input': { py: 0.75, px: 1, minWidth: { xs: 130 }, textAlign:'center' },
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
                   }}
                 />

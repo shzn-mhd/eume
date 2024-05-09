@@ -48,7 +48,7 @@ const EditableTable = ({ data }) => {
     }
   ]);
 
-  const empCollectionRef = collection(db, 'survey_data');
+  const empCollectionRef = collection(db, 'optional_survey_data');
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -112,157 +112,53 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: 'Date',
-          accessorKey: 'date',
+          header: 'Accommodation',
+          accessorKey: 'accommodation',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Country',
-          accessorKey: 'placeOfOrigin',
+          header: 'Service of restauration',
+          accessorKey: 'service',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Province',
-          accessorKey: 'province',
+          header: 'Signaling',
+          accessorKey: 'signaling',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Gender',
-          accessorKey: 'gender',
+          header: 'Access',
+          accessorKey: 'access',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Age',
-          accessorKey: 'age',
+          header: 'Quality/price ratio of the destination',
+          accessorKey: 'qualityPriceRatio',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Motivation',
-          accessorKey: 'motivation',
+          header: 'Cleaning and conservation of the environment',
+          accessorKey: 'cleaningConservation',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
-        {
-          header: 'Modality',
-          accessorKey: 'modality',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Pet',
-          accessorKey: 'withPet',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Stay',
-          accessorKey: 'stayOvernight',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Place',
-          accessorKey: 'stayPlace',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Number of Days',
-          accessorKey: 'noOfDays',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Accommodation Type',
-          accessorKey: 'accommodationType',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Transport',
-          accessorKey: 'transportation',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        }
-        // {
-        //   header: 'Activity',
-        //   accessorKey: 'activity',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Feedback',
-        //   accessorKey: 'feedback',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Language',
-        //   accessorKey: 'language',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Number of People',
-        //   accessorKey: 'numOfPeople',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Rating',
-        //   accessorKey: 'rating',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Reason',
-        //   accessorKey: 'reason',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
       ],
       []
     ),
@@ -319,7 +215,7 @@ const EditableTable = ({ data }) => {
       title="Survey Table"
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-          <TextField
+          {/* <TextField
             fullWidth
             sx={{
               borderRadius: '4px',
@@ -357,7 +253,7 @@ const EditableTable = ({ data }) => {
             onClick={() => ResetTable()}
           >
             Reset Filter
-          </Button>
+          </Button> */}
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
         </Stack>
