@@ -10,12 +10,8 @@ import provinceList from 'data/province';
 
 const FilterModal = ({ 
     onClose,
-    selectedGender,
-    setSelectedGender,
-    selectedCountry,
-    setSelectedCountry,
-    selectedProvince,
-    setSelectedProvince
+    selectedAccommodation,
+    setSelectedAccommodation,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
@@ -38,57 +34,21 @@ const FilterModal = ({
       )}
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ p: 3 }}>
         <FormControl style={{ width: '220px' }}>
-          <Autocomplete
-            id="country"
-            options={countryList}
-            getOptionLabel={(option) => option}
-            value={countryList.find((option) => option === selectedCountry) || null}
-              onChange={(event, newValue) => {
-                setSelectedCountry(newValue ? newValue : null);
-              }}
+          <TextField
+            fullWidth
             sx={{
               borderRadius: '4px',
               bgcolor: theme.palette.background.paper,
               boxShadow: theme.customShadows.primary,
               border: `1px solid ${theme.palette.primary.main}`
             }}
-            renderInput={(params) => <TextField {...params} label="Country" />}
-          />
-        </FormControl>
-        <FormControl style={{ width: '220px' }}>
-          <Autocomplete
-            id="province"
-            options={provinceList}
-            getOptionLabel={(option) => option}
-              value={provinceList.find((option) => option === selectedProvince) || null}
-              onChange={(event, newValue) => {
-                setSelectedProvince(newValue ? newValue : null);
-              }}
-            sx={{
-              borderRadius: '4px',
-              bgcolor: theme.palette.background.paper,
-              boxShadow: theme.customShadows.primary,
-              border: `1px solid ${theme.palette.primary.main}`
+            InputProps={{
+              // startAdornment: <SearchOutlined />,
+              placeholder: 'Accommodation',
+              // type: 'number'
             }}
-            renderInput={(params) => <TextField {...params} label="Province" />}
-          />
-        </FormControl>
-        <FormControl style={{ width: '220px' }}>
-          <Autocomplete
-            id="gender"
-            options={gender}
-            getOptionLabel={(option) => option}
-              value={gender.find((option) => option === selectedGender) || null}
-              onChange={(event, newValue) => {
-                setSelectedGender(newValue ? newValue : null);
-              }}
-            sx={{
-              borderRadius: '4px',
-              bgcolor: theme.palette.background.paper,
-              boxShadow: theme.customShadows.primary,
-              border: `1px solid ${theme.palette.primary.main}`
-            }}
-            renderInput={(params) => <TextField {...params} label="Gender" />}
+            value={selectedAccommodation}
+            onChange={(e) => setSelectedAccommodation(e.target.value)}
           />
         </FormControl>
       </Stack>
