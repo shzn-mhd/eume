@@ -116,7 +116,7 @@ const EditableTable = ({ data }) => {
         }
         
         if(selectedDayStay) {
-          searchedData = searchedData.filter((item) => item.staynoOfDays === selectedDayStay);
+          searchedData = searchedData.filter((item) => item.noOfDays === selectedDayStay);
         }
 
         if(selectedAcc) {
