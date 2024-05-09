@@ -212,7 +212,7 @@ const EditableTable = ({ data }) => {
   return (
     <MainCard
       content={false}
-      title="Survey Table"
+      title="Optional Survey Table"
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           {/* <TextField
