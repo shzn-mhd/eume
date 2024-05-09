@@ -40,6 +40,7 @@ const EditableTable = ({ data }) => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedAge, setSelectedAge] = useState('');
+  const [selectedMotivation, setSelectedMotivation] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -87,6 +88,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.age == selectedAge);
         }
 
+        if(selectedMotivation) {
+          searchedData = searchedData.filter((item) => item.motivation == selectedMotivation);
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -94,7 +99,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -316,6 +321,7 @@ const EditableTable = ({ data }) => {
     setSelectedCountry('');
     setSelectedProvince('');
     setSelectedAge('');
+    setSelectedMotivation('');
   };
 
   return (
@@ -419,6 +425,8 @@ const EditableTable = ({ data }) => {
           setSelectedProvince={setSelectedProvince}
           selectedAge={selectedAge}
           setSelectedAge={setSelectedAge}
+          selectedMotivation={selectedMotivation}
+          setSelectedMotivation={setSelectedMotivation}
         />
       </Dialog>
     </MainCard>

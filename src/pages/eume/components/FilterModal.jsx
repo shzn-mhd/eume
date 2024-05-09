@@ -8,6 +8,7 @@ import { ThemeMode } from 'config';
 import countryList from 'data/country';
 import provinceList from 'data/province';
 import ageList from 'data/age';
+import motivationList from 'data/motivation';
 
 const FilterModal = ({ 
     onClose,
@@ -18,6 +19,7 @@ const FilterModal = ({
     selectedProvince,
     setSelectedProvince,
     setSelectedAge,
+    setSelectedMotivation,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
@@ -109,6 +111,24 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Age" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="motivation"
+            options={motivationList}
+            getOptionLabel={(option) => option}
+              value={motivationList.find((option) => option === setSelectedMotivation) || null}
+              onChange={(event, newValue) => {
+                setSelectedMotivation(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Motivation" />}
           />
         </FormControl>
       </Stack>
