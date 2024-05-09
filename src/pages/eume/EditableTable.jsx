@@ -43,6 +43,8 @@ const EditableTable = ({ data }) => {
   const [selectedMotivation, setSelectedMotivation] = useState('');
   const [selectedModality, setSelectedModality] = useState('');
   const [selectedPet, setSelectedPet] = useState('');
+  const [selectedStay, setSelectedStay] = useState('');
+  const [selectedStayList, setSelectedStayList] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -102,6 +104,14 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.withPet === selectedPet);
         }
 
+        if(selectedStay) {
+          searchedData = searchedData.filter((item) => item.stayOvernight === selectedStay);
+        }
+
+        if(selectedStayList) {
+          searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -109,7 +119,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet, selectedStay, selectedStayList]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -334,6 +344,8 @@ const EditableTable = ({ data }) => {
     setSelectedMotivation('');
     setSelectedModality('');
     setSelectedPet('');
+    setSelectedStay('');
+    setSelectedStayList('');
   };
 
   return (
@@ -443,6 +455,10 @@ const EditableTable = ({ data }) => {
           setSelectedModality={setSelectedModality}
           selectedPet={selectedPet}
           setSelectedPet={setSelectedPet}
+          selectedStay={selectedStay}
+          setSelectedStay={setSelectedStay}
+          selectedStayList={selectedStayList}
+          setSelectedStayList={setSelectedStayList}
         />
       </Dialog>
     </MainCard>

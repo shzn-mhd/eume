@@ -10,6 +10,7 @@ import provinceList from 'data/province';
 import ageList from 'data/age';
 import motivationList from 'data/motivation';
 import modalityList from 'data/modality';
+import stayList from 'data/stay';
 
 const FilterModal = ({ 
     onClose,
@@ -19,16 +20,24 @@ const FilterModal = ({
     setSelectedCountry,
     selectedProvince,
     setSelectedProvince,
+    selectedAge,
     setSelectedAge,
+    selectedMotivation,
     setSelectedMotivation,
+    selectedModality,
     setSelectedModality,
     selectedPet,
     setSelectedPet,
+    selectedStay,
+    setSelectedStay,
+    selectedStayList,
+    setSelectedStayList,
  }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
   const gender = ['Muller', 'Viro'];
   const pet = ['Yes', 'No'];
+  const stay = ['Yes','No'];
 
   return (
     <MainCard
@@ -105,7 +114,7 @@ const FilterModal = ({
             id="age"
             options={ageList}
             getOptionLabel={(option) => option}
-              value={ageList.find((option) => option === setSelectedAge) || null}
+              value={ageList.find((option) => option === selectedAge) || null}
               onChange={(event, newValue) => {
                 setSelectedAge(newValue ? newValue : null);
               }}
@@ -123,7 +132,7 @@ const FilterModal = ({
             id="motivation"
             options={motivationList}
             getOptionLabel={(option) => option}
-              value={motivationList.find((option) => option === setSelectedMotivation) || null}
+              value={motivationList.find((option) => option === selectedMotivation) || null}
               onChange={(event, newValue) => {
                 setSelectedMotivation(newValue ? newValue : null);
               }}
@@ -141,7 +150,7 @@ const FilterModal = ({
             id="modality"
             options={modalityList}
             getOptionLabel={(option) => option}
-              value={modalityList.find((option) => option === setSelectedModality) || null}
+              value={modalityList.find((option) => option === selectedModality) || null}
               onChange={(event, newValue) => {
                 setSelectedModality(newValue ? newValue : null);
               }}
@@ -170,6 +179,42 @@ const FilterModal = ({
               border: `1px solid ${theme.palette.primary.main}`
             }}
             renderInput={(params) => <TextField {...params} label="Pet" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="stayOvernight"
+            options={stay}
+            getOptionLabel={(option) => option}
+              value={stay.find((option) => option === selectedStay) || null}
+              onChange={(event, newValue) => {
+                setSelectedStay(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Stay" />}
+          />
+        </FormControl>
+        <FormControl style={{ width: '220px' }}>
+          <Autocomplete
+            id="stayPlace"
+            options={stayList}
+            getOptionLabel={(option) => option}
+              value={stayList.find((option) => option === selectedStayList) || null}
+              onChange={(event, newValue) => {
+                setSelectedStayList(newValue ? newValue : null);
+              }}
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`
+            }}
+            renderInput={(params) => <TextField {...params} label="Stay List" />}
           />
         </FormControl>
       </Stack>
