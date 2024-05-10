@@ -13,16 +13,16 @@ import { ThemeMode } from 'config';
  * import logo from 'assets/images/logo.svg';
  *
  */
-import logoDark from 'assets/images/EUME.jpg';
-// import logo from 'assets/images/LOGO 2 - Copy.jpeg';
+import logoDark from 'assets/images/EUME-logo.png';
+import logo from 'assets/images/EUME-dark-logo.png';
 
 // ==============================|| LOGO SVG ||============================== //
 
 const LogoMain = ({ reverse }) => {
   const theme = useTheme();
   return (
-    // <img src={theme.palette.mode === ThemeMode.DARK ? logoDark : logoDark} alt="MyUnivrs" width="200" />
-    <h1>EUME</h1>
+    <img src={theme.palette.mode === ThemeMode.DARK ? logo : logoDark} alt="EUME" width="200"/>
+    // <h1>EUME</h1>
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
      *

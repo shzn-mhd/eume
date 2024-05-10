@@ -23,7 +23,8 @@ import {
   ReadOutlined,
   NotificationOutlined,
   ManOutlined,
-  FileSearchOutlined
+  FileSearchOutlined,
+  PieChartOutlined
 } from "@ant-design/icons";
 
 // icons
@@ -44,7 +45,8 @@ const icons = {
   ReadOutlined,
   NotificationOutlined,
   ManOutlined,
-  FileSearchOutlined
+  FileSearchOutlined,
+  PieChartOutlined
 };
 
 // ==============================|| MENU ITEMS - APPLICATIONS ||============================== //
@@ -83,7 +85,7 @@ const applications = {
       id: "eume",
       title: <FormattedMessage id="Basic Survey" />,
       type: "item",
-      icon: icons.BankOutlined,
+      icon: icons.PieChartOutlined,
       url: "/eume/EditableTablePage",  
     },
 

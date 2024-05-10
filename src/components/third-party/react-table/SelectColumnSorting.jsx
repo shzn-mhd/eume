@@ -16,7 +16,7 @@ const MenuProps = {
 
 // ==============================|| COLUMN SORTING - SELECT ||============================== //
 
-const SelectColumnSorting = ({ getState, getAllColumns, setSorting, size = 'medium' }) => (
+const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting, size = 'medium' }) => (
   <FormControl sx={{ width: 200 }}>
     <Select
       id="column-sorting"
@@ -27,6 +27,9 @@ const SelectColumnSorting = ({ getState, getAllColumns, setSorting, size = 'medi
       renderValue={(selected) => {
         const selectedColumn = getAllColumns().filter((column) => selected.length > 0 && column.id === selected[0].id)[0];
         if (selectedColumn) {
+          console.log("selectedColumn",selectedColumn.columnDef.accessorKey);
+          // handleSortingChange(selectedColumn.columnDef.accessorKey);
+          setSortValue(selectedColumn.columnDef.accessorKey);
           return (
             <Typography variant="subtitle2">
               Sort by ({typeof selectedColumn.columnDef.header === 'string' ? selectedColumn.columnDef.header : '#'})
@@ -47,6 +50,7 @@ const SelectColumnSorting = ({ getState, getAllColumns, setSorting, size = 'medi
               key={column.id}
               value={column.id}
               onClick={() =>
+                // handleSortingChange(getState().sorting.length > 0 && column.id === getState().sorting[0].id ? [] : [{ id: column.id, desc: false }])
                 setSorting(getState().sorting.length > 0 && column.id === getState().sorting[0].id ? [] : [{ id: column.id, desc: false }])
               }
             >
