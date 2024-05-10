@@ -502,6 +502,7 @@ const EditableTable = ({ data }) => {
         />
       </Dialog>
       <Filter
+      empList={empList}
         open={openStoryDrawer}
         handleDrawerOpen={handleStoryDrawerOpen}
         selectedGender={selectedGender}
