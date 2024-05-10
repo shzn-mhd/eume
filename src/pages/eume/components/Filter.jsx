@@ -24,6 +24,7 @@ import motivationList from 'data/motivation';
 import provinceList from 'data/province';
 import stayList from 'data/stay';
 import transList from 'data/transport';
+import DashboardDefault from 'pages/dashboard/default';
 
 const Filter = ({
   open,
@@ -32,7 +33,7 @@ const Filter = ({
   selectedGender,
   setSelectedGender,
   selectedCountry,
-  setSelectedCountry,
+  setSelectedCountry, 
   selectedProvince,
   setSelectedProvince,
   selectedAge,
@@ -120,7 +121,7 @@ const Filter = ({
                   </Tooltip>
                 </Stack>
               </Grid>
-              {/* </Stack> */}
+              {/* </Stack> */} 
             </Grid>
           </Box>
           <Divider />
@@ -136,23 +137,6 @@ const Filter = ({
                     {empList.length}
                   </Typography>
                 </Grid>
-                {/* {percentage && (
-          <Grid item>
-            <Chip
-              variant="combined"
-              color={color}
-              icon={
-                <>
-                  {!isLoss && <RiseOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
-                  {isLoss && <FallOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
-                </>
-              }
-              label={`${percentage}%`}
-              sx={{ ml: 1.25, pl: 1 }}
-              size="small"
-            />
-          </Grid>
-        )} */}
               </Grid>
             </Stack>
           </MainCard>
@@ -174,8 +158,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Country" />}
                     />
@@ -195,8 +177,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Province" />}
                     />
@@ -217,8 +197,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Gender" />}
                     />
@@ -237,8 +215,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Age" />}
                     />
@@ -259,8 +235,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Motivation" />}
                     />
@@ -279,8 +253,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Modality" />}
                     />
@@ -301,8 +273,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Pet" />}
                     />
@@ -321,8 +291,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Stay" />}
                     />
@@ -343,8 +311,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Place" />}
                     />
@@ -363,8 +329,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Stay Day" />}
                     />
@@ -385,8 +349,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Accomodation" />}
                     />
@@ -405,8 +367,6 @@ const Filter = ({
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper,
-                        // boxShadow: theme.customShadows.primary,
-                        // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label="Transportation" />}
                     />
@@ -416,7 +376,6 @@ const Filter = ({
             </Stack>
           </Box>
           <Divider />
-          {/* <Grid item sx={{width:'100%'}}> */}
           <Stack direction="row" alignItems="center" spacing={2} justifyContent='space-between' padding={2}>
             <Tooltip title="Reset Filter">
               <Button
@@ -424,7 +383,6 @@ const Filter = ({
                 sx={{ minWidth: '130px', minHeight: '41.13px' }}
                 color="error"
                 variant="contained"
-                // onClick={() => ResetTable()}
               >
                 Reset Filter
               </Button>
@@ -433,7 +391,6 @@ const Filter = ({
               <Button
                 size="small"
                 sx={{ minWidth: '130px', minHeight: '41.13px' }}
-                // startIcon={<PlusOutlined />}
                 color="primary"
                 variant="contained"
                 onClick={handleDrawerOpen}
@@ -442,8 +399,6 @@ const Filter = ({
               </Button>
             </Tooltip>
           </Stack>
-          {/* <AlertStoryDelete title={story.title} open={openModal} handleClose={handleModalClose} /> */}
-          {/* </Grid> */}
         </SimpleBar>
       )}
     </Drawer>

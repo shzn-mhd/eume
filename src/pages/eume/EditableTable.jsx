@@ -28,6 +28,7 @@ import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
+import DashboardDefault from 'pages/dashboard/default';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // material-ui
 import {
@@ -26,6 +26,8 @@ import MonthlyBarChart from 'sections/dashboard/default/MonthlyBarChart';
 import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
 import SalesChart from 'sections/dashboard/SalesChart';
 import OrdersTable from 'sections/dashboard/default/OrdersTable';
+import { db } from 'config/firebase';
+import { getDocs, collection, query, where } from 'firebase/firestore';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -69,9 +71,36 @@ const status = [
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
-const DashboardDefault = () => {
+const DashboardDefault = ({
+}) => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
+
+  const [empCount, setEmpCount] = useState(0);
+  const [empList, setEmpList] = useState([]);
+
+  const empCollectionRef = collection(db, 'survey_data');
+
+  useEffect(() => {
+    const getEmpList = async () => {
+      try {
+        const data = await getDocs(empCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+
+        // let searchedData = filteredData;
+        setEmpList(filteredData);
+
+        setEmpCount(filteredData.length);
+      } catch (err){
+        console.log(err);
+      }
+    };
+    getEmpList();
+  },[]);
+
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -80,7 +109,7 @@ const DashboardDefault = () => {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
