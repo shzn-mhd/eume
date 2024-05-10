@@ -27,6 +27,7 @@ import usePagination from 'hooks/usePagination';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
+import Filter from './components/Filter';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -37,8 +38,18 @@ const EditableTable = ({ data }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   
   const [selectedAcc, setSelectedAcc] = useState('');
+  const [selectService, setSelectService] = useState('');
+  const [selectedSignaling, setSelectedSignaling] = useState('');
+  const [selectedAaccess, setSelectedAccess] = useState('');
+  const [selectedQualityPriceRatio,setSelectedQualityPriceRatio] = useState('');
+  const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const handleStoryDrawerOpen = () => {
+    setOpenStoryDrawer((prevState) => !prevState);
+  };
 
   const [sorting, setSorting] = useState([
     {
@@ -61,11 +72,34 @@ const EditableTable = ({ data }) => {
         let searchedData = filteredData;
 
         if (selectedAcc) {
-          console.log("selectedAcc",selectedAcc);
           // Filter out items with no accommodation value
           const filteredDataWithAccommodation = searchedData.filter((item) => item.accommodation);
-          searchedData = filteredDataWithAccommodation.filter((item) => item.accommodation.toString() === selectedAcc);
-          console.log("searchedData2",searchedData);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.accommodation === selectedAcc);
+        }
+
+        if (selectService) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.service);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.service === selectService);
+        }
+
+        if (selectedSignaling) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.signaling);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.signaling === selectedSignaling);
+        }
+
+        if (selectedAaccess) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.access);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.access === selectedAaccess);
+        }
+
+        if (selectedQualityPriceRatio) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.qualityPriceRatio);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.qualityPriceRatio === selectedQualityPriceRatio);
+        }
+
+        if (selectedCleaningConservation) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.cleaningConservation);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.cleaningConservation === selectedCleaningConservation);
         }
 
         setEmpList(searchedData);
@@ -75,7 +109,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [selectedAcc]); // Add both searchValue and selectedGender as dependencies
+  }, [selectedAcc, selectService, selectedSignaling, selectedAaccess, selectedQualityPriceRatio, selectedCleaningConservation]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -189,6 +223,11 @@ const EditableTable = ({ data }) => {
 
   const ResetTable = () => {
     setSelectedAcc('');
+    setSelectService('');
+    setSelectedSignaling('');
+    setSelectedAccess('');
+    setSelectedQualityPriceRatio('');
+    setSelectedCleaningConservation('');
   };
 
   return (
@@ -222,7 +261,7 @@ const EditableTable = ({ data }) => {
             startIcon={<PlusOutlined />}
             color="primary"
             variant="contained"
-            onClick={() => setOpenFilterModal(true)}
+            onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
           >
             Filter Options
           </Button>
@@ -289,6 +328,24 @@ const EditableTable = ({ data }) => {
           setSelectedAcc={setSelectedAcc}
         />
       </Dialog>
+      <Filter
+      empList={empList}
+      open={openStoryDrawer}
+      ResetTable={ResetTable}
+        handleDrawerOpen={handleStoryDrawerOpen}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc}
+        selectService={selectService}
+        setSelectService={setSelectService}
+        selectedSignaling={selectedSignaling}
+        setSelectedSignaling={setSelectedSignaling}
+        selectedAaccess={selectedAaccess}
+        setSelectedAccess={setSelectedAccess}
+        selectedQualityPriceRatio={selectedQualityPriceRatio}
+        setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
+        selectedCleaningConservation={selectedCleaningConservation}
+        setSelectedCleaningConservation={setSelectedCleaningConservation}
+      />
     </MainCard>
   );
 };
