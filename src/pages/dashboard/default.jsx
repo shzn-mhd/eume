@@ -79,6 +79,7 @@ const DashboardDefault = ({
   const [empCount, setEmpCount] = useState(0);
   const [empList, setEmpList] = useState([]);
   const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
+  const [withPetCounts, setWithPetCounts] = useState({});
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -103,10 +104,21 @@ const DashboardDefault = ({
         return acc;
        }, 0);
 
+       let totalPetCount = 0;
+       const countPet = filteredData.reduce((acc, entry) => {
+        const withPet = entry.withPet;
+        if(withPet === 'Yes' || withPet === 'No'){
+          acc[withPet] = (acc[withPet] || 0) + 1;
+          totalPetCount++;
+        }
+        return acc;
+       })
+
         // let searchedData = filteredData;
         setEmpList(filteredData);
         setEmpCount(filteredData.length);
-        setTotalPlaceOfOriginCount(counts)
+        setTotalPlaceOfOriginCount(counts);
+        setWithPetCounts(countPet);
 
       } catch (err){
         console.log(err);
@@ -129,7 +141,8 @@ const DashboardDefault = ({
         <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Sales" count="$35,078" percentage={27.4} isLoss color="warning" extra="$20,395" />
