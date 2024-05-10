@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { CloseOutlined } from '@ant-design/icons';
-import { Autocomplete, Button, DialogTitle, FormControl, Stack, TextField, useMediaQuery } from '@mui/material';
+import { Autocomplete, Button, DialogTitle, FormControl, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import IconButton from 'components/@extended/IconButton';
 import MainCard from 'components/MainCard';
@@ -35,10 +35,11 @@ const FilterModal = ({
         </IconButton>
       )}
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ p: 3 }}>
-        <FormControl style={{ width: '220px' }}>
+        <FormControl style={{ display:'flex' }}>
           {/* <InputLabel htmlFor="acc">Accomodation</InputLabel> */}
-          <DialogTitle>Accomodation
-            {acc.map((accOption) => (
+          <Typography variant='h5'>Accomodation</Typography>
+          <Stack direction='row'>
+          {acc.map((accOption) => (
               <Button 
                 id="acc"
                 key={accOption}
@@ -56,7 +57,8 @@ const FilterModal = ({
                 {accOption}
               </Button>
             ))}
-            </DialogTitle>
+          </Stack>
+            
         </FormControl>
       </Stack>
     </MainCard>

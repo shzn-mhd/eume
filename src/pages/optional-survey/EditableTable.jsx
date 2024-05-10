@@ -35,12 +35,7 @@ const EditableTable = ({ data }) => {
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [searchValue, setSearchValue] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedProvince, setSelectedProvince] = useState('');
-  const [selectedAccommodation, setSelectedAccommodation] = useState();
-
+  
   const [selectedAcc, setSelectedAcc] = useState('');
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -65,34 +60,12 @@ const EditableTable = ({ data }) => {
 
         let searchedData = filteredData;
 
-        // Apply search filtering if searchValue is present
-        if (searchValue) {
-          searchedData = filteredData.filter(
-            (item) =>
-              item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.province.toLowerCase().includes(searchValue.toLowerCase())
-          );
-        }
-
-        // Apply gender filtering only if selectedGender is present
-        if (selectedGender) {
-          searchedData = searchedData.filter((item) => item.gender === selectedGender);
-        }
-
-        if (selectedAccommodation) {
-          searchedData = searchedData.filter((item) => item.accommodation === selectedAccommodation);
-        }
-
-        if (selectedCountry) {
-          searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
-        }
-
-        if (selectedProvince) {
-          searchedData = searchedData.filter((item) => item.province === selectedProvince);
-        }
-
-        if(selectedAcc) {
-          searchedData = searchedData.filter((item) => item.accommodation === selectedAcc);
+        if (selectedAcc) {
+          console.log("selectedAcc",selectedAcc);
+          // Filter out items with no accommodation value
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.accommodation);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.accommodation.toString() === selectedAcc);
+          console.log("searchedData2",searchedData);
         }
 
         setEmpList(searchedData);
@@ -102,7 +75,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince,selectedAccommodation, selectedAcc]); // Add both searchValue and selectedGender as dependencies
+  }, [selectedAcc]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -215,11 +188,6 @@ const EditableTable = ({ data }) => {
   };
 
   const ResetTable = () => {
-    setSelectedGender('');
-    setSearchValue('');
-    setSelectedCountry('');
-    setSelectedProvince('');
-
     setSelectedAcc('');
   };
 
@@ -229,7 +197,7 @@ const EditableTable = ({ data }) => {
       title="Optional Survey Table"
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-          <TextField
+          {/* <TextField
             fullWidth
             sx={{
               borderRadius: '4px',
@@ -244,9 +212,9 @@ const EditableTable = ({ data }) => {
             }}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-          />
+          /> */}
 
-          <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
+          {/* <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} /> */}
 
           <Button
             size="small"
@@ -317,15 +285,6 @@ const EditableTable = ({ data }) => {
       <Dialog TransitionComponent={PopupTransition} onClose={handleModalClose} open={openFilterModal} scroll="body">
         <FilterModal
           onClose={handleModalClose}
-          selectedGender={selectedGender}
-          setSelectedGender={setSelectedGender}
-          selectedCountry={selectedCountry}
-          setSelectedCountry={setSelectedCountry}
-          selectedProvince={selectedProvince}
-          setSelectedProvince={setSelectedProvince}
-          selectedAccommodation={selectedAccommodation}
-          setSelectedAccommodation = {setSelectedAccommodation}
-
           selectedAcc={selectedAcc}
           setSelectedAcc={setSelectedAcc}
         />
