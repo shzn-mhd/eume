@@ -24,7 +24,6 @@ import motivationList from 'data/motivation';
 import provinceList from 'data/province';
 import stayList from 'data/stay';
 import transList from 'data/transport';
-import DashboardDefault from 'pages/dashboard/default';
 
 const Filter = ({
   open,
