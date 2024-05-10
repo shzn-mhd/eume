@@ -162,10 +162,11 @@ const DashboardDefault = ({
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
         <AnalyticEcommerce title="Male"count={genderCounts['Muller'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
-        <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+       
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
