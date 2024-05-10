@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // material-ui
 import {
@@ -26,6 +26,8 @@ import MonthlyBarChart from 'sections/dashboard/default/MonthlyBarChart';
 import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
 import SalesChart from 'sections/dashboard/SalesChart';
 import OrdersTable from 'sections/dashboard/default/OrdersTable';
+import { db } from 'config/firebase';
+import { getDocs, collection, query, where, count } from 'firebase/firestore';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -69,9 +71,87 @@ const status = [
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
-const DashboardDefault = () => {
+const DashboardDefault = ({
+}) => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
+
+  const [empCount, setEmpCount] = useState(0);
+  const [empList, setEmpList] = useState([]);
+  const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
+  const [withPetCounts, setWithPetCounts] = useState({});
+  const [withStayCounts, setWithStayCounts] = useState({});
+  const [genderCounts, setGenderCounts] = useState({});
+
+
+  const empCollectionRef = collection(db, 'survey_data');
+
+  useEffect(() => {
+    const getEmpList = async () => {
+      try {
+        const data = await getDocs(empCollectionRef);
+
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+
+       let totalCount = 0;
+
+       const counts = filteredData.reduce((acc, entry) => {
+        const placeOfOrigin = entry.placeOfOrigin;
+        if (placeOfOrigin && placeOfOrigin !== 'Select Country') {
+          acc +=1;
+          totalCount++;
+        }
+        return acc;
+       }, 0);
+
+       let totalPetCount = 0;
+       const countPet = filteredData.reduce((acc, entry) => {
+        const withPet = entry.withPet;
+        if(withPet === 'Yes' || withPet === 'No'){
+          acc[withPet] = (acc[withPet] || 0) + 1;
+          totalPetCount++;
+        }
+        return acc;
+       })
+
+       let totalStayCount = 0;
+       const stayCount = filteredData.reduce((acc, entry) => {
+        const stayOvernight = entry.stayOvernight;
+        if(stayOvernight === 'Yes' || stayOvernight === 'No'){
+          acc[stayOvernight] = (acc[stayOvernight] || 0) +1;
+          totalStayCount++; 
+        }
+        return acc;
+       })
+
+       let totalGender = 0;
+       const genderCount = filteredData.reduce((acc, entry) => {
+        const gender = entry.gender;
+        if(gender === 'Muller' || gender === 'Viro') {
+          acc[gender] = (acc[gender] || 0) +1;
+          totalGender++;
+        }
+        return acc;
+       })
+
+        // let searchedData = filteredData;
+        setEmpList(filteredData);
+        setEmpCount(filteredData.length);
+        setTotalPlaceOfOriginCount(counts);
+        setWithPetCounts(countPet);
+        setWithStayCounts(stayCount);
+        setGenderCounts(genderCount);
+
+      } catch (err){
+        console.log(err);
+      }
+    };
+    getEmpList();
+  },[]);
+
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -80,16 +160,21 @@ const DashboardDefault = () => {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title="Male"count={genderCounts['Muller'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+       
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Sales" count="$35,078" percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title="People Stay" count={withStayCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title="People Won't Stay" count={withStayCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
