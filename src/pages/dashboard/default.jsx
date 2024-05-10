@@ -27,7 +27,7 @@ import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
 import SalesChart from 'sections/dashboard/SalesChart';
 import OrdersTable from 'sections/dashboard/default/OrdersTable';
 import { db } from 'config/firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where, count } from 'firebase/firestore';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -78,6 +78,7 @@ const DashboardDefault = ({
 
   const [empCount, setEmpCount] = useState(0);
   const [empList, setEmpList] = useState([]);
+  const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -85,15 +86,28 @@ const DashboardDefault = ({
     const getEmpList = async () => {
       try {
         const data = await getDocs(empCollectionRef);
+
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
+       let totalCount = 0;
+
+       const counts = filteredData.reduce((acc, entry) => {
+        const placeOfOrigin = entry.placeOfOrigin;
+        if (placeOfOrigin && placeOfOrigin !== 'Select Country') {
+          acc +=1;
+          totalCount++;
+        }
+        return acc;
+       }, 0);
+
         // let searchedData = filteredData;
         setEmpList(filteredData);
-
         setEmpCount(filteredData.length);
+        setTotalPlaceOfOriginCount(counts)
+
       } catch (err){
         console.log(err);
       }
@@ -112,7 +126,7 @@ const DashboardDefault = ({
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
