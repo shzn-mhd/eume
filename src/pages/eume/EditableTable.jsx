@@ -27,6 +27,7 @@ import usePagination from 'hooks/usePagination';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
+import Filter from './components/Filter';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -49,6 +50,11 @@ const EditableTable = ({ data }) => {
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectedTrans, setSelectedTrans] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const handleStoryDrawerOpen = () => {
+    setOpenStoryDrawer((prevState) => !prevState);
+  };
 
   const [sorting, setSorting] = useState([
     {
@@ -56,6 +62,8 @@ const EditableTable = ({ data }) => {
       desc: true
     }
   ]);
+
+  const [sortValue, setSortValue] = useState('');
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -103,35 +111,35 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.age === selectedAge);
         }
 
-        if(selectedMotivation) {
+        if (selectedMotivation) {
           searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
         }
 
-        if(selectedModality) {
+        if (selectedModality) {
           searchedData = searchedData.filter((item) => item.modality === selectedModality);
         }
 
-        if(selectedPet) {
+        if (selectedPet) {
           searchedData = searchedData.filter((item) => item.withPet === selectedPet);
         }
 
-        if(selectedStay) {
+        if (selectedStay) {
           searchedData = searchedData.filter((item) => item.stayOvernight === selectedStay);
         }
 
-        if(selectedStayList) {
+        if (selectedStayList) {
           searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
         }
-        
-        if(selectedDayStay) {
+
+        if (selectedDayStay) {
           searchedData = searchedData.filter((item) => item.noOfDays === selectedDayStay);
         }
 
-        if(selectedAcc) {
+        if (selectedAcc) {
           searchedData = searchedData.filter((item) => item.accommodationType === selectedAcc);
         }
 
-        if(selectedTrans) {
+        if (selectedTrans) {
           searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
         }
 
@@ -142,7 +150,21 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince, selectedAge, selectedMotivation, selectedModality, selectedPet, selectedStay, selectedStayList, selectedDayStay, selectedAcc, selectedTrans]); // Add both searchValue and selectedGender as dependencies
+  }, [
+    searchValue,
+    selectedGender,
+    selectedCountry,
+    selectedProvince,
+    selectedAge,
+    selectedMotivation,
+    selectedModality,
+    selectedPet,
+    selectedStay,
+    selectedStayList,
+    selectedDayStay,
+    selectedAcc,
+    selectedTrans
+  ]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -152,7 +174,23 @@ const EditableTable = ({ data }) => {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  
+
+  const handleSortingChange = (columnId) => {
+    setSorting((oldSorting) => {
+      // If the column was already being sorted by, toggle the direction
+      if (oldSorting.length > 0 && oldSorting[0].id === columnId) {
+        return [{ id: columnId, desc: !oldSorting[0].desc }];
+      }
+      // Otherwise, sort by the new column in ascending order
+      return [{ id: columnId, desc: false }];
+    });
+  };
+
+  useEffect(() => {
+    handleSortingChange(sortValue);
+    console.log('sorting id', sortValue);
+  }, [sortValue]);
+
   const table = useReactTable({
     // data: _DATA.currentData(),
     // data: empList,
@@ -177,6 +215,7 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+            // onClick: () => handleSortingChange('placeOfOrigin')
           }
         },
         {
@@ -267,54 +306,6 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         }
-        // {
-        //   header: 'Activity',
-        //   accessorKey: 'activity',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Feedback',
-        //   accessorKey: 'feedback',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Language',
-        //   accessorKey: 'language',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Number of People',
-        //   accessorKey: 'numOfPeople',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Rating',
-        //   accessorKey: 'rating',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        // {
-        //   header: 'Reason',
-        //   accessorKey: 'reason',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
       ],
       []
     ),
@@ -397,7 +388,7 @@ const EditableTable = ({ data }) => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
 
-          <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
+          <SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
           <Button
             size="small"
@@ -405,7 +396,7 @@ const EditableTable = ({ data }) => {
             startIcon={<PlusOutlined />}
             color="primary"
             variant="contained"
-            onClick={() => setOpenFilterModal(true)}
+            onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
           >
             Filter Options
           </Button>
@@ -432,7 +423,7 @@ const EditableTable = ({ data }) => {
               top: 0,
               zIndex: '100',
               // backgroundColor: theme.palette.background.default
-              backgroundColor:'#eeedfc'
+              backgroundColor: '#eeedfc'
             }}
           >
             {table.getHeaderGroups().map((headerGroup) => (
@@ -494,6 +485,34 @@ const EditableTable = ({ data }) => {
           setSelectedTrans={setSelectedTrans}
         />
       </Dialog>
+      <Filter
+        open={openStoryDrawer}
+        handleDrawerOpen={handleStoryDrawerOpen}
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedProvince={selectedProvince}
+        setSelectedProvince={setSelectedProvince}
+        selectedAge={selectedAge}
+        setSelectedAge={setSelectedAge}
+        selectedMotivation={selectedMotivation}
+        setSelectedMotivation={setSelectedMotivation}
+        selectedModality={selectedModality}
+        setSelectedModality={setSelectedModality}
+        selectedPet={selectedPet}
+        setSelectedPet={setSelectedPet}
+        selectedStay={selectedStay}
+        setSelectedStay={setSelectedStay}
+        selectedStayList={selectedStayList}
+        setSelectedStayList={setSelectedStayList}
+        selectedDayStay={selectedDayStay}
+        setSelectedDayStay={setSelectedDayStay}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc}
+        selectedTrans={selectedTrans}
+        setSelectedTrans={setSelectedTrans}
+      />
     </MainCard>
   );
 };
