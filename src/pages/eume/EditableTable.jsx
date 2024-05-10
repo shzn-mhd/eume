@@ -184,6 +184,22 @@ const EditableTable = ({ data }) => {
       // Otherwise, sort by the new column in ascending order
       return [{ id: columnId, desc: false }];
     });
+
+    // Sort the empList data based on the columnId and sort direction
+    setEmpList((prevEmpList) =>
+      prevEmpList.slice().sort((a, b) => {
+        const sortValueA = a[columnId].toLowerCase();
+        const sortValueB = b[columnId].toLowerCase();
+
+        if (sortValueA < sortValueB) {
+          return sorting[0].desc ? 1 : -1;
+        }
+        if (sortValueA > sortValueB) {
+          return sorting[0].desc ? -1 : 1;
+        }
+        return 0;
+      })
+    );
   };
 
   useEffect(() => {
