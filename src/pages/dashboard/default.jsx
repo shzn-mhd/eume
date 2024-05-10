@@ -81,6 +81,8 @@ const DashboardDefault = ({
   const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
   const [withPetCounts, setWithPetCounts] = useState({});
   const [withStayCounts, setWithStayCounts] = useState({});
+  const [genderCounts, setGenderCounts] = useState({});
+
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -125,12 +127,23 @@ const DashboardDefault = ({
         return acc;
        })
 
+       let totalGender = 0;
+       const genderCount = filteredData.reduce((acc, entry) => {
+        const gender = entry.gender;
+        if(gender === 'Muller' || gender === 'Viro') {
+          acc[gender] = (acc[gender] || 0) +1;
+          totalGender++;
+        }
+        return acc;
+       })
+
         // let searchedData = filteredData;
         setEmpList(filteredData);
         setEmpCount(filteredData.length);
         setTotalPlaceOfOriginCount(counts);
         setWithPetCounts(countPet);
         setWithStayCounts(stayCount);
+        setGenderCounts(genderCount);
 
       } catch (err){
         console.log(err);
@@ -148,6 +161,8 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title="Male"count={genderCounts['Muller'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
