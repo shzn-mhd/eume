@@ -80,6 +80,7 @@ const DashboardDefault = ({
   const [empList, setEmpList] = useState([]);
   const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
   const [withPetCounts, setWithPetCounts] = useState({});
+  const [withStayCounts, setWithStayCounts] = useState({});
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -114,11 +115,22 @@ const DashboardDefault = ({
         return acc;
        })
 
+       let totalStayCount = 0;
+       const stayCount = filteredData.reduce((acc, entry) => {
+        const stayOvernight = entry.stayOvernight;
+        if(stayOvernight === 'Yes' || stayOvernight === 'No'){
+          acc[stayOvernight] = (acc[stayOvernight] || 0) +1;
+          totalStayCount++; 
+        }
+        return acc;
+       })
+
         // let searchedData = filteredData;
         setEmpList(filteredData);
         setEmpCount(filteredData.length);
         setTotalPlaceOfOriginCount(counts);
         setWithPetCounts(countPet);
+        setWithStayCounts(stayCount);
 
       } catch (err){
         console.log(err);
@@ -145,7 +157,8 @@ const DashboardDefault = ({
         <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Sales" count="$35,078" percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title="People Stay" count={withStayCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title="People Won't Stay" count={withStayCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
