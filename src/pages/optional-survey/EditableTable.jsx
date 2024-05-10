@@ -40,6 +40,9 @@ const EditableTable = ({ data }) => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedAccommodation, setSelectedAccommodation] = useState();
+
+  const [selectedAcc, setSelectedAcc] = useState('');
+
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [sorting, setSorting] = useState([
@@ -88,6 +91,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.province === selectedProvince);
         }
 
+        if(selectedAcc) {
+          searchedData = searchedData.filter((item) => item.accommodation === selectedAcc);
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -95,7 +102,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, selectedGender, selectedCountry, selectedProvince,selectedAccommodation]); // Add both searchValue and selectedGender as dependencies
+  }, [searchValue, selectedGender, selectedCountry, selectedProvince,selectedAccommodation, selectedAcc]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   console.log('empList.length', empList.length);
@@ -212,6 +219,8 @@ const EditableTable = ({ data }) => {
     setSearchValue('');
     setSelectedCountry('');
     setSelectedProvince('');
+
+    setSelectedAcc('');
   };
 
   return (
@@ -220,7 +229,7 @@ const EditableTable = ({ data }) => {
       title="Optional Survey Table"
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-          {/* <TextField
+          <TextField
             fullWidth
             sx={{
               borderRadius: '4px',
@@ -235,11 +244,11 @@ const EditableTable = ({ data }) => {
             }}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-          /> */}
+          />
 
-          {/* <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} /> */}
+          <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
-          {/* <Button
+          <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
             startIcon={<PlusOutlined />}
@@ -248,9 +257,9 @@ const EditableTable = ({ data }) => {
             onClick={() => setOpenFilterModal(true)}
           >
             Filter Options
-          </Button> */}
+          </Button>
 
-          {/* <Button
+          <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
             color="error"
@@ -258,7 +267,7 @@ const EditableTable = ({ data }) => {
             onClick={() => ResetTable()}
           >
             Reset Filter
-          </Button> */}
+          </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
         </Stack>
@@ -314,9 +323,11 @@ const EditableTable = ({ data }) => {
           setSelectedCountry={setSelectedCountry}
           selectedProvince={selectedProvince}
           setSelectedProvince={setSelectedProvince}
-
           selectedAccommodation={selectedAccommodation}
           setSelectedAccommodation = {setSelectedAccommodation}
+
+          selectedAcc={selectedAcc}
+          setSelectedAcc={setSelectedAcc}
         />
       </Dialog>
     </MainCard>
