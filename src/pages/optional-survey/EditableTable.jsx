@@ -58,6 +58,8 @@ const EditableTable = ({ data }) => {
     }
   ]);
 
+  const [sortValue, setSortValue] = useState('');
+
   const empCollectionRef = collection(db, 'optional_survey_data');
 
   useEffect(() => {
@@ -120,6 +122,39 @@ const EditableTable = ({ data }) => {
     setPage(value);
   };
   
+  const handleSortingChange = (columnId) => {
+    setSorting((oldSorting) => {
+      // If the column was already being sorted by, toggle the direction
+      if (oldSorting.length > 0 && oldSorting[0].id === columnId) {
+        return [{ id: columnId, desc: !oldSorting[0].desc }];
+      }
+      // Otherwise, sort by the new column in ascending order
+      return [{ id: columnId, desc: false }];
+    });
+
+    // Sort the empList data based on the columnId and sort direction
+    setEmpList((prevEmpList) =>
+      prevEmpList.slice().sort((a, b) => {
+        const sortValueA = a[columnId];
+        const sortValueB = b[columnId];
+
+        if (sortValueA < sortValueB) {
+          return sorting[0].desc ? 1 : -1;
+        }
+        if (sortValueA > sortValueB) {
+          return sorting[0].desc ? -1 : 1;
+        }
+        return 0;
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.log('sorting id', sortValue);
+
+    handleSortingChange(sortValue);
+  }, [sortValue]);
+
   const table = useReactTable({
     // data: _DATA.currentData(),
     // data: empList,
@@ -253,7 +288,7 @@ const EditableTable = ({ data }) => {
             onChange={(e) => setSearchValue(e.target.value)}
           /> */}
 
-          {/* <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} /> */}
+<SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
           <Button
             size="small"
@@ -312,7 +347,7 @@ const EditableTable = ({ data }) => {
               </TableRow>
             ))}
 
-            <TableRow sx={{ '&:hover': { bgcolor: 'transparent !important' } }}>
+            <TableRow sx={{ position: 'sticky',bottom: 0, zIndex: '100', backgroundColor: 'white'}}>
               <TableCell sx={{ p: 2, py: 3 }} colSpan={11}>
                 <Pagination count={count} variant="outlined" color="primary" size="medium" page={page} onChange={handleChange} />
               </TableCell>

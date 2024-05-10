@@ -9,8 +9,8 @@ import { useTheme } from '@mui/material/styles';
  * import { ThemeMode } from 'config';
  *
  */
-import logoIconDark from 'assets/images/LOGO_2_MINC.png';
-import logoIcon from 'assets/images/LOGO_2_MINC.png';
+import logoIconDark from 'assets/images/EUME-logo-small.png';
+import logoIcon from 'assets/images/EUME-logo-small.png';
 import { ThemeMode } from 'config';
 
 // ==============================|| LOGO ICON SVG ||============================== //
