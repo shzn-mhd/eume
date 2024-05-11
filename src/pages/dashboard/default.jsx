@@ -160,20 +160,29 @@ const DashboardDefault = ({
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom: '20px'}}>
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
+        </div>
         <AnalyticEcommerce title="Male"count={genderCounts['Muller'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+
        
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom : '20px'}}>
         <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
+        </div>
         <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom: '20px'}}>
         <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        </div>
         <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom: '20px'}}>
         <AnalyticEcommerce title="People Stay" count={withStayCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        </div>
         <AnalyticEcommerce title="People Won't Stay" count={withStayCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
