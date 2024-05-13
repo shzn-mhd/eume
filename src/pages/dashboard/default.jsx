@@ -130,7 +130,7 @@ const DashboardDefault = ({
        let totalGender = 0;
        const genderCount = filteredData.reduce((acc, entry) => {
         const gender = entry.gender;
-        if(gender === 'Muller' || gender === 'Viro') {
+        if(gender === 'Male' || gender === 'Female') {
           acc[gender] = (acc[gender] || 0) +1;
           totalGender++;
         }
@@ -163,7 +163,7 @@ const DashboardDefault = ({
         <div style={{marginBottom: '20px'}}>
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
         </div>
-        <AnalyticEcommerce title="Male"count={genderCounts['Muller'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Male"count={genderCounts['Male'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
 
        
       </Grid>
@@ -171,7 +171,7 @@ const DashboardDefault = ({
         <div style={{marginBottom : '20px'}}>
         <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
         </div>
-        <AnalyticEcommerce title="Female"count={genderCounts['Viro'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Female"count={genderCounts['Female'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
