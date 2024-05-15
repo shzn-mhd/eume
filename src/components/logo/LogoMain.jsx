@@ -21,7 +21,7 @@ import logo from 'assets/images/EUME-dark-logo.png';
 const LogoMain = ({ reverse }) => {
   const theme = useTheme();
   return (
-    <img src={theme.palette.mode === ThemeMode.DARK ? logo : logoDark} alt="EUME" width="200"/>
+    <img src={theme.palette.mode === ThemeMode.DARK ? logo : logoDark} alt="EUME" width="150"/>
     // <h1>EUME</h1>
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
