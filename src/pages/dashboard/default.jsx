@@ -84,6 +84,10 @@ const DashboardDefault = ({
   const [withoutPetCount, setWithoutPetCount] = useState(0);
   const [stayOverNightYesCount, setStayOverNightYesCount] = useState(0);
   const [stayOverNightNoCount, setStayOverNightNoCount] = useState(0);
+  const [vacationCount, setVacationCount] = useState(0);
+  const [businessCount, setBusinessCount] = useState(0);
+  const [visitFamilyFriendsCount, setVisitFamilyFriendsCount] = useState(0);
+  const [otherCount, setOtherCount] = useState(0);
   
 
   const empCollectionRef = collection(db, 'survey_data');
@@ -131,6 +135,17 @@ const DashboardDefault = ({
         setStayOverNightYesCount(stayOverNightYesCount);
         setStayOverNightNoCount(stayOverNightNoCount);
 
+        // Count entries by motivation
+        const vacationCount = filteredData.filter(emp => emp.motivation === 'Vacation/leisure').length;
+        const businessCount = filteredData.filter(emp => emp.motivation === 'Business/meeting').length;
+        const visitFamilyFriendsCount = filteredData.filter(emp => emp.motivation === 'Visit family/friends').length;
+        const otherCount = filteredData.filter(emp => emp.motivation === 'Other').length;
+
+        setVacationCount(vacationCount);
+        setBusinessCount(businessCount);
+        setVisitFamilyFriendsCount(visitFamilyFriendsCount);
+        setOtherCount(otherCount);
+
       } catch (err){
         console.log(err);
       }
@@ -154,13 +169,13 @@ const DashboardDefault = ({
        
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <div style={{marginBottom : '20px'}}>
+        {/* <div style={{marginBottom : '20px'}}>
         <AnalyticEcommerce title="Total Country" count={<ul>
           {Object.entries(countryCounts).map(([country, count]) => (
             <li key={country}>{country}: {count}</li>
           ))}
         </ul>} />
-        </div>
+        </div> */}
         <AnalyticEcommerce title="Female"count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -174,6 +189,28 @@ const DashboardDefault = ({
         <AnalyticEcommerce title="People Stay" count={stayOverNightYesCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
         </div>
         <AnalyticEcommerce title="People Won't Stay" count={stayOverNightNoCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom : '20px'}}>
+        <AnalyticEcommerce title="Total Country" count={<ul>
+          {Object.entries(countryCounts).map(([country, count]) => (
+            <li key={country}>{country}: {count}</li>
+          ))}
+        </ul>} />
+        </div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom: '20px'}}>
+        <AnalyticEcommerce title="Vacation/Leisure"count={vacationCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        </div>
+        <AnalyticEcommerce title="Business/Meeting"count={businessCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <div style={{marginBottom: '20px'}}>
+        <AnalyticEcommerce title="Family/Friends" count={visitFamilyFriendsCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        </div>
+        <AnalyticEcommerce title="Other" count={otherCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
