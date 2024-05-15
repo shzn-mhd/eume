@@ -275,8 +275,8 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Days to Stay',
-          accessorKey: 'noOfDays',
+          header: 'Number of people',
+          accessorKey: 'noOfPeople',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -306,14 +306,14 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        // {
-        //   header: 'Number of Days',
-        //   accessorKey: 'noOfDays',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
+        {
+          header: 'Number of Days',
+          accessorKey: 'noOfDays',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
         {
           header: 'Accommodation Type',
           accessorKey: 'accommodationType',
