@@ -77,12 +77,10 @@ const DashboardDefault = ({
   const [slot, setSlot] = useState('week');
 
   const [empCount, setEmpCount] = useState(0);
-  const [empList, setEmpList] = useState([]);
-  const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
-  const [withPetCounts, setWithPetCounts] = useState({});
-  const [withStayCounts, setWithStayCounts] = useState({});
-  const [genderCounts, setGenderCounts] = useState({});
-
+  const [maleCount, setMaleCount] = useState(0);
+  const [femaleCount, setFemaleCount] = useState(0);
+  const [countryCounts, setCountryCounts] = useState({});
+  
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -96,54 +94,23 @@ const DashboardDefault = ({
           id: doc.id
         }));
 
-       let totalCount = 0;
-
-       const counts = filteredData.reduce((acc, entry) => {
-        const placeOfOrigin = entry.placeOfOrigin;
-        if (placeOfOrigin && placeOfOrigin !== 'Select Country') {
-          acc +=1;
-          totalCount++;
-        }
-        return acc;
-       }, 0);
-
-       let totalPetCount = 0;
-       const countPet = filteredData.reduce((acc, entry) => {
-        const withPet = entry.withPet;
-        if(withPet === 'Yes' || withPet === 'No'){
-          acc[withPet] = (acc[withPet] || 0) + 1;
-          totalPetCount++;
-        }
-        return acc;
-       })
-
-       let totalStayCount = 0;
-       const stayCount = filteredData.reduce((acc, entry) => {
-        const stayOvernight = entry.stayOvernight;
-        if(stayOvernight === 'Yes' || stayOvernight === 'No'){
-          acc[stayOvernight] = (acc[stayOvernight] || 0) +1;
-          totalStayCount++; 
-        }
-        return acc;
-       })
-
-       let totalGender = 0;
-       const genderCount = filteredData.reduce((acc, entry) => {
-        const gender = entry.gender;
-        if(gender === 'Male' || gender === 'Female') {
-          acc[gender] = (acc[gender] || 0) +1;
-          totalGender++;
-        }
-        return acc;
-       })
-
-        // let searchedData = filteredData;
-        setEmpList(filteredData);
+      
         setEmpCount(filteredData.length);
-        setTotalPlaceOfOriginCount(counts);
-        setWithPetCounts(countPet);
-        setWithStayCounts(stayCount);
-        setGenderCounts(genderCount);
+
+        const maleCount = filteredData.filter(emp => emp.gender === 'Male').length;
+        const femaleCount = filteredData.filter(emp => emp.gender === 'Female').length;
+
+        setMaleCount(maleCount);
+        setFemaleCount(femaleCount);
+
+        // Count entries by placeOfOrigin
+        const countryCounts = filteredData.reduce((counts, emp) => {
+          const country = emp.placeOfOrigin;
+          counts[country] = (counts[country] || 0) + 1;
+          return counts;
+        }, {});
+
+        setCountryCounts(countryCounts);
 
       } catch (err){
         console.log(err);
@@ -163,27 +130,31 @@ const DashboardDefault = ({
         <div style={{marginBottom: '20px'}}>
         <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
         </div>
-        <AnalyticEcommerce title="Male"count={genderCounts['Male'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Male"count={maleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
 
        
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title="Total Country" count={totalPlaceOfOriginCount} percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Total Country" count={<ul>
+          {Object.entries(countryCounts).map(([country, count]) => (
+            <li key={country}>{country}: {count}</li>
+          ))}
+        </ul>} percentage={70.5} extra="8,900" />
         </div>
-        <AnalyticEcommerce title="Female"count={genderCounts['Female'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Female"count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        {/* <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" /> */}
         </div>
-        <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" />
+        {/* <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" /> */}
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="People Stay" count={withStayCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        {/* <AnalyticEcommerce title="People Stay" count={withStayCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" /> */}
         </div>
-        <AnalyticEcommerce title="People Won't Stay" count={withStayCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        {/* <AnalyticEcommerce title="People Won't Stay" count={withStayCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="$20,395" /> */}
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
