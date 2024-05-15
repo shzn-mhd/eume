@@ -232,7 +232,6 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
-            // onClick: () => handleSortingChange('placeOfOrigin')
           }
         },
         {
@@ -472,7 +471,7 @@ const EditableTable = ({ data }) => {
               </TableRow>
             ))}
 
-            <TableRow sx={{ '&:hover': { bgcolor: 'transparent !important' } }}>
+            <TableRow sx={{ position: 'sticky',bottom: 0, zIndex: '100', backgroundColor: 'white'}}>
               <TableCell sx={{ p: 2, py: 3 }} colSpan={11}>
                 <Pagination count={count} variant="outlined" color="primary" size="medium" page={page} onChange={handleChange} />
               </TableCell>
@@ -511,6 +510,7 @@ const EditableTable = ({ data }) => {
         />
       </Dialog>
       <Filter
+      ResetTable={ResetTable}
       empList={empList}
         open={openStoryDrawer}
         handleDrawerOpen={handleStoryDrawerOpen}
