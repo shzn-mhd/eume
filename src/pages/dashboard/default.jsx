@@ -80,6 +80,8 @@ const DashboardDefault = ({
   const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
   const [countryCounts, setCountryCounts] = useState({});
+  const [withPetCount, setWithPetCount] = useState(0);
+  const [withoutPetCount, setWithoutPetCount] = useState(0);
   
 
   const empCollectionRef = collection(db, 'survey_data');
@@ -112,6 +114,14 @@ const DashboardDefault = ({
 
         setCountryCounts(countryCounts);
 
+
+         // Count entries by withPet
+         const withPetCount = filteredData.filter(emp => emp.withPet === 'Yes').length;
+         const withoutPetCount = filteredData.filter(emp => emp.withPet === 'No').length;
+ 
+         setWithPetCount(withPetCount);
+         setWithoutPetCount(withoutPetCount);
+
       } catch (err){
         console.log(err);
       }
@@ -140,15 +150,15 @@ const DashboardDefault = ({
           {Object.entries(countryCounts).map(([country, count]) => (
             <li key={country}>{country}: {count}</li>
           ))}
-        </ul>} percentage={70.5} extra="8,900" />
+        </ul>} />
         </div>
         <AnalyticEcommerce title="Female"count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        {/* <AnalyticEcommerce title="People with Pets"count={withPetCounts['Yes'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" /> */}
+        <AnalyticEcommerce title="People with Pets"count={withPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
         </div>
-        {/* <AnalyticEcommerce title="People without Pets"count={withPetCounts['No'] || 0} percentage={27.4} isLoss color="warning" extra="1,943" /> */}
+        <AnalyticEcommerce title="People without Pets"count={withoutPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
