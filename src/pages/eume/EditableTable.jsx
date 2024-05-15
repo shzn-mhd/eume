@@ -275,6 +275,14 @@ const EditableTable = ({ data }) => {
           }
         },
         {
+          header: 'Days to Stay',
+          accessorKey: 'noOfDays',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
           header: 'Pet',
           accessorKey: 'withPet',
           dataType: 'text',
@@ -298,14 +306,14 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        {
-          header: 'Number of Days',
-          accessorKey: 'noOfDays',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
+        // {
+        //   header: 'Number of Days',
+        //   accessorKey: 'noOfDays',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-center'
+        //   }
+        // },
         {
           header: 'Accommodation Type',
           accessorKey: 'accommodationType',
