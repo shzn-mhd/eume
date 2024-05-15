@@ -88,6 +88,7 @@ const DashboardDefault = ({
   const [businessCount, setBusinessCount] = useState(0);
   const [visitFamilyFriendsCount, setVisitFamilyFriendsCount] = useState(0);
   const [otherCount, setOtherCount] = useState(0);
+  const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
   
 
   const empCollectionRef = collection(db, 'survey_data');
@@ -146,6 +147,16 @@ const DashboardDefault = ({
         setVisitFamilyFriendsCount(visitFamilyFriendsCount);
         setOtherCount(otherCount);
 
+        // Count total entries for placeOfOrigin
+        const totalPlaceOfOriginCount = filteredData.reduce((count, emp) => {
+          if (emp.placeOfOrigin) {
+            return count + 1;
+          }
+          return count;
+        }, 0);
+
+        setTotalPlaceOfOriginCount(totalPlaceOfOriginCount);
+
       } catch (err){
         console.log(err);
       }
@@ -169,13 +180,10 @@ const DashboardDefault = ({
        
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        {/* <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title="Total Country" count={<ul>
-          {Object.entries(countryCounts).map(([country, count]) => (
-            <li key={country}>{country}: {count}</li>
-          ))}
-        </ul>} />
-        </div> */}
+        <div style={{marginBottom : '20px'}}>
+        <AnalyticEcommerce title="Country Total"count={totalPlaceOfOriginCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+
+        </div>
         <AnalyticEcommerce title="Female"count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
