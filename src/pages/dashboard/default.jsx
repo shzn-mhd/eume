@@ -201,7 +201,7 @@ const DashboardDefault = ({
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title="Total Country" count={<ul>
+        <AnalyticEcommerce title="Country wise Total" count={<ul>
           {Object.entries(countryCounts).map(([country, count]) => (
             <li key={country}>{country}: {count}</li>
           ))}
