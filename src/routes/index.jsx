@@ -12,8 +12,10 @@ import Loadable from 'components/Loadable';
 import { SimpleLayoutType } from 'config';
 import MainLayout from 'layout/MainLayout';
 import DashboardLayout from 'layout/Dashboard';
+// import DashboardDefault from 'pages/dashboard/default';
 
 // render - landing page
+const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
 const PagesLanding = Loadable(lazy(() => import('pages/landing'))); 
 const EditableTableListPage = Loadable(
   lazy(() => import("pages/eume/EditableTablePage"))
@@ -23,7 +25,7 @@ const AppCustomerCard = Loadable(
 );
 
 const MainPage = Loadable(
-  lazy(() => import("layout/MainLayout"))
+  lazy(() => import("layout/MainLayout")) 
 );
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -35,11 +37,13 @@ const router = createBrowserRouter(
       children: [
         {
           index: true,
-          element:<DashboardLayout />
+          element:<DashboardLayout /> 
+          // element:<DashboardDefault />
           // element: <EditableTableListPage />
         },
         {
-          element: <AppCustomerCard />
+          // element: <AppCustomerCard />
+          element: <DashboardDefault />
         }
       ]
     },

@@ -29,6 +29,8 @@ import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
 import DashboardDefault from 'pages/dashboard/default';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -387,7 +389,14 @@ const EditableTable = ({ data }) => {
     setSelectedDayStay('');
     setSelectedAcc('');
     setSelectedTrans('');
+
+
   };
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng) => {
+      i18n.changeLanguage(lng);
+    }
 
   return (
     <MainCard
@@ -436,6 +445,12 @@ const EditableTable = ({ data }) => {
           </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
+          <div>
+            <h1>{t('welcome')}</h1>
+            <p>{t('description')}</p>
+            <button onClick={() => changeLanguage('en')}>English</button>
+            <button onClick={() => changeLanguage('es')}>Español</button>
+          </div>
         </Stack>
       }
     >

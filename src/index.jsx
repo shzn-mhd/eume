@@ -43,6 +43,7 @@ import App from './App';
 import { store, persister } from 'store';
 import { ConfigProvider } from 'contexts/ConfigContext';
 import reportWebVitals from './reportWebVitals';
+import './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
