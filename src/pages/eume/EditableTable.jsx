@@ -29,6 +29,8 @@ import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
 import DashboardDefault from 'pages/dashboard/default';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -52,6 +54,7 @@ const EditableTable = ({ data }) => {
   const [selectedTrans, setSelectedTrans] = useState('');
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -387,12 +390,29 @@ const EditableTable = ({ data }) => {
     setSelectedDayStay('');
     setSelectedAcc('');
     setSelectedTrans('');
+
+
   };
+    const { t, i18n } = useTranslation();
+    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+    const languageOptions = [
+      { code: 'en', label: 'English' },
+      { code: 'es', label: 'Español' }
+    ];
+
+    const handleLanguageChange = (event, value) => {
+      if (value) {
+        i18n.changeLanguage(value.code);
+        setSelectedLanguage(value.code);
+      }
+    };
+    
 
   return (
     <MainCard
       content={false}
-      title="Survey Table"
+      title={t("Survey Table")}
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <TextField
@@ -422,7 +442,7 @@ const EditableTable = ({ data }) => {
             variant="contained"
             onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
           >
-            Filter Options
+            {t('Filter Options')}
           </Button>
 
           <Button
@@ -432,10 +452,31 @@ const EditableTable = ({ data }) => {
             variant="contained"
             onClick={() => ResetTable()}
           >
-            Reset Filter
+            {t('Reset Filter')}
           </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
+          <div>
+          </div>
+          <Stack direction="row" spacing={2} justifyContent="center">
+          <FormControl style={{ width: '220px' }}>
+            <Autocomplete
+              id="language"
+              options={languageOptions}
+              getOptionLabel={(option) => option.label}
+              value={languageOptions.find((option) => option.code === selectedLanguage) || null}
+              onChange={handleLanguageChange}
+              sx={{
+                borderRadius: '4px',
+                bgcolor: theme.palette.background.paper,
+                boxShadow: theme.customShadows.primary,
+                border: `1px solid ${theme.palette.primary.main}`
+              }}
+              renderInput={(params) => <TextField {...params} label="Language" />}
+              />
+          </FormControl>
+          </Stack>
+             
         </Stack>
       }
     >
