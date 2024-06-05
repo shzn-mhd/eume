@@ -53,7 +53,7 @@ const icons = {
 
 const applications = {
   id: "group-applications",
-  title: <FormattedMessage id="applications" />,
+  // title: <FormattedMessage id="applications" />,
   icon: icons.AppstoreAddOutlined,
   type: "group",
   children: [
