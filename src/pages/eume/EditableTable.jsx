@@ -222,6 +222,38 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
+          header: 'Accommodation Type',
+          accessorKey: 'accommodationType',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Activity',
+          accessorKey: 'activity',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Activity Reason',
+          accessorKey: 'activityReason',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Age',
+          accessorKey: 'age',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
           header: 'Date',
           accessorKey: 'date',
           dataType: 'text',
@@ -230,7 +262,55 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Country',
+          header: 'Gender',
+          accessorKey: 'gender',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Language',
+          accessorKey: 'language',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Modality',
+          accessorKey: 'modality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Motivation',
+          accessorKey: 'motivation',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'No of Days',
+          accessorKey: 'noOfDays',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'No Of People',
+          accessorKey: 'noOfPeople',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Place of Origin',
           accessorKey: 'placeOfOrigin',
           dataType: 'text',
           meta: {
@@ -246,55 +326,15 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Gender',
-          accessorKey: 'gender',
+          header: 'Reason',
+          accessorKey: 'reason',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Age',
-          accessorKey: 'age',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Motivation',
-          accessorKey: 'motivation',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Modality',
-          accessorKey: 'modality',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Number of people',
-          accessorKey: 'noOfPeople',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Pet',
-          accessorKey: 'withPet',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Stay',
+          header: 'Stay overnight',
           accessorKey: 'stayOvernight',
           dataType: 'text',
           meta: {
@@ -302,7 +342,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Place',
+          header: 'Stay Place',
           accessorKey: 'stayPlace',
           dataType: 'text',
           meta: {
@@ -310,29 +350,29 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Number of Days',
-          accessorKey: 'noOfDays',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Accommodation Type',
-          accessorKey: 'accommodationType',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Transport',
+          header: 'Transportation',
           accessorKey: 'transportation',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
-        }
+        },
+        {
+          header: 'Transportation Reason',
+          accessorKey: 'transportationReason',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'With Pet',
+          accessorKey: 'withPet',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
       ],
       []
     ),
@@ -459,7 +499,7 @@ const EditableTable = ({ data }) => {
           <div>
           </div>
           <Stack direction="row" spacing={2} justifyContent="center">
-          <FormControl style={{ width: '220px' }}>
+          <FormControl style={{ width: '150px' }}>
             <Autocomplete
               id="language"
               options={languageOptions}

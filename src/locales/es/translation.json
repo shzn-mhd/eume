@@ -2,6 +2,20 @@
     "Filter Options": "Opciones de Filtro",
     "Reset Filter": "Restablecer Filtro",
     "Survey Table": "Encuesta Tabla",
-    "Optional Survey Table": "Mesa de Encuesta Opcional"
+    "Optional Survey Table": "Mesa de Encuesta Opcional",
+    "Date" : "Fecha",
+    "Country": "País",
+    "Province": "Provincia",
+    "Gender": "Género",
+    "Age":"Edad",
+    "Motivation":"Motivación",
+    "Modality":"Modalidad",
+    "No of People": "No de Personas",
+    "Pet":"Mascota",
+    "Stay":"Permanecer",
+    "Place":"Lugar",
+    "Number Of Days":"Número de días",
+    "Accommodation Type": "Tipo de alojamiento",
+    "Transport":"Transporte"
 }
 
