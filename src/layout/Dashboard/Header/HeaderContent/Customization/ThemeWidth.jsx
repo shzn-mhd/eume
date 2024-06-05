@@ -26,7 +26,7 @@ const ThemeWidth = () => {
       row
       aria-label="payment-card"
       name="payment-card"
-      value={container ? 'container' : 'fluid'}
+      value={container ? 'fluid' : 'container'}
       onChange={handleContainerChange}
     >
       <Grid container spacing={1.75} sx={{ ml: 0 }}>

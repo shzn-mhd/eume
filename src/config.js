@@ -78,7 +78,8 @@ const config = {
    * default - true which show container
    * false - will show fluid
    */
-  container: true,
+  container: false,
+  // fluid: true,
 
   /**
    * the props used for default theme palette mode
