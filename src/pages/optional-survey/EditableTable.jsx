@@ -167,16 +167,72 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: 'Accommodation',
-          accessorKey: 'accommodation',
+          header: 'Accessibility',
+          accessorKey: 'accessibility',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Service of restauration',
-          accessorKey: 'service',
+          header: 'Catering Services',
+          accessorKey: 'catering_services',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Cleaning Conservation',
+          accessorKey: 'cleaning_conservation',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Cultural Offerings',
+          accessorKey: 'cultural_offerings',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'General Assesment',
+          accessorKey: 'general_assessment',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Lodging',
+          accessorKey: 'lodging',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Optional Feedback',
+          accessorKey: 'optionalFeedback',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Quality Price Ratio',
+          accessorKey: 'quality_price_ratio',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: 'Retailers',
+          accessorKey: 'retailers',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -191,24 +247,16 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Access',
-          accessorKey: 'access',
+          header: 'Sustainability',
+          accessorKey: 'sustainability',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
         },
         {
-          header: 'Quality/price ratio of the destination',
-          accessorKey: 'qualityPriceRatio',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: 'Cleaning and conservation of the environment',
-          accessorKey: 'cleaningConservation',
+          header: 'Tourist Information',
+          accessorKey: 'tourist_information',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -329,7 +377,7 @@ const EditableTable = ({ data }) => {
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
           <Stack direction="row" spacing={2} justifyContent="center">
-          <FormControl style={{ width: '220px' }}>
+          <FormControl style={{ width: '150px' }}>
             <Autocomplete
               id="language"
               options={languageOptions}

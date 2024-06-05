@@ -2,5 +2,19 @@
     "Filter Options": "Filter Options",
     "Reset Filter": "Reset Filter",
     "Survey Table": "Survey Table",
-    "Optional Survey Table" : "Optional Survey Table"
+    "Optional Survey Table" : "Optional Survey Table",
+    "Date" : "Date",
+    "Country": "Country",
+    "Province": "Province",
+    "Gender": "Gender",
+    "Age":"Age",
+    "Motivation":"Motivation",
+    "Modality":"Modality",
+    "No of People": "No of People",
+    "Pet":"Pet",
+    "Stay":"Stay",
+    "Place":"Place",
+    "Number Of Days":"Number Of Days",
+    "Accommodation Type": "Accommodation Type",
+    "Transport":"Transport"
   }
