@@ -99,7 +99,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
           <Box sx={{ p: 1, alignItems:'center',justifyContent:"center", maxHeight:'500px',overflowY:'auto'}}>
             <Stack direction="column" spacing={3} justifyContent="center" sx={{ p: 1 }}>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">Accomodation</Typography>
+                <Typography variant="h5">Accessibility</Typography> 
                 <Stack direction="row" justifyContent="center" >
                   {acc.map((accOption) => (
                     <Button
@@ -127,7 +127,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">Service of Restauration</Typography>
+                <Typography variant="h5">Catering Services</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -183,7 +183,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">Access</Typography>
+                <Typography variant="h5">Cleaning Conservation</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -239,7 +239,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">Cleaning and Conservation of the Environment</Typography>
+                <Typography variant="h5">Retailers </Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
