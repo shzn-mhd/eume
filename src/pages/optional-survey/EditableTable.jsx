@@ -33,16 +33,16 @@ import { useTranslation } from 'react-i18next';
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
-
+  const { t, i18n } = useTranslation();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  
+
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
   const [selectedSignaling, setSelectedSignaling] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
-  const [selectedQualityPriceRatio,setSelectedQualityPriceRatio] = useState('');
+  const [selectedQualityPriceRatio, setSelectedQualityPriceRatio] = useState('');
   const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -122,7 +122,7 @@ const EditableTable = ({ data }) => {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  
+
   const handleSortingChange = (columnId) => {
     setSorting((oldSorting) => {
       // If the column was already being sorted by, toggle the direction
@@ -167,7 +167,7 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: 'Accessibility',
+          header: t('Accessibility'),
           accessorKey: 'accessibility',
           dataType: 'text',
           meta: {
@@ -175,7 +175,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Catering Services',
+          header: t('Catering Services'),
           accessorKey: 'catering_services',
           dataType: 'text',
           meta: {
@@ -183,7 +183,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Cleaning Conservation',
+          header: t('Cleaning Conservation'),
           accessorKey: 'cleaning_conservation',
           dataType: 'text',
           meta: {
@@ -191,7 +191,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Cultural Offerings',
+          header: t('Cultural Offerings'),
           accessorKey: 'cultural_offerings',
           dataType: 'text',
           meta: {
@@ -199,7 +199,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'General Assesment',
+          header: t('General Assesment'),
           accessorKey: 'general_assessment',
           dataType: 'text',
           meta: {
@@ -207,7 +207,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Lodging',
+          header: t('Lodging'),
           accessorKey: 'lodging',
           dataType: 'text',
           meta: {
@@ -215,7 +215,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Optional Feedback',
+          header: t('Optional Feedback'),
           accessorKey: 'optionalFeedback',
           dataType: 'text',
           meta: {
@@ -223,7 +223,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Quality Price Ratio',
+          header: t('Quality Price Ratio'),
           accessorKey: 'quality_price_ratio',
           dataType: 'text',
           meta: {
@@ -231,7 +231,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Retailers',
+          header: t('Retailers'),
           accessorKey: 'retailers',
           dataType: 'text',
           meta: {
@@ -239,7 +239,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Signaling',
+          header: t('Signaling'),
           accessorKey: 'signaling',
           dataType: 'text',
           meta: {
@@ -247,7 +247,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Sustainability',
+          header: t('Sustainability'),
           accessorKey: 'sustainability',
           dataType: 'text',
           meta: {
@@ -255,15 +255,15 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Tourist Information',
+          header: t('Tourist Information'),
           accessorKey: 'tourist_information',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           }
-        },
+        }
       ],
-      []
+      [t]
     ),
     state: {
       sorting
@@ -314,7 +314,7 @@ const EditableTable = ({ data }) => {
     setSelectedCleaningConservation('');
   };
 
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const languageOptions = [
@@ -332,7 +332,7 @@ const EditableTable = ({ data }) => {
   return (
     <MainCard
       content={false}
-      title={t("Optional Survey Table")}
+      title={t('Optional Survey Table')}
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           {/* <TextField
@@ -352,7 +352,7 @@ const EditableTable = ({ data }) => {
             onChange={(e) => setSearchValue(e.target.value)}
           /> */}
 
-<SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
+          <SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
           <Button
             size="small"
@@ -376,7 +376,7 @@ const EditableTable = ({ data }) => {
           </Button>
 
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
-          <Stack direction="row" spacing={2} justifyContent="center">
+          {/* <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '150px' }}>
             <Autocomplete
               id="language"
@@ -393,7 +393,7 @@ const EditableTable = ({ data }) => {
               renderInput={(params) => <TextField {...params} label="Language" />}
               />
           </FormControl>
-          </Stack>
+          </Stack> */}
         </Stack>
       }
     >
@@ -405,7 +405,7 @@ const EditableTable = ({ data }) => {
               top: 0,
               zIndex: '100',
               // backgroundColor: theme.palette.background.default
-              backgroundColor:'#eeedfc'
+              backgroundColor: '#eeedfc'
             }}
           >
             {table.getHeaderGroups().map((headerGroup) => (
@@ -429,7 +429,7 @@ const EditableTable = ({ data }) => {
               </TableRow>
             ))}
 
-            <TableRow sx={{ position: 'sticky',bottom: 0, zIndex: '100', backgroundColor: 'white'}}>
+            <TableRow sx={{ position: 'sticky', bottom: 0, zIndex: '100', backgroundColor: 'white' }}>
               <TableCell sx={{ p: 2, py: 3 }} colSpan={11}>
                 <Pagination count={count} variant="outlined" color="primary" size="medium" page={page} onChange={handleChange} />
               </TableCell>
@@ -439,16 +439,12 @@ const EditableTable = ({ data }) => {
       </Box>
 
       <Dialog TransitionComponent={PopupTransition} onClose={handleModalClose} open={openFilterModal} scroll="body">
-        <FilterModal
-          onClose={handleModalClose}
-          selectedAcc={selectedAcc}
-          setSelectedAcc={setSelectedAcc}
-        />
+        <FilterModal onClose={handleModalClose} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
       </Dialog>
       <Filter
-      empList={empList}
-      open={openStoryDrawer}
-      ResetTable={ResetTable}
+        empList={empList}
+        open={openStoryDrawer}
+        ResetTable={ResetTable}
         handleDrawerOpen={handleStoryDrawerOpen}
         selectedAcc={selectedAcc}
         setSelectedAcc={setSelectedAcc}

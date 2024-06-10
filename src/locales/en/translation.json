@@ -16,5 +16,18 @@
     "Place":"Place",
     "Number Of Days":"Number Of Days",
     "Accommodation Type": "Accommodation Type",
-    "Transport":"Transport"
+    "Transport":"Transport",
+    "Accessibility":"Accessibility",
+    "Catering Services": "Catering Services",
+    "Cleaning Conservation": "Cleaning Conservation",
+    "Cultural Offerings":"Cultural Offerings",
+    "General Assesment":"General Assesment",
+    "Lodging":"Lodging",
+    "Optional Feedback":"Optional Feedback",
+    "Quality Price Ratio":"Quality Price Ratio",
+    "Retailers": "Retailers",
+    "Signaling":"Signaling",
+    "Sustainability":"Sustainability",
+    "Tourist Information":"Tourist Information",
+    "Dashboard":"Dashboard"
   }
