@@ -29,6 +29,17 @@
     "Signaling":"Señalización",
     "Sustainability":"Sostenibilidad",
     "Tourist Information":"Información turística",
-    "Dashboard":"Panel"
+    "Dashboard":"Panel",
+    "Activity":"Actividad",
+    "Activity Reason":"Motivo de la actividad",
+    "Language":"idioma",
+    "No of Days":"Nº de Días",
+    "Place of Origin":"Lugar de Origen",
+    "Reason":"Razón",
+    "Stay overnight":"Pasar la noche",
+    "Stay Place":"Lugar de estancia",
+    "Transportation":"Transporte",
+    "Transportation Reason":"Motivo del transporte",
+    "With Pet":"Con mascota"
 }
 
