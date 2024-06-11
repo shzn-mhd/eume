@@ -183,27 +183,27 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title="Country Total"count={totalPlaceOfOriginCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Country Total")}count={totalPlaceOfOriginCount} percentage={27.4} isLoss color="warning" extra="1,943" />
 
         </div>
-        <AnalyticEcommerce title="Female"count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Female")} count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="People with Pets"count={withPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("People with Pets")} count={withPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
         </div>
-        <AnalyticEcommerce title="People without Pets"count={withoutPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("People without Pets")} count={withoutPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="People Stay" count={stayOverNightYesCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("People Stay")} count={stayOverNightYesCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
         </div>
-        <AnalyticEcommerce title="People Won't Stay" count={stayOverNightNoCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("People Won't Stay")} count={stayOverNightNoCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title="Country wise Total" count={<ul>
+        <AnalyticEcommerce title={t("Country wise Total")} count={<ul>
           {Object.entries(countryCounts).map(([country, count]) => (
             <li key={country}>{country}: {count}</li>
           ))}
@@ -212,15 +212,15 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="Vacation/Leisure"count={vacationCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Vacation/Leisure")} count={vacationCount} percentage={27.4} isLoss color="warning" extra="1,943" />
         </div>
-        <AnalyticEcommerce title="Business/Meeting"count={businessCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Business/Meeting")} count={businessCount} percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="Family/Friends" count={visitFamilyFriendsCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("Family/Friends")} count={visitFamilyFriendsCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
         </div>
-        <AnalyticEcommerce title="Other" count={otherCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("Other")} count={otherCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />

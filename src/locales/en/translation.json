@@ -49,8 +49,10 @@
     "Male" : "Male",
     "Female" : "Female",
     "People without Pets" : "People without Pets",
-    "People won't stay" : "People won't stay",
+    "People Won't Stay" : "People Won't Stay",
     "Country wise Total" : "Country wise Total",
     "Vacation/Leisure" : "Vacation/Leisure",
-    "Family/Friends" : "Family/Friends"
+    "Family/Friends" : "Family/Friends",
+    "Business/Meeting" : "Business/Meeting",
+    "Other" : "Other"
   }
