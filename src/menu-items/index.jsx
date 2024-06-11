@@ -10,7 +10,9 @@ import applications from './applications';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [applications]
+  items: [
+    applications,
+  ]
   // items: [widget, applications, formsTables, chartsMap, samplePage, pages, other]
 };
 

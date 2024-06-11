@@ -73,7 +73,7 @@ const Navigation = () => {
       })
     }));
   }
-
+  console.log(menuItem);
   const navGroups = menuItems.items.slice(0, lastItemIndex + 1).map((item, index) => {
     switch (item.type) {
       case 'group':
@@ -102,7 +102,7 @@ const Navigation = () => {
       default:
         return (
           <Typography key={item.id} variant="h6" color="error" align="center">
-            Fix - Navigation Group
+            Fix - Navigation Group 
           </Typography>
         );
     }

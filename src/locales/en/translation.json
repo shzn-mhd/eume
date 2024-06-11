@@ -1,6 +1,7 @@
 {
     "Filter Options": "Filter Options",
     "Reset Filter": "Reset Filter",
+    "Basic Survey": "Basic Survey",
     "Survey Table": "Survey Table",
     "Optional Survey Table" : "Optional Survey Table",
     "Date" : "Date",
@@ -40,5 +41,18 @@
     "Stay Place":"Stay Place",
     "Transportation":"Transportation",
     "Transportation Reason":"Transportation Reason",
-    "With Pet":"With Pet"
+    "With Pet":"With Pet",
+    "Total Visitors" : "Total Visitors",
+    "Country Total": "Country Total",
+    "People with Pets" : "People with Pets",
+    "People Stay" : "People Stay",
+    "Male" : "Male",
+    "Female" : "Female",
+    "People without Pets" : "People without Pets",
+    "People Won't Stay" : "People Won't Stay",
+    "Country wise Total" : "Country wise Total",
+    "Vacation/Leisure" : "Vacation/Leisure",
+    "Family/Friends" : "Family/Friends",
+    "Business/Meeting" : "Business/Meeting",
+    "Other" : "Other"
   }
