@@ -30,5 +30,16 @@
     "Signaling":"Signaling",
     "Sustainability":"Sustainability",
     "Tourist Information":"Tourist Information",
-    "Dashboard":"Dashboard"
+    "Dashboard":"Dashboard",
+    "Activity":"Activity",
+    "Activity Reason":"Activity Reason",
+    "Language":"Language",
+    "No of Days":"No of Days",
+    "Place of Origin":"Place of Origin",
+    "Reason":"Reason",
+    "Stay overnight":"Stay overnight",
+    "Stay Place":"Stay Place",
+    "Transportation":"Transportation",
+    "Transportation Reason":"Transportation Reason",
+    "With Pet":"With Pet"
   }

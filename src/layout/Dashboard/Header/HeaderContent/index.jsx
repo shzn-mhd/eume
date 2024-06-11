@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // material-ui
 import { Autocomplete, Box, FormControl, Stack, TextField, useMediaQuery, useTheme } from '@mui/material';
@@ -23,17 +23,20 @@ import { useTranslation } from 'react-i18next';
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {
-  // const { i18n, menuOrientation } = useConfig();
+    // const { i18n, menuOrientation } = useConfig();
 
   const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
-
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // const localization = useMemo(() => <Localization />, [i18n]);
 
   const megaMenu = useMemo(() => <MegaMenuSection />, []);
   const theme = useTheme();
   const { t, i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+  // const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem('userLanguage') || i18n.language
+  ); // Check localStorage first, then fallback to i18next
   const languageOptions = [
     { code: 'en', label: 'English' },
     { code: 'es', label: 'Español' }
@@ -43,8 +46,17 @@ const HeaderContent = () => {
     if (value) {
       i18n.changeLanguage(value.code);
       setSelectedLanguage(value.code);
+      localStorage.setItem('userLanguage', value.code); // Persist in localStorage
     }
   };
+
+  // Load language from localStorage on component mount (optional)
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('userLanguage');
+    if (storedLanguage && storedLanguage !== i18n.language) {
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, [i18n]); // Run only when i18n instance changes
 
   return (
     <>
@@ -66,7 +78,7 @@ const HeaderContent = () => {
               />
           </FormControl>
           </Stack>
-      {/* {menuOrientation === MenuOrientation.HORIZONTAL && !downLG && <DrawerHeader open={true} />} */}
+          {/* {menuOrientation === MenuOrientation.HORIZONTAL && !downLG && <DrawerHeader open={true} />} */}
       {/* {!downLG && <Search />} */}
       {/* {!downLG && megaMenu} */}
       {/* {!downLG && localization} */}
