@@ -499,7 +499,7 @@ const EditableTable = ({ data }) => {
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
           <div>
           </div>
-          <Stack direction="row" spacing={2} justifyContent="center">
+          {/* <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '150px' }}>
             <Autocomplete
               id="language"
@@ -516,7 +516,7 @@ const EditableTable = ({ data }) => {
               renderInput={(params) => <TextField {...params} label="Language" />}
               />
           </FormControl>
-          </Stack>
+          </Stack> */}
              
         </Stack>
       }

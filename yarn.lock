@@ -6254,6 +6254,13 @@
   dependencies:
     "cross-fetch" "4.0.0"
 
+"i18next-localstorage-backend@^4.2.0":
+  "integrity" "sha512-vglEQF0AnLriX7dLA2drHnqAYzHxnLwWQzBDw8YxcIDjOvYZz5rvpal59Dq4In+IHNmGNM32YgF0TDjBT0fHmA=="
+  "resolved" "https://registry.npmjs.org/i18next-localstorage-backend/-/i18next-localstorage-backend-4.2.0.tgz"
+  "version" "4.2.0"
+  dependencies:
+    "@babel/runtime" "^7.22.15"
+
 "i18next@^23.11.4", "i18next@>= 23.2.3":
   "integrity" "sha512-CCUjtd5TfaCl+mLUzAA0uPSN+AVn4fP/kWCYt/hocPUwusTpMVczdrRyOBUwk6N05iH40qiKx6q1DoNJtBIwdg=="
   "resolved" "https://registry.npmjs.org/i18next/-/i18next-23.11.4.tgz"
