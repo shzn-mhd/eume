@@ -27,6 +27,8 @@ import {
   PieChartOutlined
 } from "@ant-design/icons";
 
+import { useTranslation } from 'react-i18next';
+
 // icons
 const icons = {
   BuildOutlined,
@@ -51,7 +53,11 @@ const icons = {
 
 // ==============================|| MENU ITEMS - APPLICATIONS ||============================== //
 
-const applications = {
+const applications =  {
+
+  // const { t } = useTranslation();
+
+  
   id: "group-applications",
   // title: <FormattedMessage id="applications" />,
   icon: icons.AppstoreAddOutlined,
@@ -84,6 +90,7 @@ const applications = {
     {
       id: "eume",
       title: <FormattedMessage id="Basic Survey" />,
+      // title: 'Basic Survey',
       type: "item",
       icon: icons.PieChartOutlined,
       url: "/eume/EditableTablePage",  
@@ -144,6 +151,7 @@ const applications = {
     //   // ]
     // },
   ],
+
 };
 
 export default applications;

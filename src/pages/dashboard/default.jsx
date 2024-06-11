@@ -35,6 +35,7 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
 import avatar4 from 'assets/images/users/avatar-4.png';
+import { useTranslation } from 'react-i18next';
 
 // avatar style
 const avatarSX = {
@@ -89,6 +90,7 @@ const DashboardDefault = ({
   const [visitFamilyFriendsCount, setVisitFamilyFriendsCount] = useState(0);
   const [otherCount, setOtherCount] = useState(0);
   const [totalPlaceOfOriginCount, setTotalPlaceOfOriginCount] = useState(0);
+  const { t, i18n } = useTranslation();
   
 
   const empCollectionRef = collection(db, 'survey_data');
@@ -173,9 +175,9 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title="Total Visitors" count={empCount} percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title={t("Total Visitors")} count={empCount} percentage={59.3} extra="35,000" />
         </div>
-        <AnalyticEcommerce title="Male"count={maleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Male")} count={maleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
 
        
       </Grid>

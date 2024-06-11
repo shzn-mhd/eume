@@ -41,6 +41,17 @@
     "Stay Place":"Lugar de estancia",
     "Transportation":"Transporte",
     "Transportation Reason":"Motivo del transporte",
-    "With Pet":"Con mascota"
+    "With Pet":"Con mascota",
+    "Total Visitors" : "Visitantes totales",
+    "Country Total": "Total del país",
+    "People with Pets" : "Personas con mascotas",
+    "People Stay" : "La gente se queda",
+    "Male" : "Masculino",
+    "Female" : "Femenino",
+    "People without Pets" : "Personas sin mascotas",
+    "People won't stay" : "La gente no se quedará",
+    "Country wise Total" : "Total por país",
+    "Vacation/Leisure" : "Vacaciones/Ocio",
+    "Family/Friends" : "Familia/amigos"
 }
 
