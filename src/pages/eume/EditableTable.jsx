@@ -35,6 +35,7 @@ import { t } from 'i18next';
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
+  const { t, i18n } = useTranslation();
 
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
@@ -222,7 +223,7 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: 'Accommodation Type',
+          header: t('Accommodation Type'),
           accessorKey: 'accommodationType',
           dataType: 'text',
           meta: {
@@ -230,7 +231,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Activity',
+          header: t('Activity'),
           accessorKey: 'activity',
           dataType: 'text',
           meta: {
@@ -238,7 +239,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Activity Reason',
+          header: t('Activity Reason'),
           accessorKey: 'activityReason',
           dataType: 'text',
           meta: {
@@ -246,7 +247,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Age',
+          header: t('Age'),
           accessorKey: 'age',
           dataType: 'text',
           meta: {
@@ -254,7 +255,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Date',
+          header: t('Date'),
           accessorKey: 'date',
           dataType: 'text',
           meta: {
@@ -262,7 +263,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Gender',
+          header: t('Gender'),
           accessorKey: 'gender',
           dataType: 'text',
           meta: {
@@ -270,7 +271,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Language',
+          header: t('Language'),
           accessorKey: 'language',
           dataType: 'text',
           meta: {
@@ -278,7 +279,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Modality',
+          header: t('Modality'),
           accessorKey: 'modality',
           dataType: 'text',
           meta: {
@@ -286,7 +287,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Motivation',
+          header: t('Motivation'),
           accessorKey: 'motivation',
           dataType: 'text',
           meta: {
@@ -294,7 +295,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'No of Days',
+          header: t('No of Days'),
           accessorKey: 'noOfDays',
           dataType: 'text',
           meta: {
@@ -302,7 +303,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'No Of People',
+          header: t('No Of People'),
           accessorKey: 'noOfPeople',
           dataType: 'text',
           meta: {
@@ -310,7 +311,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Place of Origin',
+          header: t('Place of Origin'),
           accessorKey: 'placeOfOrigin',
           dataType: 'text',
           meta: {
@@ -318,7 +319,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Province',
+          header: t('Province'),
           accessorKey: 'province',
           dataType: 'text',
           meta: {
@@ -326,7 +327,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Reason',
+          header: t('Reason'),
           accessorKey: 'reason',
           dataType: 'text',
           meta: {
@@ -334,7 +335,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Stay overnight',
+          header: t('Stay overnight'),
           accessorKey: 'stayOvernight',
           dataType: 'text',
           meta: {
@@ -342,7 +343,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Stay Place',
+          header: t('Stay Place'),
           accessorKey: 'stayPlace',
           dataType: 'text',
           meta: {
@@ -350,7 +351,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Transportation',
+          header: t('Transportation'),
           accessorKey: 'transportation',
           dataType: 'text',
           meta: {
@@ -358,7 +359,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Transportation Reason',
+          header: t('Transportation Reason'),
           accessorKey: 'transportationReason',
           dataType: 'text',
           meta: {
@@ -366,7 +367,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'With Pet',
+          header: t('With Pet'),
           accessorKey: 'withPet',
           dataType: 'text',
           meta: {
@@ -374,7 +375,7 @@ const EditableTable = ({ data }) => {
           }
         },
       ],
-      []
+      [t]
     ),
     state: {
       sorting
@@ -433,7 +434,7 @@ const EditableTable = ({ data }) => {
 
 
   };
-    const { t, i18n } = useTranslation();
+    
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
     const languageOptions = [
@@ -498,7 +499,7 @@ const EditableTable = ({ data }) => {
           <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
           <div>
           </div>
-          <Stack direction="row" spacing={2} justifyContent="center">
+          {/* <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '150px' }}>
             <Autocomplete
               id="language"
@@ -515,7 +516,7 @@ const EditableTable = ({ data }) => {
               renderInput={(params) => <TextField {...params} label="Language" />}
               />
           </FormControl>
-          </Stack>
+          </Stack> */}
              
         </Stack>
       }
