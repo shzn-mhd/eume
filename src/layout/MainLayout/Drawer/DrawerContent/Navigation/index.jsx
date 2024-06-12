@@ -18,7 +18,7 @@ import menuItem from 'menu-items';
 const Navigation = () => {
   const theme = useTheme();
 
-  console.log(menuItem);
+  // console.log(menuItem);
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 

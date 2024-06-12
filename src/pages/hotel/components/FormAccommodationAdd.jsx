@@ -543,7 +543,7 @@ const FormAccommodationAdd = ({ accommodation, closeModal }) => {
                           helperText={touched.images && errors.images}
                         />
                       </Stack>
-                    </Grid>*/}
+                    </Grid>
 
                     <Grid item xs={12} sm={6}>
                       <Stack spacing={1} sx={{pt:1}}>

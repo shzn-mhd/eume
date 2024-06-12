@@ -172,7 +172,7 @@ const EditableTable = ({ data }) => {
   ]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
-  console.log('empList.length', empList.length);
+  // console.log('empList.length', empList.length);
   const count = Math.ceil(empList.length / PER_PAGE);
   let _DATA = usePagination(empList, PER_PAGE);
 
@@ -209,7 +209,7 @@ const EditableTable = ({ data }) => {
 
   useEffect(() => {
     handleSortingChange(sortValue);
-    console.log('sorting id', sortValue);
+    // console.log('sorting id', sortValue);
   }, [sortValue]);
 
   const table = useReactTable({
