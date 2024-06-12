@@ -13,7 +13,7 @@ import { FallOutlined, RiseOutlined } from '@ant-design/icons';
 
 const AnalyticEcommerce = ({ title, count, percentage, isLoss, extra }) => {
   // Determine the color based on the percentage value
-  const color = percentage > 50 ? 'green' : 'red';
+  const color = percentage > 50 ? 'lightgreen' : '#20b2aa';
 
   return (
     <MainCard contentSX={{ p: 2.25 }}>
