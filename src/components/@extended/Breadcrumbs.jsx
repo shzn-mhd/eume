@@ -14,6 +14,8 @@ import { ThemeDirection } from 'config';
 
 // assets
 import { ApartmentOutlined, HomeOutlined, HomeFilled } from '@ant-design/icons';
+import { useMenuConfig } from 'menu-items/applications';
+import { useTranslation } from 'react-i18next';
 
 // ==============================|| BREADCRUMBS ||============================== //
 
@@ -34,10 +36,13 @@ const Breadcrumbs = ({
   ...others
 }) => {
   const theme = useTheme();
+  const { applications } = useMenuConfig();
+  const { t } = useTranslation();
   const location = useLocation();
   const [main, setMain] = useState();
   const [item, setItem] = useState();
 
+  console.log("applications BBB", applications);
   const iconSX = {
     marginRight: theme.direction === ThemeDirection.RTL ? '0' : theme.spacing(0.75),
     marginLeft: theme.direction === ThemeDirection.RTL ? theme.spacing(0.75) : '0',
@@ -55,8 +60,20 @@ const Breadcrumbs = ({
   }
 
   useEffect(() => {
-    navigation?.items?.map((menu) => {
-      if (menu.type && menu.type === 'group') {
+    // navigation?.items?.map((menu) => {
+    //   if (menu.type && menu.type === 'group') {
+    //     if (menu?.url && menu.url === customLocation) {
+    //       setMain(menu);
+    //       setItem(menu);
+    //     } else {
+    //       getCollapse(menu);
+    //     }
+    //   }
+    //   return false;
+    // });
+    applications?.children?.map((menu) => {
+      // console.log("menu",menu);
+      if (menu.type && menu.type === 'item') {
         if (menu?.url && menu.url === customLocation) {
           setMain(menu);
           setItem(menu);
@@ -150,7 +167,6 @@ const Breadcrumbs = ({
       </MainCard>
     );
   }
-
   // items
   if ((item && item.type === 'item') || (item?.type === 'group' && item?.url) || custom) {
     itemTitle = item?.title;
@@ -168,7 +184,7 @@ const Breadcrumbs = ({
         <Typography component={Link} to="/" color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
           {icons && <HomeOutlined style={iconSX} />}
           {icon && !icons && <HomeFilled style={{ ...iconSX, marginRight: 0 }} />}
-          {(!icon || icons) && 'Home'}
+          {(!icon || icons) && t('Home')}
         </Typography>
         {mainContent}
         {itemContent}

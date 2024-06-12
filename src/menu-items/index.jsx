@@ -1,5 +1,5 @@
 // project import
-import applications from './applications';
+// import applications from './applications';
 // import widget from './widget';
 // import formsTables from './forms-tables';
 // import chartsMap from './charts-map';
@@ -11,7 +11,7 @@ import applications from './applications';
 
 const menuItems = {
   items: [
-    applications,
+    // applications,
   ]
   // items: [widget, applications, formsTables, chartsMap, samplePage, pages, other]
 };

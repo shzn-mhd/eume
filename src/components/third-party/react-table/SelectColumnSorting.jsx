@@ -27,7 +27,7 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
       renderValue={(selected) => {
         const selectedColumn = getAllColumns().filter((column) => selected.length > 0 && column.id === selected[0].id)[0];
         if (selectedColumn) {
-          console.log("selectedColumn",selectedColumn.columnDef.accessorKey);
+          // console.log("selectedColumn",selectedColumn.columnDef.accessorKey);
           // handleSortingChange(selectedColumn.columnDef.accessorKey);
           setSortValue(selectedColumn.columnDef.accessorKey);
           return (

@@ -147,7 +147,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
   // }, [pathname, menu]);
 
   const navCollapse = item.children?.map((menuItem) => {
-    console.log("menu item roles", menuItem?.roles);
+    // console.log("menu item roles", menuItem?.roles);
     if(menuItem?.roles?.includes(user?.role?.name)){
       switch (menuItem.type) {
         case 'collapse':

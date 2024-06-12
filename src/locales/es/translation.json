@@ -54,6 +54,8 @@
     "Vacation/Leisure" : "Vacaciones/Ocio",
     "Family/Friends" : "Familia/amigos",
     "Business/Meeting" : "Reunión de negocios",
-    "Other" : "Otro"
+    "Other" : "Otro",
+    "Home": "Hogar",
+    "Optional Survey":"Encuesta Opcional"
 }
 
