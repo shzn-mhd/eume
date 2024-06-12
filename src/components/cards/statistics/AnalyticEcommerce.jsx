@@ -11,15 +11,15 @@
 
 // // ==============================|| STATISTICS - ECOMMERCE CARD ||============================== //
 
-// const AnalyticEcommerce = ({ color = 'red', title, count, percentage, isLoss, extra }) => (
+// const AnalyticEcommerce = ({ color = 'primary', title, count, percentage, isLoss, extra }) => (
 //   <MainCard contentSX={{ p: 2.25 }}>
 //     <Stack spacing={0.5}>
-//       <Typography variant="h6" color="textSecondary">
+//       <Typography variant="h5" color="textSecondary">
 //         {title}
 //       </Typography>
 //       <Grid container alignItems="center">
 //         <Grid item>
-//           <Typography variant="h4" color="inherit">
+//           <Typography variant="h6" color="inherit">
 //             {count}
 //           </Typography>
 //         </Grid>
@@ -27,8 +27,8 @@
 //           <Grid item>
 //             <Chip
 //               variant="combined"
-//               // color={color}
-//               style={{ backgroundColor: color === 'red' ? 'red' : undefined, color: color === 'red' ? 'white' : 'inherit' }}
+//               color={color}
+//               // style={{ backgroundColor: color === 'red' ? 'red' : undefined, color: color === 'red' ? 'white' : 'inherit' }}
 //               icon={
 //                 <>
 //                   {!isLoss && <RiseOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
@@ -80,7 +80,7 @@ import { FallOutlined, RiseOutlined } from '@ant-design/icons';
 
 const AnalyticEcommerce = ({ title, count, percentage, isLoss, extra }) => {
   // Determine the color based on the percentage value
-  const color = percentage > 50 ? 'red' : 'red';
+  const color = percentage > 50 ? 'green' : 'red';
 
   return (
     <MainCard contentSX={{ p: 2.25 }}>
@@ -98,7 +98,7 @@ const AnalyticEcommerce = ({ title, count, percentage, isLoss, extra }) => {
             <Grid item>
               <Chip
                 variant="combined"
-                style={{ backgroundColor: color === 'red' ? 'red' : 'neonblue', color: 'white' }}
+                style={{ backgroundColor: color, color: 'white' }}
                 icon={
                   <>
                     {!isLoss && <RiseOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
@@ -135,3 +135,4 @@ AnalyticEcommerce.propTypes = {
 };
 
 export default AnalyticEcommerce;
+

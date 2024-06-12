@@ -183,7 +183,7 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title={t("Country Total")}count={totalPlaceOfOriginCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Country Total")}count={totalPlaceOfOriginCount} percentage={65.4} color="warning" extra="1,943" />
 
         </div>
         <AnalyticEcommerce title={t("Female")} count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
