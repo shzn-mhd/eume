@@ -238,14 +238,14 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        {
-          header: t('Activity Reason'),
-          accessorKey: 'activityReason',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
+        // {
+        //   header: t('Activity Reason'),
+        //   accessorKey: 'activityReason',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-center'
+        //   }
+        // },
         {
           header: t('Age'),
           accessorKey: 'age',
@@ -466,7 +466,7 @@ const EditableTable = ({ data }) => {
             }}
             InputProps={{
               startAdornment: <SearchOutlined />,
-              placeholder: 'Search',
+              placeholder: t('Search'),
               type: 'search'
             }}
             value={searchValue}
