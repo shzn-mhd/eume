@@ -41,7 +41,7 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
             </Typography>
           );
         }
-        return <Typography variant="subtitle2">Sort By</Typography>;
+        return <Typography variant="subtitle2">{t('Sort By')}</Typography>;
       }}
       MenuProps={MenuProps}
       size={size}
