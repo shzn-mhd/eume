@@ -56,6 +56,8 @@
     "Business/Meeting" : "Reunión de negocios",
     "Other" : "Otro",
     "Home": "Hogar",
-    "Optional Survey":"Encuesta Opcional"
+    "Optional Survey":"Encuesta Opcional",
+    "Filter": "Filtrar",
+    "Accomodation Type":"Tipo de alojamiento"
 }
 

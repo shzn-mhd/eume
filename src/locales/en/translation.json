@@ -56,5 +56,7 @@
     "Business/Meeting" : "Business/Meeting",
     "Other" : "Other",
     "Home": "Home",
-    "Optional Survey":"Optional Survey"
+    "Optional Survey":"Optional Survey",
+    "Filter": "Filter",
+    "Accomodation Type": "Accomodation Type"
   }
