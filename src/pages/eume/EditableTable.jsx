@@ -238,14 +238,14 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        {
-          header: t('Activity Reason'),
-          accessorKey: 'activityReason',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
+        // {
+        //   header: t('Activity Reason'),
+        //   accessorKey: 'activityReason',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-center'
+        //   }
+        // },
         {
           header: t('Age'),
           accessorKey: 'age',
