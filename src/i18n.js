@@ -24,7 +24,7 @@ i18n
   .use(LocalStorageBackend)
   .use(initReactI18next)
   .init({
-    lng: localStorage.getItem('userLanguage') || 'en', // Use stored language or default to 'en'
+    lng: localStorage.getItem('userLanguage') || 'es', // Use stored language or default to 'es'
     resources,
     fallbackLng: 'en', // Default language
     detection: {

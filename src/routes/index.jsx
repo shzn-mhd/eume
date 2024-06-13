@@ -33,18 +33,18 @@ const router = createBrowserRouter(
   [
     {
       path: '/',
+      element:<DashboardLayout /> ,
       // element: <SimpleLayout layout={SimpleLayoutType.LANDING} />,
       children: [
         {
-          index: true,
-          element:<DashboardLayout /> 
-          // element:<DashboardDefault />
-          // element: <EditableTableListPage />
+          index: true, // This sets the default route
+          element: <DashboardDefault />,
+          // path: '/dashboard/default'
         },
         {
-          // element: <AppCustomerCard />
-          element: <DashboardDefault />
-        }
+          path: 'dashboard/default',
+          element: <DashboardDefault />,
+        },
       ]
     },
     // {
