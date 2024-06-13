@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 // material-ui
 import { Checkbox, FormControl, ListItemText, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
@@ -14,9 +15,13 @@ const MenuProps = {
   }
 };
 
+
 // ==============================|| COLUMN SORTING - SELECT ||============================== //
 
-const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting, size = 'medium' }) => (
+const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting, size = 'medium' }) => {
+  
+  const { t, i18n } = useTranslation();
+  return (
   <FormControl sx={{ width: 200 }}>
     <Select
       id="column-sorting"
@@ -32,7 +37,7 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
           setSortValue(selectedColumn.columnDef.accessorKey);
           return (
             <Typography variant="subtitle2">
-              Sort by ({typeof selectedColumn.columnDef.header === 'string' ? selectedColumn.columnDef.header : '#'})
+              {t('Sort by')} ({typeof selectedColumn.columnDef.header === 'string' ? selectedColumn.columnDef.header : '#'})
             </Typography>
           );
         }
@@ -62,6 +67,8 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
     </Select>
   </FormControl>
 );
+
+}
 
 SelectColumnSorting.propTypes = {
   getState: PropTypes.func,
