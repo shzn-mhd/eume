@@ -24,6 +24,7 @@ import motivationList from 'data/motivation';
 import provinceList from 'data/province';
 import stayList from 'data/stay';
 import transList from 'data/transport';
+import { useTranslation } from 'react-i18next';
 
 const Filter = ({
   ResetTable,
@@ -56,10 +57,11 @@ const Filter = ({
   setSelectedTrans
 }) => {
   const theme = useTheme();
-  const gender = ['Muller', 'Viro'];
+  const gender = ['Male', 'Female'];
   const pet = ['Yes', 'No'];
   const stay = ['Yes', 'No'];
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  const { t, i18n } = useTranslation();
   return (
     <Drawer
       sx={{
@@ -129,7 +131,7 @@ const Filter = ({
           <MainCard contentSX={{ p: 2.25 }}>
             <Stack spacing={0.5}>
               <Typography variant="h6" color="textSecondary">
-                Total Visitors
+                {t('Total Visitors')}
               </Typography>
               <Grid container alignItems="center">
                 <Grid item>
@@ -178,7 +180,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Country" />}
+                      renderInput={(params) => <TextField {...params} label={t("Country")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -199,7 +201,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Province" />}
+                      renderInput={(params) => <TextField {...params} label={t("Province")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -221,7 +223,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Gender" />}
+                      renderInput={(params) => <TextField {...params} label={t("Gender")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -280,7 +282,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Motivation" />}
+                      renderInput={(params) => <TextField {...params} label={t("Motivation")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -300,7 +302,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Modality" />}
+                      renderInput={(params) => <TextField {...params} label={t("Modality")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -322,7 +324,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="With Pet" />}
+                      renderInput={(params) => <TextField {...params} label={t("With Pet")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -342,7 +344,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Stay Over Night" />}
+                      renderInput={(params) => <TextField {...params} label={t("Stay Over Night")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -364,7 +366,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Stay Place" />}
+                      renderInput={(params) => <TextField {...params} label={t("Stay Place")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -384,7 +386,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="No of Days" />}
+                      renderInput={(params) => <TextField {...params} label={t("No of Days")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -406,7 +408,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Accomodation Type" />}
+                      renderInput={(params) => <TextField {...params} label={t("Accomodation Type")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -426,7 +428,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label="Transport" />}
+                      renderInput={(params) => <TextField {...params} label={t("Transport")} />}
                     />
                   </FormControl>
                 </Grid>
@@ -444,7 +446,7 @@ const Filter = ({
                 variant="contained"
                 onClick={() => ResetTable()}
               >
-                Reset Filter
+                {t("Reset Filter")}
               </Button>
             </Tooltip>
             <Tooltip title="Filter">
@@ -456,7 +458,7 @@ const Filter = ({
                 variant="contained"
                 onClick={handleDrawerOpen}
               >
-                Filter
+                {t("Filter")}
               </Button>
             </Tooltip>
           </Stack>
