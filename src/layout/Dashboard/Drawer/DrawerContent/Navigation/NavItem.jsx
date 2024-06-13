@@ -46,9 +46,13 @@ const NavItem = ({ item, level, isParents = false }) => {
   const { pathname } = useLocation();
   const isSelected = !!matchPath({ path: item.url, end: false }, pathname) || openItem === item.id;
 
+  // Handle default route explicitly
+  const defaultPath = "/";
+  const isDefaultRoute = pathname === defaultPath && item.url === '/dashboard/default';
+
   // active menu item on page load
   useEffect(() => {
-    if (pathname === item.url) handlerActiveItem(item.id);
+    if (pathname === item.url || (pathname === defaultPath && item.url === '/dashboard/default')) handlerActiveItem(item.id);
     // eslint-disable-next-line
   }, [pathname]);
 
