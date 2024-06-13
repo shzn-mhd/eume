@@ -58,5 +58,10 @@
     "Home": "Home",
     "Optional Survey":"Optional Survey",
     "Filter": "Filter",
-    "Accomodation Type": "Accomodation Type"
+    "Accomodation Type": "Accomodation Type",
+    "Filtering Options" : "Filtering Options",
+    "Total Optional Survey" : "Total Optional Survey",
+    "Quality/Price Ratio of the Destination" : "Quality/Price Ratio of the Destination",
+    "Search" : "Search",
+    "Sort by": "Sort by"
   }

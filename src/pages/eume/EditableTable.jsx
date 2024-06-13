@@ -466,7 +466,7 @@ const EditableTable = ({ data }) => {
             }}
             InputProps={{
               startAdornment: <SearchOutlined />,
-              placeholder: 'Search',
+              placeholder: t('Search'),
               type: 'search'
             }}
             value={searchValue}
