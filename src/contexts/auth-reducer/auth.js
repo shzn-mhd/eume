@@ -5,7 +5,15 @@ import { REGISTER, LOGIN, LOGOUT } from './actions';
 export const initialState = {
   isLoggedIn: false,
   isInitialized: false,
-  user: null
+  // user: null
+  user: {
+    id: null,
+    email: null,
+    name: null,
+    role: null,
+    firstName: null,
+    lastName: null
+  }
 };
 
 // ==============================|| AUTH REDUCER ||============================== //

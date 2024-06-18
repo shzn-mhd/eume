@@ -88,7 +88,7 @@ const HeaderContent = () => {
       {/* <Message /> */}
       {/* {!downLG && <FullScreen />} */}
       {/* <Customization /> */}
-      {/* {!downLG && <Profile />} */}
+      {!downLG && <Profile />}
       {/* {downLG && <MobileSection />} */}
     </>
   );
