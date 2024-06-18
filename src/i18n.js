@@ -7,6 +7,7 @@ import LocalStorageBackend from 'i18next-localstorage-backend';
 // Import your translation files
 import translationEN from './locales/en/translation.json';
 import translationES from './locales/es/translation.json';
+import translationGL from './locales/gl/translation.json';
 
 // Define your resources object
 const resources = {
@@ -15,6 +16,9 @@ const resources = {
   },
   es: {
     translation: translationES
+  },
+  gl: {
+    translation: translationGL // Add the Galego translations
   }
 };
 

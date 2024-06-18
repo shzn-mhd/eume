@@ -39,7 +39,8 @@ const HeaderContent = () => {
   ); // Check localStorage first, then fallback to i18next
   const languageOptions = [
     { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' }
+    { code: 'es', label: 'Español' },
+    { code: 'gl', label: 'Galician' },
   ];
 
   const handleLanguageChange = (event, value) => {
