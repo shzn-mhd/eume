@@ -46,7 +46,7 @@ const DashboardLayout = () => {
   if (menuMasterLoading) return <Loader />;
 
   return (
-    // <AuthGuard>
+    <AuthGuard>
       <Box sx={{ display: 'flex', width: '100%' }}>
         <Header />
         
@@ -71,7 +71,7 @@ const DashboardLayout = () => {
         </Box>
         <AddCustomer />
       </Box>
-    // </AuthGuard>
+    </AuthGuard>
   );
 };
 
