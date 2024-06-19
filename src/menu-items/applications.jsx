@@ -24,7 +24,8 @@ import {
   NotificationOutlined,
   ManOutlined,
   FileSearchOutlined,
-  PieChartOutlined
+  PieChartOutlined,
+  AlertOutlined
 } from "@ant-design/icons";
 
 import { useTranslation } from 'react-i18next';
@@ -49,7 +50,8 @@ const icons = {
   NotificationOutlined,
   ManOutlined,
   FileSearchOutlined,
-  PieChartOutlined
+  PieChartOutlined,
+  AlertOutlined
 };
 
 // ==============================|| MENU ITEMS - APPLICATIONS ||============================== //
@@ -93,6 +95,13 @@ export const MenuConfigProvider = ({ children }) => {
         type: 'item',
         icon: icons.UserOutlined,
         url: '/users/UserListPage',
+      },
+      {
+        id: 'roles',
+        title: t('User Roles'),
+        type: 'item',
+        icon: icons.AlertOutlined,
+        url: '/roles/RoleListPage',
       },
     ],
   }), [t]);

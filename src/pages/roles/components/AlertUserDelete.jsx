@@ -20,7 +20,7 @@ import { db } from 'config/firebase';
 export default function AlertUserDelete({ open, handleClose, setEmpList, userId, userName }) {
 const deleteHandler = async () => {
     try {
-      const userDoc = doc(db, 'users', userId);
+      const userDoc = doc(db, 'roles', userId);
       await deleteDoc(userDoc);
 
       // Update the empList in the parent component
@@ -28,7 +28,7 @@ const deleteHandler = async () => {
 
       handleClose();
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error('Error deleting role:', error);
     }
   };
 
@@ -57,7 +57,7 @@ const deleteHandler = async () => {
                 {' '}
                 &quot;{userName}&quot;{' '}
               </Typography>
-              , all attributes assigned to this user will also be deleted.
+              , all attributes assigned to this role will also be deleted.
             </Typography>
           </Stack>
 
