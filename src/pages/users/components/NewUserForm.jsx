@@ -29,17 +29,18 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import IconButton from 'components/@extended/IconButton';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
 
-const roles = ['Admin', 'User'];
+// const roles = ['Admin', 'User'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, user }) {
   const { t, i18n } = useTranslation();
-  const { firebaseRegister, resetPassword } = useAuth();
+  const { firebaseRegister } = useAuth();
   const scriptedRef = useScriptRef();
 
+  const [roles, setRoles] = useState([]);
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -65,8 +66,21 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
   };
 
   useEffect(() => {
+    const fetchRoles = async () => {
+      const roleCollectionRef = collection(db, 'roles');
+      const roleSnapshot = await getDocs(roleCollectionRef);
+      const roleList = roleSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setRoles(roleList);
+    };
+
+    fetchRoles();
     changePassword('');
   }, []);
+
+  console.log("roles>>>", roles);
 
   return (
     <>
@@ -90,19 +104,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              //   await firebaseRegister(values.email, values.password, values.firstname, values.lastname).then(
-              //     () => {
-              //       // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-              //       // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-              //       // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-              //       // github issue: https://github.com/formium/formik/issues/2430
-              //     },
-              //     (err) => {
-              //       setStatus({ success: false });
-              //       setErrors({ submit: err.message });
-              //       setSubmitting(false);
-              //     }
-              //   );
               if (user) {
                 const userDoc = doc(db, 'users', user.id);
                 console.log('userDoc', userDoc);
@@ -115,11 +116,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 };
 
                 await updateDoc(userDoc, updateData);
-                // Update the user's email in Firebase Authentication
-                // const userupdate = await getUser(auth, user.id);
-                // if (userupdate.email !== values.email) {
-                //   await updateEmail(userupdate, values.email);
-                // }
 
                 // Update the user's password in Firebase Authentication if it has been changed
                 if (values.password) {
@@ -206,27 +202,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                     </FormHelperText>
                   )}
                 </Grid>
-                {/* <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="company-signup">Company</InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    error={Boolean(touched.company && errors.company)}
-                    id="company-signup"
-                    value={values.company}
-                    name="company"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="Demo Inc."
-                    inputProps={{}}
-                  />
-                </Stack>
-                {touched.company && errors.company && (
-                  <FormHelperText error id="helper-text-company-signup">
-                    {errors.company}
-                  </FormHelperText>
-                )}
-              </Grid> */}
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="email-signup">Email Address*</InputLabel>
@@ -257,9 +232,9 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                         <MenuItem value="">
                           <em>Select Role</em>
                         </MenuItem>
-                        {roles.map((role) => (
-                          <MenuItem key={role} value={role}>
-                            {role}
+                        {roles?.map((role) => (
+                          <MenuItem key={role.id} value={role.id}>
+                            {role.roleName}
                           </MenuItem>
                         ))}
                       </Select>
@@ -350,20 +325,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
           )}
         </Formik>
       </DialogContent>
-      {/* <DialogActions>
-        <Button
-          color="error"
-          // onClick={handleClose}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          // onClick={handleClose}
-        >
-          Subscribe
-        </Button>
-      </DialogActions> */}
     </>
   );
 }

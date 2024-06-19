@@ -79,7 +79,7 @@ const EditableTable = ({ data }) => {
 
   const handleUserView = () => {
     setOpenView(!openView);
-  }
+  };
 
   const [sorting, setSorting] = useState([
     {
@@ -116,6 +116,30 @@ const EditableTable = ({ data }) => {
 
     getEmpList();
   }, [selectedRole]); // Add both searchValue and selectedGender as dependencies
+
+  const [roles, setRoles] = useState([]);
+  const [roleMapping, setRoleMapping] = useState({});
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      const roleCollectionRef = collection(db, 'roles');
+      const roleSnapshot = await getDocs(roleCollectionRef);
+      const roleList = roleSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setRoles(roleList);
+
+      // Create a mapping of role IDs to role names
+      const roleMap = roleList.reduce((map, role) => {
+        map[role.id] = role.roleName;
+        return map;
+      }, {});
+      setRoleMapping(roleMap);
+    };
+
+    fetchRoles();
+  }, []);
 
   const PER_PAGE = 10;
   // console.log('empList.length', empList.length);
@@ -198,8 +222,10 @@ const EditableTable = ({ data }) => {
           accessorKey: 'role',
           dataType: 'text',
           meta: {
-            className: 'cell-center'
-          }
+            className: 'cell-center',
+            // Render role name instead of role ID
+          },
+          cell: ({ row }) => roleMapping[row.original.role] || row.original.role
         },
         {
           header: 'Actions',
@@ -423,7 +449,7 @@ const EditableTable = ({ data }) => {
         <UserView closeModal={handleUserView} user={userToView}/>
       )} */}
 
-      <UserModal open={openView} modalToggler={setOpenView} user={userToView}/>
+      <UserModal open={openView} modalToggler={setOpenView} user={userToView} />
     </MainCard>
   );
 };
