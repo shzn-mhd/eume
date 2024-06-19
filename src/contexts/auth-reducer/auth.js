@@ -11,6 +11,8 @@ export const initialState = {
     email: null,
     name: null,
     role: null,
+    roleName: null,
+    rolePermissions: null,
     firstName: null,
     lastName: null
   }

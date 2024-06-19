@@ -38,6 +38,8 @@ const initialState = {
     email: null,
     name: null,
     role: null,
+    roleName: null,
+    rolePermissions: null,
     firstName: null,
     lastName: null
   }
@@ -112,6 +114,16 @@ export const FirebaseProvider = ({ children }) => {
         
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
+          const roleDocRef = doc(firestore, 'roles', userData.role);
+          const roleDocSnapshot = await getDoc(roleDocRef);
+
+          let roleName = '';
+          let rolePermissions = {};
+          if (roleDocSnapshot.exists()) {
+            roleName = roleDocSnapshot.data().roleName;
+            rolePermissions = roleDocSnapshot.data().permissions;
+          }
+
           dispatch({
             type: LOGIN,
             payload: {
@@ -121,6 +133,8 @@ export const FirebaseProvider = ({ children }) => {
                 email: user.email,
                 name: user.displayName || 'Stebin Ben',
                 role: userData.role ||'',
+                roleName: roleName,
+                rolePermissions: rolePermissions,
                 firstName: userData.firstName || '',
                 lastName: userData.lastName || ''
               }

@@ -36,10 +36,13 @@ import NewUserForm from './components/NewUserForm';
 import AlertUserDelete from './components/AlertUserDelete';
 // import UserView from './components/UserView';
 import UserModal from './components/UserModal';
+import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
+  const { user } = useAuth();
+  // console.log("Auth User >>>>>>", user);
   const { t, i18n } = useTranslation();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
@@ -135,7 +138,7 @@ const EditableTable = ({ data }) => {
         map[role.id] = role.roleName;
         return map;
       }, {});
-      console.log("roleMap", roleMap);
+      console.log('roleMap', roleMap);
       setRoleMapping(roleMap);
     };
 
@@ -223,7 +226,7 @@ const EditableTable = ({ data }) => {
           accessorKey: 'role',
           dataType: 'text',
           meta: {
-            className: 'cell-center',
+            className: 'cell-center'
             // Render role name instead of role ID
           },
           cell: ({ row }) => roleMapping[row.original.role] || row.original.role
@@ -257,31 +260,36 @@ const EditableTable = ({ data }) => {
                   </IconButton>
                 </Tooltip>
 
-                <Tooltip title="Edit">
-                  <IconButton
-                    color="primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedUser(row.original);
-                      setOpenFormDialog(true);
-                    }}
-                  >
-                    <EditOutlined />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton
-                    color="error"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleClose();
-                      setUserToDelete(row.original);
-                      console.log('original', row.original);
-                    }}
-                  >
-                    <DeleteOutlined />
-                  </IconButton>
-                </Tooltip>
+                {user.rolePermissions.Users.edit && (
+                  <Tooltip title="Edit">
+                    <IconButton
+                      color="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedUser(row.original);
+                        setOpenFormDialog(true);
+                      }}
+                    >
+                      <EditOutlined />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
+                {user.rolePermissions.Users.delete && (
+                  <Tooltip title="Delete">
+                    <IconButton
+                      color="error"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClose();
+                        setUserToDelete(row.original);
+                        console.log('original', row.original);
+                      }}
+                    >
+                      <DeleteOutlined />
+                    </IconButton>
+                  </Tooltip>
+                )}
               </Stack>
             );
           }
@@ -341,16 +349,18 @@ const EditableTable = ({ data }) => {
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
-          <Button
-            size="small"
-            sx={{ minWidth: '130px', minHeight: '41.13px' }}
-            startIcon={<PlusOutlined />}
-            color="primary"
-            variant="contained"
-            onClick={handleClickOpen}
-          >
-            {t('Add Users')}
-          </Button>
+          {user.rolePermissions.Users.add && (
+            <Button
+              size="small"
+              sx={{ minWidth: '130px', minHeight: '41.13px' }}
+              startIcon={<PlusOutlined />}
+              color="primary"
+              variant="contained"
+              onClick={handleClickOpen}
+            >
+              {t('Add Users')}
+            </Button>
+          )}
 
           <Button
             size="small"

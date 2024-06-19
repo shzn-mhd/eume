@@ -50,6 +50,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { logout, user } = useAuth();
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -153,7 +154,7 @@ const Profile = () => {
                             <Typography variant="h6">{user?.firstName}{` `}{user?.lastName}</Typography>
                             <Typography variant="body2" color="textSecondary">
                               {/* UI/UX Designer */}
-                              {user?.role}
+                              {user?.roleName}
                             </Typography>
                           </Stack>
                         </Stack>
