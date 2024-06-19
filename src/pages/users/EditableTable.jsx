@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import MainCard from 'components/MainCard';
 import { CSVExport, CellEditable, SelectColumnSorting, TablePagination } from 'components/third-party/react-table';
-import ScrollX from 'components/ScrollX';
+// import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { db } from 'config/firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
@@ -34,6 +34,8 @@ import { useTranslation } from 'react-i18next';
 import IconButton from 'components/@extended/IconButton';
 import NewUserForm from './components/NewUserForm';
 import AlertUserDelete from './components/AlertUserDelete';
+// import UserView from './components/UserView';
+import UserModal from './components/UserModal';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -55,6 +57,9 @@ const EditableTable = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
 
+  const [userToView, setUserToView] = useState(null);
+  const [openView, setOpenView] = useState(false);
+
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
   };
@@ -71,6 +76,10 @@ const EditableTable = ({ data }) => {
   const handleClose = () => {
     setOpen(!open);
   };
+
+  const handleUserView = () => {
+    setOpenView(!openView);
+  }
 
   const [sorting, setSorting] = useState([
     {
@@ -213,9 +222,8 @@ const EditableTable = ({ data }) => {
                     // onClick={row.getToggleExpandedHandler()}
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedOffer(row.original);
-                      setCustomerModal(true);
-                      setViewType('view');
+                      handleUserView();
+                      setUserToView(row.original);
                     }}
                   >
                     {collapseIcon}
@@ -410,6 +418,12 @@ const EditableTable = ({ data }) => {
           userName={userToDelete.firstName + ' ' + userToDelete.lastName}
         />
       )}
+
+      {/* {userToView && (
+        <UserView closeModal={handleUserView} user={userToView}/>
+      )} */}
+
+      <UserModal open={openView} modalToggler={setOpenView} user={userToView}/>
     </MainCard>
   );
 };

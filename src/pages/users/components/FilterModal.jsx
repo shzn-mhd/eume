@@ -5,9 +5,9 @@ import { useTheme } from '@mui/material/styles';
 import IconButton from 'components/@extended/IconButton';
 import MainCard from 'components/MainCard';
 import { ThemeMode } from 'config';
-import countryList from 'data/country';
-import provinceList from 'data/province';
-import {InputLabel} from '@mui/material'
+// import countryList from 'data/country';
+// import provinceList from 'data/province';
+// import {InputLabel} from '@mui/material'
 
 const FilterModal = ({ 
     onClose,
@@ -15,8 +15,8 @@ const FilterModal = ({
     setSelectedAcc,
  }) => {
   const theme = useTheme();
-  const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
-  const gender = ['Muller', 'Viro'];
+  // const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
+  // const gender = ['Muller', 'Viro'];
   const acc = ['1','2','3','4','5'];
 
   return (

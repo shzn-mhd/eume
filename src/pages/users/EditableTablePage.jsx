@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import EditableTable from './EditableTable';
-import { db } from 'config/firebase';
 
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 

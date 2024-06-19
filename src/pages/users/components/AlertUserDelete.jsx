@@ -7,14 +7,11 @@ import { Button, Dialog, DialogContent, Stack, Typography } from '@mui/material'
 import Avatar from 'components/@extended/Avatar';
 import { PopupTransition } from 'components/@extended/Transitions';
 
-import { deleteCustomer } from 'api/customer';
-import { openSnackbar } from 'api/snackbar';
-
 // assets
 import { DeleteFilled } from '@ant-design/icons';
-import { dispatch } from 'store';
+// import { dispatch } from 'store';
 // import { deleteUniversity, getUniversities } from 'store/reducers/university';
-import { deleteSystemAdmin, getSystemAdmins } from 'store/reducers/admin';
+// import { deleteSystemAdmin, getSystemAdmins } from 'store/reducers/admin';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from 'config/firebase';
 
