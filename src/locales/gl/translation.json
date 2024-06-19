@@ -64,5 +64,18 @@
     "Quality/Price Ratio of the Destination": "Relación Calidade/Prezo do Destino",
     "Search": "Buscar",
     "Sort by": "Ordenar por",
-    "Sort By": "Ordenar Por"
+    "Sort By": "Ordenar Por",
+    "Users": "Usuarios",
+    "First Name": "Nome",
+    "Last Name": "Apelido",
+    "Email":"Correo electrónico",
+    "Role": "Papel",
+    "User Table":"Táboa de usuarios",
+    "Total Users": "Total de Usuarios",
+    "User Role": "Rol de usuario",
+    "Filter Users": "Filtrar usuarios",
+    "Add Users": "Engadir usuarios",
+    "New User": "Novo Usuario",
+    "Create Account":"Crear conta",
+    "Edit User":"Editar Usuario"
 }

@@ -58,6 +58,10 @@ const OptionalSurveyListPage = Loadable(
   lazy(() => import("pages/optional-survey/EditableTablePage"))
 );
 
+const UserListPage = Loadable(
+  lazy(() => import("pages/users/EditableTablePage"))
+)
+
 const AccommodationListPage = Loadable(
   lazy(() => import("pages/hotel/accommodation"))
 );
@@ -359,6 +363,20 @@ const MainRoutes =
             {
               path: "OptionalSurveyPage",
               element: <OptionalSurveyListPage />,
+            },
+            {
+              path: "university-card",
+              element: <AppCustomerCard />,
+            },
+          ],
+        },
+
+        {
+          path: "users",
+          children: [
+            {
+              path: "UserListPage",
+              element: <UserListPage />,
             },
             {
               path: "university-card",

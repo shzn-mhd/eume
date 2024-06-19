@@ -170,7 +170,7 @@ export const FirebaseProvider = ({ children }) => {
 
   // const firebaseRegister = async (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  const firebaseRegister = async (email, password, firstName, lastName) => {
+  const firebaseRegister = async (email, password, firstName, lastName, role) => {
     const auth = getAuth(app);
     const firestore = getFirestore(app);
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -183,6 +183,7 @@ export const FirebaseProvider = ({ children }) => {
       email: user.email,
       firstName: firstName,
       lastName: lastName,
+      role: role
     });
     return userCredential;
   };
