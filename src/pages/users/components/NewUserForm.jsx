@@ -29,7 +29,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import IconButton from 'components/@extended/IconButton';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
 
@@ -68,7 +68,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
   useEffect(() => {
     const fetchRoles = async () => {
       const roleCollectionRef = collection(db, 'roles');
-      const roleSnapshot = await getDocs(roleCollectionRef);
+      const roleQuery = query(roleCollectionRef, where('roleStatus', '==', 'Enable')); // Filter roles with roleStatus 'Enable'
+      const roleSnapshot = await getDocs(roleQuery);
       const roleList = roleSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data()
@@ -80,7 +81,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
     changePassword('');
   }, []);
 
-  console.log("roles>>>", roles);
 
   return (
     <>
