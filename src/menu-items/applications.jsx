@@ -87,6 +87,13 @@ export const MenuConfigProvider = ({ children }) => {
         icon: icons.FileSearchOutlined,
         url: '/optional-survey/OptionalSurveyPage',
       },
+      {
+        id: 'users',
+        title: t('Users'),
+        type: 'item',
+        icon: icons.UserOutlined,
+        url: '/users/UserListPage',
+      },
     ],
   }), [t]);
 

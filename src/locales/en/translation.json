@@ -64,5 +64,18 @@
     "Quality/Price Ratio of the Destination" : "Quality/Price Ratio of the Destination",
     "Search" : "Search",
     "Sort by": "Sort by",
-    "Sort By": "Sort By"
+    "Sort By": "Sort By",
+    "Users":"Users",
+    "First Name":"First Name",
+    "Last Name": "Last Name",
+    "Email": "Email",
+    "Role": "Role",
+    "User Table":"User Table",
+    "Total Users": "Total Users",
+    "User Role": "User Role",
+    "Filter Users": "Filter Users",
+    "Add Users": "Add Users",
+    "New User": "New User",
+    "Create Account":"Create Account",
+    "Edit User":"Edit User"
   }
