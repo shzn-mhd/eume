@@ -135,6 +135,7 @@ const EditableTable = ({ data }) => {
         map[role.id] = role.roleName;
         return map;
       }, {});
+      console.log("roleMap", roleMap);
       setRoleMapping(roleMap);
     };
 
@@ -286,7 +287,7 @@ const EditableTable = ({ data }) => {
           }
         }
       ],
-      [t, theme]
+      [t, theme, roleMapping]
     ),
     state: {
       sorting
