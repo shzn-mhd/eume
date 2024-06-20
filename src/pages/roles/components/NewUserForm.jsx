@@ -43,10 +43,10 @@ import { db } from 'config/firebase';
 
 const roles = ['Enable', 'Disable'];
 const accessTypes = ['Basic Survey', 'Optional Survey', 'Users', 'Roles'];
+const municipalityList = ['Cabanas','A Capela','Monfero','Pontedeume','As Pontes'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, role }) {
   const { t, i18n } = useTranslation();
-  const { firebaseRegister, resetPassword } = useAuth();
   const scriptedRef = useScriptRef();
 
   return (
@@ -62,6 +62,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
               Users: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               Roles: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false }
             },
+            municipality: role?.municipality ||'',
             submit: null
           }}
           validationSchema={Yup.object().shape({
@@ -75,7 +76,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 await updateDoc(roleDocRef, {
                   roleName: values.roleName,
                   roleStatus: values.roleStatus,
-                  permissions: values.permissions
+                  permissions: values.permissions,
+                  municipality: values.municipality
                 });
                 setEmpList((prevEmpList) =>
                   prevEmpList.map((item) =>
@@ -87,7 +89,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 const newRoleRef = await addDoc(collection(db, 'roles'), {
                   roleName: values.roleName,
                   roleStatus: values.roleStatus,
-                  permissions: values.permissions
+                  permissions: values.permissions,
+                  municipality: values.municipality
                 });
                 // console.log('New role added: ', newRoleRef);
                 // Update the empList in the parent component
@@ -110,7 +113,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
           {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
             <form noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="firstname-signup">Role Name*</InputLabel>
                     <OutlinedInput
@@ -131,7 +134,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                     </FormHelperText>
                   )}
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="role-signup">Role Status*</InputLabel>
                     <FormControl fullWidth error={Boolean(touched.roleStatus && errors.roleStatus)}>
@@ -156,6 +159,35 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                     {touched.role && errors.role && (
                       <FormHelperText error id="helper-text-role-signup">
                         {errors.role}
+                      </FormHelperText>
+                    )}
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="role-signup">Municipality</InputLabel>
+                    <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
+                      <Select
+                        id="municipality-signup"
+                        value={values.municipality}
+                        name="municipality"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        displayEmpty
+                      >
+                        <MenuItem value="">
+                          <em>Select Municipality</em>
+                        </MenuItem>
+                        {municipalityList.map((municipality) => (
+                          <MenuItem key={municipality} value={municipality}>
+                            {municipality}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    {touched.municipality && errors.municipality && (
+                      <FormHelperText error id="helper-text-municipality-signup">
+                        {errors.municipality}
                       </FormHelperText>
                     )}
                   </Stack>

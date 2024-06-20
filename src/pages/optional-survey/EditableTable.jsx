@@ -314,21 +314,6 @@ const EditableTable = ({ data }) => {
     setSelectedCleaningConservation('');
   };
 
-  // const { t, i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-
-  const languageOptions = [
-    { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' }
-  ];
-
-  const handleLanguageChange = (event, value) => {
-    if (value) {
-      i18n.changeLanguage(value.code);
-      setSelectedLanguage(value.code);
-    }
-  };
-
   return (
     <MainCard
       content={false}
@@ -375,25 +360,12 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
 
-          <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
-          {/* <Stack direction="row" spacing={2} justifyContent="center">
-          <FormControl style={{ width: '150px' }}>
-            <Autocomplete
-              id="language"
-              options={languageOptions}
-              getOptionLabel={(option) => option.label}
-              value={languageOptions.find((option) => option.code === selectedLanguage) || null}
-              onChange={handleLanguageChange}
-              sx={{
-                borderRadius: '4px',
-                bgcolor: theme.palette.background.paper,
-                boxShadow: theme.customShadows.primary,
-                border: `1px solid ${theme.palette.primary.main}`
-              }}
-              renderInput={(params) => <TextField {...params} label="Language" />}
-              />
-          </FormControl>
-          </Stack> */}
+          <CSVExport
+            // data={table.getRowModel().flatRows.map((row) => row.original)}
+            data={empList}
+            headers={headers}
+            filename="optional-survey.csv"
+          />
         </Stack>
       }
     >
