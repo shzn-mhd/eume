@@ -576,7 +576,12 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
 
-          <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
+          <CSVExport
+            // data={table.getRowModel().flatRows.map((row) => row.original)}
+            data={empList}
+            headers={headers}
+            filename="user-roles.csv"
+          />
         </Stack>
       }
     >

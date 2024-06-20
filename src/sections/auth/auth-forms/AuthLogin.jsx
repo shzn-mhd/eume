@@ -352,7 +352,7 @@ const AuthLogin = () => {
 
               <Grid item xs={12} sx={{ mt: -1 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     control={
                       <Checkbox
                         checked={checked}
@@ -363,7 +363,7 @@ const AuthLogin = () => {
                       />
                     }
                     label={<Typography variant="h6">Keep me sign in</Typography>}
-                  />
+                  /> */}
                   {/* <Link
                     variant="h6"
                     component={RouterLink}

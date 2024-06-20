@@ -56,7 +56,6 @@ const EditableTable = ({ data }) => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
 
-
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
   };
@@ -373,7 +372,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           }
-        },
+        }
       ],
       [t]
     ),
@@ -431,29 +430,26 @@ const EditableTable = ({ data }) => {
     setSelectedDayStay('');
     setSelectedAcc('');
     setSelectedTrans('');
-
-
   };
-    
-    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
-    const languageOptions = [
-      { code: 'en', label: 'English' },
-      { code: 'es', label: 'Español' }
-    ];
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
-    const handleLanguageChange = (event, value) => {
-      if (value) {
-        i18n.changeLanguage(value.code);
-        setSelectedLanguage(value.code);
-      }
-    };
-    
+  const languageOptions = [
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' }
+  ];
+
+  const handleLanguageChange = (event, value) => {
+    if (value) {
+      i18n.changeLanguage(value.code);
+      setSelectedLanguage(value.code);
+    }
+  };
 
   return (
     <MainCard
       content={false}
-      title={t("Survey Table")}
+      title={t('Survey Table')}
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <TextField
@@ -496,9 +492,13 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
 
-          <CSVExport data={table.getRowModel().flatRows.map((row) => row.original)} headers={headers} filename="editable-cell.csv" />
-          <div>
-          </div>
+          <CSVExport
+            // data={table.getRowModel().flatRows.map((row) => row.original)}
+            data={empList}
+            headers={headers}
+            filename="basic-survey.csv"
+          />
+          <div></div>
           {/* <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '150px' }}>
             <Autocomplete
@@ -517,7 +517,6 @@ const EditableTable = ({ data }) => {
               />
           </FormControl>
           </Stack> */}
-             
         </Stack>
       }
     >
@@ -553,7 +552,7 @@ const EditableTable = ({ data }) => {
               </TableRow>
             ))}
 
-            <TableRow sx={{ position: 'sticky',bottom: 0, zIndex: '100', backgroundColor: 'white'}}>
+            <TableRow sx={{ position: 'sticky', bottom: 0, zIndex: '100', backgroundColor: 'white' }}>
               <TableCell sx={{ p: 2, py: 3 }} colSpan={11}>
                 <Pagination count={count} variant="outlined" color="primary" size="medium" page={page} onChange={handleChange} />
               </TableCell>
@@ -592,8 +591,8 @@ const EditableTable = ({ data }) => {
         />
       </Dialog>
       <Filter
-      ResetTable={ResetTable}
-      empList={empList}
+        ResetTable={ResetTable}
+        empList={empList}
         open={openStoryDrawer}
         handleDrawerOpen={handleStoryDrawerOpen}
         selectedGender={selectedGender}
