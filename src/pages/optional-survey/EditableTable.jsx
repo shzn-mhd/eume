@@ -29,6 +29,7 @@ import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
 import { useTranslation } from 'react-i18next';
+import CSVImport from 'components/third-party/react-table/CSVImport';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -366,6 +367,8 @@ const EditableTable = ({ data }) => {
             headers={headers}
             filename="optional-survey.csv"
           />
+
+          <CSVImport collectionRef={empCollectionRef} headers={headers} />
         </Stack>
       }
     >

@@ -31,6 +31,7 @@ import Filter from './components/Filter';
 import DashboardDefault from 'pages/dashboard/default';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
+import CSVImport from 'components/third-party/react-table/CSVImport';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
@@ -498,6 +499,7 @@ const EditableTable = ({ data }) => {
             headers={headers}
             filename="basic-survey.csv"
           />
+          <CSVImport collectionRef={empCollectionRef} headers={headers} />
           <div></div>
           {/* <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '150px' }}>
