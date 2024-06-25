@@ -351,6 +351,35 @@ const EditableTable = ({ data }) => {
           }
         },
         {
+          header: t('Permissions - Cabanas'),
+          accessorKey: 'permissions.Cabanas',
+          // dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const permissions = row.original.permissions?.['Cabanas'] || {};
+            return (
+              <>
+                <Grid container md={12} spacing={1}>
+                  <Grid md={6} item>
+                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                  </Grid>
+                  <Grid md={6} item>
+                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                  </Grid>
+                  <Grid md={6} item>
+                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                  </Grid>
+                  <Grid md={6} item>
+                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                  </Grid>
+                </Grid>
+              </>
+            );
+          }
+        },
+        {
           header: t('Permissions - Users'),
           accessorKey: 'permissions.Users',
           // dataType: 'text',

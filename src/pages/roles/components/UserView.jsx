@@ -22,6 +22,7 @@ const UserView = ({ user, closeModal }) => {
   const basicSurveyPermissions = user?.permissions?.['Basic Survey'] || {};
   const optionalSurveyPermissions = user?.permissions?.['Optional Survey'] || {};
   const userPermissions = user?.permissions?.['Users'] || {};
+  const cabanaPermissions = user?.permissions?.['Cabanas'] || {};
   return (
     <>
       <DialogTitle>User Details</DialogTitle>
@@ -143,6 +144,37 @@ const UserView = ({ user, closeModal }) => {
                       </Grid>
                     </Stack>
                   </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </ListItem>
+          <ListItem 
+          // divider={!matchDownMD}
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={6}>
+                    <Stack spacing={0.5}>
+                      <Typography color="secondary">Cabanas</Typography>
+                      {/* <Typography>{user?.email}</Typography> */}
+                      <Grid container md={12} spacing={1}>
+                        <Grid md={2.5} item>
+                          <Chip color={cabanaPermissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                        </Grid>
+                        <Grid md={2.5} item>
+                          <Chip color={cabanaPermissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                        </Grid>
+                        <Grid md={2.5} item>
+                          <Chip color={cabanaPermissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                        </Grid>
+                        <Grid md={2.5} item>
+                          <Chip color={cabanaPermissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                        </Grid>
+                      </Grid>
+                    </Stack>
+                  </Grid>
+                  
                 </Grid>
               </Grid>
             </Grid>
