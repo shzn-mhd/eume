@@ -42,7 +42,7 @@ import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
 
 const roles = ['Enable', 'Disable'];
-const accessTypes = ['Basic Survey', 'Optional Survey', 'Users', 'Roles'];
+const accessTypes = ['Basic Survey', 'Optional Survey', 'Cabanas', 'Users', 'Roles'];
 const municipalityList = ['Cabanas','A Capela','Monfero','Pontedeume','As Pontes'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, role }) {
@@ -59,6 +59,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
             permissions: role?.permissions || {
               'Basic Survey': { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               'Optional Survey': { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
+              Cabanas: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               Users: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               Roles: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false }
             },
