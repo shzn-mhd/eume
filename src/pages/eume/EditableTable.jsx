@@ -54,6 +54,8 @@ const EditableTable = ({ data }) => {
   const [selectedDayStay, setSelectedDayStay] = useState('');
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectedTrans, setSelectedTrans] = useState('');
+  const [selectedDateFrom, setSelectedDateFrom] = useState(null);
+  const [selectedDateTo, setSelectedDateTo] = useState(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
 
@@ -148,6 +150,20 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
         }
 
+        if (selectedDateFrom) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate >= selectedDateFrom;
+          });
+        }
+  
+        if (selectedDateTo) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate <= selectedDateTo;
+          });
+        }
+
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
@@ -168,7 +184,9 @@ const EditableTable = ({ data }) => {
     selectedStayList,
     selectedDayStay,
     selectedAcc,
-    selectedTrans
+    selectedTrans,
+    selectedDateFrom,
+    selectedDateTo
   ]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
@@ -475,6 +493,8 @@ const EditableTable = ({ data }) => {
     setSelectedDayStay('');
     setSelectedAcc('');
     setSelectedTrans('');
+    setSelectedDateFrom(null);
+    setSelectedDateTo(null);
   };
 
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -665,6 +685,10 @@ const EditableTable = ({ data }) => {
         setSelectedAcc={setSelectedAcc}
         selectedTrans={selectedTrans}
         setSelectedTrans={setSelectedTrans}
+        selectedDateFrom={selectedDateFrom}
+        setSelectedDateFrom={setSelectedDateFrom}
+        selectedDateTo={selectedDateTo}
+        setSelectedDateTo={setSelectedDateTo}
       />
     </MainCard>
   );
