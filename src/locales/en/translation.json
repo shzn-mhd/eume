@@ -151,5 +151,7 @@
     "Own Vehicle":"Own Vehicle",
     "Walking":"Walking",
     "Bus":"Bus",
-    "Train":"Train"
+    "Train":"Train",
+    "Optional Surveys":"Optional Surveys",
+    "Basic Surveys":"Basic Surveys"
   }

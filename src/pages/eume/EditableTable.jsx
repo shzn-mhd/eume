@@ -515,6 +515,7 @@ const EditableTable = ({ data }) => {
     <MainCard
       content={false}
       title={t('Survey Table')}
+      subheader={empList.length + ' ' + t('Basic Surveys')}
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <TextField
