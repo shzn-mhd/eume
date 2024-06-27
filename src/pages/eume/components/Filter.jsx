@@ -14,6 +14,8 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import accList from 'data/accomodation';
@@ -54,7 +56,11 @@ const Filter = ({
   selectedAcc,
   setSelectedAcc,
   selectedTrans,
-  setSelectedTrans
+  setSelectedTrans,
+  selectedDateFrom,
+  setSelectedDateFrom,
+  selectedDateTo,
+  setSelectedDateTo
 }) => {
   const theme = useTheme();
   const gender = ['Male', 'Female'];
@@ -128,18 +134,18 @@ const Filter = ({
           </Box>
           <Divider />
           <Stack padding={2}>
-          <MainCard contentSX={{ p: 2.25 }}>
-            <Stack spacing={0.5}>
-              <Typography variant="h6" color="textSecondary">
-                {t('Total Visitors')}
-              </Typography>
-              <Grid container alignItems="center">
-                <Grid item>
-                  <Typography variant="h4" color="inherit">
-                    {empList.length}
-                  </Typography>
-                </Grid>
-                {/* {percentage && (
+            <MainCard contentSX={{ p: 2.25 }}>
+              <Stack spacing={0.5}>
+                <Typography variant="h6" color="textSecondary">
+                  {t('Total Visitors')}
+                </Typography>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <Typography variant="h4" color="inherit">
+                      {empList.length}
+                    </Typography>
+                  </Grid>
+                  {/* {percentage && (
           <Grid item>
             <Chip
               variant="combined"
@@ -156,13 +162,44 @@ const Filter = ({
             />
           </Grid>
         )} */}
-              </Grid>
-            </Stack>
-          </MainCard>
+                </Grid>
+              </Stack>
+            </MainCard>
           </Stack>
-          
-          <Box sx={{ p: 2, maxHeight:'50vh', overflowY:'auto' }}>
+
+          <Box sx={{ p: 2, maxHeight: '50vh', overflowY: 'auto' }}>
             <Stack direction="column" spacing={2}>
+              <Grid container gap={1}>
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        id="dateFrom"
+                        label={t('Date - From')}
+                        inputFormat="MM/dd/yyyy"
+                        value={selectedDateFrom}
+                        onChange={(newValue) => setSelectedDateFrom(newValue)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        id="dateTo"
+                        label={t('Date - To')}
+                        inputFormat="MM/dd/yyyy"
+                        value={selectedDateTo}
+                        onChange={(newValue) => setSelectedDateTo(newValue)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </FormControl>
+                </Grid>
+              </Grid>
               <Grid container gap={1}>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>
@@ -176,11 +213,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Country")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Country')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -197,11 +234,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Province")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Province')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -219,32 +256,32 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Gender")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Gender')} />}
                     />
                   </FormControl>
                 </Grid>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>
                     <TextField
-                    id="age"
-                    value={selectedAge || null}
-                    // onChange={(event, newValue) => {
-                    //   console.log("newww",newValue);
-                    //   setSelectedAge(newValue ? newValue : null);
-                    // }}
-                    onChange={(e) => setSelectedAge(e.target.value)}
-                    sx={{
-                      borderRadius: '4px',
-                      bgcolor: theme.palette.background.paper,
-                      // boxShadow: theme.customShadows.primary,
-                      // border: `1px solid ${theme.palette.primary.main}`
-                    }}
-                    label="Age"
-                    type='number'
+                      id="age"
+                      value={selectedAge || null}
+                      // onChange={(event, newValue) => {
+                      //   console.log("newww",newValue);
+                      //   setSelectedAge(newValue ? newValue : null);
+                      // }}
+                      onChange={(e) => setSelectedAge(e.target.value)}
+                      sx={{
+                        borderRadius: '4px',
+                        bgcolor: theme.palette.background.paper
+                        // boxShadow: theme.customShadows.primary,
+                        // border: `1px solid ${theme.palette.primary.main}`
+                      }}
+                      label="Age"
+                      type="number"
                     />
                     {/* <Autocomplete
                       id="age"
@@ -278,11 +315,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Motivation")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Motivation')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -298,11 +335,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Modality")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Modality')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -320,11 +357,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("With Pet")} />}
+                      renderInput={(params) => <TextField {...params} label={t('With Pet')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -340,11 +377,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Stay Over Night")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Stay Over Night')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -362,11 +399,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Stay Place")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Stay Place')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -382,11 +419,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("No of Days")} />}
+                      renderInput={(params) => <TextField {...params} label={t('No of Days')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -404,11 +441,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Accomodation Type")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Accomodation Type')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -424,11 +461,11 @@ const Filter = ({
                       }}
                       sx={{
                         borderRadius: '4px',
-                        bgcolor: theme.palette.background.paper,
+                        bgcolor: theme.palette.background.paper
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t("Transport")} />}
+                      renderInput={(params) => <TextField {...params} label={t('Transport')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -437,7 +474,7 @@ const Filter = ({
           </Box>
           <Divider />
           {/* <Grid item sx={{width:'100%'}}> */}
-          <Stack direction="row" alignItems="center" spacing={2} justifyContent='space-between' padding={2}>
+          <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between" padding={2}>
             <Tooltip title="Reset Filter">
               <Button
                 size="small"
@@ -446,7 +483,7 @@ const Filter = ({
                 variant="contained"
                 onClick={() => ResetTable()}
               >
-                {t("Reset Filter")}
+                {t('Reset Filter')}
               </Button>
             </Tooltip>
             <Tooltip title="Filter">
@@ -458,7 +495,7 @@ const Filter = ({
                 variant="contained"
                 onClick={handleDrawerOpen}
               >
-                {t("Filter")}
+                {t('Filter')}
               </Button>
             </Tooltip>
           </Stack>
