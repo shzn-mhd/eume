@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Dialog,
+  Divider,
   FormControl,
   Pagination,
   Stack,
@@ -315,6 +316,37 @@ const EditableTable = ({ data }) => {
     setSelectedCleaningConservation('');
   };
 
+  const calculateAverages = (data) => {
+    const numericColumns = [
+      'accessibility',
+      'catering_services',
+      'cleaning_conservation',
+      'cultural_offerings',
+      'general_assessment',
+      'lodging',
+      'quality_price_ratio',
+      'retailers',
+      'signaling',
+      'sustainability',
+      'tourist_information'
+    ];
+
+    const averages = {};
+    numericColumns.forEach((col) => {
+      const sum = data.reduce((acc, item) => acc + (Number(item[col]) || 0), 0);
+      const avg = sum / data.length || 0;
+      averages[col] = avg.toFixed(2); // Keep two decimal points
+    });
+
+    return averages;
+  };
+
+  const [averages, setAverages] = useState({});
+
+  useEffect(() => {
+    setAverages(calculateAverages(empList));
+  }, [empList]);
+
   return (
     <MainCard
       content={false}
@@ -393,6 +425,18 @@ const EditableTable = ({ data }) => {
                 ))}
               </TableRow>
             ))}
+
+            <TableRow>
+              <TableCell colSpan={12} sx={{ backgroundColor: '#fff', height: '2px', p: 0 }}></TableCell>
+            </TableRow>
+
+            <TableRow>
+              {table.getAllColumns().map((column) => (
+                <TableCell key={column.id} {...column.columnDef.meta}>
+                  {column.id !== 'optionalFeedback' && averages[column.id] ? averages[column.id] : '-'}
+                </TableCell>
+              ))}
+            </TableRow>
           </TableHead>
           <TableBody sx={{ overflowY: 'auto', zIndex: '-100' }}>
             {table.getRowModel().rows.map((row) => (
