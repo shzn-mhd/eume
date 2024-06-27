@@ -116,7 +116,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
               <Grid container spacing={3}>
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="firstname-signup">Role Name*</InputLabel>
+                    <InputLabel htmlFor="firstname-signup">{t('Role Name')}*</InputLabel>
                     <OutlinedInput
                       id="firstname-login"
                       type="roleName"
@@ -137,7 +137,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="role-signup">Role Status*</InputLabel>
+                    <InputLabel htmlFor="role-signup">{t('Role Status')}*</InputLabel>
                     <FormControl fullWidth error={Boolean(touched.roleStatus && errors.roleStatus)}>
                       <Select
                         id="role-signup"
@@ -148,7 +148,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                         displayEmpty
                       >
                         <MenuItem value="">
-                          <em>Select Role Status</em>
+                          <em>{t('Select Role Status')}</em>
                         </MenuItem>
                         {roles.map((role) => (
                           <MenuItem key={role} value={role}>
@@ -166,7 +166,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="role-signup">Municipality</InputLabel>
+                    <InputLabel htmlFor="role-signup">{t('Municipality')}</InputLabel>
                     <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
                       <Select
                         id="municipality-signup"
@@ -177,7 +177,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                         displayEmpty
                       >
                         <MenuItem value="">
-                          <em>Select Municipality</em>
+                          <em>{t('Select Municipality')}</em>
                         </MenuItem>
                         {municipalityList.map((municipality) => (
                           <MenuItem key={municipality} value={municipality}>
@@ -198,19 +198,19 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell align="left">Access</TableCell>
-                        <TableCell align="center">View</TableCell>
-                        <TableCell align="center">Add</TableCell>
-                        <TableCell align="center">Edit</TableCell>
-                        <TableCell align="center">Delete</TableCell>
-                        <TableCell align="center">View Enter by them</TableCell>
+                        <TableCell align="left">{t('Access')}</TableCell>
+                        <TableCell align="center">{t('View')}</TableCell>
+                        <TableCell align="center">{t('Add')}</TableCell>
+                        <TableCell align="center">{t('Edit')}</TableCell>
+                        <TableCell align="center">{t('Delete')}</TableCell>
+                        <TableCell align="center">{t('View Enter by them')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {accessTypes.map((accessType) => (
                         <TableRow key={accessType}>
                           <TableCell component="th" scope="row">
-                            {accessType}
+                            {t(accessType)}
                           </TableCell>
                           {['view', 'add', 'edit', 'delete', 'viewCreatedByThem'].map((permissionType) => (
                             <TableCell key={permissionType} align="center">

@@ -114,7 +114,7 @@ const Filter = ({
                       verticalAlign: 'middle'
                     }}
                   >
-                    Filtering Options
+                    {t('Filtering Options')}
                   </Typography>
                   <Tooltip title="Close">
                     <IconButton color="secondary" onClick={handleDrawerOpen} size="small" sx={{ fontSize: '0.875rem' }}>

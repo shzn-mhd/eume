@@ -228,6 +228,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const accommodationType = row.original.accommodationType;
+            return t(accommodationType);
           }
         },
         {
@@ -236,6 +240,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const activity = row.original.activity;
+            return t(activity);
           }
         },
         // {
@@ -268,6 +276,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const gender = row.original.gender;
+            return t(gender);
           }
         },
         {
@@ -284,6 +296,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const modality = row.original.modality;
+            return t(modality);
           }
         },
         {
@@ -292,6 +308,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const motivation = row.original.motivation;
+            return t(motivation);
           }
         },
         {
@@ -316,6 +336,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const placeOfOrigin = row.original.placeOfOrigin;
+            return t(placeOfOrigin);
           }
         },
         {
@@ -324,6 +348,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const province = row.original.province;
+            return t(province);
           }
         },
         {
@@ -340,6 +368,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const stayOvernight = row.original.stayOvernight;
+            return t(stayOvernight);
           }
         },
         {
@@ -348,6 +380,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const stayPlace = row.original.stayPlace;
+            return t(stayPlace);
           }
         },
         {
@@ -356,6 +392,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const transportation = row.original.transportation;
+            return t(transportation);
           }
         },
         {
@@ -372,6 +412,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const withPet = row.original.withPet;
+            return t(withPet);
           }
         }
       ],
