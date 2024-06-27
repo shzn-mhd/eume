@@ -81,7 +81,7 @@ const Filter = ({
           border: 'none',
           borderRadius: '20px',
           margin: '30px',
-          maxHeight: '620px'
+          maxHeight: '680px'
         }
       }}
       variant="temporary"
