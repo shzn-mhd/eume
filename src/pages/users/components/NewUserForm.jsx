@@ -161,7 +161,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
+                    <InputLabel htmlFor="firstname-signup">{t('First Name')}*</InputLabel>
                     <OutlinedInput
                       id="firstname-login"
                       type="firstname"
@@ -182,7 +182,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
+                    <InputLabel htmlFor="lastname-signup">{t('Last Name')}*</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.lastname && errors.lastname)}
@@ -204,7 +204,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="email-signup">Email Address*</InputLabel>
+                    <InputLabel htmlFor="email-signup">{t('Email Address')}*</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.email && errors.email)}
@@ -226,11 +226,11 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="role-signup">Role*</InputLabel>
+                    <InputLabel htmlFor="role-signup">{t('Role')}*</InputLabel>
                     <FormControl fullWidth error={Boolean(touched.role && errors.role)}>
                       <Select id="role-signup" value={values.role} name="role" onBlur={handleBlur} onChange={handleChange} displayEmpty>
                         <MenuItem value="">
-                          <em>Select Role</em>
+                          <em>{t('Select Role')}</em>
                         </MenuItem>
                         {roles?.map((role) => (
                           <MenuItem key={role.id} value={role.id}>
@@ -248,7 +248,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="password-signup">Password</InputLabel>
+                    <InputLabel htmlFor="password-signup">{t('Password')}</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.password && errors.password)}

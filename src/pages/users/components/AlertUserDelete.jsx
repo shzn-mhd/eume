@@ -14,10 +14,12 @@ import { DeleteFilled } from '@ant-design/icons';
 // import { deleteSystemAdmin, getSystemAdmins } from 'store/reducers/admin';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from 'config/firebase';
+import { useTranslation } from 'react-i18next';
 
 // ==============================|| CUSTOMER - DELETE ||============================== //
 
 export default function AlertUserDelete({ open, handleClose, setEmpList, userId, userName }) {
+  const { t, i18n } = useTranslation();
 const deleteHandler = async () => {
     try {
       const userDoc = doc(db, 'users', userId);
@@ -49,24 +51,24 @@ const deleteHandler = async () => {
           </Avatar>
           <Stack spacing={2}>
             <Typography variant="h4" align="center">
-              Are you sure you want to delete?
+              {t('Are you sure you want to delete?')}
             </Typography>
             <Typography align="center">
-              By deleting
+              {t('By deleting')}
               <Typography variant="subtitle1" component="span">
                 {' '}
                 &quot;{userName}&quot;{' '}
               </Typography>
-              , all attributes assigned to this user will also be deleted.
+              , {t('all attributes assigned to this user will also be deleted.')}
             </Typography>
           </Stack>
 
           <Stack direction="row" spacing={2} sx={{ width: 1 }}>
             <Button fullWidth onClick={handleClose} color="secondary" variant="outlined">
-              Cancel
+              {t('Cancel')}
             </Button>
             <Button fullWidth color="error" variant="contained" onClick={deleteHandler} autoFocus>
-              Delete
+              {t('Delete')}
             </Button>
           </Stack>
         </Stack>

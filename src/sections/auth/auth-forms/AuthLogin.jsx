@@ -217,10 +217,12 @@ import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
+  const { t, i18n } = useTranslation();
   const [checked, setChecked] = React.useState(false);
   const [capsWarning, setCapsWarning] = React.useState(false);
 
@@ -286,7 +288,7 @@ const AuthLogin = () => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login">{t('Email Address')}</InputLabel>
                   <OutlinedInput
                     id="email-login"
                     type="email"
@@ -294,7 +296,7 @@ const AuthLogin = () => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder={t("Enter email address")}
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
                   />
@@ -307,7 +309,7 @@ const AuthLogin = () => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login">{t('Password')}</InputLabel>
                   <OutlinedInput
                     fullWidth
                     color={capsWarning ? 'warning' : 'primary'}
@@ -335,11 +337,11 @@ const AuthLogin = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    placeholder="Enter password"
+                    placeholder={t("Enter password")}
                   />
                   {capsWarning && (
                     <Typography variant="caption" sx={{ color: 'warning.main' }} id="warning-helper-text-password-login">
-                      Caps lock on!
+                      {t('Caps lock on!')}
                     </Typography>
                   )}
                 </Stack>
@@ -382,7 +384,7 @@ const AuthLogin = () => {
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
+                    {t('Login')}
                   </Button>
                 </AnimateButton>
               </Grid>

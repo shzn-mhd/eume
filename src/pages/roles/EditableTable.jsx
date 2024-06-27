@@ -282,6 +282,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const roleName = row.original.roleName;
+            return t(roleName);
           }
         },
         {
@@ -290,6 +294,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const roleStatus = row.original.roleStatus;
+            return t(roleStatus);
           }
         },
         {
@@ -305,16 +313,16 @@ const EditableTable = ({ data }) => {
               <>
                 <Grid container md={12} spacing={1}>
                   <Grid md={6} item>
-                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                    <Chip color={permissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                    <Chip color={permissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                    <Chip color={permissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                    <Chip color={permissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
                   </Grid>
                 </Grid>
               </>
@@ -334,16 +342,16 @@ const EditableTable = ({ data }) => {
               <>
                 <Grid container md={12} spacing={1}>
                   <Grid md={6} item>
-                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                    <Chip color={permissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                    <Chip color={permissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                    <Chip color={permissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                    <Chip color={permissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
                   </Grid>
                 </Grid>
               </>
@@ -363,16 +371,16 @@ const EditableTable = ({ data }) => {
               <>
                 <Grid container md={12} spacing={1}>
                   <Grid md={6} item>
-                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                    <Chip color={permissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                    <Chip color={permissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                    <Chip color={permissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                    <Chip color={permissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
                   </Grid>
                 </Grid>
               </>
@@ -392,16 +400,16 @@ const EditableTable = ({ data }) => {
               <>
                 <Grid container md={12} spacing={1}>
                   <Grid md={6} item>
-                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                    <Chip color={permissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                    <Chip color={permissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                    <Chip color={permissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                    <Chip color={permissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
                   </Grid>
                 </Grid>
               </>
@@ -421,16 +429,16 @@ const EditableTable = ({ data }) => {
               <>
                 <Grid container md={12} spacing={1}>
                   <Grid md={6} item>
-                    <Chip color={permissions.add ? 'success' : 'error'} label="Add" size="small" variant="light" />
+                    <Chip color={permissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.edit ? 'success' : 'error'} label="Edit" size="small" variant="light" />
+                    <Chip color={permissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.view ? 'success' : 'error'} label="View" size="small" variant="light" />
+                    <Chip color={permissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
                   </Grid>
                   <Grid md={6} item>
-                    <Chip color={permissions.delete ? 'success' : 'error'} label="Delete" size="small" variant="light" />
+                    <Chip color={permissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
                   </Grid>
                 </Grid>
               </>

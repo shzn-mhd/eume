@@ -7,18 +7,20 @@ import { Grid, Stack, Typography } from '@mui/material';
 import useAuth from 'hooks/useAuth';
 import AuthWrapper from 'sections/auth/AuthWrapper';
 import AuthLogin from 'sections/auth/auth-forms/AuthLogin';
+import { useTranslation } from 'react-i18next';
 
 // ================================|| LOGIN ||================================ //
 
 const Login = () => {
   const { isLoggedIn } = useAuth();
+  const { t, i18n } = useTranslation();
 
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-            <Typography variant="h3">Login</Typography>
+            <Typography variant="h3">{t('Login')}</Typography>
             {/* <Typography
               component={Link}
               to={isLoggedIn ? '/auth/register' : '/register'}

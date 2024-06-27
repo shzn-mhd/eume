@@ -135,7 +135,7 @@ const EditableTable = ({ data }) => {
 
       // Create a mapping of role IDs to role names
       const roleMap = roleList.reduce((map, role) => {
-        map[role.id] = role.roleName;
+        map[role.id] = t(role.roleName);
         return map;
       }, {});
       console.log('roleMap', roleMap);
@@ -143,7 +143,7 @@ const EditableTable = ({ data }) => {
     };
 
     fetchRoles();
-  }, []);
+  }, [t]);
 
   const PER_PAGE = 10;
   // console.log('empList.length', empList.length);
