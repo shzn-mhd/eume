@@ -206,7 +206,7 @@ const Filter = ({
                     <Autocomplete
                       id="country"
                       options={countryList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={countryList.find((option) => option === selectedCountry) || null}
                       onChange={(event, newValue) => {
                         setSelectedCountry(newValue ? newValue : null);
@@ -227,7 +227,7 @@ const Filter = ({
                     <Autocomplete
                       id="province"
                       options={provinceList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={provinceList.find((option) => option === selectedProvince) || null}
                       onChange={(event, newValue) => {
                         setSelectedProvince(newValue ? newValue : null);
@@ -249,7 +249,7 @@ const Filter = ({
                     <Autocomplete
                       id="gender"
                       options={gender}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={gender.find((option) => option === selectedGender) || null}
                       onChange={(event, newValue) => {
                         setSelectedGender(newValue ? newValue : null);
@@ -308,7 +308,7 @@ const Filter = ({
                     <Autocomplete
                       id="motivation"
                       options={motivationList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={motivationList.find((option) => option === selectedMotivation) || null}
                       onChange={(event, newValue) => {
                         setSelectedMotivation(newValue ? newValue : null);
@@ -328,7 +328,7 @@ const Filter = ({
                     <Autocomplete
                       id="modality"
                       options={modalityList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={modalityList.find((option) => option === selectedModality) || null}
                       onChange={(event, newValue) => {
                         setSelectedModality(newValue ? newValue : null);
@@ -350,7 +350,7 @@ const Filter = ({
                     <Autocomplete
                       id="withPet"
                       options={pet}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={pet.find((option) => option === selectedPet) || null}
                       onChange={(event, newValue) => {
                         setSelectedPet(newValue ? newValue : null);
@@ -370,7 +370,7 @@ const Filter = ({
                     <Autocomplete
                       id="stayOvernight"
                       options={stay}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={stay.find((option) => option === selectedStay) || null}
                       onChange={(event, newValue) => {
                         setSelectedStay(newValue ? newValue : null);
@@ -381,7 +381,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      renderInput={(params) => <TextField {...params} label={t('Stay Over Night')} />}
+                      renderInput={(params) => <TextField {...params} label={t('Stay Overnight')} />}
                     />
                   </FormControl>
                 </Grid>
@@ -392,7 +392,7 @@ const Filter = ({
                     <Autocomplete
                       id="stayPlace"
                       options={stayList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={stayList.find((option) => option === selectedStayList) || null}
                       onChange={(event, newValue) => {
                         setSelectedStayList(newValue ? newValue : null);
@@ -434,7 +434,7 @@ const Filter = ({
                     <Autocomplete
                       id="accommodationType"
                       options={accList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={accList.find((option) => option === selectedAcc) || null}
                       onChange={(event, newValue) => {
                         setSelectedAcc(newValue ? newValue : null);
@@ -454,7 +454,7 @@ const Filter = ({
                     <Autocomplete
                       id="transportation"
                       options={transList}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => t(option)}
                       value={transList.find((option) => option === selectedTrans) || null}
                       onChange={(event, newValue) => {
                         setSelectedTrans(newValue ? newValue : null);
