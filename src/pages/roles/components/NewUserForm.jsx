@@ -43,7 +43,7 @@ import { db } from 'config/firebase';
 
 const roles = ['Enable', 'Disable'];
 const accessTypes = ['Basic Survey', 'Optional Survey', 'Cabanas', 'Users', 'Roles'];
-const municipalityList = ['Cabanas','A Capela','Monfero','Pontedeume','As Pontes'];
+const municipalityList = ['Cabanas', 'A Capela', 'Monfero', 'Pontedeume', 'As Pontes'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, role }) {
   const { t, i18n } = useTranslation();
@@ -63,7 +63,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
               Users: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               Roles: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false }
             },
-            municipality: role?.municipality ||'',
+            municipality: role?.municipality || '',
             submit: null
           }}
           validationSchema={Yup.object().shape({
@@ -80,11 +80,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                   permissions: values.permissions,
                   municipality: values.municipality
                 });
-                setEmpList((prevEmpList) =>
-                  prevEmpList.map((item) =>
-                    item.id === role.id ? { id: role.id, ...values } : item
-                  )
-                );
+                setEmpList((prevEmpList) => prevEmpList.map((item) => (item.id === role.id ? { id: role.id, ...values } : item)));
               } else {
                 // logic for create new role in firestore
                 const newRoleRef = await addDoc(collection(db, 'roles'), {
@@ -95,7 +91,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 });
                 // console.log('New role added: ', newRoleRef);
                 // Update the empList in the parent component
-                setEmpList((prevEmpList) => [ { id: newRoleRef.id, ...values }, ...prevEmpList]);
+                setEmpList((prevEmpList) => [{ id: newRoleRef.id, ...values }, ...prevEmpList]);
               }
 
               setStatus({ success: true });
@@ -166,7 +162,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="role-signup">{t('Municipality')}</InputLabel>
+                    <InputLabel htmlFor="municipality-signup">{t('Municipality')}</InputLabel>
                     <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
                       <Select
                         id="municipality-signup"

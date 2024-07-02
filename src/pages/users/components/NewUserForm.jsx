@@ -29,7 +29,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import IconButton from 'components/@extended/IconButton';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where, addDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
 
@@ -81,7 +81,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
     changePassword('');
   }, []);
 
-
   return (
     <>
       <DialogContent>
@@ -112,7 +111,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                   // email: values.email,
                   firstName: values.firstname,
                   lastName: values.lastname,
-                  role: values.role
+                  role: values.role,
+                  password: values.password // This line adds the password to the update data
                 };
 
                 await updateDoc(userDoc, updateData);
@@ -138,8 +138,10 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                   firstName: values.firstname,
                   lastName: values.lastname,
                   email: values.email,
-                  role: values.role
+                  role: values.role,
+                  password: values.password // This line adds the password to the new user data
                 };
+                await addDoc(collection(db, 'users'), newUser); // Save new user data to Firestore
                 setEmpList((prevList) => [newUser, ...prevList]);
               }
 

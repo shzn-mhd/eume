@@ -231,6 +231,7 @@ const EditableTable = ({ data }) => {
           },
           cell: ({ row }) => roleMapping[row.original.role] || row.original.role
         },
+
         {
           header: 'Actions',
           meta: {
