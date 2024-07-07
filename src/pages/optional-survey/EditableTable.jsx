@@ -263,6 +263,14 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           }
+        },
+        {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
         }
       ],
       [t]

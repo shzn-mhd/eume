@@ -34,6 +34,39 @@ import { t } from 'i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
+async function getMunicipalityByEmail(email) {
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log('No matching user found.');
+      return null;
+    }
+
+    const userDoc = querySnapshot.docs[0];
+    const userData = userDoc.data();
+    const roleId = userData.role;
+    const roleDocRef = doc(db, 'roles', roleId);
+    const roleDoc = await getDoc(roleDocRef);
+
+    if (!roleDoc.exists()) {
+      console.log('No matching role found.');
+      return null;
+    }
+
+    const roleData = roleDoc.data();
+    const municipality = roleData.municipality;
+
+    return municipality;
+
+  } catch (error) {
+    console.error("Error fetching municipality: ", error);
+    return null;
+  }
+}
+
 const EditableTable = ({ data }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
@@ -74,16 +107,30 @@ const EditableTable = ({ data }) => {
 
   const empCollectionRef = collection(db, 'survey_data');
 
+
+
+ 
+
   useEffect(() => {
     const getEmpList = async () => {
       try {
-        const data = await getDocs(empCollectionRef);
+        const municipality = await getMunicipalityByEmail('user@example.com');
+        if (!municipality) {
+          console.log('Municipality not found.');
+          return;
+        }
+
+
+        const q = query(empCollectionRef, where('municipality', '==', 'municipality'));
+        const data = await getDocs(q);
+
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
         let searchedData = filteredData;
+        console.log('searchedData', searchedData);
 
         // Apply search filtering if searchValue is present
         if (searchValue) {
@@ -156,7 +203,7 @@ const EditableTable = ({ data }) => {
             return itemDate >= selectedDateFrom;
           });
         }
-  
+
         if (selectedDateTo) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
@@ -225,6 +272,8 @@ const EditableTable = ({ data }) => {
     );
   };
 
+
+
   useEffect(() => {
     handleSortingChange(sortValue);
     // console.log('sorting id', sortValue);
@@ -247,7 +296,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const accommodationType = row.original.accommodationType;
             return t(accommodationType);
           }
@@ -259,7 +308,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const activity = row.original.activity;
             return t(activity);
           }
@@ -295,7 +344,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const gender = row.original.gender;
             return t(gender);
           }
@@ -315,7 +364,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const modality = row.original.modality;
             return t(modality);
           }
@@ -327,7 +376,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const motivation = row.original.motivation;
             return t(motivation);
           }
@@ -355,7 +404,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const placeOfOrigin = row.original.placeOfOrigin;
             return t(placeOfOrigin);
           }
@@ -367,7 +416,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const province = row.original.province;
             return t(province);
           }
@@ -387,7 +436,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const stayOvernight = row.original.stayOvernight;
             return t(stayOvernight);
           }
@@ -399,7 +448,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const stayPlace = row.original.stayPlace;
             return t(stayPlace);
           }
@@ -411,7 +460,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const transportation = row.original.transportation;
             return t(transportation);
           }
@@ -425,13 +474,21 @@ const EditableTable = ({ data }) => {
           }
         },
         {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
           header: t('With Pet'),
           accessorKey: 'withPet',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const withPet = row.original.withPet;
             return t(withPet);
           }
