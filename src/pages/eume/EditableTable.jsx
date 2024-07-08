@@ -22,7 +22,7 @@ import { CSVExport, CellEditable, SelectColumnSorting, TablePagination } from 'c
 import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { db } from 'config/firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where, getDoc, doc } from 'firebase/firestore';
 import usePagination from 'hooks/usePagination';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
@@ -32,11 +32,13 @@ import DashboardDefault from 'pages/dashboard/default';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
+import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
 
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
@@ -74,16 +76,35 @@ const EditableTable = ({ data }) => {
 
   const empCollectionRef = collection(db, 'survey_data');
 
+  const fetchMunicipalities = async (roleIds) => {
+    const municipalities = new Set();
+    for (const roleId of roleIds) {
+      const roleDoc = await getDoc(doc(db, 'roles', roleId));
+      if (roleDoc.exists()) {
+        const roleData = roleDoc.data();
+        if (Array.isArray(roleData.municipality)) {
+          roleData.municipality.forEach((municipality) => municipalities.add(municipality));
+        }
+      }
+    }
+    return Array.from(municipalities);
+  };
+
   useEffect(() => {
     const getEmpList = async () => {
       try {
+        // Fetch the municipalities associated with the user's roles
+        const municipalities = await fetchMunicipalities(user.role);
+
         const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
-        let searchedData = filteredData;
+        // let searchedData = filteredData;
+        // Filter the data based on the user's municipalities
+        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
         // Apply search filtering if searchValue is present
         if (searchValue) {
@@ -156,7 +177,7 @@ const EditableTable = ({ data }) => {
             return itemDate >= selectedDateFrom;
           });
         }
-  
+
         if (selectedDateTo) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
@@ -247,7 +268,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const accommodationType = row.original.accommodationType;
             return t(accommodationType);
           }
@@ -259,7 +280,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const activity = row.original.activity;
             return t(activity);
           }
@@ -295,7 +316,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const gender = row.original.gender;
             return t(gender);
           }
@@ -315,7 +336,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const modality = row.original.modality;
             return t(modality);
           }
@@ -327,7 +348,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const motivation = row.original.motivation;
             return t(motivation);
           }
@@ -355,7 +376,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const placeOfOrigin = row.original.placeOfOrigin;
             return t(placeOfOrigin);
           }
@@ -367,7 +388,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const province = row.original.province;
             return t(province);
           }
@@ -381,13 +402,13 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: t('Stay overnight'),
+          header: t('Stay Overnight'),
           accessorKey: 'stayOvernight',
           dataType: 'text',
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const stayOvernight = row.original.stayOvernight;
             return t(stayOvernight);
           }
@@ -399,7 +420,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const stayPlace = row.original.stayPlace;
             return t(stayPlace);
           }
@@ -411,7 +432,7 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const transportation = row.original.transportation;
             return t(transportation);
           }
@@ -431,9 +452,17 @@ const EditableTable = ({ data }) => {
           meta: {
             className: 'cell-center'
           },
-          cell: ({row}) => {
+          cell: ({ row }) => {
             const withPet = row.original.withPet;
             return t(withPet);
+          }
+        },
+        {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
           }
         }
       ],
