@@ -16,12 +16,33 @@ import {
 } from '@mui/material';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
+import { db } from 'config/firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Filter = ({ open, empList, handleDrawerOpen, ResetTable, selectedRole, setSelectedRole}) => {
   const theme = useTheme();
   const acc = ["Admin", "User"];
   const { t, i18n } = useTranslation();
+
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const rolesCollectionRef = collection(db, 'roles');
+        const rolesCollection = await getDocs(rolesCollectionRef);
+        const rolesData = rolesCollection.docs.map(doc => doc.data().roleName);
+        setRoles(rolesData);
+      } catch (error) {
+        console.error("Error fetching roles: ", error);
+      }
+    };
+
+    fetchRoles();
+  }, []);
+
 
   return (
     <Drawer
@@ -103,12 +124,12 @@ const Filter = ({ open, empList, handleDrawerOpen, ResetTable, selectedRole, set
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t("User Role")}</Typography> 
                 <Stack direction="row" justifyContent="center" >
-                  {acc.map((accOption) => (
+                  {roles.map((accOption) => (
                     <Button
                       id="acc"
                       key={accOption}
-                      getOptionLabel={(option) => option}
-                      value={acc.find((option) => option === selectedRole) || null}
+                      getOptionLabel={(option) => t(option)}
+                      value={roles.find((option) => option === selectedRole) || null}
                       onChange={(event, newValue) => {
                         setSelectedRole(newValue ? newValue : null);
                       }}

@@ -1,8 +1,16 @@
+// const motivationList= [
+//     "Vacaciones/ocio",
+//     "Negocios/reunión",
+//     "Visitar familia/amigos",
+//     "Otros",
+
+// ]
+
 const motivationList= [
-    "Vacaciones/ocio",
-    "Negocios/reunión",
-    "Visitar familia/amigos",
-    "Otros",
+    "Vacation/Leisure",
+    "Business/Meeting",
+    "Family/Friends",
+    "Other",
 
 ]
 

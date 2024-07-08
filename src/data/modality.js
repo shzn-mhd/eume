@@ -1,8 +1,15 @@
+// const modalityList = [
+//     "Sólo",
+//     "En pareja",
+//     "En familia",
+//     "En grupo"
+// ]
+
 const modalityList = [
-    "Sólo",
-    "En pareja",
-    "En familia",
-    "En grupo"
+    "Solo",
+    "In couple",
+    "In family",
+    "In a group"
 ]
 
 export default modalityList;

@@ -381,7 +381,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: t('Stay overnight'),
+          header: t('Stay Overnight'),
           accessorKey: 'stayOvernight',
           dataType: 'text',
           meta: {
