@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   Checkbox,
@@ -63,7 +64,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
               Users: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false },
               Roles: { view: false, add: false, edit: false, delete: false, viewCreatedByThem: false }
             },
-            municipality: role?.municipality || '',
+            municipality: role?.municipality || [],
             submit: null
           }}
           validationSchema={Yup.object().shape({
@@ -82,6 +83,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 });
                 setEmpList((prevEmpList) => prevEmpList.map((item) => (item.id === role.id ? { id: role.id, ...values } : item)));
               } else {
+                console.log("role values", values);
                 // logic for create new role in firestore
                 const newRoleRef = await addDoc(collection(db, 'roles'), {
                   roleName: values.roleName,
@@ -162,8 +164,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="municipality-signup">{t('Municipality')}</InputLabel>
-                    <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
+                    <InputLabel htmlFor="role-signup">{t('Municipality')}</InputLabel>
+                    {/* <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
                       <Select
                         id="municipality-signup"
                         value={values.municipality}
@@ -181,6 +183,40 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                           </MenuItem>
                         ))}
                       </Select>
+                    </FormControl> */}
+                    <FormControl fullWidth error={Boolean(touched.municipality && errors.municipality)}>
+                      <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        options={municipalityList}
+                        value={values.municipality}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option}
+                        onChange={(event, newValue) => setFieldValue('municipality', newValue)}
+                        renderOption={(props, option, { selected }) => (
+                          <li {...props}>
+                            <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                            {option}
+                          </li>
+                        )}
+                        renderInput={(params) => <TextField {...params} placeholder={t('Select Municipality')} />}
+                        sx={{
+                          // '& .MuiOutlinedInput-root': {
+                          //   p: 1
+                          // },
+                          '& .MuiAutocomplete-tag': {
+                            bgcolor: 'primary.lighter',
+                            border: '1px solid',
+                            borderColor: 'primary.light',
+                            '& .MuiSvgIcon-root': {
+                              color: 'primary.main',
+                              '&:hover': {
+                                color: 'primary.dark'
+                              }
+                            }
+                          }
+                        }}
+                      />
                     </FormControl>
                     {touched.municipality && errors.municipality && (
                       <FormHelperText error id="helper-text-municipality-signup">

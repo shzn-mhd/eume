@@ -27,7 +27,7 @@ import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
 import SalesChart from 'sections/dashboard/SalesChart';
 import OrdersTable from 'sections/dashboard/default/OrdersTable';
 import { db } from 'config/firebase';
-import { getDocs, collection, query, where, count } from 'firebase/firestore';
+import { getDocs, collection, query, where, count, getDoc, doc } from 'firebase/firestore';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -36,6 +36,7 @@ import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
 import avatar4 from 'assets/images/users/avatar-4.png';
 import { useTranslation } from 'react-i18next';
+import useAuth from 'hooks/useAuth';
 
 // avatar style
 const avatarSX = {
@@ -77,6 +78,8 @@ const DashboardDefault = ({
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
 
+  const { user } = useAuth();
+
   const [empCount, setEmpCount] = useState(0);
   const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
@@ -95,15 +98,34 @@ const DashboardDefault = ({
 
   const empCollectionRef = collection(db, 'survey_data');
 
+  const fetchMunicipalities = async (roleIds) => {
+    const municipalities = new Set();
+    for (const roleId of roleIds) {
+      const roleDoc = await getDoc(doc(db, 'roles', roleId));
+      if (roleDoc.exists()) {
+        const roleData = roleDoc.data();
+        if (Array.isArray(roleData.municipality)) {
+          roleData.municipality.forEach((municipality) => municipalities.add(municipality));
+        }
+      }
+    }
+    return Array.from(municipalities);
+  };
+
   useEffect(() => {
     const getEmpList = async () => {
       try {
+        // Fetch the municipalities associated with the user's roles
+        const municipalities = await fetchMunicipalities(user.role);
         const data = await getDocs(empCollectionRef);
 
-        const filteredData = data.docs.map((doc) => ({
+        const filterData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
+
+        // Filter the data based on the user's municipalities
+        let filteredData = filterData.filter((item) => municipalities.includes(item.municipality));
 
       
         setEmpCount(filteredData.length);
@@ -175,30 +197,30 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title={t("Total Visitors")} count={empCount} percentage={59.3} extra="35,000" />
+        <AnalyticEcommerce title={t("Total Visitors")} count={empCount} extra="35,000" />
         </div>
-        <AnalyticEcommerce title={t("Male")} count={maleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Male")} count={maleCount} percentage={maleCount*100 / empCount} isLoss color="warning" extra="1,943" />
 
        
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom : '20px'}}>
-        <AnalyticEcommerce title={t("Country Total")}count={totalPlaceOfOriginCount} percentage={65.4} color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Country Total")}count={totalPlaceOfOriginCount} color="warning" extra="1,943" />
 
         </div>
-        <AnalyticEcommerce title={t("Female")} count={femaleCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Female")} count={femaleCount} percentage={femaleCount*100 / empCount} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title={t("People with Pets")} count={withPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("People with Pets")} count={withPetCount} percentage={withPetCount*100 / empCount} isLoss color="warning" extra="1,943" />
         </div>
-        <AnalyticEcommerce title={t("People without Pets")} count={withoutPetCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("People without Pets")} count={withoutPetCount} percentage={withoutPetCount*100 / empCount} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title={t("People Stay")} count={stayOverNightYesCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("People Stay")} count={stayOverNightYesCount} percentage={stayOverNightYesCount*100 / empCount} isLoss color="warning" extra="$20,395" />
         </div>
-        <AnalyticEcommerce title={t("People Won't Stay")} count={stayOverNightNoCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("People Won't Stay")} count={stayOverNightNoCount} percentage={stayOverNightNoCount*100 / empCount} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -212,15 +234,15 @@ const DashboardDefault = ({
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title={t("Vacation/Leisure")} count={vacationCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Vacation/Leisure")} count={vacationCount} percentage={vacationCount*100 / empCount} isLoss color="warning" extra="1,943" />
         </div>
-        <AnalyticEcommerce title={t("Business/Meeting")} count={businessCount} percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title={t("Business/Meeting")} count={businessCount} percentage={businessCount*100 / empCount} isLoss color="warning" extra="1,943" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{marginBottom: '20px'}}>
-        <AnalyticEcommerce title={t("Family/Friends")} count={visitFamilyFriendsCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("Family/Friends")} count={visitFamilyFriendsCount} percentage={visitFamilyFriendsCount*100 / empCount} isLoss color="warning" extra="$20,395" />
         </div>
-        <AnalyticEcommerce title={t("Other")} count={otherCount} percentage={27.4} isLoss color="warning" extra="$20,395" />
+        <AnalyticEcommerce title={t("Other")} count={otherCount} percentage={otherCount*100 / empCount} isLoss color="warning" extra="$20,395" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />

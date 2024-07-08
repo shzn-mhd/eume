@@ -229,9 +229,16 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
             // Render role name instead of role ID
           },
-          cell: ({ row }) => roleMapping[row.original.role] || row.original.role
+          cell: ({ row }) => {
+            // roleMapping[row.original.role] || row.original.role
+            const roleNames = row.original.role.map((id) => roleMapping[id] || id);
+            return (
+              <div>
+                {roleNames.join(', ')} {/* Change ', ' to '\n' if you want new lines */}
+              </div>
+            );
+          }
         },
-
         {
           header: 'Actions',
           meta: {
