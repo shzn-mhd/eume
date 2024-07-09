@@ -35,6 +35,39 @@ import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
+async function getMunicipalityByEmail(email) {
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log('No matching user found.');
+      return null;
+    }
+
+    const userDoc = querySnapshot.docs[0];
+    const userData = userDoc.data();
+    const roleId = userData.role;
+    const roleDocRef = doc(db, 'roles', roleId);
+    const roleDoc = await getDoc(roleDocRef);
+
+    if (!roleDoc.exists()) {
+      console.log('No matching role found.');
+      return null;
+    }
+
+    const roleData = roleDoc.data();
+    const municipality = roleData.municipality;
+
+    return municipality;
+
+  } catch (error) {
+    console.error("Error fetching municipality: ", error);
+    return null;
+  }
+}
+
 const EditableTable = ({ data }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
@@ -90,21 +123,20 @@ const EditableTable = ({ data }) => {
     return Array.from(municipalities);
   };
 
+
+
+ 
+
   useEffect(() => {
     const getEmpList = async () => {
       try {
-        // Fetch the municipalities associated with the user's roles
-        const municipalities = await fetchMunicipalities(user.role);
-
         const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
-        // let searchedData = filteredData;
-        // Filter the data based on the user's municipalities
-        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+        let searchedData = filteredData;
 
         // Apply search filtering if searchValue is present
         if (searchValue) {
@@ -245,6 +277,8 @@ const EditableTable = ({ data }) => {
       })
     );
   };
+
+
 
   useEffect(() => {
     handleSortingChange(sortValue);
@@ -440,6 +474,14 @@ const EditableTable = ({ data }) => {
         {
           header: t('Transportation Reason'),
           accessorKey: 'transportationReason',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
           dataType: 'text',
           meta: {
             className: 'cell-center'
