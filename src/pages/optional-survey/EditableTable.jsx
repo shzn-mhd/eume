@@ -23,7 +23,7 @@ import { CSVExport, CellEditable, SelectColumnSorting, TablePagination } from 'c
 import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { db } from 'config/firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where, getDoc, doc } from 'firebase/firestore';
 import usePagination from 'hooks/usePagination';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
@@ -31,11 +31,14 @@ import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
 import { useTranslation } from 'react-i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
+import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
+  // console.log("user>>>>>>>>>>>>>", user);
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -65,16 +68,36 @@ const EditableTable = ({ data }) => {
 
   const empCollectionRef = collection(db, 'optional_survey_data');
 
+  const fetchMunicipalities = async (roleIds) => {
+    const municipalities = new Set();
+    for (const roleId of roleIds) {
+      const roleDoc = await getDoc(doc(db, 'roles', roleId));
+      if (roleDoc.exists()) {
+        const roleData = roleDoc.data();
+        if (Array.isArray(roleData.municipality)) {
+          roleData.municipality.forEach((municipality) => municipalities.add(municipality));
+        }
+      }
+    }
+    return Array.from(municipalities);
+  };
+
   useEffect(() => {
     const getEmpList = async () => {
       try {
+        // Fetch the municipalities associated with the user's roles
+        const municipalities = await fetchMunicipalities(user.role);
+        // console.log("role municipalities", municipalities);
+
         const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
-        let searchedData = filteredData;
+        // let searchedData = filteredData;
+        // Filter the data based on the user's municipalities
+        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
         if (selectedAcc) {
           // Filter out items with no accommodation value

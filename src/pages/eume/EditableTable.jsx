@@ -22,7 +22,7 @@ import { CSVExport, CellEditable, SelectColumnSorting, TablePagination } from 'c
 import ScrollX from 'components/ScrollX';
 import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { db } from 'config/firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where, getDoc, doc } from 'firebase/firestore';
 import usePagination from 'hooks/usePagination';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
@@ -32,6 +32,7 @@ import DashboardDefault from 'pages/dashboard/default';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
+import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
 async function getMunicipalityByEmail(email) {
@@ -70,6 +71,7 @@ async function getMunicipalityByEmail(email) {
 const EditableTable = ({ data }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
 
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
@@ -107,6 +109,20 @@ const EditableTable = ({ data }) => {
 
   const empCollectionRef = collection(db, 'survey_data');
 
+  const fetchMunicipalities = async (roleIds) => {
+    const municipalities = new Set();
+    for (const roleId of roleIds) {
+      const roleDoc = await getDoc(doc(db, 'roles', roleId));
+      if (roleDoc.exists()) {
+        const roleData = roleDoc.data();
+        if (Array.isArray(roleData.municipality)) {
+          roleData.municipality.forEach((municipality) => municipalities.add(municipality));
+        }
+      }
+    }
+    return Array.from(municipalities);
+  };
+
 
 
  
@@ -114,23 +130,13 @@ const EditableTable = ({ data }) => {
   useEffect(() => {
     const getEmpList = async () => {
       try {
-        const municipality = await getMunicipalityByEmail('user@example.com');
-        if (!municipality) {
-          console.log('Municipality not found.');
-          return;
-        }
-
-
-        const q = query(empCollectionRef, where('municipality', '==', 'municipality'));
-        const data = await getDocs(q);
-
+        const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
 
         let searchedData = filteredData;
-        console.log('searchedData', searchedData);
 
         // Apply search filtering if searchValue is present
         if (searchValue) {
@@ -430,7 +436,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: t('Stay overnight'),
+          header: t('Stay Overnight'),
           accessorKey: 'stayOvernight',
           dataType: 'text',
           meta: {
@@ -491,6 +497,14 @@ const EditableTable = ({ data }) => {
           cell: ({ row }) => {
             const withPet = row.original.withPet;
             return t(withPet);
+          }
+        },
+        {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
           }
         }
       ],

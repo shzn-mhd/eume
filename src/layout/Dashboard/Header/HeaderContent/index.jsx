@@ -40,7 +40,7 @@ const HeaderContent = () => {
   const languageOptions = [
     { code: 'en', label: 'English' },
     { code: 'es', label: 'Español' },
-    { code: 'gl', label: 'Galician' },
+    { code: 'gl', label: 'Galego' },
   ];
 
   const handleLanguageChange = (event, value) => {

@@ -1,6 +1,8 @@
 import {
+  Autocomplete,
   Box,
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
@@ -91,7 +93,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
             email: user?.email || '',
             company: user?.company || '',
             password: '',
-            role: user?.role || '',
+            role: user?.role.map(roleId => roles.find(role => role.id === roleId)) || [],
             submit: null
           }}
           validationSchema={Yup.object().shape({
@@ -99,7 +101,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
             lastname: Yup.string().max(255).required('Last Name is required'),
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
             password: user ? Yup.string().max(255) : Yup.string().max(255).required('Password is required'),
-            role: Yup.string().required('Role is required')
+            role: Yup.array().required('Role is required')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -111,7 +113,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                   // email: values.email,
                   firstName: values.firstname,
                   lastName: values.lastname,
-                  role: values.role,
+                  // role: values.role,
+                  role: values.role.map(role => role.id),
                   password: values.password // This line adds the password to the update data
                 };
 
@@ -131,17 +134,19 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                   values.password,
                   values.firstname,
                   values.lastname,
-                  values.role
+                  // values.role
+                  values.role.map(role => role.id)
                 );
                 const newUser = {
                   id: userCredential.user.uid,
                   firstName: values.firstname,
                   lastName: values.lastname,
                   email: values.email,
-                  role: values.role,
+                  // role: values.role,
+                  role: values.role.map(role => role.id),
                   password: values.password // This line adds the password to the new user data
                 };
-                await addDoc(collection(db, 'users'), newUser); // Save new user data to Firestore
+                // await addDoc(collection(db, 'users'), newUser); // Save new user data to Firestore
                 setEmpList((prevList) => [newUser, ...prevList]);
               }
 
@@ -158,7 +163,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
             }
           }}
         >
-          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
             <form noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
@@ -229,7 +234,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                 <Grid item xs={12} md={6}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="role-signup">{t('Role')}*</InputLabel>
-                    <FormControl fullWidth error={Boolean(touched.role && errors.role)}>
+                    {/* <FormControl fullWidth error={Boolean(touched.role && errors.role)}>
                       <Select id="role-signup" value={values.role} name="role" onBlur={handleBlur} onChange={handleChange} displayEmpty>
                         <MenuItem value="">
                           <em>{t('Select Role')}</em>
@@ -240,6 +245,40 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                           </MenuItem>
                         ))}
                       </Select>
+                    </FormControl> */}
+                    <FormControl fullWidth error={Boolean(touched.role && errors.role)}>
+                      <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        options={roles}
+                        value={values.role}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option.roleName}
+                        onChange={(event, newValue) => setFieldValue('role', newValue)}
+                        renderOption={(props, option, { selected }) => (
+                          <li {...props}>
+                            <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                            {option.roleName}
+                          </li>
+                        )}
+                        renderInput={(params) => <TextField {...params} placeholder={t('Select Role')} />}
+                        sx={{
+                          // '& .MuiOutlinedInput-root': {
+                          //   p: 1
+                          // },
+                          '& .MuiAutocomplete-tag': {
+                            bgcolor: 'primary.lighter',
+                            border: '1px solid',
+                            borderColor: 'primary.light',
+                            '& .MuiSvgIcon-root': {
+                              color: 'primary.main',
+                              '&:hover': {
+                                color: 'primary.dark'
+                              }
+                            }
+                          }
+                        }}
+                      />
                     </FormControl>
                     {touched.role && errors.role && (
                       <FormHelperText error id="helper-text-role-signup">

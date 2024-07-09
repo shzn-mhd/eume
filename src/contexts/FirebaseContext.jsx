@@ -11,7 +11,18 @@ import authReducer from 'contexts/auth-reducer/auth';
 
 // project import
 import Loader from 'components/Loader';
-import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut
+} from 'firebase/auth';
 import { app } from 'config/firebase';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
@@ -111,18 +122,32 @@ export const FirebaseProvider = ({ children }) => {
         const firestore = getFirestore(app);
         const userDocRef = doc(firestore, 'users', user.uid);
         const userDocSnapshot = await getDoc(userDocRef);
-        
+
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
-          const roleDocRef = doc(firestore, 'roles', userData.role);
-          const roleDocSnapshot = await getDoc(roleDocRef);
+          // const roleDocRef = doc(firestore, 'roles', userData.role);
+          // const roleDocSnapshot = await getDoc(roleDocRef);
 
-          let roleName = '';
+          let roleName = [];
           let rolePermissions = {};
-          if (roleDocSnapshot.exists()) {
-            roleName = roleDocSnapshot.data().roleName;
-            rolePermissions = roleDocSnapshot.data().permissions;
-          }
+
+          // Fetch role documents based on user roles
+          const rolePromises = userData.role.map(async (roleId) => {
+            const roleDocRef = doc(firestore, 'roles', roleId);
+            const roleDocSnapshot = await getDoc(roleDocRef);
+            if (roleDocSnapshot.exists()) {
+              const roleData = roleDocSnapshot.data();
+              roleName.push(roleData.roleName);
+              rolePermissions = { ...rolePermissions, ...roleData.permissions }; // Merge permissions
+            }
+          });
+
+          // Wait for all role documents to be fetched
+          await Promise.all(rolePromises);
+          // if (roleDocSnapshot.exists()) {
+          //   roleName = roleDocSnapshot.data().roleName;
+          //   rolePermissions = roleDocSnapshot.data().permissions;
+          // }
 
           dispatch({
             type: LOGIN,
@@ -132,7 +157,7 @@ export const FirebaseProvider = ({ children }) => {
                 id: user.uid,
                 email: user.email,
                 name: user.displayName || 'Stebin Ben',
-                role: userData.role ||'',
+                role: userData.role || '',
                 roleName: roleName,
                 rolePermissions: rolePermissions,
                 firstName: userData.firstName || '',
@@ -148,10 +173,9 @@ export const FirebaseProvider = ({ children }) => {
         dispatch({ type: LOGOUT });
       }
     });
-  
+
     return () => unsubscribe();
   }, [dispatch]);
-  
 
   // const firebaseEmailPasswordSignIn = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
   const firebaseEmailPasswordSignIn = (email, password) => {
@@ -208,7 +232,6 @@ export const FirebaseProvider = ({ children }) => {
     return signOut(auth);
   };
 
-
   // const resetPassword = async (email) => {
   //   await firebase.auth().sendPasswordResetEmail(email);
   // };
@@ -216,7 +239,6 @@ export const FirebaseProvider = ({ children }) => {
     const auth = getAuth(app);
     return sendPasswordResetEmail(auth, email);
   };
-
 
   const updateProfile = () => {};
   if (state.isInitialized !== undefined && !state.isInitialized) {
