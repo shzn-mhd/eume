@@ -42,7 +42,7 @@ import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 // const
 const initialState = {
   isLoggedIn: false,
-  isInitialized: false,
+  isInitialized: true,
   // user: null
   user: {
     id: null,
@@ -244,6 +244,25 @@ export const FirebaseProvider = ({ children }) => {
   if (state.isInitialized !== undefined && !state.isInitialized) {
     return <Loader />;
   }
+
+  const login = async (email, password) => {
+    try {
+      const q = query(collection(db, 'users'), where('email', '==', email), where('password', '==', password));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const userData = querySnapshot.docs[0].data();
+        setUser(userData);
+        return { success: true, data: userData };
+      } else {
+        return { success: false, message: 'Invalid email or password' };
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      return { success: false, message: 'Failed to log in' };
+    }
+  };
+
 
   return (
     <FirebaseContext.Provider

@@ -57,12 +57,13 @@ const UserView = ({ user, closeModal }) => {
                     </Stack>
                   </Grid>
                   
-                  <Grid item xs={12} md={6}>
+                  {/* TODO: Show role name */}
+                  {/* <Grid item xs={12} md={6}>
                     <Stack spacing={0.5}>
                       <Typography color="secondary">{t('Role')}</Typography>
-                      <Typography>{user?.role}</Typography>
+                      <Typography>{user?.role.}</Typography>
                     </Stack>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>

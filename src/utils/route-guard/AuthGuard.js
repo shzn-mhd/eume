@@ -12,6 +12,8 @@ const AuthGuard = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  console.log("isLoggedIn>>", isLoggedIn);
+
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('login', {
