@@ -43,7 +43,7 @@ import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
 
 const roles = ['Enable', 'Disable'];
-const accessTypes = ['Basic Survey', 'Optional Survey', 'Cabanas', 'Users', 'Roles'];
+const accessTypes = ['Basic Survey', 'Optional Survey', 'Users', 'Roles'];
 const municipalityList = ['Cabanas', 'A Capela', 'Monfero', 'Pontedeume', 'As Pontes'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, role }) {

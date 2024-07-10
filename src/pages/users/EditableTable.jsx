@@ -63,6 +63,8 @@ const EditableTable = ({ data }) => {
   const [userToView, setUserToView] = useState(null);
   const [openView, setOpenView] = useState(false);
 
+  console.log("User", user);
+
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
   };
@@ -286,6 +288,7 @@ const EditableTable = ({ data }) => {
                 {user.rolePermissions.Users.delete && (
                   <Tooltip title="Delete">
                     <IconButton
+                      disabled={user.email===row.original.email}
                       color="error"
                       onClick={(e) => {
                         e.stopPropagation();

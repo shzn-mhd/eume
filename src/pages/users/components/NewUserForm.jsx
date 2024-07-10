@@ -138,7 +138,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
                   values.role.map(role => role.id)
                 );
                 const newUser = {
-                  id: userCredential.user.uid,
+                  id: userCredential.uid,
                   firstName: values.firstname,
                   lastName: values.lastname,
                   email: values.email,

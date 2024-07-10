@@ -15,6 +15,7 @@ import Notistack from 'components/third-party/Notistack';
 import { MenuConfigProvider } from 'menu-items/applications';
 import { IntlProvider } from 'react-intl';
 import { FirebaseProvider as AuthProvider } from 'contexts/FirebaseContext';
+import { FirebaseProvider } from 'contexts/FirebaseContextUpdated';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
 
@@ -26,7 +27,8 @@ const App = () => {
       <RTLLayout>
         <Locales>
           <ScrollTop>
-            <AuthProvider>
+            <FirebaseProvider> {/* TODO: Finalize and re-arrage this provider properly */}
+            <AuthProvider> {/* TODO: Later remove this */}
               <>
               <MenuConfigProvider>
               <IntlProvider locale="en">
@@ -38,6 +40,7 @@ const App = () => {
               </MenuConfigProvider>
               </>
             </AuthProvider>
+            </FirebaseProvider>
           </ScrollTop>
         </Locales>
       </RTLLayout>

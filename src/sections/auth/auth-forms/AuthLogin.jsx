@@ -219,6 +219,8 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
+import { useFirebase } from 'contexts/FirebaseContextUpdated';
+
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
@@ -228,6 +230,7 @@ const AuthLogin = () => {
 
   const { isLoggedIn, firebaseEmailPasswordSignIn } = useAuth();
   const scriptedRef = useScriptRef();
+  const { login } = useFirebase();
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -260,19 +263,35 @@ const AuthLogin = () => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            await firebaseEmailPasswordSignIn(values.email, values.password).then(
-              () => {
-                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                // github issue: https://github.com/formium/formik/issues/2430
-              },
-              (err) => {
-                setStatus({ success: false });
-                setErrors({ submit: err.message });
+            // await firebaseEmailPasswordSignIn(values.email, values.password).then(
+            //   () => {
+            //     // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
+            //     // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
+            //     // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+            //     // github issue: https://github.com/formium/formik/issues/2430
+            //   },
+            //   (err) => {
+            //     setStatus({ success: false });
+            //     setErrors({ submit: err.message });
+            //     setSubmitting(false);
+            //   }
+            // );
+            const loginRes = await login(values.email, values.password);
+            console.log('Login response:', loginRes);
+            if (loginRes.success) {
+              if (scriptedRef.current) {
+                console.log('Login success');
+                setStatus({ success: true });
                 setSubmitting(false);
               }
-            );
+            } else {
+              if (scriptedRef.current) {
+                console.error('Login failed:', loginRes.message);
+                setStatus({ success: false });
+                setErrors({ submit: loginRes.message });
+                setSubmitting(false);
+              }
+            }
           } catch (err) {
             console.error(err);
             if (scriptedRef.current) {
