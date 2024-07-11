@@ -43,7 +43,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
   const scriptedRef = useScriptRef();
 
   const [roles, setRoles] = useState([]);
-  console.log('roles', roles);
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -77,8 +76,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
         id: doc.id,
         ...doc.data()
       }));
-      console.log('roleList', roleList);
-      console.log('Saved roles', roleList);
       setRoles(roleList);
     };
 
@@ -111,7 +108,6 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
               try {
                 if (user) {
                   const userDoc = doc(db, 'users', user.id);
-                  console.log('userDoc', userDoc);
                   // Collect the fields to update
                   const updateData = {
                     // email: values.email,
