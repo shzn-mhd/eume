@@ -198,8 +198,25 @@ const EditableTable = ({ data }) => {
     columns: useMemo(
       () => [
         {
-          header: t('Accessibility'),
-          accessorKey: 'accessibility',
+          header: t('Municipality'),
+          accessorKey: 'municipality',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('General Assesment'),
+          accessorKey: 'general_assessment',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+      
+        {
+          header: t('Lodging'),
+          accessorKey: 'lodging',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -208,6 +225,46 @@ const EditableTable = ({ data }) => {
         {
           header: t('Catering Services'),
           accessorKey: 'catering_services',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Retailers'),
+          accessorKey: 'retailers',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Tourist Information'),
+          accessorKey: 'tourist_information',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Signaling'),
+          accessorKey: 'signaling',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Accessibility'),
+          accessorKey: 'accessibility',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Sustainability'),
+          accessorKey: 'sustainability',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -230,16 +287,8 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: t('General Assesment'),
-          accessorKey: 'general_assessment',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Lodging'),
-          accessorKey: 'lodging',
+          header: t('Quality Price Ratio'),
+          accessorKey: 'quality_price_ratio',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -253,54 +302,8 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        {
-          header: t('Quality Price Ratio'),
-          accessorKey: 'quality_price_ratio',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Retailers'),
-          accessorKey: 'retailers',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Signaling'),
-          accessorKey: 'signaling',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Sustainability'),
-          accessorKey: 'sustainability',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Tourist Information'),
-          accessorKey: 'tourist_information',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Municipality'),
-          accessorKey: 'municipality',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        }
+  
+
       ],
       [t]
     ),
