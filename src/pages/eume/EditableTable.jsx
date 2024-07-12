@@ -257,6 +257,10 @@ const EditableTable = ({ data }) => {
     // console.log('sorting id', sortValue);
   }, [sortValue]);
 
+
+
+
+
   const table = useReactTable({
     // data: _DATA.currentData(),
     // data: empList,
@@ -265,51 +269,21 @@ const EditableTable = ({ data }) => {
       const end = begin + rowsPerPage;
       return empList.slice(begin, end);
     }, [empList, page, rowsPerPage]),
+
+
     columns: useMemo(
       () => [
         {
-          header: t('Accommodation Type'),
-          accessorKey: 'accommodationType',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const accommodationType = row.original.accommodationType;
-            return t(accommodationType);
-          }
-        },
-        {
-          header: t('Activity'),
-          accessorKey: 'activity',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const activity = row.original.activity;
-            return t(activity);
-          }
-        },
-        // {
-        //   header: t('Activity Reason'),
-        //   accessorKey: 'activityReason',
-        //   dataType: 'text',
-        //   meta: {
-        //     className: 'cell-center'
-        //   }
-        // },
-        {
-          header: t('Age'),
-          accessorKey: 'age',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
           header: t('Date'),
           accessorKey: 'date',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Municipality'),
+          accessorKey: 'municipality',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -328,8 +302,16 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: t('Language'),
-          accessorKey: 'language',
+          header: t('Age'),
+          accessorKey: 'age',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Reason'),
+          accessorKey: 'reason',
           dataType: 'text',
           meta: {
             className: 'cell-center'
@@ -348,6 +330,110 @@ const EditableTable = ({ data }) => {
           }
         },
         {
+          header: t('With Pet'),
+          accessorKey: 'withPet',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const withPet = row.original.withPet;
+            return t(withPet);
+          }
+        },
+        {
+          header: t('Stay Overnight'),
+          accessorKey: 'stayOvernight',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const stayOvernight = row.original.stayOvernight;
+            return t(stayOvernight);
+          }
+        },
+
+        {
+          header: t('Stay Place'),
+          accessorKey: 'stayPlace',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const stayPlace = row.original.stayPlace;
+            return t(stayPlace);
+          }
+        },
+        {
+          header: t('No of Days'),
+          accessorKey: 'noOfDays',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+        {
+          header: t('Accommodation Type'),
+          accessorKey: 'accommodationType',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const accommodationType = row.original.accommodationType;
+            return t(accommodationType);
+          }
+        },
+        {
+          header: t('Transportation'),
+          accessorKey: 'transportation',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const transportation = row.original.transportation;
+            return t(transportation);
+          }
+        },
+        {
+          header: t('Activity'),
+          accessorKey: 'activity',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({ row }) => {
+            const activity = row.original.activity;
+            return t(activity);
+          }
+        },
+
+
+
+        // {
+        //   header: t('Activity Reason'),
+        //   accessorKey: 'activityReason',
+        //   dataType: 'text',
+        //   meta: {
+        //     className: 'cell-center'
+        //   }
+        // },
+     
+      
+     
+        {
+          header: t('Language'),
+          accessorKey: 'language',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          }
+        },
+   
+        {
           header: t('Motivation'),
           accessorKey: 'motivation',
           dataType: 'text',
@@ -359,14 +445,7 @@ const EditableTable = ({ data }) => {
             return t(motivation);
           }
         },
-        {
-          header: t('No of Days'),
-          accessorKey: 'noOfDays',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
+     
         {
           header: t('No Of People'),
           accessorKey: 'noOfPeople',
@@ -399,50 +478,10 @@ const EditableTable = ({ data }) => {
             return t(province);
           }
         },
-        {
-          header: t('Reason'),
-          accessorKey: 'reason',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        },
-        {
-          header: t('Stay Overnight'),
-          accessorKey: 'stayOvernight',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const stayOvernight = row.original.stayOvernight;
-            return t(stayOvernight);
-          }
-        },
-        {
-          header: t('Stay Place'),
-          accessorKey: 'stayPlace',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const stayPlace = row.original.stayPlace;
-            return t(stayPlace);
-          }
-        },
-        {
-          header: t('Transportation'),
-          accessorKey: 'transportation',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const transportation = row.original.transportation;
-            return t(transportation);
-          }
-        },
+     
+     
+    
+   
         {
           header: t('Transportation Reason'),
           accessorKey: 'transportationReason',
@@ -451,32 +490,18 @@ const EditableTable = ({ data }) => {
             className: 'cell-center'
           }
         },
-        {
-          header: t('With Pet'),
-          accessorKey: 'withPet',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          },
-          cell: ({ row }) => {
-            const withPet = row.original.withPet;
-            return t(withPet);
-          }
-        },
-        {
-          header: t('Municipality'),
-          accessorKey: 'municipality',
-          dataType: 'text',
-          meta: {
-            className: 'cell-center'
-          }
-        }
+    
+    
       ],
       [t]
     ),
+
     state: {
       sorting
     },
+
+   
+
     defaultColumn: {
       cell: CellEditable
     },
@@ -486,16 +511,15 @@ const EditableTable = ({ data }) => {
         setEmpList((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {
-              return {
-                ...old[rowIndex],
-                [columnId]: value
-              };
+              return {...old[rowIndex],[columnId]: value};
             }
             return row;
           })
         );
       }
     },
+   
+   
     onSortingChange: setSorting,
     debugTable: true
   });
