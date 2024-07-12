@@ -254,7 +254,7 @@ const EditableTable = ({ data }) => {
 
   useEffect(() => {
     handleSortingChange(sortValue);
-    // console.log('sorting id', sortValue);
+    console.log('sorting id', sortValue);
   }, [sortValue]);
 
 
