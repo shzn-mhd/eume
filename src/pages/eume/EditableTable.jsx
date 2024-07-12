@@ -45,6 +45,7 @@ const EditableTable = ({ data }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
+  const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedAge, setSelectedAge] = useState('');
@@ -128,6 +129,10 @@ const EditableTable = ({ data }) => {
           searchedData = searchedData.filter((item) => item.gender === selectedGender);
         }
 
+        if(selectedMunicipality) {
+          searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
+        }
+
         if (selectedCountry) {
           searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
         }
@@ -195,6 +200,7 @@ const EditableTable = ({ data }) => {
   }, [
     searchValue,
     selectedGender,
+    selectedMunicipality,
     selectedCountry,
     selectedProvince,
     selectedAge,
@@ -693,6 +699,8 @@ const EditableTable = ({ data }) => {
         handleDrawerOpen={handleStoryDrawerOpen}
         selectedGender={selectedGender}
         setSelectedGender={setSelectedGender}
+        selectedMunicipality={selectedMunicipality}
+        setSelectedMunicipality={setSelectedMunicipality}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
         selectedProvince={selectedProvince}
