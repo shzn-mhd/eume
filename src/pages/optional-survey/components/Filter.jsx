@@ -18,10 +18,30 @@ import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import { useTranslation } from 'react-i18next';
 
-const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, selectService, setSelectService, selectedSignaling,  setSelectedSignaling, selectedAaccess, setSelectedAccess, selectedQualityPriceRatio, setSelectedQualityPriceRatio, selectedCleaningConservation, setSelectedCleaningConservation, ResetTable}) => {
+const Filter = ({
+  open,
+  empList,
+  handleDrawerOpen,
+  selectedAcc,
+  setSelectedAcc,
+  selectService,
+  setSelectService,
+  selectedSignaling,
+  setSelectedSignaling,
+  selectedAaccess,
+  setSelectedAccess,
+  selectedQualityPriceRatio,
+  setSelectedQualityPriceRatio,
+  selectedCleaningConservation,
+  setSelectedCleaningConservation,
+  ResetTable,
+  selectedMunicipality,
+  setSelectedMunicipality
+}) => {
   const theme = useTheme();
   const acc = [1, 2, 3, 4, 5];
   const { t, i18n } = useTranslation();
+  const municipalities = ['A Capela', 'As Pontes', 'Cabanas', 'Monfero', 'Pontedeume'];
 
   return (
     <Drawer
@@ -69,7 +89,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                       verticalAlign: 'middle'
                     }}
                   >
-                    {t("Filtering Options")}
+                    {t('Filtering Options')}
                   </Typography>
                   <Tooltip title="Close">
                     <IconButton color="secondary" onClick={handleDrawerOpen} size="small" sx={{ fontSize: '0.875rem' }}>
@@ -85,7 +105,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
             <MainCard contentSX={{ p: 2.25 }}>
               <Stack spacing={0.5}>
                 <Typography variant="h6" color="textSecondary">
-                  {t("Total Optional Survey")}
+                  {t('Total Optional Survey')}
                 </Typography>
                 <Grid container alignItems="center">
                   <Grid item>
@@ -98,11 +118,30 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
             </MainCard>
           </Stack>
 
-          <Box sx={{ p: 1, alignItems:'center',justifyContent:"center", maxHeight:'500px',overflowY:'auto'}}>
+          <Box sx={{ p: 1, alignItems: 'center', justifyContent: 'center', maxHeight: '500px', overflowY: 'auto' }}>
             <Stack direction="column" spacing={3} justifyContent="center" sx={{ p: 1 }}>
+              <FormControl fullWidth>
+                <Typography variant="h5">{t('Municipality')}</Typography>
+                <Autocomplete
+                  id="municiplaity"
+                  options={municipalities}
+                  getOptionLabel={(option) => t(option)}
+                  value={municipalities.find((option) => option === selectedMunicipality) || null}
+                  onChange={(event, newValue) => {
+                    setSelectedMunicipality(newValue ? newValue : null);
+                  }}
+                  sx={{
+                    borderRadius: '4px',
+                    bgcolor: theme.palette.background.paper
+                    // boxShadow: theme.customShadows.primary,
+                    // border: `1px solid ${theme.palette.primary.main}`
+                  }}
+                  renderInput={(params) => <TextField {...params} label={t('Municipality')} />}
+                />
+              </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Accessibility")}</Typography> 
-                <Stack direction="row" justifyContent="center" >
+                <Typography variant="h5">{t('Accessibility')}</Typography>
+                <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
                       id="acc"
@@ -129,7 +168,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Catering Services")}</Typography>
+                <Typography variant="h5">{t('Catering Services')}</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -157,7 +196,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Signaling")}</Typography>
+                <Typography variant="h5">{t('Signaling')}</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -185,7 +224,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Cleaning Conservation")}</Typography>
+                <Typography variant="h5">{t('Cleaning Conservation')}</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -213,7 +252,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Quality/Price Ratio of the Destination")}</Typography>
+                <Typography variant="h5">{t('Quality/Price Ratio of the Destination')}</Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -241,7 +280,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 </Stack>
               </FormControl>
               <FormControl style={{ display: 'flex' }}>
-                <Typography variant="h5">{t("Retailers")} </Typography>
+                <Typography variant="h5">{t('Retailers')} </Typography>
                 <Stack direction="row" justifyContent="center">
                   {acc.map((accOption) => (
                     <Button
@@ -274,7 +313,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
           <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between" padding={2}>
             <Tooltip title="Reset Filter">
               <Button size="small" sx={{ minWidth: '130px', minHeight: '41.13px' }} color="error" variant="contained" onClick={ResetTable}>
-                {t("Reset Filter")}
+                {t('Reset Filter')}
               </Button>
             </Tooltip>
             <Tooltip title="Filter">
@@ -285,7 +324,7 @@ const Filter = ({ open, empList, handleDrawerOpen, selectedAcc, setSelectedAcc, 
                 variant="contained"
                 onClick={handleDrawerOpen}
               >
-                {t("Filter")}
+                {t('Filter')}
               </Button>
             </Tooltip>
           </Stack>

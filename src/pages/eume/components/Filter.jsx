@@ -35,6 +35,8 @@ const Filter = ({
   handleDrawerOpen,
   selectedGender,
   setSelectedGender,
+  selectedMunicipality,
+  setSelectedMunicipality,
   selectedCountry,
   setSelectedCountry,
   selectedProvince,
@@ -67,6 +69,7 @@ const Filter = ({
   const pet = ['Yes', 'No'];
   const stay = ['Yes', 'No'];
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  const municipalities = ['A Capela', 'As Pontes', 'Cabanas', 'Monfero', 'Pontedeume'];
   const { t, i18n } = useTranslation();
   return (
     <Drawer
@@ -239,6 +242,28 @@ const Filter = ({
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label={t('Province')} />}
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <Grid container gap={1}>
+                <Grid item xs={11.6}>
+                  <FormControl fullWidth>
+                    <Autocomplete
+                      id="municiplaity"
+                      options={municipalities}
+                      getOptionLabel={(option) => t(option)}
+                      value={municipalities.find((option) => option === selectedMunicipality) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedMunicipality(newValue ? newValue : null);
+                      }}
+                      sx={{
+                        borderRadius: '4px',
+                        bgcolor: theme.palette.background.paper
+                        // boxShadow: theme.customShadows.primary,
+                        // border: `1px solid ${theme.palette.primary.main}`
+                      }}
+                      renderInput={(params) => <TextField {...params} label={t('Municipality')} />}
                     />
                   </FormControl>
                 </Grid>

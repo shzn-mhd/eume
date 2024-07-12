@@ -46,6 +46,7 @@ const EditableTable = ({ data }) => {
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
   const [selectedSignaling, setSelectedSignaling] = useState('');
+  const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
   const [selectedQualityPriceRatio, setSelectedQualityPriceRatio] = useState('');
   const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
@@ -110,6 +111,11 @@ const EditableTable = ({ data }) => {
           searchedData = filteredDataWithAccommodation.filter((item) => item.catering_services === selectService);
         }
 
+        if (selectedMunicipality) {
+          const filteredDataWithAccommodation = searchedData.filter((item) => item.municipality);
+          searchedData = filteredDataWithAccommodation.filter((item) => item.municipality === selectedMunicipality);
+        }
+
         if (selectedSignaling) {
           const filteredDataWithAccommodation = searchedData.filter((item) => item.signaling);
           searchedData = filteredDataWithAccommodation.filter((item) => item.signaling === selectedSignaling);
@@ -137,7 +143,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [selectedAcc, selectService, selectedSignaling, selectedAaccess, selectedQualityPriceRatio, selectedCleaningConservation]); // Add both searchValue and selectedGender as dependencies
+  }, [selectedAcc, selectService, selectedSignaling, selectedAaccess, selectedQualityPriceRatio, selectedCleaningConservation, selectedMunicipality]); // Add both searchValue and selectedGender as dependencies
 
   const PER_PAGE = 10;
   // console.log('empList.length', empList.length);
@@ -499,6 +505,8 @@ const EditableTable = ({ data }) => {
         handleDrawerOpen={handleStoryDrawerOpen}
         selectedAcc={selectedAcc}
         setSelectedAcc={setSelectedAcc}
+        selectedMunicipality={selectedMunicipality}
+        setSelectedMunicipality={setSelectedMunicipality}
         selectService={selectService}
         setSelectService={setSelectService}
         selectedSignaling={selectedSignaling}
