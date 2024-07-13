@@ -96,20 +96,19 @@ const EditableTable = ({ data }) => {
       try {
         // Fetch the municipalities associated with the user's roles
         const municipalities = await fetchMunicipalities(user.role);
-
+  
         const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
-
-        // let searchedData = filteredData;
+  
         // Filter the data based on the user's municipalities
         let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-
+  
         // Apply search filtering if searchValue is present
         if (searchValue) {
-          searchedData = filteredData.filter(
+          searchedData = searchedData.filter(
             (item) =>
               item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
               item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -123,79 +122,73 @@ const EditableTable = ({ data }) => {
               item.noOfDays.includes(searchValue)
           );
         }
-
-        // Apply gender filtering only if selectedGender is present
+  
+        // Apply other filters
         if (selectedGender) {
           searchedData = searchedData.filter((item) => item.gender === selectedGender);
         }
-
-        if(selectedMunicipality) {
+        if (selectedMunicipality) {
           searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
         }
-
         if (selectedCountry) {
           searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
         }
-
         if (selectedProvince) {
           searchedData = searchedData.filter((item) => item.province === selectedProvince);
         }
         if (selectedAge) {
           searchedData = searchedData.filter((item) => item.age === selectedAge);
         }
-
         if (selectedMotivation) {
           searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
         }
-
         if (selectedModality) {
           searchedData = searchedData.filter((item) => item.modality === selectedModality);
         }
-
         if (selectedPet) {
           searchedData = searchedData.filter((item) => item.withPet === selectedPet);
         }
-
         if (selectedStay) {
           searchedData = searchedData.filter((item) => item.stayOvernight === selectedStay);
         }
-
         if (selectedStayList) {
           searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
         }
-
         if (selectedDayStay) {
           searchedData = searchedData.filter((item) => item.noOfDays === selectedDayStay);
         }
-
         if (selectedAcc) {
           searchedData = searchedData.filter((item) => item.accommodationType === selectedAcc);
         }
-
         if (selectedTrans) {
           searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
         }
-
         if (selectedDateFrom) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
             return itemDate >= selectedDateFrom;
           });
         }
-
         if (selectedDateTo) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
             return itemDate <= selectedDateTo;
           });
         }
-
+  
+        // Sort by date (default sorting)
+        searchedData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA - dateB;
+        });
+  
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
       }
     };
-
+  
     getEmpList();
   }, [
     searchValue,
@@ -214,7 +207,8 @@ const EditableTable = ({ data }) => {
     selectedTrans,
     selectedDateFrom,
     selectedDateTo
-  ]); // Add both searchValue and selectedGender as dependencies
+  ]);
+  
 
   const PER_PAGE = 10;
   // console.log('empList.length', empList.length);
