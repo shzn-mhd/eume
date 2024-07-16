@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import { CloseOutlined } from '@ant-design/icons';
-import { Autocomplete, Button, DialogTitle, FormControl, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
+import { Button, FormControl, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import IconButton from 'components/@extended/IconButton';
 import MainCard from 'components/MainCard';
 import { ThemeMode } from 'config';
-import countryList from 'data/country';
-import provinceList from 'data/province';
-import {InputLabel} from '@mui/material'
 
 const FilterModal = ({ 
     onClose,
