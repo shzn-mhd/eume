@@ -38,6 +38,7 @@ import avatar4 from 'assets/images/users/avatar-4.png';
 import { useTranslation } from 'react-i18next';
 import useAuth from 'hooks/useAuth';
 import AvgSurvayByMunicipilityWidg from 'components/dashborad/AvgSurvayByMunicipilityWidg';
+import MunicipilityAvgSurvayMarkWid from 'components/dashborad/MunicipilityAvgSurvayMarkWid';
 
 // avatar style
 const avatarSX = {
@@ -313,10 +314,16 @@ const DashboardDefault = ({}) => {
           extra="$20,395"
         />
       </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
+      <Grid item xs={12} sm={12} md={7} lg={7}>
         <AnalyticEcommerce
           title={t('Evaluation Table')}
           count={<AvgSurvayByMunicipilityWidg/>}
+        />
+      </Grid>
+      <Grid item xs={12} sm={12} md={5} lg={5}>
+        <AnalyticEcommerce
+          title={t('Municipility Average')}
+          count={<MunicipilityAvgSurvayMarkWid/>}
         />
       </Grid>
 
