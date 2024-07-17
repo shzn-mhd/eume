@@ -11,6 +11,7 @@ import useAuth from 'hooks/useAuth';
 
 import { getDocs, collection, query, where, getDoc, doc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const dataFieldKey = [
   'accessibility',
@@ -19,7 +20,6 @@ const dataFieldKey = [
   'cultural_offerings',
   'general_assessment',
   'lodging',
-  'optionalFeedback',
   'quality_price_ratio',
   'retailers',
   'signaling',
@@ -27,12 +27,13 @@ const dataFieldKey = [
   'tourist_information'
 ];
 
-const AvgSurvayByMunicipilityWidg = () => {
+const MunicipilityAvgSurvayMarkWid = () => {
   //   const municipalities = ['A Capela', 'As Pontes', 'Cabanas', 'Monfero', 'Pontedeume'];
   const [municipalities, setMunicipalities] = useState([]);
   const survayData = collection(db, 'optional_survey_data');
   const { user } = useAuth();
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState({});
+  const { t, i18n } = useTranslation();
 
   const fetchMunicipalities = async (roleIds) => {
     const municipalities = new Set();
@@ -67,26 +68,50 @@ const AvgSurvayByMunicipilityWidg = () => {
         }));
 
         const groupedData = filteredData.reduce((acc, item) => {
+          // since there is no direct mark filed, iterate dataFieldKey array throug and accss `item` object with key ans sum all the values then assign to acc[item.municipality]
           if (!acc[item.municipality]) {
-            acc[item.municipality] = [];
+            acc[item.municipality] = {
+              total: 0,
+              count: 0
+            };
           }
-          acc[item.municipality].push(item);
+          dataFieldKey.forEach((field) => {
+            console.log("Municipility:", item.municipality)
+            console.log("Item:", item)
+            console.log("Field:", item[field])
+            console.log("Acc:", acc[item.municipality])
+            acc[item.municipality].total += item[field]??0;
+          });
+          acc[item.municipality].count++;
+          
           return acc;
         }, {});
 
+        // delete undefined key from groupedData
+        delete groupedData.undefined;
+        console.log('Grouped Data', groupedData);
+
+//       //   res = {
+//     "Monfero": {
+//       "total": 163,
+//       "count": 4
+//   },
+//   "A Capela": {
+//       "total": 56,
+//       "count": 2
+//   }
+// }
+
+        // calculate average of municipality based on result of groupedData
         let result = {};
         for (const municipality in groupedData) {
-          result[municipality] = {};
-          for (const field of dataFieldKey) {
-            const sum = groupedData[municipality].reduce((acc, item) => acc + item[field], 0);
-            result[municipality][field] = sum / groupedData[municipality].length;
-          }
+          result[municipality] = {
+            municipality: municipality,
+            avg: (groupedData[municipality].total / (groupedData[municipality].count * dataFieldKey.length)).toFixed(2)
+          };
         }
-        // remove undefined key from result
-        delete result.undefined;
-        const preparedRows = prepareRows(result);
-        setRows(preparedRows);
-        console.log('Result', result);
+        console.log('Final Result:', result);
+        setRows(result)
       } catch (err) {
         console.log(err);
         console.log('SearchedData Error', err);
@@ -95,29 +120,6 @@ const AvgSurvayByMunicipilityWidg = () => {
 
     getEmpList();
   }, [user.role, municipalities]);
-
-  const prepareRows = (data) => {
-    // expected rowsData = [["accessibility", 3.75, 3],["catering_services", 3.25, 2.5],["cleaning_conservation", 3.25, 2.5],["cultural_offerings", 3.75, 2.5],["general_assessment", 3.5, 2.5],["lodging", 3.5, 2],["optionalFeedback", 0, 0],["quality_price_ratio", 3.75, 3.5],["retailers", 3.75, 2],["signaling", 3.75, 2],["sustainability", 3.75, 3],["tourist_information", 3.75, 2.5]]
-    const rowsData = [];
-    if (municipalities.length === 0) return rowsData;
-    for (const field of dataFieldKey) {
-      console.log('Looping 1');
-      const row = [field];
-      console.log('Municipalities', municipalities);
-
-      municipalities.forEach((municipality) => {
-        if (data[municipality]) {
-          row.push(data[municipality][field] || 0);
-        } else row.push(0);
-      });
-      //   for (let i = 0; i < municipalities.length; i++) {
-      //     console.log("Loop", data[municipalities[i]][field])
-      //     // row.push(data[municipalities[i]][field] || 0);
-      //   }
-      rowsData.push(row);
-    }
-    return rowsData;
-  };
 
   const getSurveyFieldName = (field) => {
     switch (field) {
@@ -148,26 +150,22 @@ const AvgSurvayByMunicipilityWidg = () => {
       default:
         return field;
     }
-  }
+  };
 
   return (
     <TableContainer component={Paper} sx={{ width: '100%', height: "400px" }}>
       <Table sx={{ width: '100%' }} aria-label="municipility avg data">
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
-            {municipalities.map((municipality) => (
-              <TableCell>{municipality}</TableCell>
-            ))}
+            <TableCell>{t('Municipility')}</TableCell>
+            <TableCell>{t('Average')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
-            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              {row.map((cell, i) => (
-                // remove underscore from cell and capitalize first letter
-                <TableCell key={i}>{getSurveyFieldName(cell)}</TableCell>
-              ))}
+          {municipalities.map((municipality) => (
+            <TableRow>
+              <TableCell>{rows[municipality]?.municipality??municipality}</TableCell>
+              <TableCell>{rows[municipality]?.avg??0}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -176,4 +174,4 @@ const AvgSurvayByMunicipilityWidg = () => {
   );
 };
 
-export default AvgSurvayByMunicipilityWidg;
+export default MunicipilityAvgSurvayMarkWid;
