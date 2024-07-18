@@ -362,5 +362,23 @@
   "As Pontes": "As Pontes",
   "Cabanas": "Cabanas",
   "Monfero": "Monfero",
-  "Pontedeume": "Pontedeume"
+  "Pontedeume": "Pontedeume",
+
+  "Evaluation Table":"a",
+  "General Assessment":"b",
+  "Municipility Average Assessment":"c",
+  "Logout":"Cerrar sesión",
+  "ACTIONS":"Acciones",
+ 
+
+  "passwordStrength": {
+    "Poor": "Pobre",
+    "Weak": "Débil",
+    "Normal": "N",
+    "Good": "Buena",
+    "Strong": "S"
+  },
+
+  "Manager":"M"
+  
 }
