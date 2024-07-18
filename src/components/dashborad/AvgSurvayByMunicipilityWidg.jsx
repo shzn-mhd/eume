@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 
 import { db } from 'config/firebase';
 import useAuth from 'hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 import { getDocs, collection, query, where, getDoc, doc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -33,6 +34,8 @@ const AvgSurvayByMunicipilityWidg = () => {
   const survayData = collection(db, 'optional_survey_data');
   const { user } = useAuth();
   const [rows, setRows] = useState([]);
+
+  const { t, i18n } = useTranslation();
 
   const fetchMunicipalities = async (roleIds) => {
     const municipalities = new Set();
@@ -122,29 +125,29 @@ const AvgSurvayByMunicipilityWidg = () => {
   const getSurveyFieldName = (field) => {
     switch (field) {
       case 'accessibility':
-        return 'Accessibility';
+        return t('Accessibility');
       case 'catering_services':
-        return 'Catering Services';
+        return t('Catering Services');
       case 'cleaning_conservation':
-        return 'Cleaning Conservation';
+        return t('Cleaning Conservation');
       case 'cultural_offerings':
-        return 'Cultural Offerings';
+        return t('Cultural Offerings');
       case 'general_assessment':
-        return 'General Assessment';
+        return t('General Assessment');
       case 'lodging':
-        return 'Lodging';
+        return t('Lodging');
       case 'optionalFeedback':
-        return 'Optional Feedback';
+        return t('Optional Feedback');
       case 'quality_price_ratio':
-        return 'Quality Price Ratio';
+        return t('Quality Price Ratio');
       case 'retailers':
-        return 'Retailers';
+        return t('Retailers');
       case 'signaling':
-        return 'Signaling';
+        return t('Signaling');
       case 'sustainability':
-        return 'Sustainability';
+        return t('Sustainability');
       case 'tourist_information':
-        return 'Tourist Information';
+        return t('Tourist Information');
       default:
         return field;
     }
