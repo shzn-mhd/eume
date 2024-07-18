@@ -363,5 +363,18 @@
   "Cabanas": "Cabanas",
   "Monfero": "Monfero",
   "Pontedeume": "Pontedeume",
-  "Evaluation Table": "Evaluation Table"
+  "Evaluation Table": "Evaluation Table", 
+  "Municipility Average Assessment":"Municipility Average Assessment",
+  "Logout":"Logout",
+  "ACTIONS":"ACTIONS",
+
+  "passwordStrength": {
+    "Poor": "Poor",
+    "Weak": "Weak",
+    "Normal": "Normal",
+    "Good": "Good",
+    "Strong": "Strong"
+  },
+
+  "Manager":"Manager"
 }
