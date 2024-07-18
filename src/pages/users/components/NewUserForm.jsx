@@ -53,9 +53,17 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
     event.preventDefault();
   };
 
+  // const changePassword = (value) => {
+  //   const temp = strengthIndicator(value);
+  //   setLevel(strengthColor(temp));
+  // };
+
   const changePassword = (value) => {
     const temp = strengthIndicator(value);
-    setLevel(strengthColor(temp));
+    setLevel({
+      ...strengthColor(temp),
+      label: t(⁠ passwordStrength.${strengthColor(temp).label} ⁠)
+    });
   };
 
   const getUser = async (auth, userId) => {
