@@ -242,7 +242,7 @@ const EditableTable = ({ data }) => {
           }
         },
         {
-          header: 'Actions',
+         header: t('Actions'),
           meta: {
             className: 'cell-center'
           },
