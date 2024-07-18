@@ -49,7 +49,8 @@ const Profile = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const { logout, user } = useAuth();
+  // const { logout, user } = useAuth();
+  const { logout, user,translatedRole } = useAuth();
   
   const handleLogout = async () => {
     try {
@@ -108,6 +109,7 @@ const Profile = () => {
           <Avatar alt="profile user" src={avatar1} size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
             {user?.firstName}{` `}{user?.lastName}
+            
           </Typography>
         </Stack>
       </ButtonBase>
@@ -154,13 +156,14 @@ const Profile = () => {
                             <Typography variant="h6">{user?.firstName}{` `}{user?.lastName}</Typography>
                             <Typography variant="body2" color="textSecondary">
                               {/* UI/UX Designer */}
-                              {user?.roleName}
+{/*                               {user?.roleName} */}
+                                {translatedRole}
                             </Typography>
                           </Stack>
                         </Stack>
                       </Grid>
                       <Grid item>
-                        <Tooltip title="Logout">
+                        <Tooltip title={t('Logout')}>
                           <IconButton size="large" sx={{ color: 'text.primary' }} onClick={handleLogout}>
                             <LogoutOutlined />
                           </IconButton>
