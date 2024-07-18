@@ -322,7 +322,7 @@ const DashboardDefault = ({}) => {
       </Grid>
       <Grid item xs={12} sm={12} md={5} lg={5}>
         <AnalyticEcommerce
-          title={t('Municipility Average')}
+          title={t('Municipility Average Assessment')}
           count={<MunicipilityAvgSurvayMarkWid/>}
         />
       </Grid>
