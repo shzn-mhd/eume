@@ -366,18 +366,18 @@
   "Táboa de avaliacións": "Táboa de avaliacións",
 
 
-  "Evaluation Table":"aa",
-  "General Assessment":"bb",
-  "Municipility Average Assessment":"cc",
+  "Evaluation Table":"Táboa Avaliación",
+  "General Assessment":"Avaliación Xeral",
+  "Municipility Average Assessment":"Avaliación media municipal",
    "Logout":"Pechar sesión",
     "ACTIONS":"ACCIÓNS",
 
     "passwordStrength": {
       "Poor": "Pobre",
       "Weak": "Débil",
-      "Normal": "NN",
+      "Normal": "Normal",
       "Good": "Ben",
-      "Strong": "SS"
+      "Strong": "Forte"
     },
-     "Manager":"MM"
+     "Manager":"Xerente"
 }
