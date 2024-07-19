@@ -364,9 +364,9 @@
   "Monfero": "Monfero",
   "Pontedeume": "Pontedeume",
 
-  "Evaluation Table":"a",
-  "General Assessment":"b",
-  "Municipility Average Assessment":"c",
+  "Evaluation Table":"Tabla de evaluación",
+  "General Assessment":"Evaluación general",
+  "Municipility Average Assessment":"Evaluación promedio municipal",
   "Logout":"Cerrar sesión",
   "ACTIONS":"Acciones",
  
@@ -374,11 +374,11 @@
   "passwordStrength": {
     "Poor": "Pobre",
     "Weak": "Débil",
-    "Normal": "N",
+    "Normal": "Normal",
     "Good": "Buena",
-    "Strong": "S"
+    "Strong": "Fuerte"
   },
 
-  "Manager":"M"
+  "Manager":"Gerente"
   
 }
