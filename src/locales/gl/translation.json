@@ -369,8 +369,9 @@
   "Evaluation Table":"Táboa de avaliacións",
   "General Assessment":"Avaliación xeral",
   "Municipility Average Assessment":"Puntuación media por concello",
-   "Logout":"Pechar sesión",
-    "ACTIONS":"ACCIÓNS",
+  "Logout":"Pechar sesión",
+  "ACTIONS":"ACCIÓNS",
+  "All rights reserved by Perfect Numbers":"Tódolos dereitos reservados a Perfect Numbers",
 
     "passwordStrength": {
       "Poor": "Pobre",
