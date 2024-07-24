@@ -13,7 +13,9 @@ import { ThemeMode } from 'config';
  * import logo from 'assets/images/logo.svg';
  *
  */
-import logoDark from 'assets/images/EUME-logo.png';
+//
+// import logoDark from 'assets/images/EUME-logo.png';
+import logoDark from 'assets/images/eume-logo-blue-acoplado.png';
 import logo from 'assets/images/EUME-dark-logo.png';
 
 // ==============================|| LOGO SVG ||============================== //
