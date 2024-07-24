@@ -17,6 +17,8 @@ import IconButton from 'components/@extended/IconButton';
 import useAuth from 'hooks/useAuth';
 import { ThemeMode } from 'config';
 
+import { useTranslation } from 'react-i18next';
+
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
@@ -46,6 +48,7 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
 
