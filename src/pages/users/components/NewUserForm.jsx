@@ -63,6 +63,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
     setLevel({
       ...strengthColor(temp),
       label: t(`passwordStrength.${strengthColor(temp).label}`)
+
     });
   };
 
