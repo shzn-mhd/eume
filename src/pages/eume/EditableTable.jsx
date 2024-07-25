@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import { format } from 'date-fns';
 import {
   Autocomplete,
   Box,
@@ -98,6 +99,8 @@ const EditableTable = ({ data }) => {
         const municipalities = await fetchMunicipalities(user.role);
   
         const data = await getDocs(empCollectionRef);
+        console.log('Raw data from Firestore:', data.docs.map((doc) => doc.data()));
+        
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
@@ -163,24 +166,57 @@ const EditableTable = ({ data }) => {
         if (selectedTrans) {
           searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
         }
-        if (selectedDateFrom) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate >= selectedDateFrom;
-          });
-        }
-        if (selectedDateTo) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate <= selectedDateTo;
-          });
-        }
-  
+
+        // if (selectedDateFrom) {
+        //   searchedData = searchedData.filter((item) => {
+        //     const itemDate = new Date(item.date);
+        //     return itemDate >= selectedDateFrom;
+        //   });
+        // }
+        // if (selectedDateTo) {
+        //   searchedData = searchedData.filter((item) => {
+        //     const itemDate = new Date(item.date);
+        //     return itemDate <= selectedDateTo;
+        //   });
+        // }
+
+        // If selectedDateFrom and selectedDateTo are both set and are equal, do not filter by date
+// If both selectedDateFrom and selectedDateTo are set and are equal, filter by that single date
+if (selectedDateFrom && selectedDateTo) {
+  if (selectedDateFrom.getTime() === selectedDateTo.getTime()) {
+    searchedData = searchedData.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate.toDateString() === selectedDateFrom.toDateString();
+    });
+  } else {
+    searchedData = searchedData.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate >= selectedDateFrom && itemDate <= selectedDateTo;
+    });
+  }
+} else {
+  if (selectedDateFrom) {
+    searchedData = searchedData.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate >= selectedDateFrom;
+    });
+  }
+  if (selectedDateTo) {
+    searchedData = searchedData.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate <= selectedDateTo;
+    });
+  }
+}
+
+
+
         // Sort by date (default sorting)
         searchedData.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
-          return dateA - dateB;
+          return dateB -dateA  ;
+        
         });
   
         setEmpList(searchedData);
@@ -246,6 +282,10 @@ const EditableTable = ({ data }) => {
     );
   };
 
+  
+
+
+
   useEffect(() => {
     handleSortingChange(sortValue);
     console.log('sorting id', sortValue);
@@ -273,8 +313,10 @@ const EditableTable = ({ data }) => {
           dataType: 'text',
           meta: {
             className: 'cell-center'
-          }
+          },
         },
+    
+
         {
           header: t('Municipality'),
           accessorKey: 'municipality',

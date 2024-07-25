@@ -226,7 +226,9 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                   </Stack>
                 </Grid>
 
-                <TableContainer component={Paper} sx={{ marginTop: 4 }}>
+
+
+                {/* <TableContainer component={Paper} sx={{ marginTop: 4 }}>
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
@@ -235,7 +237,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                         <TableCell align="center">{t('Add')}</TableCell>
                         <TableCell align="center">{t('Edit')}</TableCell>
                         <TableCell align="center">{t('Delete')}</TableCell>
-                        <TableCell align="center">{t('View Enter by them')}</TableCell>
+                        <TableCell align="center">{t('import survey1')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -256,7 +258,67 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                       ))}
                     </TableBody>
                   </Table>
-                </TableContainer>
+                </TableContainer> */}
+
+<TableContainer component={Paper} sx={{ marginTop: 4 }}>
+  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableHead>
+      <TableRow>
+        <TableCell align="left">{t('Access')}</TableCell>
+        <TableCell align="center">{t('View')}</TableCell>
+        <TableCell align="center">{t('Add')}</TableCell>
+        <TableCell align="center">{t('Edit')}</TableCell>
+        <TableCell align="center">{t('Delete')}</TableCell>
+        <TableCell align="center">{t('import survey1')}</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {accessTypes.map((accessType) => (
+        <TableRow key={accessType}>
+          <TableCell component="th" scope="row">
+            {t(accessType)}
+          </TableCell>
+          {['view', 'add', 'edit', 'delete'].map((permissionType) => (
+            <TableCell key={permissionType} align="center">
+              <Checkbox
+                checked={values.permissions[accessType][permissionType]}
+                onChange={(e) => setFieldValue(`permissions.${accessType}.${permissionType}`, e.target.checked)}
+              />
+            </TableCell>
+          ))}
+          <TableCell align="center">
+            {(accessType === 'Users' || accessType === 'Roles') ? (
+              // Render an unchecked checkbox for 'Users' and 'Roles'
+              <Checkbox
+                checked={false}
+                onChange={(e) => setFieldValue(`permissions.${accessType}.viewCreatedByThem`, e.target.checked)}
+                disabled
+              />
+            ) : (
+              // Render a normal checkbox for other access types
+              <Checkbox
+                checked={values.permissions[accessType]['viewCreatedByThem']}
+                onChange={(e) => setFieldValue(`permissions.${accessType}.viewCreatedByThem`, e.target.checked)}
+              />
+            )}
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>
+
+
+
+
+
+
+
+
+
+
+
+
 
                 {errors.submit && (
                   <Grid item xs={12}>
