@@ -23,8 +23,8 @@ export default function BasicDateTimePickers() {
 
   const basicDatepickerCodeString = `<LocalizationProvider dateAdapter={AdapterDateFns}>
   <Stack spacing={3}>
-    <DesktopDatePicker label="Date Desktop" inputFormat="MM/dd/yyyy" value={value} onChange={handleChange} />
-    <MobileDatePicker label="Date Mobile" inputFormat="MM/dd/yyyy" value={value} onChange={handleChange} />
+    <DesktopDatePicker label="Date Desktop" inputFormat="dd/MM/yyyy" value={value} onChange={handleChange} />
+    <MobileDatePicker label="Date Mobile" inputFormat="dd/MM/yyyy" value={value} onChange={handleChange} />
     <TimePicker label="Time" value={value} onChange={handleChange} />
     <DateTimePicker label="Date & Time Picker" value={value} onChange={handleChange} />
   </Stack>
@@ -34,8 +34,8 @@ export default function BasicDateTimePickers() {
     <MainCard title="Basic Picker" codeString={basicDatepickerCodeString}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Stack spacing={3}>
-          <DesktopDatePicker label="Date Desktop" inputFormat="MM/dd/yyyy" value={value} onChange={handleChange} />
-          <MobileDatePicker label="Date Mobile" inputFormat="MM/dd/yyyy" value={value} onChange={handleChange} />
+          <DesktopDatePicker label="Date Desktop" inputFormat="dd/MM/yyyy" value={value} onChange={handleChange} />
+          <MobileDatePicker label="Date Mobile" inputFormat="dd/MM/yyyy" value={value} onChange={handleChange} />
           <TimePicker label="Time" value={value} onChange={handleChange} />
           <DateTimePicker label="Date & Time Picker" value={value} onChange={handleChange} />
         </Stack>

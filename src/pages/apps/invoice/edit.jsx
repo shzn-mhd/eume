@@ -106,8 +106,8 @@ const EditForm = ({ list, invoiceMaster }) => {
       avatar: Number(list.avatar),
       discount: Number(values.discount),
       tax: Number(values.tax),
-      date: format(new Date(values.date), 'MM/dd/yyyy'),
-      due_date: format(new Date(values.due_date), 'MM/dd/yyyy'),
+      date: format(new Date(values.date), 'dd/MM/yyyy'),
+      due_date: format(new Date(values.due_date), 'dd/MM/yyyy'),
       quantity: Number(
         values.invoice_detail?.reduce((sum, i) => {
           return sum + i.qty;

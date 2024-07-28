@@ -97,8 +97,8 @@ const CreateForm = ({ lists, invoiceMaster }) => {
       avatar: Number(Math.round(Math.random() * 10)),
       discount: Number(values.discount),
       tax: Number(values.tax),
-      date: format(values.date, 'MM/dd/yyyy'),
-      due_date: format(values.due_date, 'MM/dd/yyyy'),
+      date: format(values.date, 'dd/MM/yyyy'),
+      due_date: format(values.due_date, 'dd/MM/yyyy'),
       quantity: Number(
         values.invoice_detail?.reduce((sum, i) => {
           return sum + i.qty;
