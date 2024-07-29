@@ -179,7 +179,8 @@ const Filter = ({
                       <DesktopDatePicker
                         id="dateFrom"
                         label={t('Date - From')}
-                        inputFormat="MM/dd/yyyy"
+                        inputFormat="dd/MM/yyyy"
+                        format='dd/MM/yyyy'
                         value={selectedDateFrom}
                         onChange={(newValue) => setSelectedDateFrom(newValue)}
                         renderInput={(params) => <TextField {...params} />}
@@ -194,7 +195,8 @@ const Filter = ({
                       <DesktopDatePicker
                         id="dateTo"
                         label={t('Date - To')}
-                        inputFormat="MM/dd/yyyy"
+                        inputFormat="dd/MM/yyyy"
+                        format='dd/MM/yyyy'
                         value={selectedDateTo}
                         onChange={(newValue) => setSelectedDateTo(newValue)}
                         renderInput={(params) => <TextField {...params} />}
