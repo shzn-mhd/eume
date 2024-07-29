@@ -1,4 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   Autocomplete,
   Box,
@@ -173,7 +175,8 @@ const Filter = ({
           <Box sx={{ p: 2, maxHeight: '50vh', overflowY: 'auto' }}>
             <Stack direction="column" spacing={2}>
               <Grid container gap={1}>
-                <Grid item xs={5.8}>
+
+                {/* <Grid item xs={5.8}>
                   <FormControl fullWidth>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DesktopDatePicker
@@ -185,10 +188,26 @@ const Filter = ({
                         renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>
-                  </FormControl>
-                </Grid>
 
-                <Grid item xs={5.8}>
+                  </FormControl>
+                </Grid> */}
+
+<Grid item xs={5.8}>
+  <FormControl fullWidth>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DesktopDatePicker
+        id="dateFrom"
+        label={t('Date - From')}
+        format="DD/MM/YYYY"
+        value={selectedDateFrom}
+        onChange={(newValue) => setSelectedDateFrom(newValue)}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
+  </FormControl>
+</Grid>
+
+                {/* <Grid item xs={5.8}>
                   <FormControl fullWidth>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DesktopDatePicker
@@ -201,7 +220,24 @@ const Filter = ({
                       />
                     </LocalizationProvider>
                   </FormControl>
-                </Grid>
+                </Grid> */}
+
+<Grid item xs={5.8}>
+  <FormControl fullWidth>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DesktopDatePicker
+        id="dateTo"
+        label={t('Date - To')}
+        format="DD/MM/YYYY"
+        value={selectedDateTo}
+        onChange={(newValue) => setSelectedDateTo(newValue)}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
+  </FormControl>
+</Grid>
+
+
               </Grid>
               <Grid container gap={1}>
                 <Grid item xs={5.8}>
