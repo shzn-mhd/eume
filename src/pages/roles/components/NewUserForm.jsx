@@ -235,7 +235,8 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                         <TableCell align="center">{t('Add')}</TableCell>
                         <TableCell align="center">{t('Edit')}</TableCell>
                         <TableCell align="center">{t('Delete')}</TableCell>
-                        <TableCell align="center">{t('View Enter by them')}</TableCell>
+                        <TableCell align="center">{t('Import data')}</TableCell>
+                        <TableCell align="center">{t('Export data')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -244,7 +245,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
                           <TableCell component="th" scope="row">
                             {t(accessType)}
                           </TableCell>
-                          {['view', 'add', 'edit', 'delete', 'viewCreatedByThem'].map((permissionType) => (
+                          {['view', 'add', 'edit', 'delete', 'importData','exportData'].map((permissionType) => (
                             <TableCell key={permissionType} align="center">
                               <Checkbox
                                 checked={values.permissions[accessType][permissionType]}

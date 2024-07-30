@@ -25,10 +25,29 @@ const EditableTable = ({ data }) => {
   const { user } = useAuth();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
-  
+
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [sorting, setSorting] = useState({ field: 'date', sort: 'desc' });
+
+  const [pageSize, setPageSize] = useState(10);
+  const [filteredEmpList, setFilteredEmpList] = useState([]);
+  const [sortModel, setSortModel] = useState([]);
+  const [selectedAcc, setSelectedAcc] = useState('');
+  const [selectService, setSelectService] = useState('');
+  
+  const [selectedSignaling, setSelectedSignaling] = useState('');
+  const [selectedMunicipality, setSelectedMunicipality] = useState('');
+  const [selectedAaccess, setSelectedAccess] = useState('');
+  const [selectedQualityPriceRatio, setSelectedQualityPriceRatio] = useState('');
+  const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
+
+  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const handleStoryDrawerOpen = () => {
+    setOpenStoryDrawer((prevState) => !prevState);
+  };
 
   const empCollectionRef = collection(db, 'survey_data');
 
@@ -81,13 +100,30 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [searchValue, user.role]);
+  }, [ searchValue,user.role]);  
 
-  // const columns = useMemo(() => [
-  //   { field: 'date', headerName: t('Date'), flex: 1, editable: true },
-  //   { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true },
-  //   // Add more columns as needed
-  // ], [t]);
+  useEffect(() => {
+    let sortedData = [...empList];
+
+    if (sortModel.length > 0) {
+      const { field, sort } = sortModel[0];
+      sortedData = sortedData.sort((a, b) => {
+        if (a[field] < b[field]) return sort === 'asc' ? -1 : 1;
+        if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    const start = page * pageSize;
+    const end = start + pageSize;
+    setFilteredEmpList(sortedData.slice(start, end));
+  }, [empList, page, pageSize, sortModel]);
+
+  const ResetTable = () => {
+    setSearchValue("")
+  };
+
+
   const columns = useMemo(() => [
     { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
     { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true, cellClassName: 'cell-center' },
@@ -194,27 +230,27 @@ const EditableTable = ({ data }) => {
   ], [t]);
   
 
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-  };
+  // const handleSearchChange = (event) => {
+  //   setSearchValue(event.target.value);
+  // };
 
-  const handleSortChange = (sortModel) => {
-    if (sortModel.length > 0) {
-      setSorting(sortModel[0]);
-    }
-  };
+  // const handleSortChange = (sortModel) => {
+  //   if (sortModel.length > 0) {
+  //     setSorting(sortModel[0]);
+  //   }
+  // };
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
+  // const handlePageChange = (event, value) => {
+  //   setPage(value);
+  // };
 
-  const PER_PAGE = 10;
-  const count = Math.ceil(empList.length / PER_PAGE);
-  const paginatedData = useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    return empList.slice(start, end);
-  }, [empList, page, rowsPerPage]);
+  // const PER_PAGE = 10;
+  // const count = Math.ceil(empList.length / PER_PAGE);
+  // const paginatedData = useMemo(() => {
+  //   const start = (page - 1) * rowsPerPage;
+  //   const end = start + rowsPerPage;
+  //   return empList.slice(start, end);
+  // }, [empList, page, rowsPerPage]);
 
   return (
     <MainCard
@@ -223,7 +259,7 @@ const EditableTable = ({ data }) => {
       subheader={`${empList.length} ${t('Basic Surveys')}`}
       secondary={
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-          <TextField
+          {/* <TextField
             sx={{
               borderRadius: '4px',
               bgcolor: theme.palette.background.paper,
@@ -237,7 +273,7 @@ const EditableTable = ({ data }) => {
             }}
             value={searchValue}
             onChange={handleSearchChange}
-          />
+          /> */}
           <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
@@ -263,22 +299,48 @@ const EditableTable = ({ data }) => {
       }
     >
       <Box sx={{ overflowX: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
-        <DataGrid
-          rows={paginatedData}
+      <DataGrid
+          rows={filteredEmpList}
           columns={columns}
-          pagination
-          pageSize={rowsPerPage}
-          rowCount={count}
-          page={page - 1}
-          onPageChange={(params) => setPage(params.page + 1)}
-          sortingOrder={['asc', 'desc']}
-          sortModel={[sorting]}
-          onSortModelChange={handleSortChange}
-          autoHeight
-          disableColumnFilter
+          pageSize={pageSize}
+          rowsPerPageOptions={[5, 10, 20]}
+          paginationMode="server"
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={(model) => {
+            setPage(model.page);
+            setPageSize(model.pageSize);
+          }}
+          sortingMode="server"
+          sortModel={sortModel}
+          onSortModelChange={(model) => setSortModel(model)}
+          rowCount={empList.length}
         />
       </Box>
-      <Pagination count={count} page={page} onChange={handlePageChange} />
+      <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
+        <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
+      </Dialog>
+      
+      <Filter
+        empList={empList}
+        open={openStoryDrawer}
+        ResetTable={ResetTable}
+        handleDrawerOpen={handleStoryDrawerOpen}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc}
+        selectedMunicipality={selectedMunicipality}
+        setSelectedMunicipality={setSelectedMunicipality}
+        selectService={selectService}
+        setSelectService={setSelectService}
+        selectedSignaling={selectedSignaling}
+        setSelectedSignaling={setSelectedSignaling}
+        selectedAaccess={selectedAaccess}
+        setSelectedAccess={setSelectedAccess}
+        selectedQualityPriceRatio={selectedQualityPriceRatio}
+        setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
+        selectedCleaningConservation={selectedCleaningConservation}
+        setSelectedCleaningConservation={setSelectedCleaningConservation}
+      />
+    
     </MainCard>
   );
 };
