@@ -307,7 +307,7 @@ const Filter = ({
                         // boxShadow: theme.customShadows.primary,
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
-                      label="Age"
+                      label={t('Age')}
                       type="number"
                     />
                     {/* <Autocomplete

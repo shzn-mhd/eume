@@ -380,6 +380,8 @@
     "Strong": "Fuerte"
   },
 
-  "Manager":"Gerente"
+  "Manager":"Gerente",
+  "Export data":"a",
+  "Import data":"b"
   
 }

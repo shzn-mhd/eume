@@ -380,5 +380,7 @@
       "Good": "Ben",
       "Strong": "Forte"
     },
-     "Manager":"Xerente"
+     "Manager":"Xerente",
+       "Export data":"aa",
+       "Import data":"bb"
 }
