@@ -110,17 +110,6 @@ const EditableTable = ({ data }) => {
             item.noOfDays.includes(searchValue)
         );
 
-  useEffect(() => {
-    const getEmpList = async () => {
-      try {
-        const municipalities = await fetchMunicipalities(user?.role);
-        const data = await getDocs(empCollectionRef);
-        const filteredData = data?.docs?.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-
-        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
         if (searchValue) {
           searchedData = searchedData.filter(
@@ -138,9 +127,7 @@ const EditableTable = ({ data }) => {
           );
         }
 
-        setEmpList(searchedData);
-      } catch (err) {
-        console.log(err);
+   
 
       }
       if (selectedGender) {
