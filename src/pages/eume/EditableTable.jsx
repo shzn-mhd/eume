@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import { useEffect, useState, useMemo } from 'react';
 import { Box, Button, TextField, Stack, useTheme, Dialog, Pagination } from '@mui/material';
@@ -17,9 +16,7 @@ import CSVExport from 'components/third-party/react-table/CSVExport';
 import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
 
-
 const EditableTable = ({ data }) => {
-
   const theme = useTheme();
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
@@ -35,7 +32,7 @@ const EditableTable = ({ data }) => {
   const [sortModel, setSortModel] = useState([]);
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
-  
+
   const [selectedSignaling, setSelectedSignaling] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
@@ -44,6 +41,9 @@ const EditableTable = ({ data }) => {
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const showImportData = user?.rolePermissions['Basic Survey']?.importData;
+  const showExportData = user?.rolePermissions['Basic Survey'].exportData;
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -68,11 +68,11 @@ const EditableTable = ({ data }) => {
   useEffect(() => {
     const getEmpList = async () => {
       try {
-        const municipalities = await fetchMunicipalities(user.role);
+        const municipalities = await fetchMunicipalities(user?.role);
         const data = await getDocs(empCollectionRef);
         const filteredData = data?.docs?.map((doc) => ({
           ...doc.data(),
-          id: doc.id,
+          id: doc.id
         }));
 
         let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
@@ -100,7 +100,7 @@ const EditableTable = ({ data }) => {
     };
 
     getEmpList();
-  }, [ searchValue,user.role]);  
+  }, [searchValue, user?.role]);
 
   useEffect(() => {
     let sortedData = [...empList];
@@ -120,115 +120,116 @@ const EditableTable = ({ data }) => {
   }, [empList, page, pageSize, sortModel]);
 
   const ResetTable = () => {
-    setSearchValue("")
+    setSearchValue('');
   };
 
-
-  const columns = useMemo(() => [
-    { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    {
-      field: 'gender',
-      headerName: t('Gender'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.gender),
-    },
-    { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    { field: 'reason', headerName: t('Reason'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    {
-      field: 'modality',
-      headerName: t('Modality'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.modality),
-    },
-    {
-      field: 'withPet',
-      headerName: t('With Pet'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.withPet),
-    },
-    {
-      field: 'stayOvernight',
-      headerName: t('Stay Overnight'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.stayOvernight),
-    },
-    {
-      field: 'stayPlace',
-      headerName: t('Stay Place'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.stayPlace),
-    },
-    { field: 'noOfDays', headerName: t('No of Days'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    {
-      field: 'accommodationType',
-      headerName: t('Accommodation Type'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.accommodationType),
-    },
-    {
-      field: 'transportation',
-      headerName: t('Transportation'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.transportation),
-    },
-    {
-      field: 'activity',
-      headerName: t('Activity'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.activity),
-    },
-    { field: 'language', headerName: t('Language'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    {
-      field: 'motivation',
-      headerName: t('Motivation'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.motivation),
-    },
-    { field: 'noOfPeople', headerName: t('No Of People'), flex: 1, editable: true, cellClassName: 'cell-center' },
-    {
-      field: 'placeOfOrigin',
-      headerName: t('Place of Origin'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.placeOfOrigin),
-    },
-    {
-      field: 'province',
-      headerName: t('Province'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-      renderCell: ({ row }) => t(row.province),
-    },
-    {
-      field: 'transportationReason',
-      headerName: t('Transportation Reason'),
-      flex: 1,
-      editable: true,
-      cellClassName: 'cell-center',
-    },
-  ], [t]);
-  
+  const columns = useMemo(
+    () => [
+      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'gender',
+        headerName: t('Gender'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.gender)
+      },
+      { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      { field: 'reason', headerName: t('Reason'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'modality',
+        headerName: t('Modality'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.modality)
+      },
+      {
+        field: 'withPet',
+        headerName: t('With Pet'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.withPet)
+      },
+      {
+        field: 'stayOvernight',
+        headerName: t('Stay Overnight'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.stayOvernight)
+      },
+      {
+        field: 'stayPlace',
+        headerName: t('Stay Place'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.stayPlace)
+      },
+      { field: 'noOfDays', headerName: t('No of Days'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'accommodationType',
+        headerName: t('Accommodation Type'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.accommodationType)
+      },
+      {
+        field: 'transportation',
+        headerName: t('Transportation'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.transportation)
+      },
+      {
+        field: 'activity',
+        headerName: t('Activity'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.activity)
+      },
+      { field: 'language', headerName: t('Language'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'motivation',
+        headerName: t('Motivation'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.motivation)
+      },
+      { field: 'noOfPeople', headerName: t('No Of People'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'placeOfOrigin',
+        headerName: t('Place of Origin'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.placeOfOrigin)
+      },
+      {
+        field: 'province',
+        headerName: t('Province'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.province)
+      },
+      {
+        field: 'transportationReason',
+        headerName: t('Transportation Reason'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center'
+      }
+    ],
+    [t]
+  );
 
   // const handleSearchChange = (event) => {
   //   setSearchValue(event.target.value);
@@ -293,13 +294,15 @@ const EditableTable = ({ data }) => {
           >
             {t('Reset Filter')}
           </Button>
-          <CSVExport data={empList} filename="basic-survey.csv" />
-          <CSVImport collectionRef={empCollectionRef} headers={columns.map(col => ({ label: col.headerName, key: col.field }))} />
+          {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
+          {showImportData && (
+            <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
+          )}
         </Stack>
       }
     >
       <Box sx={{ overflowX: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
-      <DataGrid
+        <DataGrid
           rows={filteredEmpList}
           columns={columns}
           pageSize={pageSize}
@@ -319,7 +322,7 @@ const EditableTable = ({ data }) => {
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
         <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
       </Dialog>
-      
+
       <Filter
         empList={empList}
         open={openStoryDrawer}
@@ -340,31 +343,12 @@ const EditableTable = ({ data }) => {
         selectedCleaningConservation={selectedCleaningConservation}
         setSelectedCleaningConservation={setSelectedCleaningConservation}
       />
-    
     </MainCard>
   );
 };
 
 EditableTable.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired
 };
 
 export default EditableTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

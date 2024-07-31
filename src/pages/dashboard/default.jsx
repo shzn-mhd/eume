@@ -116,7 +116,7 @@ const DashboardDefault = ({}) => {
     const getEmpList = async () => {
       try {
         // Fetch the municipalities associated with the user's roles
-        const municipalities = await fetchMunicipalities(user.role);
+        const municipalities = await fetchMunicipalities(user?.role);
         const data = await getDocs(empCollectionRef);
 
         const filterData = data.docs.map((doc) => ({
@@ -183,7 +183,7 @@ const DashboardDefault = ({}) => {
       }
     };
     getEmpList();
-  }, []);
+  }, [user]);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>

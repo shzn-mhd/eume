@@ -53,10 +53,10 @@ const AvgSurvayByMunicipilityWidg = () => {
 
   useEffect(() => {
     setUserMunicipalities();
-  }, [user.role]);
+  }, [user?.role]);
 
   const setUserMunicipalities = async () => {
-    const municipalities = await fetchMunicipalities(user.role);
+    const municipalities = await fetchMunicipalities(user?.role);
     setMunicipalities(municipalities);
   };
 
@@ -97,7 +97,7 @@ const AvgSurvayByMunicipilityWidg = () => {
     };
 
     getEmpList();
-  }, [user.role, municipalities]);
+  }, [user?.role, municipalities]);
 
   const prepareRows = (data) => {
     // expected rowsData = [["accessibility", 3.75, 3],["catering_services", 3.25, 2.5],["cleaning_conservation", 3.25, 2.5],["cultural_offerings", 3.75, 2.5],["general_assessment", 3.5, 2.5],["lodging", 3.5, 2],["optionalFeedback", 0, 0],["quality_price_ratio", 3.75, 3.5],["retailers", 3.75, 2],["signaling", 3.75, 2],["sustainability", 3.75, 3],["tourist_information", 3.75, 2.5]]
