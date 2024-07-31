@@ -36,7 +36,7 @@ const EditableTable = ({ data }) => {
 
   const [selectedGender, setSelectedGender] = useState('');
 
-  const [selectedAcc, setSelectedAcc] = useState('');
+ 
   const [selectService, setSelectService] = useState('');
 
   const [selectedSignaling, setSelectedSignaling] = useState('');
