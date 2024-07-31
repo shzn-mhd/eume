@@ -16,28 +16,39 @@ import transList from 'data/transport';
 
 const FilterModal = ({
   onClose,
-  selectedGender,
-  setSelectedGender,
-  selectedCountry,
-  setSelectedCountry,
-  selectedProvince,
-  setSelectedProvince,
-  selectedAge,
-  setSelectedAge,
-  selectedMotivation,
-  setSelectedMotivation,
-  selectedModality,
-  setSelectedModality,
-  selectedPet,
-  setSelectedPet,
-  selectedStay,
-  setSelectedStay,
-  selectedStayList,
-  setSelectedStayList,
-  selectedDayStay,
-  setSelectedDayStay,
   selectedAcc,
   setSelectedAcc,
+
+  selectedGender,
+  setSelectedGender,
+
+  selectedCountry,
+  setSelectedCountry,
+
+  selectedProvince,
+  setSelectedProvince,
+
+  selectedAge,
+  setSelectedAge,
+
+  selectedMotivation,
+  setSelectedMotivation,
+
+  selectedModality,
+  setSelectedModality,
+
+  selectedPet,
+  setSelectedPet,
+
+  selectedStay,
+  setSelectedStay,
+
+  selectedStayList,
+  setSelectedStayList,
+
+  selectedDayStay,
+  setSelectedDayStay,
+  
   selectedTrans,
   setSelectedTrans
 }) => {

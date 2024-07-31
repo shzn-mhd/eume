@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import { useEffect, useState, useMemo } from 'react';
 import { Box, Button, TextField, Stack, useTheme, Dialog, Pagination } from '@mui/material';
@@ -28,22 +27,32 @@ const EditableTable = ({ data }) => {
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
-  const [sorting, setSorting] = useState({ field: 'date', sort: 'desc' });
+  const [sorting, setSorting] = useState({ 
+    field: 'date', 
+    sort: 'desc'
+   });
 
   const [pageSize, setPageSize] = useState(10);
   const [filteredEmpList, setFilteredEmpList] = useState([]);
   const [sortModel, setSortModel] = useState([]);
-  const [selectedAcc, setSelectedAcc] = useState('');
-  const [selectService, setSelectService] = useState('');
-  
-  const [selectedSignaling, setSelectedSignaling] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
-  const [selectedAaccess, setSelectedAccess] = useState('');
-  const [selectedQualityPriceRatio, setSelectedQualityPriceRatio] = useState('');
-  const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
-
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
+  const [selectedMotivation, setSelectedMotivation] = useState('');
+  const [selectedModality, setSelectedModality] = useState('');
+  const [selectedPet, setSelectedPet] = useState('');
+  const [selectedStay, setSelectedStay] = useState('');
+  const [selectedStayList, setSelectedStayList] = useState('');
+  const [selectedDayStay, setSelectedDayStay] = useState('');
+  const [selectedAcc, setSelectedAcc] = useState('');
+  const [selectedTrans, setSelectedTrans] = useState('');
+  const [selectedDateFrom, setSelectedDateFrom] = useState(null);
+  const [selectedDateTo, setSelectedDateTo] = useState(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -65,42 +74,7 @@ const EditableTable = ({ data }) => {
     return Array.from(municipalities);
   };
 
-  // useEffect(() => {
-  //   const getEmpList = async () => {
-  //     try {
-  //       const municipalities = await fetchMunicipalities(user.role);
-  //       const data = await getDocs(empCollectionRef);
-  //       const filteredData = data?.docs?.map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       }));
 
-  //       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-
-  //       if (searchValue) {
-  //         searchedData = searchedData.filter(
-  //           (item) =>
-  //             item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //             item.age.includes(searchValue) ||
-  //             item.noOfDays.includes(searchValue)
-  //         );
-  //       }
-
-  //       setEmpList(searchedData);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   getEmpList();
-  // }, [ searchValue,user.role]);  
   const getEmpList = async () => {
     try {
       const municipalities = await fetchMunicipalities(user.role);
@@ -127,16 +101,105 @@ const EditableTable = ({ data }) => {
             item.noOfDays.includes(searchValue)
         );
       }
-  
+      if (selectedGender) {
+        searchedData = searchedData.filter((item) => item.gender === selectedGender);
+      }
+
+      if(selectedMunicipality) {
+        searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
+      }
+
+      if (selectedCountry) {
+        searchedData = searchedData.filter((item) => item.placeOfOrigin === selectedCountry);
+      }
+
+      if (selectedProvince) {
+        searchedData = searchedData.filter((item) => item.province === selectedProvince);
+      }
+      if (selectedAge) {
+        searchedData = searchedData.filter((item) => item.age === selectedAge);
+      }
+
+      if (selectedMotivation) {
+        searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
+      }
+
+      if (selectedModality) {
+        searchedData = searchedData.filter((item) => item.modality === selectedModality);
+      }
+
+      if (selectedPet) {
+        searchedData = searchedData.filter((item) => item.withPet === selectedPet);
+      }
+
+      if (selectedStay) {
+        searchedData = searchedData.filter((item) => item.stayOvernight === selectedStay);
+      }
+
+      if (selectedStayList) {
+        searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
+      }
+
+      if (selectedDayStay) {
+        searchedData = searchedData.filter((item) => item.noOfDays === selectedDayStay);
+      }
+
+      if (selectedAcc) {
+        searchedData = searchedData.filter((item) => item.accommodationType === selectedAcc);
+      }
+
+      if (selectedTrans) {
+        searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
+      }
+
+      if (selectedDateFrom) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate >= selectedDateFrom;
+        });
+      }
+
+      if (selectedDateTo) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate <= selectedDateTo;
+        });
+      }
+          // Sort by date (default sorting)
+          searchedData.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateB -dateA  ;
+          
+          });
+
       setEmpList(searchedData);
     } catch (err) {
       console.log(err);
     }
   };
   
+  
+
+  
   useEffect(() => {
     getEmpList();
-  }, [searchValue, user.role]);
+  }, [searchValue,
+    selectedGender,
+    selectedMunicipality,
+    selectedCountry,
+    selectedProvince,
+    selectedAge,
+    selectedMotivation,
+    selectedModality,
+    selectedPet,
+    selectedStay,
+    selectedStayList,
+    selectedDayStay,
+    selectedAcc,
+    selectedTrans,
+    selectedDateFrom,
+    selectedDateTo, user.role]);
 
 
   useEffect(() => {
@@ -157,7 +220,21 @@ const EditableTable = ({ data }) => {
   }, [empList, page, pageSize, sortModel]);
 
   const ResetTable = () => {
-    setSearchValue("")
+    setSelectedGender('');
+    setSearchValue('');
+    setSelectedCountry('');
+    setSelectedProvince('');
+    setSelectedAge('');
+    setSelectedMotivation('');
+    setSelectedModality('');
+    setSelectedPet('');
+    setSelectedStay('');
+    setSelectedStayList('');
+    setSelectedDayStay('');
+    setSelectedAcc('');
+    setSelectedTrans('');
+    setSelectedDateFrom(null);
+    setSelectedDateTo(null);
   };
 
 
@@ -267,27 +344,27 @@ const EditableTable = ({ data }) => {
   ], [t]);
   
 
-  // const handleSearchChange = (event) => {
-  //   setSearchValue(event.target.value);
-  // };
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
-  // const handleSortChange = (sortModel) => {
-  //   if (sortModel.length > 0) {
-  //     setSorting(sortModel[0]);
-  //   }
-  // };
+  const handleSortChange = (sortModel) => {
+    if (sortModel.length > 0) {
+      setSorting(sortModel[0]);
+    }
+  };
 
-  // const handlePageChange = (event, value) => {
-  //   setPage(value);
-  // };
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
-  // const PER_PAGE = 10;
-  // const count = Math.ceil(empList.length / PER_PAGE);
-  // const paginatedData = useMemo(() => {
-  //   const start = (page - 1) * rowsPerPage;
-  //   const end = start + rowsPerPage;
-  //   return empList.slice(start, end);
-  // }, [empList, page, rowsPerPage]);
+  const PER_PAGE = 10;
+  const count = Math.ceil(empList.length / PER_PAGE);
+  const paginatedData = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    return empList.slice(start, end);
+  }, [empList, page, rowsPerPage]);
 
   return (
     <MainCard
@@ -359,6 +436,40 @@ const EditableTable = ({ data }) => {
         onClose={() => setOpenFilterModal(false)}
         selectedAcc={selectedAcc}
         setSelectedAcc={setSelectedAcc}
+
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+
+        selectedProvince={selectedProvince}
+        setSelectedProvince={setSelectedProvince}
+      
+        selectedAge={selectedAge}
+        setSelectedAge={setSelectedAge}
+      
+        selectedMotivation={selectedMotivation}
+        setSelectedMotivation={setSelectedMotivation}
+      
+        selectedModality={selectedModality}
+        setSelectedModality={setSelectedModality}
+      
+        selectedPet={selectedPet}
+        setSelectedPet={setSelectedPet}
+      
+        selectedStay={selectedStay}
+        setSelectedStay={setSelectedStay}
+      
+        selectedStayList={selectedStayList}
+        setSelectedStayList={setSelectedStayList}
+      
+        selectedDayStay={selectedDayStay}
+        setSelectedDayStay={setSelectedDayStay}
+        
+        selectedTrans={selectedTrans}
+        setSelectedTrans={setSelectedTrans}
+
         
         />
       </Dialog>
@@ -372,16 +483,34 @@ const EditableTable = ({ data }) => {
         setSelectedAcc={setSelectedAcc}
         selectedMunicipality={selectedMunicipality}
         setSelectedMunicipality={setSelectedMunicipality}
-        selectService={selectService}
-        setSelectService={setSelectService}
-        selectedSignaling={selectedSignaling}
-        setSelectedSignaling={setSelectedSignaling}
-        selectedAaccess={selectedAaccess}
-        setSelectedAccess={setSelectedAccess}
-        selectedQualityPriceRatio={selectedQualityPriceRatio}
-        setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
-        selectedCleaningConservation={selectedCleaningConservation}
-        setSelectedCleaningConservation={setSelectedCleaningConservation}
+
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedProvince={selectedProvince}
+        setSelectedProvince={setSelectedProvince}
+        selectedAge={selectedAge}
+        setSelectedAge={setSelectedAge}
+        selectedMotivation={selectedMotivation}
+        setSelectedMotivation={setSelectedMotivation}
+        selectedModality={selectedModality}
+        setSelectedModality={setSelectedModality}
+        selectedPet={selectedPet}
+        setSelectedPet={setSelectedPet}
+        selectedStay={selectedStay}
+        setSelectedStay={setSelectedStay}
+        selectedStayList={selectedStayList}
+        setSelectedStayList={setSelectedStayList}
+        selectedDayStay={selectedDayStay}
+        setSelectedDayStay={setSelectedDayStay}
+        selectedTrans={selectedTrans}
+        setSelectedTrans={setSelectedTrans}
+        selectedDateFrom={selectedDateFrom}
+        setSelectedDateFrom={setSelectedDateFrom}
+        selectedDateTo={selectedDateTo}
+        setSelectedDateTo={setSelectedDateTo}
+    
       />
     
     </MainCard>
@@ -393,30 +522,3 @@ EditableTable.propTypes = {
 };
 
 export default EditableTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
