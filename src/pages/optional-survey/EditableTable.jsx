@@ -3,28 +3,32 @@ import { useEffect, useMemo, useState } from 'react';
 import { Box, Button, Dialog, Stack, useTheme } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
+
 import { db } from 'config/firebase';
 import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
 import { PlusOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
+
 import Filter from './components/Filter';
 import { useTranslation } from 'react-i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
 
 const EditableTable = () => {
+
   const theme = useTheme();
   const { t } = useTranslation();
   const { user } = useAuth();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
+
   const [pageSize, setPageSize] = useState(10);
   const [filteredEmpList, setFilteredEmpList] = useState([]);
   const [sortModel, setSortModel] = useState([]);
-
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
+  
   const [selectedSignaling, setSelectedSignaling] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
@@ -130,7 +134,13 @@ const EditableTable = () => {
   };
 
   const columns = useMemo(() => [
-    { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true },
+    { 
+      field: 'municipality',
+      headerName: t('Municipality'),
+      flex: 1,
+      editable: true
+     },
+
     { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
     { field: 'lodging', headerName: t('Lodging'), flex: 1, editable: true },
     { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
@@ -199,6 +209,7 @@ const EditableTable = () => {
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
         <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
       </Dialog>
+      
       <Filter
         empList={empList}
         open={openStoryDrawer}

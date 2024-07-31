@@ -446,6 +446,30 @@ const EditableTable = ({ data }) => {
           }
         },
         {
+          header: t('Export data'),
+          accessorKey: 'exportData',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const roleStatus = row.original.roleStatus;
+            return t(roleStatus);
+          }
+        },
+        {
+          header: t('Import data'),
+          accessorKey: 'importData',
+          dataType: 'text',
+          meta: {
+            className: 'cell-center'
+          },
+          cell: ({row}) => {
+            const roleStatus = row.original.roleStatus;
+            return t(roleStatus);
+          }
+        },
+        {
           header: 'Actions',
           meta: {
             className: 'cell-center'

@@ -377,5 +377,7 @@
     "Strong": "Strong"
   },
 
-  "Manager":"Manager"
+  "Manager":"Manager",
+    "Export data":"Export data",
+  "Import data":"Import data"
 }
