@@ -554,4 +554,5 @@ EditableTable.propTypes = {
   data: PropTypes.array.isRequired
 };
 
+
 export default EditableTable;
