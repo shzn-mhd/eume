@@ -1,11 +1,14 @@
 // FirebaseContext.js
-import React, { createContext, useContext, useReducer, useState } from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { getFirestore, doc,  collection, query, where, getDocs, getDoc, setDoc } from 'firebase/firestore';
 import { app, db } from 'config/firebase';
 import authReducer from 'contexts/auth-reducer/auth';
 import { v4 as uuidv4 } from 'uuid';
 
 import { LOGIN, LOGOUT } from 'contexts/auth-reducer/actions';
+import useLocalStorage from 'hooks/useLocalStorage';
+import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
+import { set } from 'lodash';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -43,8 +46,23 @@ const initialState = {
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [state, dispatch] = useReducer(authReducer, initialState);
+  const {setLocalstorageValue, getLocalstorageValue} = useLocalStorageFunctions()
   const { isLoggedIn } = state;
   const isInitialized = true;
+
+  useEffect(()=>{
+    const userData = getLocalstorageValue("user");
+    if(userData){
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLoggedIn: true,
+          user: JSON.parse(userData)
+        }
+      });
+      setUser(JSON.parse(userData));
+    }
+  },[dispatch])
 
   const login = async (email, password) => {
     try {
@@ -87,6 +105,7 @@ export const FirebaseProvider = ({ children }) => {
         }
         dispatch(dispatchData);
         console.log("dispatchData>>", dispatchData);
+        setLocalstorageValue("user", JSON.stringify(dispatchData.payload.user));
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
@@ -101,6 +120,7 @@ export const FirebaseProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setLocalstorageValue("user", null);
     dispatch({
       type: LOGOUT,
       payload: {

@@ -51,10 +51,10 @@ const MunicipilityAvgSurvayMarkWid = () => {
 
   useEffect(() => {
     setUserMunicipalities();
-  }, [user.role]);
+  }, [user?.role]);
 
   const setUserMunicipalities = async () => {
-    const municipalities = await fetchMunicipalities(user.role);
+    const municipalities = await fetchMunicipalities(user?.role);
     setMunicipalities(municipalities);
   };
 
@@ -119,7 +119,7 @@ const MunicipilityAvgSurvayMarkWid = () => {
     };
 
     getEmpList();
-  }, [user.role, municipalities]);
+  }, [user?.role, municipalities]);
 
   const getSurveyFieldName = (field) => {
     switch (field) {

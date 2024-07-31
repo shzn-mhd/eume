@@ -93,7 +93,7 @@ const UserDetails = ({ user, onClose }) => {
                 {user.name}
               </Typography>
               <Typography variant="body2" align="center" color="textSecondary">
-                {user.role}
+                {user?.role}
               </Typography>
             </Stack>
           </Grid>
