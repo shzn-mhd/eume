@@ -65,42 +65,79 @@ const EditableTable = ({ data }) => {
     return Array.from(municipalities);
   };
 
-  useEffect(() => {
-    const getEmpList = async () => {
-      try {
-        const municipalities = await fetchMunicipalities(user.role);
-        const data = await getDocs(empCollectionRef);
-        const filteredData = data?.docs?.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+  // useEffect(() => {
+  //   const getEmpList = async () => {
+  //     try {
+  //       const municipalities = await fetchMunicipalities(user.role);
+  //       const data = await getDocs(empCollectionRef);
+  //       const filteredData = data?.docs?.map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       }));
 
-        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+  //       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
-        if (searchValue) {
-          searchedData = searchedData.filter(
-            (item) =>
-              item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.age.includes(searchValue) ||
-              item.noOfDays.includes(searchValue)
-          );
-        }
+  //       if (searchValue) {
+  //         searchedData = searchedData.filter(
+  //           (item) =>
+  //             item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //             item.age.includes(searchValue) ||
+  //             item.noOfDays.includes(searchValue)
+  //         );
+  //       }
 
-        setEmpList(searchedData);
-      } catch (err) {
-        console.log(err);
+  //       setEmpList(searchedData);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   getEmpList();
+  // }, [ searchValue,user.role]);  
+  const getEmpList = async () => {
+    try {
+      const municipalities = await fetchMunicipalities(user.role);
+      const data = await getDocs(empCollectionRef);
+      const filteredData = data?.docs?.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+  
+      let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+  
+      if (searchValue) {
+        searchedData = searchedData.filter(
+          (item) =>
+            item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.age.includes(searchValue) ||
+            item.noOfDays.includes(searchValue)
+        );
       }
-    };
-
+  
+      setEmpList(searchedData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
     getEmpList();
-  }, [ searchValue,user.role]);  
+  }, [searchValue, user.role]);
+
 
   useEffect(() => {
     let sortedData = [...empList];
@@ -294,7 +331,8 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
           <CSVExport data={empList} filename="basic-survey.csv" />
-          <CSVImport collectionRef={empCollectionRef} headers={columns.map(col => ({ label: col.headerName, key: col.field }))} />
+          <CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} />
+          {/* //headers={columns.map(col => ({ label: col.headerName, key: col.field }))} */}
         </Stack>
       }
     >
@@ -317,7 +355,12 @@ const EditableTable = ({ data }) => {
         />
       </Box>
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
-        <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
+        <FilterModal 
+        onClose={() => setOpenFilterModal(false)}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc}
+        
+        />
       </Dialog>
       
       <Filter
@@ -350,6 +393,15 @@ EditableTable.propTypes = {
 };
 
 export default EditableTable;
+
+
+
+
+
+
+
+
+
 
 
 
