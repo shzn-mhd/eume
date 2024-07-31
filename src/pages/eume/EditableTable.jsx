@@ -96,9 +96,16 @@ const EditableTable = ({ data }) => {
         setEmpList(searchedData);
       } catch (err) {
         console.log(err);
-      }
-    };
 
+      }
+  
+      setEmpList(searchedData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
     getEmpList();
   }, [searchValue, user?.role]);
 
@@ -298,6 +305,7 @@ const EditableTable = ({ data }) => {
           {showImportData && (
             <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
           )}
+
         </Stack>
       }
     >
@@ -320,7 +328,12 @@ const EditableTable = ({ data }) => {
         />
       </Box>
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
-        <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
+        <FilterModal 
+        onClose={() => setOpenFilterModal(false)}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc}
+        
+        />
       </Dialog>
 
       <Filter
