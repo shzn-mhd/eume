@@ -25,6 +25,7 @@ import {
 } from 'firebase/auth';
 import { app } from 'config/firebase';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 
 // firebase initialize
 // if (!firebase.apps.length) {
@@ -62,58 +63,8 @@ const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // useEffect(
-  //   () =>
-  //     firebase.auth().onAuthStateChanged((user) => {
-  //       if (user) {
-  //         dispatch({
-  //           type: LOGIN,
-  //           payload: {
-  //             isLoggedIn: true,
-  //             user: {
-  //               id: user.uid,
-  //               email: user.email,
-  //               name: user.displayName || 'Stebin Ben',
-  //               role: 'UI/UX Designer'
-  //             }
-  //           }
-  //         });
-  //       } else {
-  //         dispatch({
-  //           type: LOGOUT
-  //         });
-  //       }
-  //     }),
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [dispatch]
-  // );
-
-  // useEffect(() => {
-  //   const auth = getAuth(app);
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     console.log("logged in user>>", user);
-  //     if (user) {
-  //       dispatch({
-  //         type: LOGIN,
-  //         payload: {
-  //           isLoggedIn: true,
-  //           user: {
-  //             id: user.uid,
-  //             email: user.email,
-  //             name: user.displayName || 'Stebin Ben',
-  //             role: 'UI/UX Designer'
-  //           }
-  //         }
-  //       });
-  //     } else {
-  //       dispatch({ type: LOGOUT });
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, [dispatch]);
-
+  const {getLocalstorageValue} = useLocalStorageFunctions();
+  console.log("AuthState", state)
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -148,7 +99,6 @@ export const FirebaseProvider = ({ children }) => {
           //   roleName = roleDocSnapshot.data().roleName;
           //   rolePermissions = roleDocSnapshot.data().permissions;
           // }
-
           dispatch({
             type: LOGIN,
             payload: {
@@ -244,25 +194,6 @@ export const FirebaseProvider = ({ children }) => {
   if (state.isInitialized !== undefined && !state.isInitialized) {
     return <Loader />;
   }
-
-  const login = async (email, password) => {
-    try {
-      const q = query(collection(db, 'users'), where('email', '==', email), where('password', '==', password));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        const userData = querySnapshot.docs[0].data();
-        setUser(userData);
-        return { success: true, data: userData };
-      } else {
-        return { success: false, message: 'Invalid email or password' };
-      }
-    } catch (error) {
-      console.error('Error logging in:', error);
-      return { success: false, message: 'Failed to log in' };
-    }
-  };
-
 
   return (
     <FirebaseContext.Provider

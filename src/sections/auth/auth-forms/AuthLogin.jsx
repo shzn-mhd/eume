@@ -263,19 +263,6 @@ const AuthLogin = () => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            // await firebaseEmailPasswordSignIn(values.email, values.password).then(
-            //   () => {
-            //     // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-            //     // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-            //     // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-            //     // github issue: https://github.com/formium/formik/issues/2430
-            //   },
-            //   (err) => {
-            //     setStatus({ success: false });
-            //     setErrors({ submit: err.message });
-            //     setSubmitting(false);
-            //   }
-            // );
             const loginRes = await login(values.email, values.password);
             console.log('Login response:', loginRes);
             if (loginRes.success) {
@@ -373,26 +360,6 @@ const AuthLogin = () => {
 
               <Grid item xs={12} sx={{ mt: -1 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                  {/* <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={checked}
-                        onChange={(event) => setChecked(event.target.checked)}
-                        name="checked"
-                        color="primary"
-                        size="small"
-                      />
-                    }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
-                  /> */}
-                  {/* <Link
-                    variant="h6"
-                    component={RouterLink}
-                    to={isLoggedIn ? '/auth/forgot-password' : '/forgot-password'}
-                    color="text.primary"
-                  >
-                    Forgot Password?
-                  </Link> */}
                 </Stack>
               </Grid>
               {errors.submit && (

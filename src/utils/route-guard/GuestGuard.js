@@ -9,9 +9,12 @@ import useAuth from 'hooks/useAuth';
 // ==============================|| GUEST GUARD ||============================== //
 
 const GuestGuard = ({ children }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  console.log("Auth guard user", user)
+  console.log("isLoggedIn>>", isLoggedIn);
 
   useEffect(() => {
     if (isLoggedIn) {

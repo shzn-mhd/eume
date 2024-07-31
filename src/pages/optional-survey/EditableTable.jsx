@@ -16,7 +16,6 @@ import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
 
 const EditableTable = () => {
-
   const theme = useTheme();
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -28,7 +27,7 @@ const EditableTable = () => {
   const [sortModel, setSortModel] = useState([]);
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
-  
+
   const [selectedSignaling, setSelectedSignaling] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
@@ -37,6 +36,8 @@ const EditableTable = () => {
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const showImportData = user?.rolePermissions['Optional Survey']?.importData;
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -61,7 +62,7 @@ const EditableTable = () => {
   useEffect(() => {
     const getEmpList = async () => {
       try {
-        const municipalities = await fetchMunicipalities(user.role);
+        const municipalities = await fetchMunicipalities(user?.role);
         const data = await getDocs(empCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
@@ -105,7 +106,15 @@ const EditableTable = () => {
     };
 
     getEmpList();
-  }, [selectedAcc, selectService, selectedSignaling, selectedAaccess, selectedQualityPriceRatio, selectedCleaningConservation, selectedMunicipality]);
+  }, [
+    selectedAcc,
+    selectService,
+    selectedSignaling,
+    selectedAaccess,
+    selectedQualityPriceRatio,
+    selectedCleaningConservation,
+    selectedMunicipality
+  ]);
 
   useEffect(() => {
     let sortedData = [...empList];
@@ -133,27 +142,30 @@ const EditableTable = () => {
     setSelectedCleaningConservation('');
   };
 
-  const columns = useMemo(() => [
-    { 
-      field: 'municipality',
-      headerName: t('Municipality'),
-      flex: 1,
-      editable: true
-     },
+  const columns = useMemo(
+    () => [
+      {
+        field: 'municipality',
+        headerName: t('Municipality'),
+        flex: 1,
+        editable: true
+      },
 
-    { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
-    { field: 'lodging', headerName: t('Lodging'), flex: 1, editable: true },
-    { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
-    { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true },
-    { field: 'tourist_information', headerName: t('Tourist Information'), flex: 1, editable: true },
-    { field: 'signaling', headerName: t('Signaling'), flex: 1, editable: true },
-    { field: 'accessibility', headerName: t('Accessibility'), flex: 1, editable: true },
-    { field: 'sustainability', headerName: t('Sustainability'), flex: 1, editable: true },
-    { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
-    { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
-    { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
-    { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true }
-  ], [t]);
+      { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
+      { field: 'lodging', headerName: t('Lodging'), flex: 1, editable: true },
+      { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
+      { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true },
+      { field: 'tourist_information', headerName: t('Tourist Information'), flex: 1, editable: true },
+      { field: 'signaling', headerName: t('Signaling'), flex: 1, editable: true },
+      { field: 'accessibility', headerName: t('Accessibility'), flex: 1, editable: true },
+      { field: 'sustainability', headerName: t('Sustainability'), flex: 1, editable: true },
+      { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
+      { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
+      { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
+      { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true }
+    ],
+    [t]
+  );
 
   return (
     <MainCard
@@ -183,11 +195,13 @@ const EditableTable = () => {
             {t('Reset Filter')}
           </Button>
 
-          <CSVImport collectionRef={empCollectionRef} headers={columns.map(col => ({ label: col.headerName, key: col.field }))} />
+          {showImportData && (
+            <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
+          )}
         </Stack>
       }
     >
-      <Box sx={{width: '100%', overflowX: 'auto' }}>
+      <Box sx={{ width: '100%', overflowX: 'auto' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
@@ -209,7 +223,7 @@ const EditableTable = () => {
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
         <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
       </Dialog>
-      
+
       <Filter
         empList={empList}
         open={openStoryDrawer}

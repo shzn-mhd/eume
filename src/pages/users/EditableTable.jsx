@@ -270,7 +270,7 @@ const EditableTable = ({ data }) => {
                   </IconButton>
                 </Tooltip>
 
-                {user.rolePermissions.Users.edit && (
+                {user?.rolePermissions.Users.edit && (
                   <Tooltip title="Edit">
                     <IconButton
                       color="primary"
@@ -285,7 +285,7 @@ const EditableTable = ({ data }) => {
                   </Tooltip>
                 )}
 
-                {user.rolePermissions.Users.delete && (
+                {user?.rolePermissions.Users.delete && (
                   <Tooltip title="Delete">
                     <IconButton
                       disabled={user.email===row.original.email}
@@ -360,7 +360,7 @@ const EditableTable = ({ data }) => {
         <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
           <SelectColumnSorting {...{ setSortValue, getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
 
-          {user.rolePermissions.Users.add && (
+          {user?.rolePermissions.Users.add && (
             <Button
               size="small"
               sx={{ minWidth: '130px', minHeight: '41.13px' }}
