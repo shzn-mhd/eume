@@ -29,14 +29,17 @@ import transList from 'data/transport';
 import { useTranslation } from 'react-i18next';
 
 const Filter = ({
-  ResetTable,
-  open,
   empList,
+  open,
+  ResetTable,
   handleDrawerOpen,
-  selectedGender,
-  setSelectedGender,
+  selectedAcc,
+  setSelectedAcc,
   selectedMunicipality,
   setSelectedMunicipality,
+
+  selectedGender,
+  setSelectedGender,
   selectedCountry,
   setSelectedCountry,
   selectedProvince,
@@ -55,14 +58,13 @@ const Filter = ({
   setSelectedStayList,
   selectedDayStay,
   setSelectedDayStay,
-  selectedAcc,
-  setSelectedAcc,
   selectedTrans,
   setSelectedTrans,
   selectedDateFrom,
   setSelectedDateFrom,
   selectedDateTo,
   setSelectedDateTo
+  
 }) => {
   const theme = useTheme();
   const gender = ['Male', 'Female'];
