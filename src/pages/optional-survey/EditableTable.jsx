@@ -307,6 +307,7 @@ const EditableTable = () => {
         selectedAcc={selectedAcc}
         setSelectedAcc={setSelectedAcc}
         selectedMunicipality={selectedMunicipality}
+        
         setSelectedMunicipality={setSelectedMunicipality}
         selectService={selectService}
         setSelectService={setSelectService}
