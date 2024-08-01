@@ -122,36 +122,6 @@ const AvgSurvayByMunicipilityWidg = () => {
     return rowsData;
   };
 
-  // const getSurveyFieldName = (field) => {
-  //   switch (field) {
-  //     case 'accessibility':
-  //       return t('Accessibility');
-  //     case 'catering_services':
-  //       return t('Catering Services');
-  //     case 'cleaning_conservation':
-  //       return t('Cleaning Conservation');
-  //     case 'cultural_offerings':
-  //       return t('Cultural Offerings');
-  //     case 'general_assessment':
-  //       return t('General Assessment');
-  //     case 'lodging':
-  //       return t('Lodging');
-  //     case 'optionalFeedback':
-  //       return t('Optional Feedback');
-  //     case 'quality_price_ratio':
-  //       return t('Quality Price Ratio');
-  //     case 'retailers':
-  //       return t('Retailers');
-  //     case 'signaling':
-  //       return t('Signaling');
-  //     case 'sustainability':
-  //       return t('Sustainability');
-  //     case 'tourist_information':
-  //       return t('Tourist Information');
-  //     default:
-  //       return field;
-  //   }
-  // }
 
   const getSurveyFieldName = (field) => {
     switch (field) {

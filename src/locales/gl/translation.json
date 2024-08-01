@@ -381,6 +381,8 @@
       "Strong": "Forte"
     },
      "Manager":"Xerente",
-       "Export data":"aa",
-       "Import data":"bb"
+       "Export data":"Exportar datos",
+       "Import data":"Importar datos",
+       "Municipility":"Concello",
+       "Average":"Puntuación media"
 }

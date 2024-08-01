@@ -365,8 +365,8 @@
   "Pontedeume": "Pontedeume",
 
   "Evaluation Table":"Tabla de evaluaciones",
-  "General Assessment":"Evaluación general.",
-  "Municipility Average Assessment":"Puntuación media por avuntamiento",
+  "General Assessment":"Evaluación general",
+  "Municipility Average Assessment":"Puntuación media por Ayuntamiento",
   "Logout":"Cerrar sesión",
   "ACTIONS":"Acciones",
   "All rights reserved by Perfect Numbers":"Todos los derechos reservados a Perfect Numbers",
@@ -381,7 +381,9 @@
   },
 
   "Manager":"Gerente",
-  "Export data":"a",
-  "Import data":"b"
+  "Export data":"Exportar datos",
+  "Import data":"Importar datos",
+  "Municipility":"Ayuntamiento",
+  "Average":"Puntuación media"
   
 }

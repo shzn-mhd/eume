@@ -378,6 +378,9 @@
   },
 
   "Manager":"Manager",
-    "Export data":"Export data",
-  "Import data":"Import data"
+  "Export data":"Export data",
+  "Import data":"Import data",
+  "Municipility":"Municipility",
+  "Average":"Average"
+
 }
