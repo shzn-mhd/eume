@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Button, Dialog, Stack, useTheme } from '@mui/material';
+import { Box, Button, Dialog, Stack, useTheme ,Tooltip,IconButton,Snackbar, Alert } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
 import { db } from 'config/firebase';
-import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
-import { PlusOutlined } from '@ant-design/icons';
+import { getDocs, collection, getDoc,deleteDoc, doc } from 'firebase/firestore';
+import { PlusOutlined,DeleteOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 
@@ -38,6 +38,10 @@ const EditableTable = () => {
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   const showImportData = user?.rolePermissions['Optional Survey']?.importData;
 
@@ -161,8 +165,34 @@ const EditableTable = () => {
     setSelectedDateTo(null);
   };
 
+  // const deleteDocument = async (docId) => {
+  //   try {
+  //     await deleteDoc(doc(db, 'optional_survey_data', docId));
+  //     setEmpList((prev) => prev.filter((item) => item.id !== docId));
+  //     console.log("Document successfully deleted!");
+  //   } catch (error) {
+  //     console.error("Error deleting document: ", error);
+  //   }
+  // };
+  const deleteDocument = async (docId) => {
+    try {
+      await deleteDoc(doc(db, 'optional_survey_data', docId));
+      setEmpList((prev) => prev.filter((item) => item.id !== docId));
+      setSnackbarMessage('Document deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true); // Show snackbar on successful deletion
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+      setSnackbarMessage('Error deleting document');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true); // Show snackbar on error
+    }
+  };
+  
+
   const columns = useMemo(
     () => [
+   
       { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
       {
         field: 'municipality',
@@ -182,7 +212,26 @@ const EditableTable = () => {
       { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
       { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
       { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
-      { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true }
+      { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true },
+      {
+        field: 'actions',
+        headerName: t('Actions'),
+        flex: 1,
+        renderCell: (params) => (
+          <Tooltip title={t('Delete')}>
+            <IconButton
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteDocument(params.row.id);
+              }}
+            >
+              <DeleteOutlined/>
+            </IconButton>
+          </Tooltip>
+        )
+      },
+   
     ],
     [t]
   );
@@ -272,6 +321,16 @@ const EditableTable = () => {
         setSelectedDateTo={setSelectedDateTo}
     
       />
+               <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </MainCard>
   );
 };

@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState, useMemo } from 'react';
-import { Box, Button, TextField, Stack, useTheme, Dialog, Pagination } from '@mui/material';
+import { Box, Button, TextField, Stack, useTheme, Dialog, Pagination,Tooltip,IconButton,Snackbar, Alert  } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
 import { db } from 'config/firebase';
-import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { getDocs, collection, getDoc,deleteDoc, doc } from 'firebase/firestore';
+import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 
@@ -57,6 +57,11 @@ const EditableTable = ({ data }) => {
   const [selectedDateTo, setSelectedDateTo] = useState(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+const [snackbarMessage, setSnackbarMessage] = useState('');
+const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+
 
   const showImportData = user?.rolePermissions['Basic Survey']?.importData;
   const showExportData = user?.rolePermissions['Basic Survey'].exportData;
@@ -268,9 +273,34 @@ const EditableTable = ({ data }) => {
     setSelectedDateTo(null);
 
   };
+  // const deleteDocument = async (docId) => {
+  //   try {
+  //     await deleteDoc(doc(db, 'optional_survey_data', docId));
+  //     setEmpList((prev) => prev.filter((item) => item.id !== docId));
+  //     console.log("Document successfully deleted!");
+  //   } catch (error) {
+  //     console.error("Error deleting document: ", error);
+  //   }
+  // };
+  const deleteDocument = async (docId) => {
+    try {
+      await deleteDoc(doc(db, 'optional_survey_data', docId));
+      setEmpList((prev) => prev.filter((item) => item.id !== docId));
+      setSnackbarMessage('Document deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true); // Show snackbar on successful deletion
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+      setSnackbarMessage('Error deleting document');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true); // Show snackbar on error
+    }
+  };
+  
 
   const columns = useMemo(
     () => [
+
       { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
       { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true, cellClassName: 'cell-center' },
       {
@@ -372,7 +402,26 @@ const EditableTable = ({ data }) => {
         flex: 1,
         editable: true,
         cellClassName: 'cell-center'
-      }
+      },
+      {
+        field: 'actions',
+        headerName: t('Actions'),
+        flex: 1,
+        renderCell: (params) => (
+          <Tooltip title={t('Delete')}>
+            <IconButton
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteDocument(params.row.id);
+              }}
+            >
+              <DeleteOutlined/>
+            </IconButton>
+          </Tooltip>
+        )
+      },
+  
     ],
     [t]
   );
@@ -547,6 +596,16 @@ const EditableTable = ({ data }) => {
         setSelectedDateTo={setSelectedDateTo}
     
       />
+           <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </MainCard>
   );
 };
