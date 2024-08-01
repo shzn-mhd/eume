@@ -192,6 +192,7 @@ const DashboardDefault = ({}) => {
         <Typography variant="h5">{t('Dashboard')}</Typography>
       </Grid>
 
+
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{ marginBottom: '20px' }}>
           <AnalyticEcommerce title={t('Total Visitors')} count={empCount} extra="35,000" />
@@ -263,7 +264,7 @@ const DashboardDefault = ({}) => {
       </Grid>
 
       <Grid item xs={12} sm={6} md={4} lg={12}>
-        <div>
+        <div style={{ marginBottom: '20px' }}>
           <AnalyticEcommerce
             title={t('Country wise Total')}
             count={
@@ -279,8 +280,6 @@ const DashboardDefault = ({}) => {
         </div>
       </Grid>
 
-
-
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{ marginBottom: '20px' }}>
           <AnalyticEcommerce
@@ -292,29 +291,20 @@ const DashboardDefault = ({}) => {
             extra="1,943"
           />
         </div>
-       
-
       </Grid>
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{ marginBottom: '20px' }}>
-        <AnalyticEcommerce
-          title={t('Business/Meeting')}
-          count={businessCount}
-          percentage={(businessCount * 100) / empCount}
-          isLoss
-          color="warning"
-          extra="1,943"
-        />
+          <AnalyticEcommerce
+            title={t('Business/Meeting')}
+            count={businessCount}
+            percentage={(businessCount * 100) / empCount}
+            isLoss
+            color="warning"
+            extra="1,943"
+          />
         </div>
-       
-
       </Grid>
-
-
-
-
-
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{ marginBottom: '20px' }}>
@@ -327,60 +317,31 @@ const DashboardDefault = ({}) => {
             extra="$20,395"
           />
         </div>
-    
       </Grid>
-
-
 
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <div style={{ marginBottom: '20px' }}>
-        <AnalyticEcommerce
-          title={t('Other')}
-          count={otherCount}
-          percentage={(otherCount * 100) / empCount}
-          isLoss
-          color="warning"
-          extra="$20,395"
-        />
+          <AnalyticEcommerce
+            title={t('Other')}
+            count={otherCount}
+            percentage={(otherCount * 100) / empCount}
+            isLoss
+            color="warning"
+            extra="$20,395"
+          />
         </div>
-      
       </Grid>
-
-
-
-
-
-
-
 
       <Grid item xs={12} sm={12} md={7} lg={7}>
-        <AnalyticEcommerce
-          title={t('Evaluation Table')}
-          count={<AvgSurvayByMunicipilityWidg/>}
-        />
+        <AnalyticEcommerce title={t('Evaluation Table')} count={<AvgSurvayByMunicipilityWidg />} />
       </Grid>
 
-
-
-
-
-
-
-
-
-
-
-      
-
       <Grid item xs={12} sm={12} md={5} lg={5}>
-        <AnalyticEcommerce
-          title={t('Municipility Average Assessment')}
-          count={<MunicipilityAvgSurvayMarkWid/>}
-        />
+        <AnalyticEcommerce title={t('Municipility Average Assessment')} count={<MunicipilityAvgSurvayMarkWid />} />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
-      </Grid>
+    </Grid>
   );
 };
 
