@@ -174,6 +174,7 @@ const Filter = ({
 
           <Box sx={{ p: 2, maxHeight: '50vh', overflowY: 'auto' }}>
             <Stack direction="column" spacing={2}>
+
               <Grid container gap={1}>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>
@@ -206,7 +207,10 @@ const Filter = ({
                     </LocalizationProvider>
                   </FormControl>
                 </Grid>
+
               </Grid>
+
+              
               <Grid container gap={1}>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>
