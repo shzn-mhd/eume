@@ -273,15 +273,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     setSelectedDateTo(null);
 
   };
-  // const deleteDocument = async (docId) => {
-  //   try {
-  //     await deleteDoc(doc(db, 'optional_survey_data', docId));
-  //     setEmpList((prev) => prev.filter((item) => item.id !== docId));
-  //     console.log("Document successfully deleted!");
-  //   } catch (error) {
-  //     console.error("Error deleting document: ", error);
-  //   }
-  // };
+ 
   const deleteDocument = async (docId) => {
     try {
       await deleteDoc(doc(db, 'optional_survey_data', docId));
@@ -490,12 +482,13 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
             {t('Reset Filter')}
           </Button>
           {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
-          {showImportData && (<CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} />)}
+          {showImportData && (<CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
 
         </Stack>
       }
     >
-      <Box sx={{ overflowX: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
+      <Box sx={{ width: '100%', overflowX: 'auto' }} >
+        {/* sx={{ overflowX: 'auto', maxHeight: 'calc(100vh - 200px)' }} */}
         <DataGrid
           rows={filteredEmpList}
           columns={columns}

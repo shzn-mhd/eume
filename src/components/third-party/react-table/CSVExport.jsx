@@ -1,24 +1,32 @@
 import PropTypes from 'prop-types';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Tooltip } from '@mui/material';
-
-// third-party
 import { CSVLink } from 'react-csv';
-
-// assets
 import { DownloadOutlined } from '@ant-design/icons';
+
+// Function to filter out the id field
+const filterData = (data) => {
+  return data.map(({ id, ...rest }) => rest);
+};
 
 // ==============================|| CSV EXPORT ||============================== //
 
 const CSVExport = ({ data, filename, headers }) => {
   const theme = useTheme();
+  const filteredData = filterData(data);
 
   return (
-    <CSVLink data={data} filename={filename} headers={headers}>
+    <CSVLink data={filteredData} filename={filename} headers={headers}>
       <Tooltip title="CSV Export">
-        <DownloadOutlined style={{ fontSize: '24px', color: theme.palette.text.secondary, marginTop: 4, marginRight: 4, marginLeft: 4 }} />
+        <DownloadOutlined
+          style={{
+            fontSize: '24px',
+            color: theme.palette.text.secondary,
+            marginTop: 4,
+            marginRight: 4,
+            marginLeft: 4
+          }}
+        />
       </Tooltip>
     </CSVLink>
   );
