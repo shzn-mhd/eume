@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Button, Dialog, Stack, useTheme } from '@mui/material';
+import { Box, Button, Dialog, Stack, useTheme ,Tooltip,IconButton,Snackbar, Alert } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
 import { db } from 'config/firebase';
-import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
-import { PlusOutlined } from '@ant-design/icons';
+import { getDocs, collection, getDoc,deleteDoc, doc } from 'firebase/firestore';
+import { PlusOutlined,DeleteOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 
@@ -14,6 +14,7 @@ import Filter from './components/Filter';
 import { useTranslation } from 'react-i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
+import { CSVExport } from 'components/third-party/react-table';
 
 const EditableTable = () => {
   const theme = useTheme();
@@ -39,7 +40,12 @@ const EditableTable = () => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+
   const showImportData = user?.rolePermissions['Optional Survey']?.importData;
+  const showExportData = user?.rolePermissions['Optional Survey'].exportData;
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -61,65 +67,65 @@ const EditableTable = () => {
     return Array.from(municipalities);
   };
 
-  useEffect(() => {
-    const getEmpList = async () => {
-      try {
-        const municipalities = await fetchMunicipalities(user?.role);
-        const data = await getDocs(empCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
+  const getEmpList = async () => {
+    try {
+      const municipalities = await fetchMunicipalities(user?.role);
+      const data = await getDocs(empCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
 
-        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+      let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
-        if (selectedAcc) {
-          searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
-        }
-
-        if (selectService) {
-          searchedData = searchedData.filter((item) => item.catering_services === selectService);
-        }
-
-        if (selectedMunicipality) {
-          searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
-        }
-
-        if (selectedSignaling) {
-          searchedData = searchedData.filter((item) => item.signaling === selectedSignaling);
-        }
-
-        if (selectedAaccess) {
-          searchedData = searchedData.filter((item) => item.cleaning_conservation === selectedAaccess);
-        }
-
-        if (selectedQualityPriceRatio) {
-          searchedData = searchedData.filter((item) => item.quality_price_ratio === selectedQualityPriceRatio);
-        }
-
-        if (selectedCleaningConservation) {
-          searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
-        }
-        if (selectedDateFrom) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate >= selectedDateFrom;
-          });
-        }
-  
-        if (selectedDateTo) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate <= selectedDateTo;
-          });
-        }
-
-        setEmpList(searchedData);
-      } catch (err) {
-        console.log(err);
+      if (selectedAcc) {
+        searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
       }
-    };
 
+      if (selectService) {
+        searchedData = searchedData.filter((item) => item.catering_services === selectService);
+      }
+
+      if (selectedMunicipality) {
+        searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
+      }
+
+      if (selectedSignaling) {
+        searchedData = searchedData.filter((item) => item.signaling === selectedSignaling);
+      }
+
+      if (selectedAaccess) {
+        searchedData = searchedData.filter((item) => item.cleaning_conservation === selectedAaccess);
+      }
+
+      if (selectedQualityPriceRatio) {
+        searchedData = searchedData.filter((item) => item.quality_price_ratio === selectedQualityPriceRatio);
+      }
+
+      if (selectedCleaningConservation) {
+        searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
+      }
+      if (selectedDateFrom) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate >= selectedDateFrom;
+        });
+      }
+
+      if (selectedDateTo) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate <= selectedDateTo;
+        });
+      }
+
+      setEmpList(searchedData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
     getEmpList();
   }, [
     selectedAcc,
@@ -161,8 +167,34 @@ const EditableTable = () => {
     setSelectedDateTo(null);
   };
 
+  // const deleteDocument = async (docId) => {
+  //   try {
+  //     await deleteDoc(doc(db, 'optional_survey_data', docId));
+  //     setEmpList((prev) => prev.filter((item) => item.id !== docId));
+  //     console.log("Document successfully deleted!");
+  //   } catch (error) {
+  //     console.error("Error deleting document: ", error);
+  //   }
+  // };
+  const deleteDocument = async (docId) => {
+    try {
+      await deleteDoc(doc(db, 'optional_survey_data', docId));
+      setEmpList((prev) => prev.filter((item) => item.id !== docId));
+      setSnackbarMessage('Document deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true); // Show snackbar on successful deletion
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+      setSnackbarMessage('Error deleting document');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true); // Show snackbar on error
+    }
+  };
+  
+
   const columns = useMemo(
     () => [
+   
       { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
       {
         field: 'municipality',
@@ -182,7 +214,26 @@ const EditableTable = () => {
       { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
       { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
       { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
-      { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true }
+      { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true },
+      {
+        field: 'actions',
+        headerName: t('Actions'),
+        flex: 1,
+        renderCell: (params) => (
+          <Tooltip title={t('Delete')}>
+            <IconButton
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteDocument(params.row.id);
+              }}
+            >
+              <DeleteOutlined/>
+            </IconButton>
+          </Tooltip>
+        )
+      },
+   
     ],
     [t]
   );
@@ -214,14 +265,13 @@ const EditableTable = () => {
           >
             {t('Reset Filter')}
           </Button>
-
-          {showImportData && (
-            <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
-          )}
+          {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
+          {showImportData && ( <CSVImport collectionRef={empCollectionRef} onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
         </Stack>
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
+      <div style={{ minWidth: '1450px' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
@@ -238,6 +288,7 @@ const EditableTable = () => {
           onSortModelChange={(model) => setSortModel(model)}
           rowCount={empList.length}
         />
+          </div>
       </Box>
 
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
@@ -272,7 +323,122 @@ const EditableTable = () => {
         setSelectedDateTo={setSelectedDateTo}
     
       />
+               <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </MainCard>
+   
+   
+//     <MainCard
+//   content={false}
+//   title={t('Optional Survey Table')}
+//   subheader={empList.length + ' ' + t('Optional Surveys')}
+//   secondary={
+//     <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
+//       <Button
+//         size="small"
+//         sx={{ minWidth: '130px', minHeight: '41.13px' }}
+//         startIcon={<PlusOutlined />}
+//         color="primary"
+//         variant="contained"
+//         onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
+//       >
+//         {t('Filter Options')}
+//       </Button>
+
+//       <Button
+//         size="small"
+//         sx={{ minWidth: '130px', minHeight: '41.13px' }}
+//         color="error"
+//         variant="contained"
+//         onClick={() => ResetTable()}
+//       >
+//         {t('Reset Filter')}
+//       </Button>
+//       {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
+//       {showImportData && (
+//         <CSVImport
+//           collectionRef={empCollectionRef}
+//           onImportComplete={getEmpList}
+//           headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+//         />
+//       )}
+//     </Stack>
+//   }
+// >
+//   <Box sx={{ width: '100%', overflowX: 'auto' }}>
+//     <div style={{ minWidth: '1450px' }}> {/* Adjust minWidth to fit your column widths */}
+//       <DataGrid
+//         rows={filteredEmpList}
+//         columns={columns}
+//         pageSize={pageSize}
+//         rowsPerPageOptions={[5, 10, 20]}
+//         paginationMode="server"
+//         paginationModel={{ page, pageSize }}
+//         onPaginationModelChange={(model) => {
+//           setPage(model.page);
+//           setPageSize(model.pageSize);
+//         }}
+//         sortingMode="server"
+//         sortModel={sortModel}
+//         onSortModelChange={(model) => setSortModel(model)}
+//         rowCount={empList.length}
+//       />
+//     </div>
+//   </Box>
+
+//   <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
+//     <FilterModal
+//       onClose={() => setOpenFilterModal(false)}
+//       selectedAcc={selectedAcc}
+//       setSelectedAcc={setSelectedAcc}
+//     />
+//   </Dialog>
+
+//   <Filter
+//     empList={empList}
+//     open={openStoryDrawer}
+//     ResetTable={ResetTable}
+//     handleDrawerOpen={handleStoryDrawerOpen}
+//     selectedAcc={selectedAcc}
+//     setSelectedAcc={setSelectedAcc}
+//     selectedMunicipality={selectedMunicipality}
+//     setSelectedMunicipality={setSelectedMunicipality}
+//     selectService={selectService}
+//     setSelectService={setSelectService}
+//     selectedSignaling={selectedSignaling}
+//     setSelectedSignaling={setSelectedSignaling}
+//     selectedAaccess={selectedAaccess}
+//     setSelectedAccess={setSelectedAccess}
+//     selectedQualityPriceRatio={selectedQualityPriceRatio}
+//     setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
+//     selectedCleaningConservation={selectedCleaningConservation}
+//     setSelectedCleaningConservation={setSelectedCleaningConservation}
+//     selectedDateFrom={selectedDateFrom}
+//     setSelectedDateFrom={setSelectedDateFrom}
+//     selectedDateTo={selectedDateTo}
+//     setSelectedDateTo={setSelectedDateTo}
+//   />
+
+//   <Snackbar
+//     open={snackbarOpen}
+//     autoHideDuration={6000}
+//     onClose={() => setSnackbarOpen(false)}
+//     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+//   >
+//     <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+//       {snackbarMessage}
+//     </Alert>
+//   </Snackbar>
+// </MainCard>
+
   );
 };
 
