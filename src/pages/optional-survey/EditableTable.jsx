@@ -33,6 +33,8 @@ const EditableTable = () => {
   const [selectedAaccess, setSelectedAccess] = useState('');
   const [selectedQualityPriceRatio, setSelectedQualityPriceRatio] = useState('');
   const [selectedCleaningConservation, setSelectedCleaningConservation] = useState('');
+  const [selectedDateFrom, setSelectedDateFrom] = useState(null);
+  const [selectedDateTo, setSelectedDateTo] = useState(null);
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
@@ -98,6 +100,19 @@ const EditableTable = () => {
         if (selectedCleaningConservation) {
           searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
         }
+        if (selectedDateFrom) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate >= selectedDateFrom;
+          });
+        }
+  
+        if (selectedDateTo) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate <= selectedDateTo;
+          });
+        }
 
         setEmpList(searchedData);
       } catch (err) {
@@ -113,7 +128,9 @@ const EditableTable = () => {
     selectedAaccess,
     selectedQualityPriceRatio,
     selectedCleaningConservation,
-    selectedMunicipality
+    selectedMunicipality,
+    selectedDateFrom,
+    selectedDateTo
   ]);
 
   useEffect(() => {
@@ -140,10 +157,13 @@ const EditableTable = () => {
     setSelectedAccess('');
     setSelectedQualityPriceRatio('');
     setSelectedCleaningConservation('');
+    setSelectedDateFrom(null);
+    setSelectedDateTo(null);
   };
 
   const columns = useMemo(
     () => [
+      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
       {
         field: 'municipality',
         headerName: t('Municipality'),
@@ -221,7 +241,10 @@ const EditableTable = () => {
       </Box>
 
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
-        <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
+        <FilterModal 
+        onClose={() => setOpenFilterModal(false)}
+        selectedAcc={selectedAcc}
+        setSelectedAcc={setSelectedAcc} />
       </Dialog>
 
       <Filter
@@ -243,6 +266,11 @@ const EditableTable = () => {
         setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
         selectedCleaningConservation={selectedCleaningConservation}
         setSelectedCleaningConservation={setSelectedCleaningConservation}
+        selectedDateFrom={selectedDateFrom}
+        setSelectedDateFrom={setSelectedDateFrom}
+        selectedDateTo={selectedDateTo}
+        setSelectedDateTo={setSelectedDateTo}
+    
       />
     </MainCard>
   );

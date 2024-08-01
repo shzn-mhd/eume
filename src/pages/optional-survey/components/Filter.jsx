@@ -14,6 +14,8 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import { useTranslation } from 'react-i18next';
@@ -36,7 +38,11 @@ const Filter = ({
   setSelectedCleaningConservation,
   ResetTable,
   selectedMunicipality,
-  setSelectedMunicipality
+  setSelectedMunicipality,
+  selectedDateFrom,
+  setSelectedDateFrom,
+  selectedDateTo,
+  setSelectedDateTo
 }) => {
   const theme = useTheme();
   const acc = [1, 2, 3, 4, 5];
@@ -120,6 +126,44 @@ const Filter = ({
 
           <Box sx={{ p: 1, alignItems: 'center', justifyContent: 'center', maxHeight: '500px', overflowY: 'auto' }}>
             <Stack direction="column" spacing={3} justifyContent="center" sx={{ p: 1 }}>
+             
+
+            <Grid container gap={1}>
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        id="dateFrom"
+                        label={t('Date - From')}
+                        inputFormat="dd/MM/yyyy"
+                        format='dd/MM/yyyy'
+                        value={selectedDateFrom}
+                        onChange={(newValue) => setSelectedDateFrom(newValue)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        id="dateTo"
+                        label={t('Date - To')}
+                        inputFormat="dd/MM/yyyy"
+                        format='dd/MM/yyyy'
+                        value={selectedDateTo}
+                        onChange={(newValue) => setSelectedDateTo(newValue)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </FormControl>
+                </Grid>
+
+              </Grid>
+
+
               <FormControl fullWidth>
                 <Typography variant="h5">{t('Municipality')}</Typography>
                 <Autocomplete
@@ -307,8 +351,12 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
             </Stack>
           </Box>
+
+
+
           <Divider />
           <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between" padding={2}>
             <Tooltip title="Reset Filter">

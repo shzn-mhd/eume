@@ -228,7 +228,8 @@ const EditableTable = ({ data }) => {
     selectedAcc,
     selectedTrans,
     selectedDateFrom,
-    selectedDateTo, user.role]);
+    selectedDateTo,
+     user.role]);
 
 
 
