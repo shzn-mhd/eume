@@ -187,19 +187,55 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
       }
 
-      if (selectedDateFrom) {
-        searchedData = searchedData.filter((item) => {
-          const itemDate = new Date(item.date);
-          return itemDate >= selectedDateFrom;
-        });
-      }
 
-      if (selectedDateTo) {
+
+      // if (selectedDateFrom) {
+      //   searchedData = searchedData.filter((item) => {
+      //     const itemDate = new Date(item.date);
+      //     return itemDate >= selectedDateFrom;
+      //   });
+      // }
+
+      // if (selectedDateTo) {
+      //   searchedData = searchedData.filter((item) => {
+      //     const itemDate = new Date(item.date);
+      //     return itemDate <= selectedDateTo;
+      //   });
+      // }
+
+      if (selectedDateFrom && selectedDateTo && selectedDateFrom.getTime() === selectedDateTo.getTime()) {
+        // Both dates are equal, filter for the exact date
         searchedData = searchedData.filter((item) => {
           const itemDate = new Date(item.date);
-          return itemDate <= selectedDateTo;
+          // Remove time part for the comparison to be only by date
+          return (
+            itemDate.getFullYear() === selectedDateFrom.getFullYear() &&
+            itemDate.getMonth() === selectedDateFrom.getMonth() &&
+            itemDate.getDate() === selectedDateFrom.getDate()
+          );
         });
+      } else {
+        // Handle cases where the dates are not equal
+        if (selectedDateFrom) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate >= selectedDateFrom;
+          });
+        }
+      
+        if (selectedDateTo) {
+          searchedData = searchedData.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate <= selectedDateTo;
+          });
+        }
       }
+      
+
+
+
+
+
           // Sort by date (default sorting)
           searchedData.sort((a, b) => {
             const dateA = new Date(a.date);
