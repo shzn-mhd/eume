@@ -271,6 +271,7 @@ const EditableTable = () => {
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
+      <div style={{ minWidth: '1450px' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
@@ -287,6 +288,7 @@ const EditableTable = () => {
           onSortModelChange={(model) => setSortModel(model)}
           rowCount={empList.length}
         />
+          </div>
       </Box>
 
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
@@ -332,6 +334,111 @@ const EditableTable = () => {
         </Alert>
       </Snackbar>
     </MainCard>
+   
+   
+//     <MainCard
+//   content={false}
+//   title={t('Optional Survey Table')}
+//   subheader={empList.length + ' ' + t('Optional Surveys')}
+//   secondary={
+//     <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
+//       <Button
+//         size="small"
+//         sx={{ minWidth: '130px', minHeight: '41.13px' }}
+//         startIcon={<PlusOutlined />}
+//         color="primary"
+//         variant="contained"
+//         onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
+//       >
+//         {t('Filter Options')}
+//       </Button>
+
+//       <Button
+//         size="small"
+//         sx={{ minWidth: '130px', minHeight: '41.13px' }}
+//         color="error"
+//         variant="contained"
+//         onClick={() => ResetTable()}
+//       >
+//         {t('Reset Filter')}
+//       </Button>
+//       {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
+//       {showImportData && (
+//         <CSVImport
+//           collectionRef={empCollectionRef}
+//           onImportComplete={getEmpList}
+//           headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+//         />
+//       )}
+//     </Stack>
+//   }
+// >
+//   <Box sx={{ width: '100%', overflowX: 'auto' }}>
+//     <div style={{ minWidth: '1450px' }}> {/* Adjust minWidth to fit your column widths */}
+//       <DataGrid
+//         rows={filteredEmpList}
+//         columns={columns}
+//         pageSize={pageSize}
+//         rowsPerPageOptions={[5, 10, 20]}
+//         paginationMode="server"
+//         paginationModel={{ page, pageSize }}
+//         onPaginationModelChange={(model) => {
+//           setPage(model.page);
+//           setPageSize(model.pageSize);
+//         }}
+//         sortingMode="server"
+//         sortModel={sortModel}
+//         onSortModelChange={(model) => setSortModel(model)}
+//         rowCount={empList.length}
+//       />
+//     </div>
+//   </Box>
+
+//   <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
+//     <FilterModal
+//       onClose={() => setOpenFilterModal(false)}
+//       selectedAcc={selectedAcc}
+//       setSelectedAcc={setSelectedAcc}
+//     />
+//   </Dialog>
+
+//   <Filter
+//     empList={empList}
+//     open={openStoryDrawer}
+//     ResetTable={ResetTable}
+//     handleDrawerOpen={handleStoryDrawerOpen}
+//     selectedAcc={selectedAcc}
+//     setSelectedAcc={setSelectedAcc}
+//     selectedMunicipality={selectedMunicipality}
+//     setSelectedMunicipality={setSelectedMunicipality}
+//     selectService={selectService}
+//     setSelectService={setSelectService}
+//     selectedSignaling={selectedSignaling}
+//     setSelectedSignaling={setSelectedSignaling}
+//     selectedAaccess={selectedAaccess}
+//     setSelectedAccess={setSelectedAccess}
+//     selectedQualityPriceRatio={selectedQualityPriceRatio}
+//     setSelectedQualityPriceRatio={setSelectedQualityPriceRatio}
+//     selectedCleaningConservation={selectedCleaningConservation}
+//     setSelectedCleaningConservation={setSelectedCleaningConservation}
+//     selectedDateFrom={selectedDateFrom}
+//     setSelectedDateFrom={setSelectedDateFrom}
+//     selectedDateTo={selectedDateTo}
+//     setSelectedDateTo={setSelectedDateTo}
+//   />
+
+//   <Snackbar
+//     open={snackbarOpen}
+//     autoHideDuration={6000}
+//     onClose={() => setSnackbarOpen(false)}
+//     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+//   >
+//     <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+//       {snackbarMessage}
+//     </Alert>
+//   </Snackbar>
+// </MainCard>
+
   );
 };
 

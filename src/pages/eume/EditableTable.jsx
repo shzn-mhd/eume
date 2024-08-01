@@ -488,7 +488,8 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }} >
-        {/* sx={{ overflowX: 'auto', maxHeight: 'calc(100vh - 200px)' }} */}
+   
+        <div style={{ minWidth: '1450px' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
@@ -505,6 +506,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
           onSortModelChange={(model) => setSortModel(model)}
           rowCount={empList.length}
         />
+        </div>
       </Box>
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
         <FilterModal 
