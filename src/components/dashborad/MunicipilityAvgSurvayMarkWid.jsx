@@ -66,6 +66,32 @@ const MunicipilityAvgSurvayMarkWid = () => {
           id: doc.id
         }));
 
+        // const groupedData = filteredData.reduce((acc, item) => {
+        //   if (!acc[item.municipality]) {
+        //     acc[item.municipality] = {
+        //       total: 0,
+        //       count: 0
+        //     };
+        //   }
+        //   dataFieldKey.forEach((field) => {
+        //     acc[item.municipality].total += item[field] ?? 0;
+        //   });
+        //   acc[item.municipality].count++;
+          
+        //   return acc;
+        // }, {});
+
+        // delete groupedData.undefined;
+
+        // let result = {};
+        // for (const municipality in groupedData) {
+        //   result[municipality] = {
+        //     municipality: municipality,
+        //     avg: (groupedData[municipality].total / (groupedData[municipality].count * dataFieldKey.length)).toFixed(2)
+        //   };
+        // }
+        // setRows(result);
+
         const groupedData = filteredData.reduce((acc, item) => {
           if (!acc[item.municipality]) {
             acc[item.municipality] = {
@@ -74,15 +100,15 @@ const MunicipilityAvgSurvayMarkWid = () => {
             };
           }
           dataFieldKey.forEach((field) => {
-            acc[item.municipality].total = item[field] ?? 0;
+            acc[item.municipality].total += Number(item[field] ?? 0);
           });
           acc[item.municipality].count++;
-          
+        
           return acc;
         }, {});
-
+        
         delete groupedData.undefined;
-
+        
         let result = {};
         for (const municipality in groupedData) {
           result[municipality] = {
@@ -91,6 +117,8 @@ const MunicipilityAvgSurvayMarkWid = () => {
           };
         }
         setRows(result);
+        
+
       } catch (err) {
         console.log(err);
         console.log('SearchedData Error', err);
