@@ -441,7 +441,7 @@ const EditableTable = ({ data }) => {
           </Button>
           {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
           {showImportData && (
-            <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
+            <CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} />
           )}
 
         </Stack>
