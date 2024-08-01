@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState, useMemo } from 'react';
-import { Box, Button, TextField, Stack, useTheme, Dialog, Pagination,Tooltip,IconButton,Snackbar, Alert  } from '@mui/material';
+import { Box, Button, TextField, Stack, useTheme,useMediaQuery, Dialog, Pagination,Tooltip,IconButton,Snackbar, Alert  } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
@@ -18,6 +18,7 @@ import useAuth from 'hooks/useAuth';
 
 const EditableTable = ({ data }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [empList, setEmpList] = useState([]);
@@ -446,7 +447,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
       title={t('Survey Table')}
       subheader={`${empList.length} ${t('Basic Surveys')}`}
       secondary={
-        <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
+        <Stack direction={isMobile ? 'column' : 'row'} spacing={2} justifyContent="center" alignItems="center">
           {/* <TextField
             sx={{
               borderRadius: '4px',
@@ -489,7 +490,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }} >
    
-        <div style={{ minWidth: '1450px' }}>
+        <div style={{ minWidth: isMobile ? 'auto' : '1450px' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
