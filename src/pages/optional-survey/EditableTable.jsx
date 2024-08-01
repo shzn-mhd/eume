@@ -14,6 +14,7 @@ import Filter from './components/Filter';
 import { useTranslation } from 'react-i18next';
 import CSVImport from 'components/third-party/react-table/CSVImport';
 import useAuth from 'hooks/useAuth';
+import { CSVExport } from 'components/third-party/react-table';
 
 const EditableTable = () => {
   const theme = useTheme();
@@ -44,6 +45,7 @@ const EditableTable = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   const showImportData = user?.rolePermissions['Optional Survey']?.importData;
+  const showExportData = user?.rolePermissions['Optional Survey'].exportData;
 
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
@@ -65,65 +67,65 @@ const EditableTable = () => {
     return Array.from(municipalities);
   };
 
-  useEffect(() => {
-    const getEmpList = async () => {
-      try {
-        const municipalities = await fetchMunicipalities(user?.role);
-        const data = await getDocs(empCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
+  const getEmpList = async () => {
+    try {
+      const municipalities = await fetchMunicipalities(user?.role);
+      const data = await getDocs(empCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
 
-        let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+      let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
 
-        if (selectedAcc) {
-          searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
-        }
-
-        if (selectService) {
-          searchedData = searchedData.filter((item) => item.catering_services === selectService);
-        }
-
-        if (selectedMunicipality) {
-          searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
-        }
-
-        if (selectedSignaling) {
-          searchedData = searchedData.filter((item) => item.signaling === selectedSignaling);
-        }
-
-        if (selectedAaccess) {
-          searchedData = searchedData.filter((item) => item.cleaning_conservation === selectedAaccess);
-        }
-
-        if (selectedQualityPriceRatio) {
-          searchedData = searchedData.filter((item) => item.quality_price_ratio === selectedQualityPriceRatio);
-        }
-
-        if (selectedCleaningConservation) {
-          searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
-        }
-        if (selectedDateFrom) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate >= selectedDateFrom;
-          });
-        }
-  
-        if (selectedDateTo) {
-          searchedData = searchedData.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate <= selectedDateTo;
-          });
-        }
-
-        setEmpList(searchedData);
-      } catch (err) {
-        console.log(err);
+      if (selectedAcc) {
+        searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
       }
-    };
 
+      if (selectService) {
+        searchedData = searchedData.filter((item) => item.catering_services === selectService);
+      }
+
+      if (selectedMunicipality) {
+        searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
+      }
+
+      if (selectedSignaling) {
+        searchedData = searchedData.filter((item) => item.signaling === selectedSignaling);
+      }
+
+      if (selectedAaccess) {
+        searchedData = searchedData.filter((item) => item.cleaning_conservation === selectedAaccess);
+      }
+
+      if (selectedQualityPriceRatio) {
+        searchedData = searchedData.filter((item) => item.quality_price_ratio === selectedQualityPriceRatio);
+      }
+
+      if (selectedCleaningConservation) {
+        searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
+      }
+      if (selectedDateFrom) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate >= selectedDateFrom;
+        });
+      }
+
+      if (selectedDateTo) {
+        searchedData = searchedData.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate <= selectedDateTo;
+        });
+      }
+
+      setEmpList(searchedData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
     getEmpList();
   }, [
     selectedAcc,
@@ -263,10 +265,8 @@ const EditableTable = () => {
           >
             {t('Reset Filter')}
           </Button>
-
-          {showImportData && (
-            <CSVImport collectionRef={empCollectionRef} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />
-          )}
+          {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
+          {showImportData && ( <CSVImport collectionRef={empCollectionRef} onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
         </Stack>
       }
     >

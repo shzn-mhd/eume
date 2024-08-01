@@ -490,9 +490,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
             {t('Reset Filter')}
           </Button>
           {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
-          {showImportData && (
-            <CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} />
-          )}
+          {showImportData && (<CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} />)}
 
         </Stack>
       }
