@@ -22,7 +22,7 @@ const EditableTable = ({ data }) => {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [empList, setEmpList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
