@@ -75,7 +75,8 @@ const HeaderContent = () => {
                 boxShadow: theme.customShadows.primary,
                 border: `1px solid ${theme.palette.primary.main}`
               }}
-              renderInput={(params) => <TextField {...params} label="Language" />}
+              renderInput={(params) => <TextField {...params}   label={t('Language')}/>}
+              label={t('Language')}
               />
           </FormControl>
           </Stack>
