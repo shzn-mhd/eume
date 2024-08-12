@@ -285,7 +285,7 @@ const EditableTable = () => {
           >
             {t('Filter Options')}
           </Button>
-
+       
           <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
@@ -295,8 +295,11 @@ const EditableTable = () => {
           >
             {t('Reset Filter')}
           </Button>
+          <Box display="flex" alignItems="center" gap={1}>
           {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
           {showImportData && ( <CSVImport collectionRef={empCollectionRef} onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
+           </Box>
+         
         </Stack>
       }
     >
