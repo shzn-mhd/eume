@@ -1,11 +1,24 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState, useMemo } from 'react';
-import { Box, Button, TextField, Stack, useTheme,useMediaQuery, Dialog, Pagination,Tooltip,IconButton,Snackbar, Alert  } from '@mui/material';
+import {
+  Box,
+  Button,
+  TextField,
+  Stack,
+  useTheme,
+  useMediaQuery,
+  Dialog,
+  Pagination,
+  Tooltip,
+  IconButton,
+  Snackbar,
+  Alert
+} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
 import { db } from 'config/firebase';
-import { getDocs, collection, getDoc,deleteDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, getDoc, deleteDoc, doc } from 'firebase/firestore';
 import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
@@ -26,10 +39,10 @@ const EditableTable = ({ data }) => {
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
-  const [sorting, setSorting] = useState({ 
-    field: 'date', 
+  const [sorting, setSorting] = useState({
+    field: 'date',
     sort: 'desc'
-   });
+  });
 
   const [pageSize, setPageSize] = useState(10);
   const [filteredEmpList, setFilteredEmpList] = useState([]);
@@ -37,7 +50,6 @@ const EditableTable = ({ data }) => {
 
   const [selectedGender, setSelectedGender] = useState('');
 
- 
   const [selectService, setSelectService] = useState('');
 
   const [selectedSignaling, setSelectedSignaling] = useState('');
@@ -60,12 +72,12 @@ const EditableTable = ({ data }) => {
   const [openStoryDrawer, setOpenStoryDrawer] = useState(false);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-const [snackbarMessage, setSnackbarMessage] = useState('');
-const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   const showImportData = user?.rolePermissions['Basic Survey']?.importData;
   const showExportData = user?.rolePermissions['Basic Survey'].exportData;
+
 
 
   const handleStoryDrawerOpen = () => {
@@ -88,19 +100,17 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     return Array.from(municipalities);
   };
 
-
-
   const getEmpList = async () => {
     try {
       const municipalities = await fetchMunicipalities(user.role);
       const data = await getDocs(empCollectionRef);
       const filteredData = data?.docs?.map((doc) => ({
         ...doc.data(),
-        id: doc.id,
+        id: doc.id
       }));
-  
+
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-  
+
       if (searchValue) {
         searchedData = searchedData.filter(
           (item) =>
@@ -115,7 +125,6 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
             item.age.includes(searchValue) ||
             item.noOfDays.includes(searchValue)
         );
-
 
         if (searchValue) {
           searchedData = searchedData.filter(
@@ -132,15 +141,12 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
               item.noOfDays.includes(searchValue)
           );
         }
-
-   
-
       }
       if (selectedGender) {
         searchedData = searchedData.filter((item) => item.gender === selectedGender);
       }
 
-      if(selectedMunicipality) {
+      if (selectedMunicipality) {
         searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
       }
 
@@ -187,8 +193,6 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
       }
 
-
-
       // if (selectedDateFrom) {
       //   searchedData = searchedData.filter((item) => {
       //     const itemDate = new Date(item.date);
@@ -222,7 +226,7 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
             return itemDate >= selectedDateFrom;
           });
         }
-      
+
         if (selectedDateTo) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
@@ -230,32 +234,24 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
           });
         }
       }
-      
 
-
-
-
-
-          // Sort by date (default sorting)
-          searchedData.sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            return dateB -dateA  ;
-          
-          });
+      // Sort by date (default sorting)
+      searchedData.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
+      });
 
       setEmpList(searchedData);
     } catch (err) {
       console.log(err);
     }
   };
-  
-  
 
-  
   useEffect(() => {
     getEmpList();
-  }, [searchValue,
+  }, [
+    searchValue,
     selectedGender,
     selectedMunicipality,
     selectedCountry,
@@ -271,9 +267,8 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     selectedTrans,
     selectedDateFrom,
     selectedDateTo,
-     user.role]);
-
-
+    user.role
+  ]);
 
   useEffect(() => {
     let sortedData = [...empList];
@@ -308,12 +303,11 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     setSelectedTrans('');
     setSelectedDateFrom(null);
     setSelectedDateTo(null);
-
   };
- 
+
   const deleteDocument = async (docId) => {
     try {
-      await deleteDoc(doc(db, 'optional_survey_data', docId));
+      await deleteDoc(doc(db, 'survey_data', docId));
       setEmpList((prev) => prev.filter((item) => item.id !== docId));
       setSnackbarMessage('Document deleted successfully');
       setSnackbarSeverity('success');
@@ -325,13 +319,18 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
       setSnackbarOpen(true); // Show snackbar on error
     }
   };
-  
 
   const columns = useMemo(
     () => [
-
-      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
-      { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.date) },
+      {
+        field: 'municipality',
+        headerName: t('Municipality'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.municipality)
+      },
       {
         field: 'gender',
         headerName: t('Gender'),
@@ -340,8 +339,16 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.gender)
       },
-      { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center' },
-      { field: 'reason', headerName: t('Reason'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
+
+      {
+        field: 'reason',
+        headerName: t('Reason'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.reason)
+      },
       {
         field: 'modality',
         headerName: t('Modality'),
@@ -374,7 +381,15 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.stayPlace)
       },
-      { field: 'noOfDays', headerName: t('No of Days'), flex: 1, editable: true, cellClassName: 'cell-center' },
+
+      {
+        field: 'noOfDays',
+        headerName: t('No of Days'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.noOfDays)
+      },
       {
         field: 'accommodationType',
         headerName: t('Accommodation Type'),
@@ -399,7 +414,17 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.activity)
       },
-      { field: 'language', headerName: t('Language'), flex: 1, editable: true, cellClassName: 'cell-center' },
+
+      {
+        field: 'language',
+        headerName: t('Language'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.language)
+      
+      },
+
       {
         field: 'motivation',
         headerName: t('Motivation'),
@@ -408,7 +433,14 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.motivation)
       },
-      { field: 'noOfPeople', headerName: t('No Of People'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'noOfPeople',
+        headerName: t('No Of People'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.noOfPeople)
+      },
       {
         field: 'placeOfOrigin',
         headerName: t('Place of Origin'),
@@ -430,7 +462,8 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         headerName: t('Transportation Reason'),
         flex: 1,
         editable: true,
-        cellClassName: 'cell-center'
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.transportationReason)
       },
       {
         field: 'actions',
@@ -445,12 +478,11 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
                 deleteDocument(params.row.id);
               }}
             >
-              <DeleteOutlined/>
+              <DeleteOutlined />
             </IconButton>
           </Tooltip>
         )
-      },
-  
+      }
     ],
     [t]
   );
@@ -519,72 +551,63 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
             {t('Reset Filter')}
           </Button>
           {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
-          {showImportData && (<CSVImport collectionRef={empCollectionRef}  onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
-
+          {showImportData && (
+            <CSVImport
+              collectionRef={empCollectionRef}
+              onImportComplete={getEmpList}
+              headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+            />
+          )}
         </Stack>
       }
     >
-      <Box sx={{ width: '100%', overflowX: 'auto' }} >
-   
+      <Box sx={{ width: '100%', overflowX: 'auto' }}>
         <div style={{ minWidth: isMobile ? 'auto' : '1450px' }}>
-        <DataGrid
-          rows={filteredEmpList}
-          columns={columns}
-          pageSize={pageSize}
-          rowsPerPageOptions={[5, 10, 20]}
-          paginationMode="server"
-          paginationModel={{ page, pageSize }}
-          onPaginationModelChange={(model) => {
-            setPage(model.page);
-            setPageSize(model.pageSize);
-          }}
-          sortingMode="server"
-          sortModel={sortModel}
-          onSortModelChange={(model) => setSortModel(model)}
-          rowCount={empList.length}
-        />
+          <DataGrid
+            rows={filteredEmpList}
+            columns={columns}
+            pageSize={pageSize}
+            rowsPerPageOptions={[5, 10, 20]}
+            paginationMode="server"
+            paginationModel={{ page, pageSize }}
+            onPaginationModelChange={(model) => {
+              setPage(model.page);
+              setPageSize(model.pageSize);
+            }}
+            sortingMode="server"
+            sortModel={sortModel}
+            onSortModelChange={(model) => setSortModel(model)}
+            rowCount={empList.length}
+          />
         </div>
       </Box>
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
-        <FilterModal 
-        onClose={() => setOpenFilterModal(false)}
-        selectedAcc={selectedAcc}
-        setSelectedAcc={setSelectedAcc}
-
-        selectedGender={selectedGender}
-        setSelectedGender={setSelectedGender}
-
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-
-        selectedProvince={selectedProvince}
-        setSelectedProvince={setSelectedProvince}
-      
-        selectedAge={selectedAge}
-        setSelectedAge={setSelectedAge}
-      
-        selectedMotivation={selectedMotivation}
-        setSelectedMotivation={setSelectedMotivation}
-      
-        selectedModality={selectedModality}
-        setSelectedModality={setSelectedModality}
-      
-        selectedPet={selectedPet}
-        setSelectedPet={setSelectedPet}
-      
-        selectedStay={selectedStay}
-        setSelectedStay={setSelectedStay}
-      
-        selectedStayList={selectedStayList}
-        setSelectedStayList={setSelectedStayList}
-      
-        selectedDayStay={selectedDayStay}
-        setSelectedDayStay={setSelectedDayStay}
-        
-        selectedTrans={selectedTrans}
-        setSelectedTrans={setSelectedTrans}
-
-        
+        <FilterModal
+          onClose={() => setOpenFilterModal(false)}
+          selectedAcc={selectedAcc}
+          setSelectedAcc={setSelectedAcc}
+          selectedGender={selectedGender}
+          setSelectedGender={setSelectedGender}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          selectedProvince={selectedProvince}
+          setSelectedProvince={setSelectedProvince}
+          selectedAge={selectedAge}
+          setSelectedAge={setSelectedAge}
+          selectedMotivation={selectedMotivation}
+          setSelectedMotivation={setSelectedMotivation}
+          selectedModality={selectedModality}
+          setSelectedModality={setSelectedModality}
+          selectedPet={selectedPet}
+          setSelectedPet={setSelectedPet}
+          selectedStay={selectedStay}
+          setSelectedStay={setSelectedStay}
+          selectedStayList={selectedStayList}
+          setSelectedStayList={setSelectedStayList}
+          selectedDayStay={selectedDayStay}
+          setSelectedDayStay={setSelectedDayStay}
+          selectedTrans={selectedTrans}
+          setSelectedTrans={setSelectedTrans}
         />
       </Dialog>
 
@@ -597,7 +620,6 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         setSelectedAcc={setSelectedAcc}
         selectedMunicipality={selectedMunicipality}
         setSelectedMunicipality={setSelectedMunicipality}
-
         selectedGender={selectedGender}
         setSelectedGender={setSelectedGender}
         selectedCountry={selectedCountry}
@@ -624,9 +646,8 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
         setSelectedDateFrom={setSelectedDateFrom}
         selectedDateTo={selectedDateTo}
         setSelectedDateTo={setSelectedDateTo}
-    
       />
-           <Snackbar
+      <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={() => setSnackbarOpen(false)}
@@ -643,6 +664,5 @@ const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 EditableTable.propTypes = {
   data: PropTypes.array.isRequired
 };
-
 
 export default EditableTable;
