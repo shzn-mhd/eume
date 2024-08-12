@@ -521,6 +521,22 @@ const EditableTable = ({ data }) => {
              justifyContent="center"
              alignItems="center"
              >
+
+                 {/* <TextField
+            sx={{
+              borderRadius: '4px',
+              bgcolor: theme.palette.background.paper,
+              boxShadow: theme.customShadows.primary,
+              border: `1px solid ${theme.palette.primary.main}`,
+            }}
+            InputProps={{
+              startAdornment: <SearchOutlined />,
+              placeholder: t('Search'),
+              type: 'search',
+            }}
+            value={searchValue}
+            onChange={handleSearchChange}
+          /> */}
      
           <Button
             size="small"
