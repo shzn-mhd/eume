@@ -19,6 +19,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import MainCard from 'components/MainCard';
 import SimpleBar from 'components/third-party/SimpleBar';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@mui/material';
 
 const Filter = ({
   open,
@@ -49,6 +50,9 @@ const Filter = ({
   const { t, i18n } = useTranslation();
   const municipalities = ['A Capela', 'As Pontes', 'Cabanas', 'Monfero', 'Pontedeume'];
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+
   return (
     <Drawer
       sx={{
@@ -56,13 +60,17 @@ const Filter = ({
         flexShrink: 0,
         zIndex: 1200,
         overflowX: 'hidden',
-        width: { xs: 320, md: 450 },
+        // width: { xs: 320, md: 450 },
+        width: isMobile ? '100%' : { xs: 320, md: 450 },
         '& .MuiDrawer-paper': {
-          width: { xs: 320, md: 420 },
+          // width: { xs: 320, md: 420 },
+          width: isMobile ? '100%' : { xs: 320, md: 420 },
           border: 'none',
           borderRadius: '20px',
-          margin: '30px',
-          maxHeight: '760px'
+          // margin: '30px',
+          margin: isMobile ? 0 : '30px',
+          // maxHeight: '760px'
+          maxHeight: isMobile ? '100vh' : '760px',
         }
       }}
       variant="temporary"
@@ -77,7 +85,8 @@ const Filter = ({
         <SimpleBar
           sx={{
             overflowX: 'hidden',
-            height: '100vh'
+            // height: '100vh'
+            height: isMobile ? 'calc(100vh - 100px)' : '100vh',
           }}
         >
           <Box sx={{ p: 2 }}>

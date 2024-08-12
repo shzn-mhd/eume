@@ -27,6 +27,7 @@ import provinceList from 'data/province';
 import stayList from 'data/stay';
 import transList from 'data/transport';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@mui/material';
 
 const Filter = ({
   empList,
@@ -73,6 +74,7 @@ const Filter = ({
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   const municipalities = ['A Capela', 'As Pontes', 'Cabanas', 'Monfero', 'Pontedeume'];
   const { t, i18n } = useTranslation();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Drawer
       sx={{
@@ -80,13 +82,17 @@ const Filter = ({
         flexShrink: 0,
         zIndex: 1200,
         overflowX: 'hidden',
-        width: { xs: 320, md: 450 },
+        // width: { xs: 320, md: 450 },
+        width: isMobile ? '100%' : { xs: 320, md: 450 },
         '& .MuiDrawer-paper': {
-          width: { xs: 320, md: 400 },
+          // width: { xs: 320, md: 400 },
+          width: isMobile ? '100%' : { xs: 320, md: 420 },
           border: 'none',
           borderRadius: '20px',
-          margin: '30px',
-          maxHeight: '715px'
+          // margin: '30px',
+          margin: isMobile ? 0 : '30px',
+          // maxHeight: '715px'
+          maxHeight: isMobile ? '100vh' : '760px',
         }
       }}
       variant="temporary"
@@ -102,7 +108,8 @@ const Filter = ({
         <SimpleBar
           sx={{
             overflowX: 'hidden',
-            height: '100vh'
+            // height: '100vh'
+            height: isMobile ? 'calc(100vh - 50px)' : '100vh',
              
           }}
         >
