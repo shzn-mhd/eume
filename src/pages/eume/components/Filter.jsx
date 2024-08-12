@@ -86,7 +86,7 @@ const Filter = ({
           border: 'none',
           borderRadius: '20px',
           margin: '30px',
-          maxHeight: '700px'
+          maxHeight: '715px'
         }
       }}
       variant="temporary"
@@ -103,6 +103,7 @@ const Filter = ({
           sx={{
             overflowX: 'hidden',
             height: '100vh'
+             
           }}
         >
           <Box sx={{ p: 2 }}>
@@ -147,6 +148,7 @@ const Filter = ({
                 <Grid container alignItems="center">
                   <Grid item>
                     <Typography variant="h4" color="inherit">
+                    
                       {empList.length}
                     </Typography>
                   </Grid>
