@@ -148,6 +148,7 @@ const Filter = ({
                 <Grid container alignItems="center">
                   <Grid item>
                     <Typography variant="h4" color="inherit">
+                    
                       {empList.length}
                     </Typography>
                   </Grid>
