@@ -515,22 +515,13 @@ const EditableTable = ({ data }) => {
       title={t('Survey Table')}
       subheader={`${empList.length} ${t('Basic Surveys')}`}
       secondary={
-        <Stack direction={isMobile ? 'column' : 'row'} spacing={2} justifyContent="center" alignItems="center">
-          {/* <TextField
-            sx={{
-              borderRadius: '4px',
-              bgcolor: theme.palette.background.paper,
-              boxShadow: theme.customShadows.primary,
-              border: `1px solid ${theme.palette.primary.main}`,
-            }}
-            InputProps={{
-              startAdornment: <SearchOutlined />,
-              placeholder: t('Search'),
-              type: 'search',
-            }}
-            value={searchValue}
-            onChange={handleSearchChange}
-          /> */}
+        <Stack 
+             direction={isMobile ? 'column' : 'row'}
+             spacing={2}
+             justifyContent="center"
+             alignItems="center"
+             >
+     
           <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
