@@ -550,14 +550,20 @@ const EditableTable = ({ data }) => {
           >
             {t('Reset Filter')}
           </Button>
-          {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
-          {showImportData && (
-            <CSVImport
-              collectionRef={empCollectionRef}
-              onImportComplete={getEmpList}
-              headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
-            />
-          )}
+   
+
+ <Box display="flex" alignItems="center" gap={1}>
+  {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
+  {showImportData && (
+    <CSVImport
+      collectionRef={empCollectionRef}
+      onImportComplete={getEmpList}
+      headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+    />
+  )}
+</Box>
+
+     
         </Stack>
       }
     >
