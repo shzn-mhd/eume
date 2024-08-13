@@ -12,7 +12,12 @@ import {
   Tooltip,
   IconButton,
   Snackbar,
-  Alert
+  Alert,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
@@ -509,6 +514,40 @@ const EditableTable = ({ data }) => {
     return empList.slice(start, end);
   }, [empList, page, rowsPerPage]);
 
+
+
+  const translateData = (data) => {
+    return data.map((item) => ({
+      date: t(item.date),
+      municipality: t(item.municipality),
+      gender: t(item.gender),
+      age: t(item.age),
+      reason: t(item.reason),
+      modality: t(item.modality),
+      withPet: t(item.withPet),
+      stayOvernight: t(item.stayOvernight),
+      stayPlace: t(item.stayPlace),
+      noOfDays: t(item.noOfDays),
+      accommodationType: t(item.accommodationType),
+      transportation: t(item.transportation),
+      activity: t(item.activity),
+      language: t(item.language),
+      motivation: t(item.motivation),
+      noOfPeople: t(item.noOfPeople),
+      placeOfOrigin: t(item.placeOfOrigin),
+      province: t(item.province),
+      transportationReason: t(item.transportationReason),
+      // Add any other fields that need translation
+    }));
+  };
+
+  // Translate empList data
+  const translatedEmpList = translateData(empList);
+
+
+
+
+
   return (
     <MainCard
       content={false}
@@ -557,10 +596,11 @@ const EditableTable = ({ data }) => {
           >
             {t('Reset Filter')}
           </Button>
+
    
 
  <Box display="flex" alignItems="center" gap={1}>
-  {showExportData && <CSVExport data={empList} filename="basic-survey.csv" />}
+  {showExportData && <CSVExport data={translatedEmpList}  headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}  filename="basic-survey.csv" />}
   {showImportData && (
     <CSVImport
       collectionRef={empCollectionRef}
