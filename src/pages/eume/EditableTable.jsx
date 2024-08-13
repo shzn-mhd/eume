@@ -115,6 +115,7 @@ const EditableTable = ({ data }) => {
       }));
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+      console.log("searchedData",searchedData)
 
       if (searchValue) {
         searchedData = searchedData.filter(
@@ -345,7 +346,14 @@ const EditableTable = ({ data }) => {
         renderCell: ({ row }) => t(row.gender)
       },
       { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
-
+      {
+        field: 'motivation',
+        headerName: t('Motivation'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.motivation)
+      },
       {
         field: 'reason',
         headerName: t('Reason'),
@@ -430,14 +438,7 @@ const EditableTable = ({ data }) => {
       
       },
 
-      {
-        field: 'motivation',
-        headerName: t('Motivation'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.motivation)
-      },
+  
       {
         field: 'noOfPeople',
         headerName: t('No Of People'),

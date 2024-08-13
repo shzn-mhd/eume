@@ -78,6 +78,7 @@ const EditableTable = () => {
       }));
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
+      console.log("searchedData",searchedData)
 
       if (selectedAcc) {
         searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
@@ -226,25 +227,26 @@ const EditableTable = () => {
     () => [
    
       { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
-      {
-        field: 'municipality',
-        headerName: t('Municipality'),
-        flex: 1,
-        editable: true
-      },
+      {field: 'municipality',headerName: t('Municipality'),flex: 1,editable: true},
 
-      { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
       { field: 'lodging', headerName: t('Lodging'), flex: 1, editable: true },
-      { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
-      { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true },
+
+      { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true },//shopping
       { field: 'tourist_information', headerName: t('Tourist Information'), flex: 1, editable: true },
       { field: 'signaling', headerName: t('Signaling'), flex: 1, editable: true },
       { field: 'accessibility', headerName: t('Accessibility'), flex: 1, editable: true },
       { field: 'sustainability', headerName: t('Sustainability'), flex: 1, editable: true },
       { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
       { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
+
+      { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
+      { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
+   
+
       { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
       { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true },
+
+
       {
         field: 'actions',
         headerName: t('Actions'),
