@@ -584,6 +584,7 @@ const EditableTable = ({ data }) => {
             color="primary"
             variant="contained"
             onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
+            
           >
             {t('Filter Options')}
           </Button>
