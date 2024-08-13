@@ -268,6 +268,31 @@ const EditableTable = () => {
     [t]
   );
 
+  const translateData = (data) => {
+    return data.map((item) => ({
+      date: t(item.date),
+      municipality: t(item.municipality),
+      general_assessment: t(item.general_assessment),
+      lodging: t(item.lodging),
+      catering_services: t(item.catering_services),
+      retailers: t(item.retailers),
+      tourist_information: t(item.tourist_information),
+      signaling: t(item.signaling),
+      accessibility: t(item.accessibility),
+      sustainability: t(item.sustainability),
+      cleaning_conservation: t(item.cleaning_conservation),
+      cultural_offerings: t(item.cultural_offerings),
+      quality_price_ratio: t(item.quality_price_ratio),
+      optionalFeedback: t(item.optionalFeedback),
+
+    }));
+  };
+
+  // Translate empList data
+  const translatedEmpList = translateData(empList);
+
+
+
   return (
     <MainCard
       content={false}
@@ -296,7 +321,7 @@ const EditableTable = () => {
             {t('Reset Filter')}
           </Button>
           <Box display="flex" alignItems="center" gap={1}>
-          {showExportData && <CSVExport data={empList} filename="optional-survey.csv" />}
+          {showExportData && <CSVExport data={translatedEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} filename="optional-survey.csv" />}
           {showImportData && ( <CSVImport collectionRef={empCollectionRef} onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
            </Box>
          
