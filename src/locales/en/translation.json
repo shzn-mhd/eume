@@ -360,6 +360,8 @@
   "Djibouti": "Djibouti",
   "Zambia": "Zambia",
   "Zimbabwe": "Zimbabwe",
+
+
   "A Capela": "A Capela",
   "As Pontes": "As Pontes",
   "Cabanas": "Cabanas",
@@ -383,8 +385,8 @@
   "Export data":"Export data",
   "Import data":"Import data",
   "Municipility":"Municipility",
-  "Average":"Average",
+  "Average":"Average"
 
-  "Spanish":"Spanish"
+ 
 
 }

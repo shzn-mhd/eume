@@ -331,14 +331,16 @@ const EditableTable = ({ data }) => {
 
         { field: 'date',
          headerName: t('Date'),
-          flex: 1, editable: true,
+         width:200,
+           editable: true,
            cellClassName: 'cell-center', 
            renderCell: ({ row }) => t(row.date)
            },
        {
         field: 'municipality',
         headerName: t('Municipality'),
-        flex: 1,
+        // flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.municipality)
@@ -347,7 +349,8 @@ const EditableTable = ({ data }) => {
       {
         field: 'language',
         headerName: t('Language'),
-        flex: 1,
+        // flex: 1,
+        width:80,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.language)
@@ -356,15 +359,20 @@ const EditableTable = ({ data }) => {
       {
         field: 'placeOfOrigin',
         headerName: t('Place of Origin'),
-        flex: 1,
+        // flex: 1,
+        width:120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.placeOfOrigin)
+       
+        
+       
       },
       {
         field: 'province',
         headerName: t('Province'),
-        flex: 1,
+        // flex: 1,
+        width:120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.province)
@@ -372,16 +380,19 @@ const EditableTable = ({ data }) => {
       {
         field: 'gender',
         headerName: t('Gender'),
-        flex: 1,
+        // flex: 1,
+        width:80,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.gender)
       },
-      { field: 'age', headerName: t('Age'), flex: 1, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
+      { field: 'age', headerName: t('Age'), 
+        width:80,
+         editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
       {
         field: 'motivation',
         headerName: t('Motivation'),
-        flex: 1,
+         width:150,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.motivation)
@@ -389,7 +400,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'reason',
         headerName: t('Reason'),
-        flex: 1,
+        width:180,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.reason)
@@ -397,7 +408,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'modality',
         headerName: t('Modality'),
-        flex: 1,
+        width:120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.modality)
@@ -405,7 +416,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'noOfPeople',
         headerName: t('No Of People'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.noOfPeople)
@@ -413,7 +424,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'withPet',
         headerName: t('With Pet'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.withPet)
@@ -421,7 +432,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'stayOvernight',
         headerName: t('Stay Overnight'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.stayOvernight)
@@ -429,7 +440,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'stayPlace',
         headerName: t('Stay Place'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.stayPlace)
@@ -438,7 +449,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'noOfDays',
         headerName: t('No of Days'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.noOfDays)
@@ -446,7 +457,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'accommodationType',
         headerName: t('Accommodation Type'),
-        flex: 1,
+        width:120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.accommodationType)
@@ -454,7 +465,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'transportation',
         headerName: t('Transportation'),
-        flex: 1,
+        width:120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportation)
@@ -463,7 +474,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'transportationReason',
         headerName: t('Transportation Reason'),
-        flex: 1,
+        width:180,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportationReason)
@@ -474,7 +485,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'activity',
         headerName: t('Activity'),
-        flex: 1,
+        width:100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.activity)
@@ -482,7 +493,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'activityReason',
         headerName: t('Activity Reason'),
-        flex: 1,
+        width:200,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.activityReason)
@@ -498,7 +509,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'actions',
         headerName: t('Actions'),
-        flex: 1,
+        width:60,
         renderCell: (params) => (
           <Tooltip title={t('Delete')}>
             <IconButton
@@ -641,7 +652,7 @@ const EditableTable = ({ data }) => {
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
-        <div style={{ minWidth: isMobile ? 'auto' : '3300px' }}>
+        <div style={{ minWidth: isMobile ? 'auto' : '2600px' }}>
           <DataGrid
             rows={filteredEmpList}
             columns={columns}
