@@ -333,7 +333,7 @@ const EditableTable = () => {
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
-      <div  style={{ minWidth: isMobile ? 'auto' : '1450px' }}>
+      <div  style={{ minWidth: isMobile ? 'auto' : '2500px' }}>
         <DataGrid
           rows={filteredEmpList}
           columns={columns}
