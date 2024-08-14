@@ -89,7 +89,7 @@ const EditableTable = ({ data }) => {
     setOpenStoryDrawer((prevState) => !prevState);
   };
 
-  const empCollectionRef = collection(db, 'survey_data');
+  const empCollectionRef = collection(db,'survey_data');
 
   const fetchMunicipalities = async (roleIds) => {
     const municipalities = new Set();
@@ -113,24 +113,27 @@ const EditableTable = ({ data }) => {
         ...doc.data(),
         id: doc.id
       }));
+      console.log("municipalities basic",municipalities)
+      console.log("data basic",data)
+      console.log("filteredData basic",filteredData)
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-      console.log("searchedData",searchedData)
+      console.log("searchedData basic",searchedData)
 
-      if (searchValue) {
-        searchedData = searchedData.filter(
-          (item) =>
-            item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
-            item.age.includes(searchValue) ||
-            item.noOfDays.includes(searchValue)
-        );
+      // if (searchValue) {
+      //   searchedData = searchedData.filter(
+      //     (item) =>
+      //       item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
+      //       item.age.includes(searchValue) ||
+      //       item.noOfDays.includes(searchValue)
+      //   );
 
         if (searchValue) {
           searchedData = searchedData.filter(
@@ -146,7 +149,7 @@ const EditableTable = ({ data }) => {
               item.age.includes(searchValue) ||
               item.noOfDays.includes(searchValue)
           );
-        }
+        // }
       }
       if (selectedGender) {
         searchedData = searchedData.filter((item) => item.gender === selectedGender);
@@ -328,14 +331,46 @@ const EditableTable = ({ data }) => {
 
   const columns = useMemo(
     () => [
-      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.date) },
-      {
+
+        { field: 'date',
+         headerName: t('Date'),
+          flex: 1, editable: true,
+           cellClassName: 'cell-center', 
+           renderCell: ({ row }) => t(row.date)
+           },
+       {
         field: 'municipality',
         headerName: t('Municipality'),
         flex: 1,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.municipality)
+      },
+      
+      {
+        field: 'language',
+        headerName: t('Language'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.language)
+      
+      },
+      {
+        field: 'placeOfOrigin',
+        headerName: t('Place of Origin'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.placeOfOrigin)
+      },
+      {
+        field: 'province',
+        headerName: t('Province'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.province)
       },
       {
         field: 'gender',
@@ -369,6 +404,14 @@ const EditableTable = ({ data }) => {
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.modality)
+      },
+      {
+        field: 'noOfPeople',
+        headerName: t('No Of People'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.noOfPeople)
       },
       {
         field: 'withPet',
@@ -419,50 +462,7 @@ const EditableTable = ({ data }) => {
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportation)
       },
-      {
-        field: 'activity',
-        headerName: t('Activity'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.activity)
-      },
 
-      {
-        field: 'language',
-        headerName: t('Language'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.language)
-      
-      },
-
-  
-      {
-        field: 'noOfPeople',
-        headerName: t('No Of People'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.noOfPeople)
-      },
-      {
-        field: 'placeOfOrigin',
-        headerName: t('Place of Origin'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.placeOfOrigin)
-      },
-      {
-        field: 'province',
-        headerName: t('Province'),
-        flex: 1,
-        editable: true,
-        cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.province)
-      },
       {
         field: 'transportationReason',
         headerName: t('Transportation Reason'),
@@ -471,6 +471,33 @@ const EditableTable = ({ data }) => {
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportationReason)
       },
+
+      //activityReason
+
+      {
+        field: 'activity',
+        headerName: t('Activity'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.activity)
+      },
+      {
+        field: 'activityReason',
+        headerName: t('Activity Reason'),
+        flex: 1,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.activityReason)
+      },
+
+
+    
+
+  
+
+     
+
       {
         field: 'actions',
         headerName: t('Actions'),
