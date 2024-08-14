@@ -202,19 +202,7 @@ const EditableTable = ({ data }) => {
         searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
       }
 
-      // if (selectedDateFrom) {
-      //   searchedData = searchedData.filter((item) => {
-      //     const itemDate = new Date(item.date);
-      //     return itemDate >= selectedDateFrom;
-      //   });
-      // }
-
-      // if (selectedDateTo) {
-      //   searchedData = searchedData.filter((item) => {
-      //     const itemDate = new Date(item.date);
-      //     return itemDate <= selectedDateTo;
-      //   });
-      // }
+    
 
       if (selectedDateFrom && selectedDateTo && selectedDateFrom.getTime() === selectedDateTo.getTime()) {
         // Both dates are equal, filter for the exact date
@@ -244,12 +232,7 @@ const EditableTable = ({ data }) => {
         }
       }
 
-      // Sort by date (default sorting)
-      searchedData.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateB - dateA;
-      });
+    
 
       setEmpList(searchedData);
     } catch (err) {
@@ -282,19 +265,7 @@ const EditableTable = ({ data }) => {
   // useEffect(() => {
   //   let sortedData = [...empList];
 
-  //   if (sortModel.length > 0) {
-  //     const { field, sort } = sortModel[0];
-  //     sortedData = sortedData.sort((a, b) => {
-  //       if (a[field] < b[field]) return sort === 'asc' ? -1 : 1;
-  //       if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
-  //       return 0;
-  //     });
-  //   }
-
-  //   const start = page * pageSize;
-  //   const end = start + pageSize;
-  //   setFilteredEmpList(sortedData.slice(start, end));
-  // }, [empList, page, pageSize, sortModel]);
+ 
 
   useEffect(() => {
     let sortedData = [...empList];

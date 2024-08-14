@@ -136,6 +136,7 @@ const EditableTable = () => {
         }
       }
 
+
       setEmpList(searchedData);
     } catch (err) {
       console.log(err);
@@ -165,6 +166,13 @@ const EditableTable = () => {
         if (a[field] < b[field]) return sort === 'asc' ? -1 : 1;
         if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
         return 0;
+      });
+    }else {
+      // Default sorting by date in descending order
+      sortedData = sortedData.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
       });
     }
 
