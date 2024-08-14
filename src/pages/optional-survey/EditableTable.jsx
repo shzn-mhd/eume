@@ -377,7 +377,7 @@ const EditableTable = () => {
         </Alert>
       </Snackbar>
     </MainCard>
-  );
+   );
 };
 
 EditableTable.propTypes = {
