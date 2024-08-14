@@ -302,7 +302,10 @@ const EditableTable = () => {
             {showExportData && (
               <CSVExport
                 data={translatedEmpList}
-                headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+                // headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+                headers={columns
+                  .filter((col) => col.headerName !== "Actions")
+                  .map((col) => ({ label: col.headerName, key: col.field }))}
                 filename="optional-survey.csv"
               />
             )}

@@ -145,7 +145,7 @@
   "No": "Non",
   "Solo": "Solo",
   "In family": "En familia",
-  "In a group": "Nun grupo",
+ 
   "In couple": "En parella",
   "Visit family/friends": "Visita a familiares/amigos",
   "Business/meeting": "Negocios/reunión",
@@ -384,7 +384,12 @@
        "Export data":"Exportar datos",
        "Import data":"Importar datos",
        "Municipility":"Concello",
-       "Average":"Puntuación media"
+       "Average":"Puntuación media",
+
+       "With my couple":"En parella",
+       "Alone":"Só ou soa",
+        "With my family":"En familia",
+         "In a group":  "Nun grupo"
 
         
 }

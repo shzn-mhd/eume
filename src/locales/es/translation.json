@@ -145,7 +145,7 @@
   "No": "No",
   "Solo": "Solo",
   "In family": "En familiay",
-  "In a group": "En un grupo",
+ 
   "In couple": "En pareja",
   "Visit family/friends": "Visitar familiares/amigos",
   "Business/meeting": "Reunión de negocios",
@@ -384,7 +384,12 @@
   "Export data":"Exportar datos",
   "Import data":"Importar datos",
   "Municipility":"Ayuntamiento",
-  "Average":"Puntuación media"
+  "Average":"Puntuación media",
+
+   "With my couple":"En pareja",
+   "Alone":"Solo o sola",
+    "With my family":"En familia",
+     "In a group":  "En grupo"
 
   
   

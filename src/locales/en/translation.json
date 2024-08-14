@@ -146,7 +146,7 @@
 
   "Solo": "Solo",
   "In family": "In family",
-  "In a group": "In a group",
+  
   "In couple": "In couple",
   
   "Visit family/friends": "Visit family/friends",
@@ -385,7 +385,13 @@
   "Export data":"Export data",
   "Import data":"Import data",
   "Municipility":"Municipility",
-  "Average":"Average"
+  "Average":"Average",
+
+  "With my couple":"With my couple",
+  "Alone":"Alone",
+  "With my family":"With my family",
+  "In a group": "In a group"
+ 
 
  
 
