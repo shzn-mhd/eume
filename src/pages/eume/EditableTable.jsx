@@ -83,13 +83,11 @@ const EditableTable = ({ data }) => {
   const showImportData = user?.rolePermissions['Basic Survey']?.importData;
   const showExportData = user?.rolePermissions['Basic Survey'].exportData;
 
-
-
   const handleStoryDrawerOpen = () => {
     setOpenStoryDrawer((prevState) => !prevState);
   };
 
-  const empCollectionRef = collection(db,'survey_data');
+  const empCollectionRef = collection(db, 'survey_data');
 
   const fetchMunicipalities = async (roleIds) => {
     const municipalities = new Set();
@@ -113,43 +111,29 @@ const EditableTable = ({ data }) => {
         ...doc.data(),
         id: doc.id
       }));
-      console.log("municipalities basic",municipalities)
-      console.log("data basic",data)
-      console.log("filteredData basic",filteredData)
+      console.log('municipalities basic', municipalities);
+      console.log('data basic', data);
+      console.log('filteredData basic', filteredData);
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-      console.log("searchedData basic",searchedData)
+      console.log('searchedData basic', searchedData);
 
-      // if (searchValue) {
-      //   searchedData = searchedData.filter(
-      //     (item) =>
-      //       item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
-      //       item.age.includes(searchValue) ||
-      //       item.noOfDays.includes(searchValue)
-      //   );
 
-        if (searchValue) {
-          searchedData = searchedData.filter(
-            (item) =>
-              item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.age.includes(searchValue) ||
-              item.noOfDays.includes(searchValue)
-          );
-        // }
+      if (searchValue) {
+        searchedData = searchedData.filter(
+          (item) =>
+            item.placeOfOrigin.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.province.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.motivation.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.modality.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.stayPlace.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.accommodationType.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.transportation.toLowerCase().includes(searchValue.toLowerCase()) ||
+            item.age.includes(searchValue) ||
+            item.noOfDays.includes(searchValue)
+        );
+        
       }
       if (selectedGender) {
         searchedData = searchedData.filter((item) => item.gender === selectedGender);
@@ -202,8 +186,6 @@ const EditableTable = ({ data }) => {
         searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
       }
 
-    
-
       if (selectedDateFrom && selectedDateTo && selectedDateFrom.getTime() === selectedDateTo.getTime()) {
         // Both dates are equal, filter for the exact date
         searchedData = searchedData.filter((item) => {
@@ -231,8 +213,6 @@ const EditableTable = ({ data }) => {
           });
         }
       }
-
-    
 
       setEmpList(searchedData);
     } catch (err) {
@@ -265,11 +245,9 @@ const EditableTable = ({ data }) => {
   // useEffect(() => {
   //   let sortedData = [...empList];
 
- 
-
   useEffect(() => {
     let sortedData = [...empList];
-  
+
     if (sortModel.length > 0) {
       const { field, sort } = sortModel[0];
       sortedData = sortedData.sort((a, b) => {
@@ -285,13 +263,11 @@ const EditableTable = ({ data }) => {
         return dateB - dateA;
       });
     }
-  
+
     const start = page * pageSize;
     const end = start + pageSize;
     setFilteredEmpList(sortedData.slice(start, end));
   }, [empList, page, pageSize, sortModel]);
-  
-
 
   const ResetTable = () => {
     setSelectedGender('');
@@ -328,51 +304,47 @@ const EditableTable = ({ data }) => {
 
   const columns = useMemo(
     () => [
-
-        { field: 'date',
-         headerName: t('Date'),
-         width:200,
-           editable: true,
-           cellClassName: 'cell-center', 
-           renderCell: ({ row }) => t(row.date)
-           },
-       {
+      {
+        field: 'date',
+        headerName: t('Date'),
+        width: 200,
+        editable: true,
+        cellClassName: 'cell-center',
+        renderCell: ({ row }) => t(row.date)
+      },
+      {
         field: 'municipality',
         headerName: t('Municipality'),
         // flex: 1,
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.municipality)
       },
-      
+
       {
         field: 'language',
         headerName: t('Language'),
         // flex: 1,
-        width:80,
+        width: 80,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.language)
-      
       },
       {
         field: 'placeOfOrigin',
         headerName: t('Place of Origin'),
         // flex: 1,
-        width:120,
+        width: 120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.placeOfOrigin)
-       
-        
-       
       },
       {
         field: 'province',
         headerName: t('Province'),
         // flex: 1,
-        width:120,
+        width: 120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.province)
@@ -381,18 +353,16 @@ const EditableTable = ({ data }) => {
         field: 'gender',
         headerName: t('Gender'),
         // flex: 1,
-        width:80,
+        width: 80,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.gender)
       },
-      { field: 'age', headerName: t('Age'), 
-        width:80,
-         editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
+      { field: 'age', headerName: t('Age'), width: 80, editable: true, cellClassName: 'cell-center', renderCell: ({ row }) => t(row.age) },
       {
         field: 'motivation',
         headerName: t('Motivation'),
-         width:150,
+        width: 150,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.motivation)
@@ -400,7 +370,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'reason',
         headerName: t('Reason'),
-        width:180,
+        width: 180,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.reason)
@@ -408,7 +378,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'modality',
         headerName: t('Modality'),
-        width:120,
+        width: 120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.modality)
@@ -416,7 +386,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'noOfPeople',
         headerName: t('No Of People'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.noOfPeople)
@@ -424,7 +394,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'withPet',
         headerName: t('With Pet'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.withPet)
@@ -432,7 +402,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'stayOvernight',
         headerName: t('Stay Overnight'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.stayOvernight)
@@ -440,7 +410,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'stayPlace',
         headerName: t('Stay Place'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.stayPlace)
@@ -449,7 +419,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'noOfDays',
         headerName: t('No of Days'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.noOfDays)
@@ -457,7 +427,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'accommodationType',
         headerName: t('Accommodation Type'),
-        width:120,
+        width: 120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.accommodationType)
@@ -465,7 +435,7 @@ const EditableTable = ({ data }) => {
       {
         field: 'transportation',
         headerName: t('Transportation'),
-        width:120,
+        width: 120,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportation)
@@ -474,18 +444,16 @@ const EditableTable = ({ data }) => {
       {
         field: 'transportationReason',
         headerName: t('Transportation Reason'),
-        width:180,
+        width: 180,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.transportationReason)
       },
 
-      //activityReason
-
       {
         field: 'activity',
         headerName: t('Activity'),
-        width:100,
+        width: 100,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.activity)
@@ -493,23 +461,16 @@ const EditableTable = ({ data }) => {
       {
         field: 'activityReason',
         headerName: t('Activity Reason'),
-        width:200,
+        width: 200,
         editable: true,
         cellClassName: 'cell-center',
         renderCell: ({ row }) => t(row.activityReason)
       },
 
-
-    
-
-  
-
-     
-
       {
         field: 'actions',
         headerName: t('Actions'),
-        width:60,
+        width: 60,
         renderCell: (params) => (
           <Tooltip title={t('Delete')}>
             <IconButton
@@ -550,8 +511,6 @@ const EditableTable = ({ data }) => {
     return empList.slice(start, end);
   }, [empList, page, rowsPerPage]);
 
-
-
   const translateData = (data) => {
     return data.map((item) => ({
       date: t(item.date),
@@ -573,16 +532,14 @@ const EditableTable = ({ data }) => {
       placeOfOrigin: t(item.placeOfOrigin),
       province: t(item.province),
       transportationReason: t(item.transportationReason),
-      // Add any other fields that need translation
+      activityReason: t(item.activityReason)
+      
+      // Add any other fields that need translation  activityReason
     }));
   };
 
   // Translate empList data
   const translatedEmpList = translateData(empList);
-
-
-
-
 
   return (
     <MainCard
@@ -590,14 +547,8 @@ const EditableTable = ({ data }) => {
       title={t('Survey Table')}
       subheader={`${empList.length} ${t('Basic Surveys')}`}
       secondary={
-        <Stack 
-             direction={isMobile ? 'column' : 'row'}
-             spacing={2}
-             justifyContent="center"
-             alignItems="center"
-             >
-
-                 {/* <TextField
+        <Stack direction={isMobile ? 'column' : 'row'} spacing={2} justifyContent="center" alignItems="center">
+          {/* <TextField
             sx={{
               borderRadius: '4px',
               bgcolor: theme.palette.background.paper,
@@ -612,7 +563,7 @@ const EditableTable = ({ data }) => {
             value={searchValue}
             onChange={handleSearchChange}
           /> */}
-     
+
           <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
@@ -620,7 +571,6 @@ const EditableTable = ({ data }) => {
             color="primary"
             variant="contained"
             onClick={() => setOpenStoryDrawer((prevState) => !prevState)}
-            
           >
             {t('Filter Options')}
           </Button>
@@ -634,20 +584,30 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
 
-   
+          <Box display="flex" alignItems="center" gap={1}>
+            {showExportData && (
+              // <CSVExport
+              //   data={translatedEmpList}
+              //   headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+              //   filename="basic-survey.csv"
+              // />
+              <CSVExport
+  data={translatedEmpList}
+  headers={columns
+    .filter((col) => col.headerName !== "Actions")
+    .map((col) => ({ label: col.headerName, key: col.field }))}
+  filename="basic-survey.csv"
+/>
 
- <Box display="flex" alignItems="center" gap={1}>
-  {showExportData && <CSVExport data={translatedEmpList}  headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}  filename="basic-survey.csv" />}
-  {showImportData && (
-    <CSVImport
-      collectionRef={empCollectionRef}
-      onImportComplete={getEmpList}
-      headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
-    />
-  )}
-</Box>
-
-     
+            )}
+            {showImportData && (
+              <CSVImport
+                collectionRef={empCollectionRef}
+                onImportComplete={getEmpList}
+                headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+              />
+            )}
+          </Box>
         </Stack>
       }
     >
