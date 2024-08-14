@@ -311,7 +311,7 @@ const DashboardDefault = ({}) => {
           <AnalyticEcommerce
             title={t('Family/Friends')}
             count={visitFamilyFriendsCount}
-            percentage={(visitFamilyFriendsCount * 100) / empCount}
+            // percentage={(visitFamilyFriendsCount * 100) / empCount}
             isLoss
             color="warning"
             extra="$20,395"
@@ -324,7 +324,7 @@ const DashboardDefault = ({}) => {
           <AnalyticEcommerce
             title={t('Other')}
             count={otherCount}
-            percentage={(otherCount * 100) / empCount}
+            // percentage={(otherCount * 100) / empCount}
             isLoss
             color="warning"
             extra="$20,395"
