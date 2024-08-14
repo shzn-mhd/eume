@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Button, Dialog, Stack,useMediaQuery, useTheme ,Tooltip,IconButton,Snackbar, Alert } from '@mui/material';
+import { Box, Button, Dialog, Stack, useMediaQuery, useTheme, Tooltip, IconButton, Snackbar, Alert } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'components/MainCard';
 
 import { db } from 'config/firebase';
-import { getDocs, collection, getDoc,deleteDoc, doc } from 'firebase/firestore';
-import { PlusOutlined,DeleteOutlined } from '@ant-design/icons';
+import { getDocs, collection, getDoc, deleteDoc, doc } from 'firebase/firestore';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 
@@ -78,7 +78,7 @@ const EditableTable = () => {
       }));
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-      console.log("searchedData optional",searchedData)
+      console.log('searchedData optional', searchedData);
 
       if (selectedAcc) {
         searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
@@ -108,19 +108,6 @@ const EditableTable = () => {
         searchedData = searchedData.filter((item) => item.retailers === selectedCleaningConservation);
       }
 
-      // if (selectedDateFrom) {
-      //   searchedData = searchedData.filter((item) => {
-      //     const itemDate = new Date(item.date);
-      //     return itemDate >= selectedDateFrom;
-      //   });
-      // }
-
-      // if (selectedDateTo) {
-      //   searchedData = searchedData.filter((item) => {
-      //     const itemDate = new Date(item.date);
-      //     return itemDate <= selectedDateTo;
-      //   });
-      // }
       if (selectedDateFrom && selectedDateTo && selectedDateFrom.getTime() === selectedDateTo.getTime()) {
         // Both dates are equal, filter for the exact date
         searchedData = searchedData.filter((item) => {
@@ -140,7 +127,7 @@ const EditableTable = () => {
             return itemDate >= selectedDateFrom;
           });
         }
-      
+
         if (selectedDateTo) {
           searchedData = searchedData.filter((item) => {
             const itemDate = new Date(item.date);
@@ -148,14 +135,13 @@ const EditableTable = () => {
           });
         }
       }
-      
 
       setEmpList(searchedData);
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   useEffect(() => {
     getEmpList();
   }, [
@@ -198,15 +184,6 @@ const EditableTable = () => {
     setSelectedDateTo(null);
   };
 
-  // const deleteDocument = async (docId) => {
-  //   try {
-  //     await deleteDoc(doc(db, 'optional_survey_data', docId));
-  //     setEmpList((prev) => prev.filter((item) => item.id !== docId));
-  //     console.log("Document successfully deleted!");
-  //   } catch (error) {
-  //     console.error("Error deleting document: ", error);
-  //   }
-  // };
   const deleteDocument = async (docId) => {
     try {
       await deleteDoc(doc(db, 'optional_survey_data', docId));
@@ -221,19 +198,17 @@ const EditableTable = () => {
       setSnackbarOpen(true); // Show snackbar on error
     }
   };
-  
 
   const columns = useMemo(
     () => [
-   
       { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
-      {field: 'municipality',headerName: t('Municipality'),flex: 1,editable: true},
+      { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true },
       { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
 
       { field: 'lodging', headerName: t('Lodging'), flex: 1, editable: true },
       { field: 'catering_services', headerName: t('Catering Services'), flex: 1, editable: true },
 
-      { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true },//shopping
+      { field: 'retailers', headerName: t('Retailers'), flex: 1, editable: true }, //shopping
       { field: 'tourist_information', headerName: t('Tourist Information'), flex: 1, editable: true },
       { field: 'signaling', headerName: t('Signaling'), flex: 1, editable: true },
       { field: 'accessibility', headerName: t('Accessibility'), flex: 1, editable: true },
@@ -241,13 +216,8 @@ const EditableTable = () => {
       { field: 'cleaning_conservation', headerName: t('Cleaning Conservation'), flex: 1, editable: true },
       { field: 'cultural_offerings', headerName: t('Cultural Offerings'), flex: 1, editable: true },
 
-   
-    
-   
-
       { field: 'quality_price_ratio', headerName: t('Quality Price Ratio'), flex: 1, editable: true },
       { field: 'optionalFeedback', headerName: t('Optional Feedback'), flex: 1, editable: true },
-
 
       {
         field: 'actions',
@@ -262,12 +232,11 @@ const EditableTable = () => {
                 deleteDocument(params.row.id);
               }}
             >
-              <DeleteOutlined/>
+              <DeleteOutlined />
             </IconButton>
           </Tooltip>
         )
-      },
-   
+      }
     ],
     [t]
   );
@@ -287,15 +256,12 @@ const EditableTable = () => {
       cleaning_conservation: t(item.cleaning_conservation),
       cultural_offerings: t(item.cultural_offerings),
       quality_price_ratio: t(item.quality_price_ratio),
-      optionalFeedback: t(item.optionalFeedback),
-
+      optionalFeedback: t(item.optionalFeedback)
     }));
   };
 
   // Translate empList data
   const translatedEmpList = translateData(empList);
-
-
 
   return (
     <MainCard
@@ -314,7 +280,7 @@ const EditableTable = () => {
           >
             {t('Filter Options')}
           </Button>
-       
+
           <Button
             size="small"
             sx={{ minWidth: '130px', minHeight: '41.13px' }}
@@ -325,39 +291,47 @@ const EditableTable = () => {
             {t('Reset Filter')}
           </Button>
           <Box display="flex" alignItems="center" gap={1}>
-          {showExportData && <CSVExport data={translatedEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} filename="optional-survey.csv" />}
-          {showImportData && ( <CSVImport collectionRef={empCollectionRef} onImportComplete={getEmpList} headers={columns.map((col) => ({ label: col.headerName, key: col.field }))} />)}
-           </Box>
-         
+            {showExportData && (
+              <CSVExport
+                data={translatedEmpList}
+                headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+                filename="optional-survey.csv"
+              />
+            )}
+            {showImportData && (
+              <CSVImport
+                collectionRef={empCollectionRef}
+                onImportComplete={getEmpList}
+                headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+              />
+            )}
+          </Box>
         </Stack>
       }
     >
       <Box sx={{ width: '100%', overflowX: 'auto' }}>
-      <div  style={{ minWidth: isMobile ? 'auto' : '2500px' }}>
-        <DataGrid
-          rows={filteredEmpList}
-          columns={columns}
-          pageSize={pageSize}
-          rowsPerPageOptions={[5, 10, 20]}
-          paginationMode="server"
-          paginationModel={{ page, pageSize }}
-          onPaginationModelChange={(model) => {
-            setPage(model.page);
-            setPageSize(model.pageSize);
-          }}
-          sortingMode="server"
-          sortModel={sortModel}
-          onSortModelChange={(model) => setSortModel(model)}
-          rowCount={empList.length}
-        />
-          </div>
+        <div style={{ minWidth: isMobile ? 'auto' : '2500px' }}>
+          <DataGrid
+            rows={filteredEmpList}
+            columns={columns}
+            pageSize={pageSize}
+            rowsPerPageOptions={[5, 10, 20]}
+            paginationMode="server"
+            paginationModel={{ page, pageSize }}
+            onPaginationModelChange={(model) => {
+              setPage(model.page);
+              setPageSize(model.pageSize);
+            }}
+            sortingMode="server"
+            sortModel={sortModel}
+            onSortModelChange={(model) => setSortModel(model)}
+            rowCount={empList.length}
+          />
+        </div>
       </Box>
 
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
-        <FilterModal 
-        onClose={() => setOpenFilterModal(false)}
-        selectedAcc={selectedAcc}
-        setSelectedAcc={setSelectedAcc} />
+        <FilterModal onClose={() => setOpenFilterModal(false)} selectedAcc={selectedAcc} setSelectedAcc={setSelectedAcc} />
       </Dialog>
 
       <Filter
@@ -368,7 +342,6 @@ const EditableTable = () => {
         selectedAcc={selectedAcc}
         setSelectedAcc={setSelectedAcc}
         selectedMunicipality={selectedMunicipality}
-
         setSelectedMunicipality={setSelectedMunicipality}
         selectService={selectService}
         setSelectService={setSelectService}
@@ -384,9 +357,8 @@ const EditableTable = () => {
         setSelectedDateFrom={setSelectedDateFrom}
         selectedDateTo={selectedDateTo}
         setSelectedDateTo={setSelectedDateTo}
-    
       />
-               <Snackbar
+      <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={() => setSnackbarOpen(false)}
@@ -397,8 +369,6 @@ const EditableTable = () => {
         </Alert>
       </Snackbar>
     </MainCard>
-   
-
   );
 };
 
