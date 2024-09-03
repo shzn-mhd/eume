@@ -192,13 +192,13 @@ const HeaderContent = () => {
                         renderInput={(params) => <TextField {...params} label={t('Language')} />}
                     />
                 </FormControl>
-              {/* 
-                {!downLG && <Search />}
+              
+                {/* {!downLG && <Search />}
                 <Notification />
                 <Message />
                 {!downLG && <FullScreen />}
-                <Customization />
-                {!downLG && <Profile />} */}
+                <Customization /> */}
+                {!downLG && <Profile />}
             </Stack>
 
             {/* {downLG && <MobileSection />} */}

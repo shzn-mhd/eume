@@ -244,10 +244,9 @@ const EditableTable = ({ data }) => {
 
   // useEffect(() => {
   //   let sortedData = [...empList];
-
   useEffect(() => {
     let sortedData = [...empList];
-
+  
     if (sortModel.length > 0) {
       const { field, sort } = sortModel[0];
       sortedData = sortedData.sort((a, b) => {
@@ -256,18 +255,48 @@ const EditableTable = ({ data }) => {
         return 0;
       });
     } else {
-      // Default sorting by date in descending order
+      // Default sorting by date in descending order and secondary sort by a secondary field (e.g., 'id')
       sortedData = sortedData.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        return dateB - dateA;
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateB - dateA;
+        }
+        // Secondary sort by another field (e.g., 'id') to maintain uniqueness
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
       });
     }
-
+  
     const start = page * pageSize;
     const end = start + pageSize;
     setFilteredEmpList(sortedData.slice(start, end));
   }, [empList, page, pageSize, sortModel]);
+
+  // useEffect(() => {
+  //   let sortedData = [...empList];
+
+  //   if (sortModel.length > 0) {
+  //     const { field, sort } = sortModel[0];
+  //     sortedData = sortedData.sort((a, b) => {
+  //       if (a[field] < b[field]) return sort === 'asc' ? -1 : 1;
+  //       if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
+  //       return 0;
+  //     });
+  //   } else {
+  //     // Default sorting by date in descending order
+  //     sortedData = sortedData.sort((a, b) => {
+  //       const dateA = new Date(a.date);
+  //       const dateB = new Date(b.date);
+  //       return dateB - dateA;
+  //     });
+  //   }
+
+  //   const start = page * pageSize;
+  //   const end = start + pageSize;
+  //   setFilteredEmpList(sortedData.slice(start, end));
+  // }, [empList, page, pageSize, sortModel]);
 
   const ResetTable = () => {
     setSelectedGender('');
