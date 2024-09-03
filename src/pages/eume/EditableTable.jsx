@@ -118,6 +118,7 @@ const EditableTable = ({ data }) => {
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
       console.log('searchedData basic', searchedData);
 
+
       if (searchValue) {
         searchedData = searchedData.filter(
           (item) =>
@@ -132,6 +133,7 @@ const EditableTable = ({ data }) => {
             item.age.includes(searchValue) ||
             item.noOfDays.includes(searchValue)
         );
+        
       }
       if (selectedGender) {
         searchedData = searchedData.filter((item) => item.gender === selectedGender);
@@ -242,10 +244,9 @@ const EditableTable = ({ data }) => {
 
   // useEffect(() => {
   //   let sortedData = [...empList];
-
   useEffect(() => {
     let sortedData = [...empList];
-
+  
     if (sortModel.length > 0) {
       const { field, sort } = sortModel[0];
       sortedData = sortedData.sort((a, b) => {
@@ -254,18 +255,48 @@ const EditableTable = ({ data }) => {
         return 0;
       });
     } else {
-      // Default sorting by date in descending order
+      // Default sorting by date in descending order and secondary sort by a secondary field (e.g., 'id')
       sortedData = sortedData.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        return dateB - dateA;
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateB - dateA;
+        }
+        // Secondary sort by another field (e.g., 'id') to maintain uniqueness
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
       });
     }
-
+  
     const start = page * pageSize;
     const end = start + pageSize;
     setFilteredEmpList(sortedData.slice(start, end));
   }, [empList, page, pageSize, sortModel]);
+
+  // useEffect(() => {
+  //   let sortedData = [...empList];
+
+  //   if (sortModel.length > 0) {
+  //     const { field, sort } = sortModel[0];
+  //     sortedData = sortedData.sort((a, b) => {
+  //       if (a[field] < b[field]) return sort === 'asc' ? -1 : 1;
+  //       if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
+  //       return 0;
+  //     });
+  //   } else {
+  //     // Default sorting by date in descending order
+  //     sortedData = sortedData.sort((a, b) => {
+  //       const dateA = new Date(a.date);
+  //       const dateB = new Date(b.date);
+  //       return dateB - dateA;
+  //     });
+  //   }
+
+  //   const start = page * pageSize;
+  //   const end = start + pageSize;
+  //   setFilteredEmpList(sortedData.slice(start, end));
+  // }, [empList, page, pageSize, sortModel]);
 
   const ResetTable = () => {
     setSelectedGender('');
@@ -531,7 +562,7 @@ const EditableTable = ({ data }) => {
       province: t(item.province),
       transportationReason: t(item.transportationReason),
       activityReason: t(item.activityReason)
-
+      
       // Add any other fields that need translation  activityReason
     }));
   };
@@ -584,11 +615,19 @@ const EditableTable = ({ data }) => {
 
           <Box display="flex" alignItems="center" gap={1}>
             {showExportData && (
+              // <CSVExport
+              //   data={translatedEmpList}
+              //   headers={columns.map((col) => ({ label: col.headerName, key: col.field }))}
+              //   filename="basic-survey.csv"
+              // />
               <CSVExport
-                data={translatedEmpList}
-                headers={columns.filter((col) => col.headerName !== 'Actions').map((col) => ({ label: col.headerName, key: col.field }))}
-                filename="basic-survey.csv"
-              />
+  data={translatedEmpList}
+  headers={columns
+    .filter((col) => col.headerName !== "Actions")
+    .map((col) => ({ label: col.headerName, key: col.field }))}
+  filename="basic-survey.csv"
+/>
+
             )}
             {showImportData && (
               <CSVImport
@@ -601,7 +640,7 @@ const EditableTable = ({ data }) => {
         </Stack>
       }
     >
-      {/* <Box sx={{ width: '100%', overflowX: 'auto' }}>
+      <Box sx={{ width: '100%', overflowX: 'auto' }}>
         <div style={{ minWidth: isMobile ? 'auto' : '2600px' }}>
           <DataGrid
             rows={filteredEmpList}
@@ -620,31 +659,7 @@ const EditableTable = ({ data }) => {
             rowCount={empList.length}
           />
         </div>
-      </Box> */}
-
-<Box sx={{ width: '100%', overflowX: 'auto' }}>
-  <div style={{ minWidth: isMobile ? 'auto' : '2600px', maxHeight: '600px', overflowY: 'auto' }}>
-    <DataGrid
-      rows={filteredEmpList}
-      columns={columns}
-      pageSize={pageSize}
-      rowsPerPageOptions={[5, 10, 20]}
-      paginationMode="server"
-      paginationModel={{ page, pageSize }}
-      onPaginationModelChange={(model) => {
-        setPage(model.page);
-        setPageSize(model.pageSize);
-      }}
-      sortingMode="server"
-      sortModel={sortModel}
-      onSortModelChange={(model) => setSortModel(model)}
-      rowCount={empList.length}
-    />
-  </div>
-</Box>
-
-
-
+      </Box>
       <Dialog TransitionComponent={PopupTransition} onClose={() => setOpenFilterModal(false)} open={openFilterModal} scroll="body">
         <FilterModal
           onClose={() => setOpenFilterModal(false)}
