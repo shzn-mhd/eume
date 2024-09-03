@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { parse } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Button, Dialog, Stack, useMediaQuery, useTheme, Tooltip, IconButton, Snackbar, Alert } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -157,9 +158,14 @@ const EditableTable = () => {
     selectedDateTo
   ]);
 
+
+  const parseDate = (dateString) => {
+    return parse(dateString, 'yyyy-MM-dd hh:mm:ss a', new Date());
+  };
+  
   useEffect(() => {
     let sortedData = [...empList];
-
+  
     if (sortModel.length > 0) {
       const { field, sort } = sortModel[0];
       sortedData = sortedData.sort((a, b) => {
@@ -167,20 +173,28 @@ const EditableTable = () => {
         if (a[field] > b[field]) return sort === 'asc' ? 1 : -1;
         return 0;
       });
-    }else {
+    } else {
       // Default sorting by date in descending order
       sortedData = sortedData.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateB - dateA;
+        const dateA = parseDate(a.date);
+        const dateB = parseDate(b.date);
+  
+        // Handle invalid dates
+        if (isNaN(dateA) && isNaN(dateB)) return 0;
+        if (isNaN(dateA)) return 1;
+        if (isNaN(dateB)) return -1;
+  
+        return dateB - dateA; // Descending order
       });
     }
-
+  
     const start = page * pageSize;
     const end = start + pageSize;
     setFilteredEmpList(sortedData.slice(start, end));
   }, [empList, page, pageSize, sortModel]);
 
+
+  
   const ResetTable = () => {
     setSelectedAcc('');
     setSelectService('');
@@ -209,7 +223,28 @@ const EditableTable = () => {
 
   const columns = useMemo(
     () => [
-      { field: 'date', headerName: t('Date'), flex: 1, editable: true, cellClassName: 'cell-center' },
+      // { field: 'date',
+      //  headerName: t('Date'),
+      //  flex: 1, editable: true, cellClassName: 'cell-center' },
+      {
+        field: 'date',
+        headerName: t('Date'),
+        flex: 1,
+        editable: true,
+        renderCell: ({ value }) => {
+          // Render date in the desired format
+          return t(value);
+        },
+        sortComparator: (v1, v2) => {
+          // Parse the date strings
+          const date1 = parse(v1, 'yyyy-MM-dd hh:mm:ss a', new Date());
+          const date2 = parse(v2, 'yyyy-MM-dd hh:mm:ss a', new Date());
+    
+          // Compare dates
+          return date1 - date2;
+        },
+      
+      },
       { field: 'municipality', headerName: t('Municipality'), flex: 1, editable: true },
       { field: 'general_assessment', headerName: t('General Assessment'), flex: 1, editable: true },
 
