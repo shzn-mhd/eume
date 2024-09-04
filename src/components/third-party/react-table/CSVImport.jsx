@@ -20,21 +20,41 @@ const CSVImport = ({ collectionRef, headers,onImportComplete }) => {
   const transformKey = (key) => {
     const specialCases = {
      
-      "Place of Origin":"placeOfOrigin",
-         "No of People": "noOfPeople",
-"With Pet":"withPet",
-"Stay Overnight":"stayOvernight",
-"Stay Place":"stayPlace",
-"No of Days":"noOfDays",
-"Accommodation Type" : "accommodationType", //basic survey
-"Transportation Reason":"transportationReason",
-"Activity Reason":"activityReason",
+    "Place of Origin":"placeOfOrigin",
+    "No of People": "noOfPeople",
+    "With Pet":"withPet",
+    "Stay Overnight":"stayOvernight",
+    "Stay Place":"stayPlace",
+    "No of Days":"noOfDays",
+    "Accommodation Type" : "accommodationType", //basic survey
+    "Transportation Reason":"transportationReason",
+    "Activity Reason":"activityReason",
+    "Accommodation" : "lodging",  // optional survey
+    "Shopping" :"retailers",
+    "Signposting" :"signaling",
+    "Value for money":"quality_price_ratio",
+    "Optional Feedback":"optionalFeedback",
 
- "Accommodation" : "lodging",  // optional survey
-"Shopping" :"retailers",
-"Signposting" :"signaling",
-"Value for money":"quality_price_ratio",
-"Optional Feedback":"optionalFeedback",
+    "alojamiento": "accommodationType",
+    "actividad":"activity",
+    "motivo_de_la_actividad":"activityReason",
+    "age":"edad",
+    "fecha":"date",
+    "sexo": "gender",
+    "idioma":"language"
+    "modalidad" : "modality",
+    "motivación": "motivation",
+    "municipio" : "municipality",
+    "nº_de_días" : "noOfDays",
+    "número_de_personas" : "noOfPeople", 
+    "lugar_de_origen":"placeOfOrigin",
+    "provincia":"province",
+    "razón":"reason",
+    "pasar_la_noche":"stayOvernight",
+    "lugar_de_estancia":"stayPlace",
+    "transporte": "transportation",
+    "motivo_del_transporte": "transportationReason",
+    "con_mascota":"withPet",
       // Add more special cases here if needed
     };
   
