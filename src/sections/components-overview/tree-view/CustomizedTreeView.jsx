@@ -1,8 +1,8 @@
 // material-ui
 import { alpha, styled } from '@mui/material/styles';
 import { Collapse, SvgIcon } from '@mui/material';
+// import { treeItemClasses } from '@mui/lab/TreeItem';
 import { TreeItem, TreeView } from '@mui/lab';
-import { treeItemClasses } from '@mui/lab/TreeItem';
 
 // third-party
 import { useSpring, animated } from 'react-spring';
@@ -56,13 +56,27 @@ function TransitionComponent({ ...others }) {
   );
 }
 
-const StyledTreeItem = styled((props) => <TreeItem {...props} TransitionComponent={TransitionComponent} />)(({ theme }) => ({
-  [`& .${treeItemClasses.iconContainer}`]: {
+// const StyledTreeItem = styled((props) => <TreeItem {...props} TransitionComponent={TransitionComponent} />)(({ theme }) => ({
+//   [`& .${treeItemClasses.iconContainer}`]: {
+//     '& .close': {
+//       opacity: 0.3
+//     }
+//   },
+//   [`& .${treeItemClasses.group}`]: {
+//     marginLeft: 15,
+//     paddingLeft: 18,
+//     borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`
+//   }
+// }));
+const StyledTreeItem = styled((props) => (
+  <TreeItem {...props} TransitionComponent={TransitionComponent} />
+))(({ theme }) => ({
+  '& .MuiTreeItem-iconContainer': {
     '& .close': {
       opacity: 0.3
     }
   },
-  [`& .${treeItemClasses.group}`]: {
+  '& .MuiTreeItem-group': {
     marginLeft: 15,
     paddingLeft: 18,
     borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`

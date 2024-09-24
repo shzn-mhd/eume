@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 // material-ui
 import { styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
-import { TreeView, TreeItem } from '@mui/lab';
-import { treeItemClasses } from '@mui/lab/TreeItem';
+import { TreeItem, TreeView } from '@mui/lab'; 
+// import { treeItemClasses } from '@mui/lab/TreeItem';
 
 // project import
 import MainCard from 'components/MainCard';
@@ -22,9 +22,40 @@ import {
   CaretRightFilled
 } from '@ant-design/icons';
 
+// const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
+//   color: theme.palette.text.secondary,
+//   [`& .${treeItemClasses.content}`]: {
+//     color: theme.palette.text.secondary,
+//     borderTopRightRadius: theme.spacing(2),
+//     borderBottomRightRadius: theme.spacing(2),
+//     paddingRight: theme.spacing(1),
+//     fontWeight: theme.typography.fontWeightMedium,
+//     '&.Mui-expanded': {
+//       fontWeight: theme.typography.fontWeightRegular
+//     },
+//     '&:hover': {
+//       backgroundColor: theme.palette.action.hover
+//     },
+//     '&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused': {
+//       backgroundColor: `var(--tree-view-bg-color, ${theme.palette.action.selected})`,
+//       color: 'var(--tree-view-color)'
+//     },
+//     [`& .${treeItemClasses.label}`]: {
+//       fontWeight: 'inherit',
+//       color: 'inherit'
+//     }
+//   },
+//   [`& .${treeItemClasses.group}`]: {
+//     marginLeft: 0,
+//     [`& .${treeItemClasses.content}`]: {
+//       paddingLeft: theme.spacing(2)
+//     }
+//   }
+// }));
+
 const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
   color: theme.palette.text.secondary,
-  [`& .${treeItemClasses.content}`]: {
+  '& .MuiTreeItem-content': {
     color: theme.palette.text.secondary,
     borderTopRightRadius: theme.spacing(2),
     borderBottomRightRadius: theme.spacing(2),
@@ -40,14 +71,14 @@ const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
       backgroundColor: `var(--tree-view-bg-color, ${theme.palette.action.selected})`,
       color: 'var(--tree-view-color)'
     },
-    [`& .${treeItemClasses.label}`]: {
+    '& .MuiTreeItem-label': {
       fontWeight: 'inherit',
       color: 'inherit'
     }
   },
-  [`& .${treeItemClasses.group}`]: {
+  '& .MuiTreeItem-group': {
     marginLeft: 0,
-    [`& .${treeItemClasses.content}`]: {
+    '& .MuiTreeItem-content': {
       paddingLeft: theme.spacing(2)
     }
   }
