@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 firebase-debug.log*
 firebase-debug.*.log*
 
@@ -16,6 +17,12 @@ firebase-debug.*.log*
 # For a team working on the same Firebase project(s), it is recommended to leave
 # it commented so all members can deploy to the same project(s) in .firebaserc.
 # .firebaserc
+=======
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
 
 # Runtime data
 pids
@@ -28,11 +35,19 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+<<<<<<< HEAD
+=======
+*.lcov
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
 
 # nyc test coverage
 .nyc_output
 
+<<<<<<< HEAD
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+=======
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
 .grunt
 
 # Bower dependency directory (https://bower.io/)
@@ -41,11 +56,28 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
+<<<<<<< HEAD
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
 node_modules/
+=======
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+build
+dist
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript v1 declaration files
+typings/
+
+# TypeScript cache
+*.tsbuildinfo
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
 
 # Optional npm cache directory
 .npm
@@ -53,6 +85,15 @@ node_modules/
 # Optional eslint cache
 .eslintcache
 
+<<<<<<< HEAD
+=======
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
 # Optional REPL history
 .node_repl_history
 
@@ -63,4 +104,43 @@ node_modules/
 .yarn-integrity
 
 # dotenv environment variables file
+<<<<<<< HEAD
 .env
+=======
+# .env
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and *not* Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# wincompare file
+.bak
+>>>>>>> cd500df3a7f8ab854e86df82a588b3564028426e
