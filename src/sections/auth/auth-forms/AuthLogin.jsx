@@ -253,8 +253,8 @@ const AuthLogin = () => {
     <>
       <Formik
         initialValues={{
-          email: 'admin@eum.com',
-          password: '123456',
+          email: '',
+          password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
