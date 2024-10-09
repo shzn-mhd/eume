@@ -44,7 +44,7 @@ import { db } from 'config/firebase';
 
 const roles = ['Enable', 'Disable'];
 const accessTypes = ['Basic Survey', 'Optional Survey', 'Users', 'Roles'];
-const municipalityList = ['Cabanas', 'A Capela', 'Monfero', 'Pontedeume', 'As Pontes'];
+const municipalityList = ['Cabanas', 'A Capela', 'Monfero', 'Pontedeume', 'As Pontes', 'Undefine'];
 
 export default function NewUserForm({ setEmpList, handleClickClose, role }) {
   const { t, i18n } = useTranslation();
