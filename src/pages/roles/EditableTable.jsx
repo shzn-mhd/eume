@@ -28,7 +28,7 @@ import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-tabl
 import { db } from 'config/firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import usePagination from 'hooks/usePagination';
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, EditOutlined, EyeOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { PopupTransition } from 'components/@extended/Transitions';
 import FilterModal from './components/FilterModal';
 import Filter from './components/Filter';
@@ -38,6 +38,7 @@ import NewUserForm from './components/NewUserForm';
 import AlertUserDelete from './components/AlertUserDelete';
 // import UserView from './components/UserView';
 import UserModal from './components/UserModal';
+import RolesCSVExport from './components/userRoles-csv-export-component';
 import useAuth from 'hooks/useAuth';
 // ==============================|| REACT TABLE - EDITABLE ||============================== //
 
@@ -48,6 +49,8 @@ const EditableTable = ({ data }) => {
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // console.log({empList});
 
   const [selectedRole, setSelectedRole] = useState('');
   const [basicSurveyView, setBasicSurveyView] = useState(null);
@@ -657,10 +660,14 @@ const EditableTable = ({ data }) => {
             {t('Reset Filter')}
           </Button>
 
-          <CSVExport
+          {/* <CSVExport
             // data={table.getRowModel().flatRows.map((row) => row.original)}
             data={empList}
             headers={headers}
+            filename="user-roles.csv"
+          /> */}
+          <RolesCSVExport
+            data={empList}
             filename="user-roles.csv"
           />
         </Stack>

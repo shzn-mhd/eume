@@ -71,6 +71,7 @@ const EditableTable = ({ data }) => {
   const [selectedDayStay, setSelectedDayStay] = useState('');
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectedTrans, setSelectedTrans] = useState('');
+  const [selectedActivity, setSelectedActivity] = useState("");
   const [selectedDateFrom, setSelectedDateFrom] = useState(null);
   const [selectedDateTo, setSelectedDateTo] = useState(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -116,7 +117,7 @@ const EditableTable = ({ data }) => {
       console.log('filteredData basic', filteredData);
 
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
-      console.log('searchedData basic', searchedData);
+      console.log('searchedData basic', searchedData)
 
 
       if (searchValue) {
@@ -155,7 +156,9 @@ const EditableTable = ({ data }) => {
       }
 
       if (selectedMotivation) {
-        searchedData = searchedData.filter((item) => item.motivation === selectedMotivation);
+        searchedData = searchedData.filter((item) => {
+            return item.motivation.toLowerCase() === selectedMotivation.toLowerCase()
+        });
       }
 
       if (selectedModality) {
@@ -184,6 +187,10 @@ const EditableTable = ({ data }) => {
 
       if (selectedTrans) {
         searchedData = searchedData.filter((item) => item.transportation === selectedTrans);
+      }
+      
+      if (selectedActivity) {
+        searchedData = searchedData.filter((item) => item.activity === selectedActivity);
       }
 
       if (selectedDateFrom && selectedDateTo && selectedDateFrom.getTime() === selectedDateTo.getTime()) {
@@ -237,6 +244,7 @@ const EditableTable = ({ data }) => {
     selectedDayStay,
     selectedAcc,
     selectedTrans,
+    selectedActivity,
     selectedDateFrom,
     selectedDateTo,
     user.role
@@ -303,7 +311,8 @@ const EditableTable = ({ data }) => {
     setSearchValue('');
     setSelectedCountry('');
     setSelectedProvince('');
-    setSelectedAge('');
+    setSelectedMunicipality('');
+    setSelectedAge(null);
     setSelectedMotivation('');
     setSelectedModality('');
     setSelectedPet('');
@@ -312,6 +321,7 @@ const EditableTable = ({ data }) => {
     setSelectedDayStay('');
     setSelectedAcc('');
     setSelectedTrans('');
+    setSelectedActivity("");
     setSelectedDateFrom(null);
     setSelectedDateTo(null);
   };
@@ -570,6 +580,10 @@ const EditableTable = ({ data }) => {
   // Translate empList data
   const translatedEmpList = translateData(empList);
 
+  useEffect(() => {
+    console.log('Selected Motivation changed:', selectedMotivation);
+  }, [selectedMotivation]);
+
   return (
     <MainCard
       content={false}
@@ -621,12 +635,12 @@ const EditableTable = ({ data }) => {
               //   filename="basic-survey.csv"
               // />
               <CSVExport
-  data={translatedEmpList}
-  headers={columns
-    .filter((col) => col.headerName !== "Actions")
-    .map((col) => ({ label: col.headerName, key: col.field }))}
-  filename="basic-survey.csv"
-/>
+                data={translatedEmpList}
+                headers={columns
+                  .filter((col) => col.headerName !== "Actions")
+                  .map((col) => ({ label: col.headerName, key: col.field }))}
+                filename="basic-survey.csv"
+              />
 
             )}
             {showImportData && (
@@ -687,6 +701,8 @@ const EditableTable = ({ data }) => {
           setSelectedDayStay={setSelectedDayStay}
           selectedTrans={selectedTrans}
           setSelectedTrans={setSelectedTrans}
+          selectedActivity={selectedActivity}
+          setSelectedActivity={setSelectedActivity}
         />
       </Dialog>
 
@@ -725,6 +741,8 @@ const EditableTable = ({ data }) => {
         setSelectedDateFrom={setSelectedDateFrom}
         selectedDateTo={selectedDateTo}
         setSelectedDateTo={setSelectedDateTo}
+        selectedActivity={selectedActivity}
+        setSelectedActivity={setSelectedActivity}
       />
       <Snackbar
         open={snackbarOpen}

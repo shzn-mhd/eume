@@ -28,6 +28,7 @@ import stayList from 'data/stay';
 import transList from 'data/transport';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@mui/material';
+import { activitiesList } from 'data/activities';
 
 const Filter = ({
   empList,
@@ -64,11 +65,12 @@ const Filter = ({
   selectedDateFrom,
   setSelectedDateFrom,
   selectedDateTo,
-  setSelectedDateTo
-  
+  setSelectedDateTo,
+  selectedActivity,
+  setSelectedActivity
 }) => {
   const theme = useTheme();
-  const gender = ['Male', 'Female'];
+  const gender = ['Male', 'Female', 'Other', 'NS/NC'];
   const pet = ['Yes', 'No'];
   const stay = ['Yes', 'No'];
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -310,12 +312,12 @@ const Filter = ({
                   <FormControl fullWidth>
                     <TextField
                       id="age"
-                      value={selectedAge || null}
+                      value={(typeof selectedAge === 'string' && selectedAge > 0) ? selectedAge : ''}
                       // onChange={(event, newValue) => {
                       //   console.log("newww",newValue);
                       //   setSelectedAge(newValue ? newValue : null);
                       // }}
-                      onChange={(e) => setSelectedAge(e.target.value)}
+                      onChange={(e) => e.target.value >= 0 && setSelectedAge(e.target.value)}
                       sx={{
                         borderRadius: '4px',
                         bgcolor: theme.palette.background.paper
@@ -325,6 +327,7 @@ const Filter = ({
                       label={t('Age')}
                       type="number"
                     />
+                    
                     {/* <Autocomplete
                       id="age"
                       options={ageList}
@@ -508,6 +511,28 @@ const Filter = ({
                         // border: `1px solid ${theme.palette.primary.main}`
                       }}
                       renderInput={(params) => <TextField {...params} label={t('Transport')} />}
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <Grid container gap={1}>
+                <Grid item xs={11.6}>
+                  <FormControl fullWidth>
+                    <Autocomplete
+                      id="activity"
+                      options={activitiesList}
+                      getOptionLabel={(option) => t(option)}
+                      value={activitiesList.find((option) => option === selectedActivity) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedActivity(newValue ? newValue : null);
+                      }}
+                      sx={{
+                        borderRadius: '4px',
+                        bgcolor: theme.palette.background.paper
+                        // boxShadow: theme.customShadows.primary,
+                        // border: `1px solid ${theme.palette.primary.main}`
+                      }}
+                      renderInput={(params) => <TextField {...params} label={t('Activities')} />}
                     />
                   </FormControl>
                 </Grid>

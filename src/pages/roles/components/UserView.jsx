@@ -25,6 +25,7 @@ const UserView = ({ user, closeModal }) => {
   const optionalSurveyPermissions = user?.permissions?.['Optional Survey'] || {};
   const userPermissions = user?.permissions?.['Users'] || {};
   const cabanaPermissions = user?.permissions?.['Cabanas'] || {};
+
   return (
     <>
       <DialogTitle>{t('Role Details')}</DialogTitle>
@@ -150,37 +151,7 @@ const UserView = ({ user, closeModal }) => {
               </Grid>
             </Grid>
           </ListItem>
-          <ListItem 
-          // divider={!matchDownMD}
-          >
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} md={6}>
-                    <Stack spacing={0.5}>
-                      <Typography color="secondary">{t('Cabanas')}</Typography>
-                      {/* <Typography>{user?.email}</Typography> */}
-                      <Grid container md={12} spacing={1}>
-                        <Grid md={2.5} item>
-                          <Chip color={cabanaPermissions.add ? 'success' : 'error'} label={t("Add")} size="small" variant="light" />
-                        </Grid>
-                        <Grid md={2.5} item>
-                          <Chip color={cabanaPermissions.edit ? 'success' : 'error'} label={t("Edit")} size="small" variant="light" />
-                        </Grid>
-                        <Grid md={2.5} item>
-                          <Chip color={cabanaPermissions.view ? 'success' : 'error'} label={t("View")} size="small" variant="light" />
-                        </Grid>
-                        <Grid md={2.5} item>
-                          <Chip color={cabanaPermissions.delete ? 'success' : 'error'} label={t("Delete")} size="small" variant="light" />
-                        </Grid>
-                      </Grid>
-                    </Stack>
-                  </Grid>
-                  
-                </Grid>
-              </Grid>
-            </Grid>
-          </ListItem>
+          
         </List>
       </DialogContent>
       <Divider />

@@ -137,7 +137,7 @@ const FilterModal = ({
               id="age"
               options={ageList}
               getOptionLabel={(option) => option}
-              value={ageList.find((option) => option === selectedAge) || null}
+              value={ageList.find((option) => option === selectedAge.toString()) || null}
               onChange={(event, newValue) => {
                 setSelectedAge(newValue ? newValue : null);
               }}

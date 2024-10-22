@@ -130,10 +130,9 @@ const Filter = ({ open, empList, handleDrawerOpen, ResetTable, selectedRole, set
                       key={accOption}
                       getOptionLabel={(option) => t(option)}
                       value={roles.find((option) => option === selectedRole) || null}
-                      onChange={(event, newValue) => {
-                        setSelectedRole(newValue ? newValue : null);
-                      }}
-                      //   variant="contained"
+                      // onChange={(event, newValue) => {
+                      //   setSelectedRole(newValue ? newValue : null);
+                      // }}
                       size="small"
                       onClick={() => setSelectedRole(accOption ? accOption : null)}
                       sx={{
