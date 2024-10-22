@@ -111,7 +111,7 @@ const EditableTable = ({ data }) => {
         if (selectedRole) {
           // Filter out items with no accommodation value
           const filteredDataWithAccommodation = searchedData.filter((item) => item.role);
-          searchedData = filteredDataWithAccommodation.filter((item) => item.role === selectedRole);
+          searchedData = filteredDataWithAccommodation.filter((item) => roleMapping[item.role[0]] === selectedRole);
         }
         setEmpList(searchedData);
       } catch (err) {

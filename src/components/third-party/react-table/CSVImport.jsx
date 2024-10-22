@@ -143,21 +143,27 @@ const CSVImport = ({ collectionRef, headers,onImportComplete }) => {
         try {
           for (const row of data) {
             // Transform row keys
-            const transformedRow = {};
-            for (const key in row) {
-              if (row.hasOwnProperty(key)) {
-                const transformedKey = transformKey(key);
-                transformedRow[transformedKey] = row[key];
-              }
-            }
+            // const transformedRow = {};
+            // for (const key in row) {
+            //   if (row.hasOwnProperty(key)) {
+            //     const transformedKey = transformKey(key);
+            //     transformedRow[transformedKey] = row[key];
+            //   }
+            // }
            
-            // await addDoc(collectionRef, transformedRow);
             // Check if the transformedRow is not empty
-          if (Object.keys(transformedRow).length > 0) {
-            await addDoc(collectionRef, transformedRow);
+            // if (Object.keys(transformedRow).length > 0) {
+            //   await addDoc(collectionRef, transformedRow);
+            // }
           }
-          }
-          alert('Data successfully imported!');
+
+          // Store the parsed data in local storage
+          localStorage.setItem('csvImportData', JSON.stringify(data));
+
+          // Start the batch upload process
+          await uploadBatch(0);
+
+          alert('Data import process started. Check console for progress.');
           onImportComplete();
         } catch (error) {
           console.error('Error adding document: ', error);
@@ -169,6 +175,42 @@ const CSVImport = ({ collectionRef, headers,onImportComplete }) => {
         alert('Error parsing CSV.');
       }
     });
+  };
+
+  const uploadBatch = async (startIndex) => {
+    const batchSize = 100; // Adjust this value based on your needs
+    const data = JSON.parse(localStorage.getItem('csvImportData'));
+
+    if (!data || startIndex >= data.length) {
+      console.log('Import completed');
+      localStorage.removeItem('csvImportData');
+      return;
+    }
+
+    const batch = data.slice(startIndex, startIndex + batchSize);
+
+    try {
+      for (const row of batch) {
+        const transformedRow = {};
+        for (const key in row) {
+          if (row.hasOwnProperty(key)) {
+            const transformedKey = transformKey(key);
+            transformedRow[transformedKey] = row[key];
+          }
+        }
+
+        if (Object.keys(transformedRow).length > 0) {
+          await addDoc(collectionRef, transformedRow);
+        }
+      }
+
+      console.log(`Uploaded batch ${startIndex} to ${startIndex + batch.length}`);
+
+      // Schedule the next batch
+      setTimeout(() => uploadBatch(startIndex + batchSize), 1000); // 1 second delay between batches
+    } catch (error) {
+      console.error('Error uploading batch: ', error);
+    }
   };
   
   return (

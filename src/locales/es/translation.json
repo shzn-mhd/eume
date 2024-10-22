@@ -84,7 +84,7 @@
   "Password": "Contraseña",
   "Enter password": "Introducir la contraseña",
   "Caps lock on!": "¡Bloqueo de mayúsculas!",
-  "Select":"Seleccionar",
+  "Select": "Seleccionar",
   "Select Role": "Seleccionar rol",
   "User Details": "Detalles de usuario",
   "Cancel": "Cancelar",
@@ -134,7 +134,7 @@
   "Hotel": "Hotel",
   "Pension": "Pensión",
   "Family/friends house": "Casa de familiares o amistades",
-  "Tourist apartment":"Apartamento turístico",
+  "Tourist apartment": "Apartamento turístico",
   "Cultural": "Cultural",
   "Sports": "Deportes",
   "Others": "Otros",
@@ -145,7 +145,7 @@
   "No": "No",
   "Solo": "Solo",
   "In family": "En familiay",
- 
+
   "In couple": "En pareja",
   "Visit family/friends": "Visitar familiares/amigos",
   "Business/meeting": "Reunión de negocios",
@@ -155,16 +155,16 @@
   "Walking": "Caminando",
   "Bus": "Autobús",
   "Train": "Tren",
-  "By train":"En tren",
-  "In my own vehicle (car or motorbike)":"En vehículo propio (coche o moto)",
-  "By bike":"En bicicleta",
-  "On foot":"A pie",
-  "By bus":"En autobús",
+  "By train": "En tren",
+  "In my own vehicle (car or motorbike)": "En vehículo propio (coche o moto)",
+  "By bike": "En bicicleta",
+  "On foot": "A pie",
+  "By bus": "En autobús",
   "Optional Surveys": "Encuestas opcionales",
   "Basic Surveys": "Encuestas Básicas",
   "Date - From": "Fecha desde",
   "Date - To": "Fecha hasta",
-  
+
   "Afghanistan": "Afganistán",
   "Albania": "Albania",
   "Germany": "Alemania",
@@ -364,13 +364,12 @@
   "Monfero": "Monfero",
   "Pontedeume": "Pontedeume",
 
-  "Evaluation Table":"Tabla de evaluaciones",
-  "General Assessment":"Evaluación general",
-  "Municipility Average Assessment":"Puntuación media por Ayuntamiento",
-  "Logout":"Cerrar sesión",
-  "ACTIONS":"Acciones",
-  "All rights reserved by Perfect Numbers":"Todos los derechos reservados a Perfect Numbers",
- 
+  "Evaluation Table": "Tabla de evaluaciones",
+  "General Assessment": "Evaluación general",
+  "Municipility Average Assessment": "Puntuación media por Ayuntamiento",
+  "Logout": "Cerrar sesión",
+  "ACTIONS": "Acciones",
+  "All rights reserved by Perfect Numbers": "Todos los derechos reservados a Perfect Numbers",
 
   "passwordStrength": {
     "Poor": "Pobre",
@@ -380,17 +379,14 @@
     "Strong": "Fuerte"
   },
 
-  "Manager":"Gerente",
-  "Export data":"Exportar datos",
-  "Import data":"Importar datos",
-  "Municipility":"Ayuntamiento",
-  "Average":"Puntuación media",
+  "Manager": "Gerente",
+  "Export data": "Exportar datos",
+  "Import data": "Importar datos",
+  "Municipility": "Ayuntamiento",
+  "Average": "Puntuación media",
 
-   "With my couple":"En pareja",
-   "Alone":"Solo o sola",
-    "With my family":"En familia",
-     "In a group":  "En grupo"
-
-  
-  
+  "With my couple": "En pareja",
+  "Alone": "Solo o sola",
+  "With my family": "En familia",
+  "In a group": "En grupo"
 }

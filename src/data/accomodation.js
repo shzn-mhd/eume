@@ -13,17 +13,17 @@
 // ]
 
 const accList = [
-  "Rural Tourism",
-"Pension",
-"Hotel",
-"Family/friends house",
-"Mobile home",
-"Tourist apartment",
-"Camping",
-"Hostel",
-"Rental housing",
-"Own house/2nd residence",
-"Others"
-]
+  'Rural Tourism',
+  'Pension',
+  'Hotel',
+  'Family/friends house',
+  'Mobile home',
+  'Tourist apartment',
+  'Camping',
+  'Hostel',
+  'Rental housing',
+  'Own house/2nd residence',
+  'Others'
+];
 
 export default accList;
