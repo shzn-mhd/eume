@@ -53,7 +53,7 @@
   "Country wise Total": "Total por país",
   "Vacation/Leisure": "Vacaciones/Ocio",
   "Family/Friends": "Familia/Amistades",
-  "Business/Meeting": "Reunión de negocios",
+  "Business/Meeting": "Negocios/Reunión",
   "Other": "Otro",
   "Home": "Hogar",
   "Optional Survey": "Encuesta Opcional",
@@ -366,7 +366,7 @@
 
   "Evaluation Table": "Tabla de evaluaciones",
   "General Assessment": "Evaluación general",
-  "Municipility Average Assessment": "Puntuación media por Ayuntamiento",
+  "Municipility Average Assessment": "Puntuación media por ayuntamiento",
   "Logout": "Cerrar sesión",
   "ACTIONS": "Acciones",
   "All rights reserved by Perfect Numbers": "Todos los derechos reservados a Perfect Numbers",
@@ -388,5 +388,14 @@
   "With my couple": "En pareja",
   "Alone": "Solo o sola",
   "With my family": "En familia",
-  "In a group": "En grupo"
+  "In a group": "En grupo",
+
+  "Email is required": "Se requiere correo electrónico",
+  "Must be a valid email": "Debe ser un correo electrónico válido",
+  "Password is required": "Se requiere contraseña",
+  "Invalid email or password": "Correo electrónico o contraseña no válidos",
+  "of": "de",
+  "Data import process started. Check console for progress.": "Se inició el proceso de importación de datos. Verifique la consola para ver el progreso.",
+  "Error importing data.": "Error al importar datos.",
+  "Error parsing CSV.": "Error al analizar CSV."
 }
