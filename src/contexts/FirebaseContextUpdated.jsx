@@ -9,6 +9,7 @@ import { LOGIN, LOGOUT } from 'contexts/auth-reducer/actions';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 import { set } from 'lodash';
+import { compare, hash } from 'bcryptjs';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -66,13 +67,23 @@ export const FirebaseProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const q = query(collection(db, 'users'), where('email', '==', email), where('password', '==', password));
+      // Get user and if user exists then compare hashed password to given password
+      const q = query(collection(db, 'users'), where('email', '==', email));
+      
       const querySnapshot = await getDocs(q);
+
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         const firestore = getFirestore(app);
         let roleName = [];
         let rolePermissions = {};
+
+        // Compare hashed password
+        const passwordMatch = await compare(password, userData.password);
+
+        if (!passwordMatch) {
+          return { success: false, message: 'Invalid password' };
+        }
 
         // Fetch role documents based on user roles
         const rolePromises = userData.role.map(async (roleId) => {
@@ -109,8 +120,9 @@ export const FirebaseProvider = ({ children }) => {
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
+
       } else {
-        return { success: false, message: 'Invalid email or password' };
+        return { success: false, message: 'User does not exisits' };
       }
     } catch (error) {
       console.error('Error logging in:', error);
@@ -131,6 +143,17 @@ export const FirebaseProvider = ({ children }) => {
   };
 
   const firebaseRegister = async (email, password, firstName, lastName, role) => {
+    // Check is email already exists
+    const q = query(collection(db, 'users'), where('email', '==', email));
+    
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data();
+      
+      return { success: false, message: 'Email already exists' };
+    }
+
     const firestore = getFirestore(app);
     // const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     // const user = userCredential.user;
@@ -138,10 +161,14 @@ export const FirebaseProvider = ({ children }) => {
     // Store additional user information in Firestore
     const uuid = uuidv4();
     const userDoc = doc(firestore, 'users', uuid);
+
+    // Encrypt password
+    const encryptedPassword = await hash(password, 10);
+
     await setDoc(userDoc, {
       uid: uuid,
       email: email,
-      password: password,
+      password: encryptedPassword,
       firstName: firstName,
       lastName: lastName,
       role: role
