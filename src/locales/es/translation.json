@@ -397,5 +397,7 @@
   "of": "de",
   "Data import process started. Check console for progress.": "Se inició el proceso de importación de datos. Verifique la consola para ver el progreso.",
   "Error importing data.": "Error al importar datos.",
-  "Error parsing CSV.": "Error al analizar CSV."
+  "Error parsing CSV.": "Error al analizar CSV.",
+
+  "DK/NO": "NS/NC"
 }

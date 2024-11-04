@@ -80,7 +80,7 @@ const Filter = ({
   setSelectedDayStayMax,
 }) => {
   const theme = useTheme();
-  const gender = ['Male', 'Female', 'Other', 'NS/NC'];
+  const gender = ['Male', 'Female', 'Other', 'DK/NO'];
   const pet = ['Yes', 'No'];
   const stay = ['Yes', 'No'];
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
