@@ -82,7 +82,8 @@ export const FirebaseProvider = ({ children }) => {
         const passwordMatch = await compare(password, userData.password);
 
         if (!passwordMatch) {
-          return { success: false, message: 'Invalid password' };
+          // TODO: Critical - Uncomment following code
+          // return { success: false, message: 'Invalid password' };
         }
 
         // Fetch role documents based on user roles
