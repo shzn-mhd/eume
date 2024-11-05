@@ -237,6 +237,8 @@ const EditableTable = ({ data }) => {
   };
 
   const handleSortingChange = (columnId) => {
+    if (!columnId) return;
+
     setSorting((oldSorting) => {
       // If the column was already being sorted by, toggle the direction
       if (oldSorting.length > 0 && oldSorting[0].id === columnId) {
@@ -249,14 +251,34 @@ const EditableTable = ({ data }) => {
     // Sort the empList data based on the columnId and sort direction
     setEmpList((prevEmpList) =>
       prevEmpList.slice().sort((a, b) => {
+        // Handle nested permissions objects
+        if (columnId.includes('permissions.')) {
+          const [section, subsection] = columnId.split('.');
+          const valueA = a[section]?.[subsection];
+          const valueB = b[section]?.[subsection];
+          
+          // Compare the nested objects based on their properties
+          const compareValue = (objA, objB) => {
+            if (!objA || !objB) return 0;
+            // Compare based on number of true values in permissions
+            const trueCountA = Object.values(objA).filter(Boolean).length;
+            const trueCountB = Object.values(objB).filter(Boolean).length;
+            return trueCountA - trueCountB;
+          };
+  
+          const result = compareValue(valueA, valueB);
+          return sorting[0]?.desc ? -result : result;
+        }
+  
+        // Handle regular fields
         const sortValueA = a[columnId];
         const sortValueB = b[columnId];
-
+  
         if (sortValueA < sortValueB) {
-          return sorting[0].desc ? 1 : -1;
+          return sorting[0]?.desc ? 1 : -1;
         }
         if (sortValueA > sortValueB) {
-          return sorting[0].desc ? -1 : 1;
+          return sorting[0]?.desc ? -1 : 1;
         }
         return 0;
       })
@@ -264,7 +286,7 @@ const EditableTable = ({ data }) => {
   };
 
   useEffect(() => {
-    // console.log('sorting id', sortValue);
+    console.log('sorting id', sortValue);
 
     handleSortingChange(sortValue);
   }, [sortValue]);

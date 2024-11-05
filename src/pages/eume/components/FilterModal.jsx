@@ -13,6 +13,7 @@ import modalityList from 'data/modality';
 import stayList from 'data/stay';
 import accList from 'data/accomodation';
 import transList from 'data/transport';
+import { t } from 'i18next';
 
 const FilterModal = ({
   onClose,
@@ -144,7 +145,7 @@ const FilterModal = ({
           <FormControl style={{ width: '220px' }}>
             <TextField
               id="peopleMin"
-              label="Min People"
+              label={t("Min People")}
               type="number"
               value={selectedPeopleMin}
               onChange={(e) => e.target.value >= 0 && setSelectedPeopleMin(e.target.value)}
@@ -160,7 +161,7 @@ const FilterModal = ({
           <FormControl style={{ width: '220px' }}>
             <TextField
               id="peopleMax"
-              label="Max People"
+              label={t("Max People")}
               type="number"
               value={selectedPeopleMax}
               onChange={(e) => e.target.value >= 0 && setSelectedPeopleMax(e.target.value)}
@@ -177,7 +178,7 @@ const FilterModal = ({
           <FormControl style={{ width: '220px' }}>
               <TextField
                 id="dayStayMin"
-                label="Min Days"
+                label={t("Min Days")}
                 type="number"
                 value={selectedDayStayMin}
                 onChange={(e) => e.target.value >= 0 && setSelectedDayStayMin(e.target.value)}
@@ -193,7 +194,7 @@ const FilterModal = ({
             <FormControl style={{ width: '220px' }}>
               <TextField
                 id="dayStayMax"
-                label="Max Days"
+                label={t("Max Days")}
                 type="number"
                 value={selectedDayStayMax}
                 onChange={(e) => e.target.value >= 0 && setSelectedDayStayMax(e.target.value)}

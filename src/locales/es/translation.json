@@ -399,5 +399,9 @@
   "Error importing data.": "Error al importar datos.",
   "Error parsing CSV.": "Error al analizar CSV.",
 
-  "DK/NO": "NS/NC"
+  "DK/NO": "NS/NC",
+  "Min People": "Mínimo de personas",
+  "Max People": "Máximo de personas",
+  "Min Days": "Mínimo de días",
+  "Max Days": "Máximo de días"
 }

@@ -19,8 +19,18 @@ const MenuProps = {
 // ==============================|| COLUMN SORTING - SELECT ||============================== //
 
 const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting, size = 'medium' }) => {
-  
   const { t, i18n } = useTranslation();
+
+  const handleSortChange = (columnId) => {
+    // Prevent deselection by maintaining the sort state
+    const newSorting = getState().sorting.length > 0 && columnId === getState().sorting[0].id 
+      ? [{ id: columnId, desc: !getState().sorting[0].desc }] 
+      : [{ id: columnId, desc: false }];
+    
+    setSorting(newSorting);
+    setSortValue(columnId);
+  };
+
   return (
   <FormControl sx={{ width: 200 }}>
     <Select
@@ -30,11 +40,11 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
       value={getState().sorting.length > 0 ? getState().sorting : []}
       input={<OutlinedInput id="select-column-sorting" placeholder="select column" />}
       renderValue={(selected) => {
-        const selectedColumn = getAllColumns().filter((column) => selected.length > 0 && column.id === selected[0].id)[0];
+        const selectedColumn = getAllColumns().find((column) => 
+          selected.length > 0 && column.id === selected[0].id
+        );
+        
         if (selectedColumn) {
-          // console.log("selectedColumn",selectedColumn.columnDef.accessorKey);
-          // handleSortingChange(selectedColumn.columnDef.accessorKey);
-          setSortValue(selectedColumn.columnDef.accessorKey);
           return (
             <Typography variant="subtitle2">
               {t('Sort by')} ({typeof selectedColumn.columnDef.header === 'string' ? selectedColumn.columnDef.header : '#'})
@@ -47,23 +57,22 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
       size={size}
     >
       {getAllColumns().map(
-        (column) =>
-          // @ts-ignore
-          column.columnDef.accessorKey &&
-          column.getCanSort() && (
-            <MenuItem
-              key={column.id}
-              value={column.id}
-              onClick={() =>
-                // handleSortingChange(getState().sorting.length > 0 && column.id === getState().sorting[0].id ? [] : [{ id: column.id, desc: false }])
-                setSorting(getState().sorting.length > 0 && column.id === getState().sorting[0].id ? [] : [{ id: column.id, desc: false }])
-              }
-            >
-              <Checkbox checked={getState().sorting.length > 0 && column.id === getState().sorting[0].id} color="success" />
-              <ListItemText primary={column.columnDef.header} />
-            </MenuItem>
-          )
-      )}
+          (column) =>
+            column.columnDef.accessorKey &&
+            column.getCanSort() && (
+              <MenuItem
+                key={column.id}
+                value={column.id}
+                onClick={() => handleSortChange(column.id)}
+              >
+                <Checkbox 
+                  checked={getState().sorting.length > 0 && column.id === getState().sorting[0].id} 
+                  color="success" 
+                />
+                <ListItemText primary={column.columnDef.header} />
+              </MenuItem>
+            )
+        )}
     </Select>
   </FormControl>
 );

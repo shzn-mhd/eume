@@ -35,6 +35,7 @@ import { useTranslation } from 'react-i18next';
 import { collection, doc, getDocs, query, updateDoc, where, addDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { db } from 'config/firebase';
+import { hash } from 'bcryptjs';
 
 // const roles = ['Admin', 'User'];
 
@@ -111,38 +112,90 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
             validationSchema={Yup.object().shape({
               firstname: Yup.string().max(255).required('First Name is required'),
               lastname: Yup.string().max(255).required('Last Name is required'),
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              email: Yup.string().email('Must be a valid email').max(255).required('Email is required').matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
+                message: "Email is invalid"
+              }),
               password: user ? Yup.string().max(255) : Yup.string().max(255).required('Password is required'),
               role: Yup.array().required('Role is required')
             })}
+            
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
               try {
-                if (user) {
+                // Check if the user exists,
+                // If the user exists, update the user data
+                // If the user does not exist, register a new user
+                // Check is email already exists
+                let existingUser;
+
+                const q = query(collection(db, 'users'), where('email', '==', values.email));
+                
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                  const userData = querySnapshot.docs[0].data();
+                  
+                  console.log({userData});
+                  existingUser = userData
+                }
+
+                if (user && existingUser) {
                   const userDoc = doc(db, 'users', user.id);
+
                   // Collect the fields to update
-                  const updateData = {
-                    // email: values.email,
+                  let updateData = {
+                    email: values.email,
                     firstName: values.firstname,
                     lastName: values.lastname,
                     // role: values.role,
                     role: values.role.map((role) => role.id),
-                    password: values.password // This line adds the password to the update data
+                    
                   };
+
+                  // console.log(values.password, values.password === '', !values.password);
+
+                  if (values.password || values.password !== '') {
+                    console.log("Password is not empty");
+
+                    // Encrypt password before updating the user data
+                    const hashedPassword = await hash(values.password, 10);
+
+                    updateData = {
+                      ...updateData,
+                      password: hashedPassword // This line adds the password to the update data
+                    }
+                  } else {
+                    console.log("Password is empty");
+                  }
 
                   await updateDoc(userDoc, updateData);
 
                   // Update the user's password in Firebase Authentication if it has been changed
                   if (values.password) {
-                    const authUser = getUser(auth, user.id);
+                    const authUser = getUser({ currentUser: user }, user.id);
                     await updatePassword(authUser, values.password);
                   }
 
                   // update the user list state
                   setEmpList((prevList) => prevList.map((u) => (u.id === user.id ? { ...u, ...updateData } : u)));
                 } else {
+                  if (existingUser) {
+                    setStatus({ success: false });
+                    setErrors({ submit: 'User already exisits' });
+                    return;
+                  }
+
+                  if (!values.role || values.role.length === 0) {
+                    setStatus({ success: false });
+                    setErrors({ submit: 'Role is required' });
+                    return;
+                  }
+
+                  // Register new user
+                  const hashedPassword = await hash(values.password, 10);
+
                   const userCredential = await firebaseRegister(
                     values.email,
-                    values.password,
+                    hashedPassword,
                     values.firstname,
                     values.lastname,
                     // values.role

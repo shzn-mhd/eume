@@ -15,8 +15,20 @@ import { HORIZONTAL_MAX_ITEM } from 'config';
 import { useGetMenu, useGetMenuMaster } from 'api/menu';
 import { MenuOrientation } from 'config';
 import { useMenuConfig } from 'menu-items/applications';
+import { useFirebase } from 'contexts/FirebaseContextUpdated'; 
+import { cleanDigitSectionValue } from '@mui/x-date-pickers/internals/hooks/useField/useField.utils';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
+
+const PERMISSION_MAP = {
+  '/users/UserListPage': { module: 'Users', action: 'view' },
+  '/roles/RoleListPage': { module: 'Roles', action: 'view' },
+  '/eume/EditableTablePage': { module: 'Basic Survey', action: 'view' },
+  '/optional-survey/OptionalSurveyPage': { module: 'Optional Survey', action: 'view' },
+  '/dashboard/cabanas': { module: 'Cabanas', action: 'view' },
+  // Add more mappings as needed
+};
+
 
 const Navigation = () => {
   const theme = useTheme();
@@ -25,6 +37,8 @@ const Navigation = () => {
   // const { menuMaster } = useGetMenuMaster();
   // const drawerOpen = menuMaster.isDashboardDrawerOpened;
   const { applications } = useMenuConfig(); // Get the menu configuration from context
+  const { user } = useFirebase()
+
   const drawerOpen = true;
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -53,12 +67,30 @@ const Navigation = () => {
   //   }
   //   // eslint-disable-next-line
   // }, [menuLoading]);
+console.log(user)
+  // Add permission check helper
+  const hasPermission = (item) => {
+    // Allow dashboard and other non-restricted pages
+    if (!item.url || item.url === '/dashboard/default') return true;
+    
+    // Get required permissions from the mapping
+    const requiredPermissions = PERMISSION_MAP[item.url];
+    if (!requiredPermissions) return true; // If no mapping found, show by default
+    
+    if (!user?.rolePermissions) return false;
+    
+    const { module, action } = requiredPermissions;
+    return user.rolePermissions[module]?.[action] === true;
+  };
+
+  const filteredChildren = applications.children.filter(hasPermission);
 
   const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downLG;
 
   const lastItem = isHorizontal ? HORIZONTAL_MAX_ITEM : null;
   // let lastItemIndex = menuItems.items.length - 1;
-  let lastItemIndex = applications.children.length - 1;
+  let lastItemIndex = filteredChildren.length - 1;
+
   let remItems = [];
   let lastItemId;
 
@@ -77,16 +109,15 @@ const Navigation = () => {
   //     })
   //   }));
   // }
-  if (lastItem && lastItem < applications.children.length) {
-    lastItemId = applications.children[lastItem - 1].id;
+  // Update remItems calculation
+  if (lastItem && lastItem < filteredChildren.length) {
+    lastItemId = filteredChildren[lastItem - 1].id;
     lastItemIndex = lastItem - 1;
-    remItems = applications.children.slice(lastItem - 1, applications.children.length).map((item) => ({
+    remItems = filteredChildren.slice(lastItem - 1, filteredChildren.length).map((item) => ({
       title: item.title,
-      elements: item.children,
+      elements: item.children?.filter(hasPermission), // Filter nested items too
       icon: item.icon,
-      ...(item.url && {
-        url: item.url
-      })
+      ...(item.url && { url: item.url })
     }));
   }
 
@@ -123,7 +154,7 @@ const Navigation = () => {
   //       );
   //   }
   // });
-  const navGroups = applications.children.slice(0, lastItemIndex + 1).map((item, index) => {
+  const navGroups = filteredChildren.slice(0, lastItemIndex + 1).map((item, index) => {
 
     switch (item.type) {
       case 'group':

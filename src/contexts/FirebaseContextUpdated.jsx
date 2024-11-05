@@ -10,6 +10,7 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 import { set } from 'lodash';
 import { compare, hash } from 'bcryptjs';
+import { SHA256 } from 'crypto-js';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -117,7 +118,11 @@ export const FirebaseProvider = ({ children }) => {
         }
         dispatch(dispatchData);
         console.log("dispatchData>>", dispatchData);
-        setLocalstorageValue("user", JSON.stringify(dispatchData.payload.user));
+
+        // Encrypt local storage user data
+        // const userPayloadEncrypted = SHA256(JSON.stringify(dispatchData.payload.user)).toString();
+
+        setLocalstorageValue("user", userPayloadEncrypted);
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
