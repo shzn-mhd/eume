@@ -122,7 +122,7 @@ export const FirebaseProvider = ({ children }) => {
         // Encrypt local storage user data
         // const userPayloadEncrypted = SHA256(JSON.stringify(dispatchData.payload.user)).toString();
 
-        setLocalstorageValue("user", userPayloadEncrypted);
+        setLocalstorageValue("user", dispatchData.payload.user);
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
