@@ -3,21 +3,22 @@ import useLocalStorage from './useLocalStorage';
 
 const useInitializer = () => {
   const [dispatch] = useReducer(authReducer, initialState);
-  const {getLocalstorageValue} = useLocalStorage();
+  const { getLocalstorageValue } = useLocalStorage();
 
   const initilizeLogin = () => {
-    const user = getLocalstorageValue("user");
+    const user = getLocalstorageValue('user');
+
     const dispatchData = {
-        type: LOGIN,
-        payload: {
-          isLoggedIn: true,
-          user: JSON.parse(user)
-        }
+      type: LOGIN,
+      payload: {
+        isLoggedIn: true,
+        user: JSON.parse(user)
       }
-    dispatch(dispatchData)
+    };
+    dispatch(dispatchData);
   };
 
-  return {initilizeLogin}
+  return { initilizeLogin };
 };
 
 export default useInitializer;

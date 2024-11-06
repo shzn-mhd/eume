@@ -72,7 +72,10 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
+              if (!values.roleStatus || values.roleStatus === "") throw new Error("Role Status is Undefined");
+              
               if (role) {
+
                 // logic for edit existing role in firestore
                 const roleDocRef = doc(db, 'roles', role.id);
                 await updateDoc(roleDocRef, {

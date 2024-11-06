@@ -105,6 +105,7 @@ const FilterModal = ({
               renderInput={(params) => <TextField {...params} label="Country" />}
             />
           </FormControl>
+          
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="province"
@@ -123,6 +124,7 @@ const FilterModal = ({
               renderInput={(params) => <TextField {...params} label="Province" />}
             />
           </FormControl>
+
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="gender"
@@ -158,6 +160,7 @@ const FilterModal = ({
               }}
             />
           </FormControl>
+
           <FormControl style={{ width: '220px' }}>
             <TextField
               id="peopleMax"
@@ -191,6 +194,7 @@ const FilterModal = ({
                 }}
               />
             </FormControl>
+
             <FormControl style={{ width: '220px' }}>
               <TextField
                 id="dayStayMax"
@@ -208,6 +212,7 @@ const FilterModal = ({
               />
             </FormControl>
         </Stack>
+
         <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
@@ -321,6 +326,7 @@ const FilterModal = ({
             />
           </FormControl>
         </Stack>
+
         <Stack direction="row" spacing={2} justifyContent="center">
           {/* <FormControl style={{ width: '220px' }}>
             <Autocomplete

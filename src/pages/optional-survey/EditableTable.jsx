@@ -28,9 +28,15 @@ const EditableTable = () => {
   const [pageSize, setPageSize] = useState(10);
   const [filteredEmpList, setFilteredEmpList] = useState([]);
   const [sortModel, setSortModel] = useState([]);
+  
+  const [selectedGeneralAssesment, setSelectedGeneralAssesment] = useState('');
+  const [selectedAccomodation, setSelectedAccomodation] = useState('');
+  const [selectedTouristInfo, setSelectedTouristInfo] = useState('');
+  const [selectedSustainability, setSelectedSustainability] = useState('');
+  const [selectedCulturalOfferings, setSelectedCulturalOfferings] = useState('');
+
   const [selectedAcc, setSelectedAcc] = useState('');
   const [selectService, setSelectService] = useState('');
-
   const [selectedSignaling, setSelectedSignaling] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
   const [selectedAaccess, setSelectedAccess] = useState('');
@@ -81,6 +87,23 @@ const EditableTable = () => {
       let searchedData = filteredData.filter((item) => municipalities.includes(item.municipality));
       console.log('searchedData optional', searchedData);
 
+      if (selectedGeneralAssesment) {
+        searchedData = searchedData.filter((item) => item.general_assessment === selectedGeneralAssesment);
+      }
+      if (selectedAccomodation) {
+        searchedData = searchedData.filter((item) => item.lodging === selectedAccomodation);
+      }
+      if (selectedTouristInfo) {
+        searchedData = searchedData.filter((item) => item.tourist_information === selectedTouristInfo);
+      }
+      if (selectedSustainability) {
+        searchedData = searchedData.filter((item) => item.sustainability === selectedSustainability);
+      }
+      if (selectedCulturalOfferings) {
+        searchedData = searchedData.filter((item) => item.cultural_offerings === selectedCulturalOfferings);
+      }
+      
+      
       if (selectedAcc) {
         searchedData = searchedData.filter((item) => item.accessibility === selectedAcc);
       }
@@ -155,7 +178,12 @@ const EditableTable = () => {
     selectedCleaningConservation,
     selectedMunicipality,
     selectedDateFrom,
-    selectedDateTo
+    selectedDateTo,
+    selectedGeneralAssesment,
+    selectedAccomodation,
+    selectedTouristInfo,
+    selectedSustainability,
+    selectedCulturalOfferings
   ]);
 
 
@@ -197,11 +225,16 @@ const EditableTable = () => {
   
   const ResetTable = () => {
     setSelectedAcc('');
+    setSelectedGeneralAssesment("");
     setSelectService('');
     setSelectedSignaling('');
     setSelectedAccess('');
     setSelectedQualityPriceRatio('');
     setSelectedCleaningConservation('');
+    setSelectedAccomodation("");
+    setSelectedTouristInfo("");
+    setSelectedSustainability("");
+    setSelectedCulturalOfferings("");
     setSelectedDateFrom(null);
     setSelectedDateTo(null);
   };
@@ -403,6 +436,16 @@ const EditableTable = () => {
         setSelectedDateFrom={setSelectedDateFrom}
         selectedDateTo={selectedDateTo}
         setSelectedDateTo={setSelectedDateTo}
+        selectedGeneralAssesment={selectedGeneralAssesment}
+        setSelectedGeneralAssesment={setSelectedGeneralAssesment}
+        selectedAccomodation={selectedAccomodation}
+        setSelectedAccomodation={setSelectedAccomodation}
+        selectedTouristInfo={selectedTouristInfo}
+        setSelectedTouristInfo={setSelectedTouristInfo}
+        selectedSustainability={selectedSustainability}
+        setSelectedSustainability={setSelectedSustainability}
+        selectedCulturalOfferings={selectedCulturalOfferings}
+        setSelectedCulturalOfferings={setSelectedCulturalOfferings}
       />
       <Snackbar
         open={snackbarOpen}

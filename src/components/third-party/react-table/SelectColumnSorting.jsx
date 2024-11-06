@@ -58,6 +58,12 @@ const SelectColumnSorting = ({ setSortValue, getState, getAllColumns, setSorting
     >
       {getAllColumns().map(
           (column) =>
+            column.columnDef.header !== t("Permissions - Basic Survey") &&
+            column.columnDef.header !== t("Permissions - Optional Survey") &&
+            column.columnDef.header !== t("Permissions - Users") &&
+            column.columnDef.header !== t("Permissions - Roles	") &&
+            column.columnDef.header !== t("Export data") &&
+            column.columnDef.header !== t("Import data") &&
             column.columnDef.accessorKey &&
             column.getCanSort() && (
               <MenuItem

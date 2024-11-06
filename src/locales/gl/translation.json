@@ -391,13 +391,17 @@
   "In a group": "Nun grupo",
 
   "Email is required": "O correo electrónico é obrigatorio",
-  "Must be a valid email": "Debe ser un correo electrónico válido",
+  "Must be a valid email": "O correo electrónico debe ser válido",
   "Password is required": "O contrasinal é obrigatorio",
-  "Invalid email or password": "Correo electrónico ou contrasinal incorrecto",
+  "Invalid email or password": "O correo electrónico ou o contrasinal son inválidos",
   "of": "de",
-  "Data import process started. Check console for progress.": "Proceso de importación de datos iniciado. Comprobe a consola para ver o progreso.",
-  "Error importing data.": "Erro ao importar datos.",
-  "Error parsing CSV.": "Erro ao analizar CSV.",
+  "Data import process started. Check console for progress.": "Iniciouse o proceso de importación de datos. Consulta a consola para ver o progreso.",
+  "Error importing data.": "Erro ao importar os datos.",
+  "Error parsing CSV.": "Erro ao analizar o arquivo CSV.",
 
-  "DK/NO": "NS/NC"
+  "DK/NO": "NS/NC",
+  "Min People": "Mínimo de persoas",
+  "Max People": "Máximo de persoas",
+  "Min Days": "Mínimo de días",
+  "Max Days": "Máximo de días"
 }
