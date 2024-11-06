@@ -2,27 +2,17 @@ import CryptoJS from 'crypto-js';
 
 const SECRET_KEY = 'secret'; // Store this in environment variables
 
-export const signUserData = (userData) => {
-  const dataString = JSON.stringify(userData);
-  const signature = CryptoJS.HmacSHA256(dataString, SECRET_KEY).toString();
-  return JSON.stringify({
-    data: userData,
-    signature
-  });
+export const encryptData = (data) => {
+  const dataString = JSON.stringify(data);
+  return CryptoJS.AES.encrypt(dataString, SECRET_KEY).toString();
 };
 
-export const verifyUserData = (secureDataString) => {
-  if (!secureDataString) return false;
-  
+export const decryptData = (encryptedData) => {
   try {
-    const { data, signature } = JSON.parse(secureDataString);
-    const computedSignature = CryptoJS.HmacSHA256(
-      JSON.stringify(data),
-      SECRET_KEY
-    ).toString();
-    
-    return computedSignature === signature;
+    const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
+    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(decryptedString);
   } catch (error) {
-    return false;
+    return null;
   }
-}; 
+};

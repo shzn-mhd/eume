@@ -11,6 +11,7 @@ import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 import { set } from 'lodash';
 import { compare, hash } from 'bcryptjs';
 import { SHA256 } from 'crypto-js';
+import { decryptData, encryptData } from 'utils/security';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -53,16 +54,21 @@ export const FirebaseProvider = ({ children }) => {
   const isInitialized = true;
 
   useEffect(()=>{
-    const userData = getLocalstorageValue("user");
+    // const userData = getLocalstorageValue("user");
+
+    const encryptedData = getLocalstorageValue("user");
+    const userData = decryptData(encryptedData);
+    console.log({userData})
+
     if(userData){
       dispatch({
         type: LOGIN,
         payload: {
           isLoggedIn: true,
-          user: JSON.parse(userData)
+          user: userData
         }
       });
-      setUser(JSON.parse(userData));
+      setUser(userData);
     }
   },[dispatch])
 
@@ -72,6 +78,7 @@ export const FirebaseProvider = ({ children }) => {
       const q = query(collection(db, 'users'), where('email', '==', email));
       
       const querySnapshot = await getDocs(q);
+      console.log(querySnapshot)
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
@@ -122,7 +129,11 @@ export const FirebaseProvider = ({ children }) => {
         // Encrypt local storage user data
         // const userPayloadEncrypted = SHA256(JSON.stringify(dispatchData.payload.user)).toString();
 
-        setLocalstorageValue("user", dispatchData.payload.user);
+        // setLocalstorageValue("user", dispatchData.payload.user);
+
+        const encryptedUser = encryptData(dispatchData.payload.user);
+        setLocalstorageValue("user", encryptedUser);
+
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
