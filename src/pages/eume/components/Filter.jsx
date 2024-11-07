@@ -67,10 +67,20 @@ const Filter = ({
   selectedDateTo,
   setSelectedDateTo,
   selectedActivity,
-  setSelectedActivity
+  setSelectedActivity,
+
+   selectedPeopleMin,
+  setSelectedPeopleMin,
+  selectedPeopleMax,
+  setSelectedPeopleMax,
+
+  selectedDayStayMin,
+  setSelectedDayStayMin,
+  selectedDayStayMax,
+  setSelectedDayStayMax,
 }) => {
   const theme = useTheme();
-  const gender = ['Male', 'Female', 'Other', 'NS/NC'];
+  const gender = ['Male', 'Female', 'Other', 'DK/NO'];
   const pet = ['Yes', 'No'];
   const stay = ['Yes', 'No'];
   const day = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -219,6 +229,41 @@ const Filter = ({
                   </FormControl>
                 </Grid>
 
+
+                <Grid container gap={1}>
+                  <Grid item xs={5.8}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="peopleMin"
+                        label={t('Min People')}
+                        type="number"
+                        value={selectedPeopleMin}
+                        onChange={(e) => e.target.value >= 0 && setSelectedPeopleMin(e.target.value)}
+                        InputProps={{ inputProps: { min: 0 } }}
+                        sx={{
+                          borderRadius: '4px',
+                          bgcolor: theme.palette.background.paper
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={5.8}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="peopleMax"
+                        label={t('Max People')}
+                        type="number"
+                        value={selectedPeopleMax}
+                        onChange={(e) => e.target.value >= 0 && setSelectedPeopleMax(e.target.value)}
+                        InputProps={{ inputProps: { min: 0 } }}
+                        sx={{
+                          borderRadius: '4px',
+                          bgcolor: theme.palette.background.paper
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </Grid>
 
               
@@ -432,7 +477,7 @@ const Filter = ({
                 </Grid>
               </Grid>
               <Grid container gap={1}>
-                <Grid item xs={5.8}>
+                {/* <Grid item xs={5.8}> */}
                   <FormControl fullWidth>
                     <Autocomplete
                       id="stayPlace"
@@ -451,8 +496,8 @@ const Filter = ({
                       renderInput={(params) => <TextField {...params} label={t('Stay Place')} />}
                     />
                   </FormControl>
-                </Grid>
-                <Grid item xs={5.8}>
+                {/* </Grid> */}
+                {/* <Grid item xs={5.8}>
                   <FormControl fullWidth>
                     <Autocomplete
                       id="noOfDays"
@@ -471,8 +516,43 @@ const Filter = ({
                       renderInput={(params) => <TextField {...params} label={t('No of Days')} />}
                     />
                   </FormControl>
+                </Grid> */}
+              </Grid>
+              <Grid container gap={1}>
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <TextField
+                      id="dayStayMin"
+                      label={t('Min Days')}
+                      type="number"
+                      value={selectedDayStayMin}
+                      onChange={(e) => e.target.value >= 0 && setSelectedDayStayMin(e.target.value)}
+                      InputProps={{ inputProps: { min: 0 } }}
+                      sx={{
+                        borderRadius: '4px',
+                        bgcolor: theme.palette.background.paper
+                      }}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={5.8}>
+                  <FormControl fullWidth>
+                    <TextField
+                      id="dayStayMax"
+                      label={t('Max Days')}
+                      type="number"
+                      value={selectedDayStayMax}
+                      onChange={(e) => e.target.value >= 0 && setSelectedDayStayMax(e.target.value)}
+                      InputProps={{ inputProps: { min: 0 } }}
+                      sx={{
+                        borderRadius: '4px',
+                        bgcolor: theme.palette.background.paper
+                      }}
+                    />
+                  </FormControl>
                 </Grid>
               </Grid>
+              
               <Grid container gap={1}>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>

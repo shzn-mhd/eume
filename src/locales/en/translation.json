@@ -146,9 +146,9 @@
 
   "Solo": "Solo",
   "In family": "In family",
-  
+
   "In couple": "In couple",
-  
+
   "Visit family/friends": "Visit family/friends",
   "Business/meeting": "Business/meeting",
   "Vacation/leisure": "Vacation/leisure",
@@ -361,16 +361,15 @@
   "Zambia": "Zambia",
   "Zimbabwe": "Zimbabwe",
 
-
   "A Capela": "A Capela",
   "As Pontes": "As Pontes",
   "Cabanas": "Cabanas",
   "Monfero": "Monfero",
   "Pontedeume": "Pontedeume",
-  "Evaluation Table": "Evaluation Table", 
-  "Municipility Average Assessment":"Municipality Average Assessment",
-  "Logout":"Logout",
-  "ACTIONS":"ACTIONS",
+  "Evaluation Table": "Evaluation Table",
+  "Municipility Average Assessment": "Municipality Average Assessment",
+  "Logout": "Logout",
+  "ACTIONS": "ACTIONS",
   "All rights reserved by Perfect Numbers": "All rights reserved by Perfect Numbers",
 
   "passwordStrength": {
@@ -381,18 +380,14 @@
     "Strong": "Strong"
   },
 
-  "Manager":"Manager",
-  "Export data":"Export data",
-  "Import data":"Import data",
-  "Municipility":"Municipility",
-  "Average":"Average",
+  "Manager": "Manager",
+  "Export data": "Export data",
+  "Import data": "Import data",
+  "Municipility": "Municipility",
+  "Average": "Average",
 
-  "With my couple":"With my couple",
-  "Alone":"Alone",
-  "With my family":"With my family",
+  "With my couple": "With my couple",
+  "Alone": "Alone",
+  "With my family": "With my family",
   "In a group": "In a group"
- 
-
- 
-
 }

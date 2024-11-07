@@ -13,6 +13,7 @@ import modalityList from 'data/modality';
 import stayList from 'data/stay';
 import accList from 'data/accomodation';
 import transList from 'data/transport';
+import { t } from 'i18next';
 
 const FilterModal = ({
   onClose,
@@ -50,7 +51,17 @@ const FilterModal = ({
   setSelectedDayStay,
   
   selectedTrans,
-  setSelectedTrans
+  setSelectedTrans,
+
+  selectedPeopleMin,
+  setSelectedPeopleMin,
+  selectedPeopleMax,
+  setSelectedPeopleMax,
+
+  selectedDayStayMin,
+  setSelectedDayStayMin,
+  selectedDayStayMax,
+  setSelectedDayStayMax,
 }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('md'));
@@ -94,6 +105,7 @@ const FilterModal = ({
               renderInput={(params) => <TextField {...params} label="Country" />}
             />
           </FormControl>
+          
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="province"
@@ -112,6 +124,7 @@ const FilterModal = ({
               renderInput={(params) => <TextField {...params} label="Province" />}
             />
           </FormControl>
+
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="gender"
@@ -130,7 +143,76 @@ const FilterModal = ({
               renderInput={(params) => <TextField {...params} label="Gender" />}
             />
           </FormControl>
+
+          <FormControl style={{ width: '220px' }}>
+            <TextField
+              id="peopleMin"
+              label={t("Min People")}
+              type="number"
+              value={selectedPeopleMin}
+              onChange={(e) => e.target.value >= 0 && setSelectedPeopleMin(e.target.value)}
+              InputProps={{ inputProps: { min: 0 } }}
+              sx={{
+                borderRadius: '4px',
+                bgcolor: theme.palette.background.paper,
+                boxShadow: theme.customShadows.primary,
+                border: `1px solid ${theme.palette.primary.main}`
+              }}
+            />
+          </FormControl>
+
+          <FormControl style={{ width: '220px' }}>
+            <TextField
+              id="peopleMax"
+              label={t("Max People")}
+              type="number"
+              value={selectedPeopleMax}
+              onChange={(e) => e.target.value >= 0 && setSelectedPeopleMax(e.target.value)}
+              InputProps={{ inputProps: { min: 0 } }}
+              sx={{
+                borderRadius: '4px',
+                bgcolor: theme.palette.background.paper,
+                boxShadow: theme.customShadows.primary,
+                border: `1px solid ${theme.palette.primary.main}`
+              }}
+            />
+          </FormControl>
+
+          <FormControl style={{ width: '220px' }}>
+              <TextField
+                id="dayStayMin"
+                label={t("Min Days")}
+                type="number"
+                value={selectedDayStayMin}
+                onChange={(e) => e.target.value >= 0 && setSelectedDayStayMin(e.target.value)}
+                InputProps={{ inputProps: { min: 0 } }}
+                sx={{
+                  borderRadius: '4px',
+                  bgcolor: theme.palette.background.paper,
+                  boxShadow: theme.customShadows.primary,
+                  border: `1px solid ${theme.palette.primary.main}`
+                }}
+              />
+            </FormControl>
+
+            <FormControl style={{ width: '220px' }}>
+              <TextField
+                id="dayStayMax"
+                label={t("Max Days")}
+                type="number"
+                value={selectedDayStayMax}
+                onChange={(e) => e.target.value >= 0 && setSelectedDayStayMax(e.target.value)}
+                InputProps={{ inputProps: { min: 0 } }}
+                sx={{
+                  borderRadius: '4px',
+                  bgcolor: theme.palette.background.paper,
+                  boxShadow: theme.customShadows.primary,
+                  border: `1px solid ${theme.palette.primary.main}`
+                }}
+              />
+            </FormControl>
         </Stack>
+
         <Stack direction="row" spacing={2} justifyContent="center">
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
@@ -244,8 +326,9 @@ const FilterModal = ({
             />
           </FormControl>
         </Stack>
+
         <Stack direction="row" spacing={2} justifyContent="center">
-          <FormControl style={{ width: '220px' }}>
+          {/* <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="noOfDays"
               options={day}
@@ -262,7 +345,7 @@ const FilterModal = ({
               }}
               renderInput={(params) => <TextField {...params} label="Stay Day" />}
             />
-          </FormControl>
+          </FormControl> */}
           <FormControl style={{ width: '220px' }}>
             <Autocomplete
               id="accommodationType"
@@ -301,6 +384,7 @@ const FilterModal = ({
             />
           </FormControl>
         </Stack>
+
       </Stack>
     </MainCard>
   );

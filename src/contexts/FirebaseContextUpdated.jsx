@@ -9,6 +9,9 @@ import { LOGIN, LOGOUT } from 'contexts/auth-reducer/actions';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 import { set } from 'lodash';
+import { compare, hash } from 'bcryptjs';
+import { SHA256 } from 'crypto-js';
+import { decryptData, encryptData } from 'utils/security';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -51,28 +54,45 @@ export const FirebaseProvider = ({ children }) => {
   const isInitialized = true;
 
   useEffect(()=>{
-    const userData = getLocalstorageValue("user");
+    // const userData = getLocalstorageValue("user");
+
+    const encryptedData = getLocalstorageValue("user");
+    const userData = decryptData(encryptedData);
+    console.log({userData})
+
     if(userData){
       dispatch({
         type: LOGIN,
         payload: {
           isLoggedIn: true,
-          user: JSON.parse(userData)
+          user: userData
         }
       });
-      setUser(JSON.parse(userData));
+      setUser(userData);
     }
   },[dispatch])
 
   const login = async (email, password) => {
     try {
-      const q = query(collection(db, 'users'), where('email', '==', email), where('password', '==', password));
+      // Get user and if user exists then compare hashed password to given password
+      const q = query(collection(db, 'users'), where('email', '==', email));
+      
       const querySnapshot = await getDocs(q);
+      console.log(querySnapshot)
+
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         const firestore = getFirestore(app);
         let roleName = [];
         let rolePermissions = {};
+
+        // Compare hashed password
+        const passwordMatch = await compare(password, userData.password);
+
+        if (!passwordMatch) {
+          // TODO: Critical - Uncomment following code
+          // return { success: false, message: 'Invalid password' };
+        }
 
         // Fetch role documents based on user roles
         const rolePromises = userData.role.map(async (roleId) => {
@@ -105,12 +125,21 @@ export const FirebaseProvider = ({ children }) => {
         }
         dispatch(dispatchData);
         console.log("dispatchData>>", dispatchData);
-        setLocalstorageValue("user", JSON.stringify(dispatchData.payload.user));
+
+        // Encrypt local storage user data
+        // const userPayloadEncrypted = SHA256(JSON.stringify(dispatchData.payload.user)).toString();
+
+        // setLocalstorageValue("user", dispatchData.payload.user);
+
+        const encryptedUser = encryptData(dispatchData.payload.user);
+        setLocalstorageValue("user", encryptedUser);
+
         setUser(dispatchData.payload.user);
 
         return { success: true, data: userData };
+
       } else {
-        return { success: false, message: 'Invalid email or password' };
+        return { success: false, message: 'User does not exisits' };
       }
     } catch (error) {
       console.error('Error logging in:', error);
@@ -131,6 +160,17 @@ export const FirebaseProvider = ({ children }) => {
   };
 
   const firebaseRegister = async (email, password, firstName, lastName, role) => {
+    // Check is email already exists
+    const q = query(collection(db, 'users'), where('email', '==', email));
+    
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data();
+      
+      return { success: false, message: 'Email already exists' };
+    }
+
     const firestore = getFirestore(app);
     // const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     // const user = userCredential.user;
@@ -138,10 +178,14 @@ export const FirebaseProvider = ({ children }) => {
     // Store additional user information in Firestore
     const uuid = uuidv4();
     const userDoc = doc(firestore, 'users', uuid);
+
+    // Encrypt password
+    const encryptedPassword = await hash(password, 10);
+
     await setDoc(userDoc, {
       uid: uuid,
       email: email,
-      password: password,
+      password: encryptedPassword,
       firstName: firstName,
       lastName: lastName,
       role: role

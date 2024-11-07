@@ -43,7 +43,17 @@ const Filter = ({
   selectedDateFrom,
   setSelectedDateFrom,
   selectedDateTo,
-  setSelectedDateTo
+  setSelectedDateTo,
+  selectedGeneralAssesment,
+  setSelectedGeneralAssesment,
+  selectedAccomodation,
+  setSelectedAccomodation,
+  selectedTouristInfo,
+  setSelectedTouristInfo,
+  selectedSustainability,
+  setSelectedSustainability,
+  selectedCulturalOfferings,
+  setSelectedCulturalOfferings
 }) => {
   const theme = useTheme();
   const acc = [1, 2, 3, 4, 5];
@@ -137,7 +147,7 @@ const Filter = ({
             <Stack direction="column" spacing={3} justifyContent="center" sx={{ p: 1 }}>
              
 
-            <Grid container gap={1}>
+              <Grid container gap={1}>
                 <Grid item xs={5.8}>
                   <FormControl fullWidth>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -169,7 +179,6 @@ const Filter = ({
                     </LocalizationProvider>
                   </FormControl>
                 </Grid>
-
               </Grid>
 
 
@@ -192,6 +201,152 @@ const Filter = ({
                   renderInput={(params) => <TextField {...params} label={t('Municipality')} />}
                 />
               </FormControl>
+
+              <FormControl style={{ display: 'flex' }}>
+                <Typography variant="h5">{t('General Assessment')}</Typography>
+                <Stack direction="row" justifyContent="center">
+                  {acc.map((accOption) => (
+                    <Button
+                      id="acc"
+                      key={accOption}
+                      getOptionLabel={(option) => option}
+                      value={acc.find((option) => option === selectedGeneralAssesment) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedGeneralAssesment(newValue ? newValue : null);
+                      }}
+                      //   variant="contained"
+                      size="small"
+                      onClick={() => setSelectedGeneralAssesment(accOption ? accOption : null)}
+                      sx={{
+                        marginRight: 1,
+                        marginTop: 2,
+                        borderRadius: 50,
+                        backgroundColor: selectedGeneralAssesment === accOption ? 'black' : `${theme.palette.grey[300]}`,
+                        color: selectedGeneralAssesment === accOption ? 'white' : 'black'
+                      }}
+                    >
+                      {accOption}
+                    </Button>
+                  ))}
+                </Stack>
+              </FormControl>
+              
+              <FormControl style={{ display: 'flex' }}>
+                <Typography variant="h5">{t('Accommodation')}</Typography>
+                <Stack direction="row" justifyContent="center">
+                  {acc.map((accOption) => (
+                    <Button
+                      id="acc"
+                      key={accOption}
+                      getOptionLabel={(option) => option}
+                      value={acc.find((option) => option === selectedAccomodation) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedAccomodation(newValue ? newValue : null);
+                      }}
+                      //   variant="contained"
+                      size="small"
+                      onClick={() => setSelectedAccomodation(accOption ? accOption : null)}
+                      sx={{
+                        marginRight: 1,
+                        marginTop: 2,
+                        borderRadius: 50,
+                        backgroundColor: selectedAccomodation === accOption ? 'black' : `${theme.palette.grey[300]}`,
+                        color: selectedAccomodation === accOption ? 'white' : 'black'
+                      }}
+                    >
+                      {accOption}
+                    </Button>
+                  ))}
+                </Stack>
+              </FormControl>
+              
+              <FormControl style={{ display: 'flex' }}>
+                <Typography variant="h5">{t('Tourist Information')}</Typography>
+                <Stack direction="row" justifyContent="center">
+                  {acc.map((accOption) => (
+                    <Button
+                      id="acc"
+                      key={accOption}
+                      getOptionLabel={(option) => option}
+                      value={acc.find((option) => option === selectedTouristInfo) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedTouristInfo(newValue ? newValue : null);
+                      }}
+                      //   variant="contained"
+                      size="small"
+                      onClick={() => setSelectedTouristInfo(accOption ? accOption : null)}
+                      sx={{
+                        marginRight: 1,
+                        marginTop: 2,
+                        borderRadius: 50,
+                        backgroundColor: selectedTouristInfo === accOption ? 'black' : `${theme.palette.grey[300]}`,
+                        color: selectedTouristInfo === accOption ? 'white' : 'black'
+                      }}
+                    >
+                      {accOption}
+                    </Button>
+                  ))}
+                </Stack>
+              </FormControl>
+              
+              <FormControl style={{ display: 'flex' }}>
+                <Typography variant="h5">{t('Sustainability')}</Typography>
+                <Stack direction="row" justifyContent="center">
+                  {acc.map((accOption) => (
+                    <Button
+                      id="acc"
+                      key={accOption}
+                      getOptionLabel={(option) => option}
+                      value={acc.find((option) => option === selectedSustainability) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedSustainability(newValue ? newValue : null);
+                      }}
+                      //   variant="contained"
+                      size="small"
+                      onClick={() => setSelectedSustainability(accOption ? accOption : null)}
+                      sx={{
+                        marginRight: 1,
+                        marginTop: 2,
+                        borderRadius: 50,
+                        backgroundColor: selectedSustainability === accOption ? 'black' : `${theme.palette.grey[300]}`,
+                        color: selectedSustainability === accOption ? 'white' : 'black'
+                      }}
+                    >
+                      {accOption}
+                    </Button>
+                  ))}
+                </Stack>
+              </FormControl>
+              
+              <FormControl style={{ display: 'flex' }}>
+                <Typography variant="h5">{t('Cultural Offerings')}</Typography>
+                <Stack direction="row" justifyContent="center">
+                  {acc.map((accOption) => (
+                    <Button
+                      id="acc"
+                      key={accOption}
+                      getOptionLabel={(option) => option}
+                      value={acc.find((option) => option === selectedCulturalOfferings) || null}
+                      onChange={(event, newValue) => {
+                        setSelectedCulturalOfferings(newValue ? newValue : null);
+                      }}
+                      //   variant="contained"
+                      size="small"
+                      onClick={() => setSelectedCulturalOfferings(accOption ? accOption : null)}
+                      sx={{
+                        marginRight: 1,
+                        marginTop: 2,
+                        borderRadius: 50,
+                        backgroundColor: selectedCulturalOfferings === accOption ? 'black' : `${theme.palette.grey[300]}`,
+                        color: selectedCulturalOfferings === accOption ? 'white' : 'black'
+                      }}
+                    >
+                      {accOption}
+                    </Button>
+                  ))}
+                </Stack>
+              </FormControl>
+              
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Accessibility')}</Typography>
                 <Stack direction="row" justifyContent="center">
@@ -220,6 +375,7 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Catering Services')}</Typography>
                 <Stack direction="row" justifyContent="center">
@@ -248,6 +404,7 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Signaling')}</Typography>
                 <Stack direction="row" justifyContent="center">
@@ -276,6 +433,7 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Cleaning Conservation')}</Typography>
                 <Stack direction="row" justifyContent="center">
@@ -304,6 +462,7 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Quality/Price Ratio of the Destination')}</Typography>
                 <Stack direction="row" justifyContent="center">
@@ -332,6 +491,7 @@ const Filter = ({
                   ))}
                 </Stack>
               </FormControl>
+
               <FormControl style={{ display: 'flex' }}>
                 <Typography variant="h5">{t('Retailers')} </Typography>
                 <Stack direction="row" justifyContent="center">

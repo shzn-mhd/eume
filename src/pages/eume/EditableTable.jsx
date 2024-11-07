@@ -81,6 +81,12 @@ const EditableTable = ({ data }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
+  const [selectedPeopleMin, setSelectedPeopleMin] = useState('');
+  const [selectedPeopleMax, setSelectedPeopleMax] = useState('');
+
+  const [selectedDayStayMin, setSelectedDayStayMin] = useState('');
+  const [selectedDayStayMax, setSelectedDayStayMax] = useState('');
+
   const showImportData = user?.rolePermissions['Basic Survey']?.importData;
   const showExportData = user?.rolePermissions['Basic Survey'].exportData;
 
@@ -139,6 +145,26 @@ const EditableTable = ({ data }) => {
       if (selectedGender) {
         searchedData = searchedData.filter((item) => item.gender === selectedGender);
       }
+
+      // ---------------------------------------------
+
+      if (selectedPeopleMin !== '') {
+        searchedData = searchedData.filter((item) => parseInt(item.noOfPeople) >= parseInt(selectedPeopleMin));
+      }
+
+      if (selectedPeopleMax !== '') {
+        searchedData = searchedData.filter((item) => parseInt(item.noOfPeople) <= parseInt(selectedPeopleMax));
+      }
+
+      if (selectedDayStayMin !== '') {
+      searchedData = searchedData.filter((item) => parseInt(item.noOfDays) >= parseInt(selectedDayStayMin));
+    }
+
+    if (selectedDayStayMax !== '') {
+      searchedData = searchedData.filter((item) => parseInt(item.noOfDays) <= parseInt(selectedDayStayMax));
+    }
+      // ---------------------------------------------
+
 
       if (selectedMunicipality) {
         searchedData = searchedData.filter((item) => item.municipality === selectedMunicipality);
@@ -247,6 +273,10 @@ const EditableTable = ({ data }) => {
     selectedActivity,
     selectedDateFrom,
     selectedDateTo,
+    selectedPeopleMin,
+    selectedPeopleMax,
+     selectedDayStayMin,
+  selectedDayStayMax,
     user.role
   ]);
 
@@ -322,8 +352,12 @@ const EditableTable = ({ data }) => {
     setSelectedAcc('');
     setSelectedTrans('');
     setSelectedActivity("");
+    setSelectedPeopleMin('');
+    setSelectedPeopleMax('');
     setSelectedDateFrom(null);
     setSelectedDateTo(null);
+    setSelectedDayStayMin('');
+  setSelectedDayStayMax('');
   };
 
   const deleteDocument = async (docId) => {
@@ -452,7 +486,7 @@ const EditableTable = ({ data }) => {
         width: 100,
         editable: true,
         cellClassName: 'cell-center',
-        renderCell: ({ row }) => t(row.stayPlace)
+        renderCell: ({ row }) => t(row.stayPlace === 'Select' ? '' : row.stayPlace)
       },
 
       {
@@ -703,6 +737,14 @@ const EditableTable = ({ data }) => {
           setSelectedTrans={setSelectedTrans}
           selectedActivity={selectedActivity}
           setSelectedActivity={setSelectedActivity}
+          selectedPeopleMin={selectedPeopleMin}
+          setSelectedPeopleMin={setSelectedPeopleMin}
+          selectedPeopleMax={selectedPeopleMax}
+          setSelectedPeopleMax={setSelectedPeopleMax}
+          selectedDayStayMin={selectedDayStayMin}
+          setSelectedDayStayMin={setSelectedDayStayMin}
+          selectedDayStayMax={selectedDayStayMax}
+          setSelectedDayStayMax={setSelectedDayStayMax}
         />
       </Dialog>
 
@@ -743,6 +785,14 @@ const EditableTable = ({ data }) => {
         setSelectedDateTo={setSelectedDateTo}
         selectedActivity={selectedActivity}
         setSelectedActivity={setSelectedActivity}
+        selectedPeopleMin={selectedPeopleMin}
+        setSelectedPeopleMin={setSelectedPeopleMin}
+        selectedPeopleMax={selectedPeopleMax}
+        setSelectedPeopleMax={setSelectedPeopleMax}
+        selectedDayStayMin={selectedDayStayMin}
+        setSelectedDayStayMin={setSelectedDayStayMin}
+        selectedDayStayMax={selectedDayStayMax}
+        setSelectedDayStayMax={setSelectedDayStayMax}
       />
       <Snackbar
         open={snackbarOpen}

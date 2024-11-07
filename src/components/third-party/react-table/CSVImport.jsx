@@ -5,6 +5,7 @@ import { Tooltip, Button, Box } from '@mui/material';
 import { UploadOutlined } from '@ant-design/icons';
 import Papa from 'papaparse';
 import { collection, addDoc } from 'firebase/firestore';
+import { t } from 'i18next';
 
 const CSVImport = ({ collectionRef, headers,onImportComplete }) => {
   const theme = useTheme();
@@ -163,7 +164,7 @@ const CSVImport = ({ collectionRef, headers,onImportComplete }) => {
           // Start the batch upload process
           await uploadBatch(0);
 
-          alert('Data import process started. Check console for progress.');
+          alert(t('Data import process started. Check console for progress.'));
           onImportComplete();
         } catch (error) {
           console.error('Error adding document: ', error);
