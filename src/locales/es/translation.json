@@ -403,5 +403,7 @@
   "Min People": "Mínimo de personas",
   "Max People": "Máximo de personas",
   "Min Days": "Mínimo de días",
-  "Max Days": "Máximo de días"
+  "Max Days": "Máximo de días",
+
+  "At least 1 role is required": "Se requiere al menos 1 perfil"
 }

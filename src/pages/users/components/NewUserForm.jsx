@@ -120,67 +120,72 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
             })}
             
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+              // Inside the Formik onSubmit function, replace the try block with this updated logic
               try {
-                // Check if the user exists,
-                // If the user exists, update the user data
-                // If the user does not exist, register a new user
-                // Check is email already exists
-                let existingUser;
-
-                const q = query(collection(db, 'users'), where('email', '==', values.email));
-                
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
-                  const userData = querySnapshot.docs[0].data();
-                  
-                  console.log({userData});
-                  existingUser = userData
-                }
-
-                if (user && existingUser) {
+                // Check if we're editing an existing user
+                if (user) {
                   const userDoc = doc(db, 'users', user.id);
+                  
+                  // Check if email is being changed
+                  if (user.email !== values.email) {
+                    // Check if the new email already exists for a different user
+                    const emailQuery = query(
+                      collection(db, 'users'), 
+                      where('email', '==', values.email)
+                    );
+                    const emailSnapshot = await getDocs(emailQuery);
+                    
+                    if (!emailSnapshot.empty) {
+                      const existingDoc = emailSnapshot.docs[0];
+                      if (existingDoc.id !== user.id) {
+                        setStatus({ success: false });
+                        setErrors({ submit: 'Email already exists for another user' });
+                        return;
+                      }
+                    }
+                  }
 
-                  // Collect the fields to update
+                  // Prepare update data
                   let updateData = {
-                    email: values.email,
                     firstName: values.firstname,
                     lastName: values.lastname,
-                    // role: values.role,
                     role: values.role.map((role) => role.id),
-                    
+                    email: values.email
                   };
 
-                  // console.log(values.password, values.password === '', !values.password);
-
-                  if (values.password || values.password !== '') {
-                    console.log("Password is not empty");
-
-                    // Encrypt password before updating the user data
-                    const hashedPassword = await hash(values.password, 10);
-
-                    updateData = {
-                      ...updateData,
-                      password: hashedPassword // This line adds the password to the update data
-                    }
-                  } else {
-                    console.log("Password is empty");
+                  if (values.role.length < 1) {
+                    setStatus({ success: false });
+                    setErrors({ submit: 'Role is required' });
+                    return;
                   }
 
+                  // Handle password update if provided
+                  if (values.password && values.password.trim() !== '') {
+                    const hashedPassword = await hash(values.password, 10);
+                    updateData.password = hashedPassword;
+                  }
+
+                  // Update the user document
                   await updateDoc(userDoc, updateData);
 
-                  // Update the user's password in Firebase Authentication if it has been changed
-                  if (values.password) {
-                    const authUser = getUser({ currentUser: user }, user.id);
-                    await updatePassword(authUser, values.password);
-                  }
-
-                  // update the user list state
-                  setEmpList((prevList) => prevList.map((u) => (u.id === user.id ? { ...u, ...updateData } : u)));
+                  // Update the user list state
+                  setEmpList((prevList) => 
+                    prevList.map((u) => 
+                      u.id === user.id ? { ...u, ...updateData } : u
+                    )
+                  );
                 } else {
-                  if (existingUser) {
+                  // Handle new user creation
+                  // Check if email already exists
+                  const emailQuery = query(
+                    collection(db, 'users'), 
+                    where('email', '==', values.email)
+                  );
+                  const emailSnapshot = await getDocs(emailQuery);
+
+                  if (!emailSnapshot.empty) {
                     setStatus({ success: false });
-                    setErrors({ submit: 'User already exisits' });
+                    setErrors({ submit: 'Email already exists' });
                     return;
                   }
 
@@ -192,25 +197,22 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
 
                   // Register new user
                   const hashedPassword = await hash(values.password, 10);
-
                   const userCredential = await firebaseRegister(
                     values.email,
                     hashedPassword,
                     values.firstname,
                     values.lastname,
-                    // values.role
                     values.role.map((role) => role.id)
                   );
+
                   const newUser = {
                     id: userCredential.uid,
                     firstName: values.firstname,
                     lastName: values.lastname,
                     email: values.email,
-                    // role: values.role,
-                    role: values.role.map((role) => role.id),
-                    password: values.password // This line adds the password to the new user data
+                    role: values.role.map((role) => role.id)
                   };
-                  // await addDoc(collection(db, 'users'), newUser); // Save new user data to Firestore
+
                   setEmpList((prevList) => [newUser, ...prevList]);
                 }
 
@@ -404,7 +406,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, user }) {
 
                   {errors.submit && (
                     <Grid item xs={12}>
-                      <FormHelperText error>{errors.submit}</FormHelperText>
+                      <FormHelperText error>{t(errors.submit)}</FormHelperText>
                     </Grid>
                   )}
 
