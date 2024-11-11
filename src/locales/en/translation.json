@@ -389,5 +389,7 @@
   "With my couple": "With my couple",
   "Alone": "Alone",
   "With my family": "With my family",
-  "In a group": "In a group"
+  "In a group": "In a group",
+
+  "At least 1 role is required": "At least 1 role is required"
 }

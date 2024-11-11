@@ -72,7 +72,9 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              if (!values.roleStatus || values.roleStatus === "") throw new Error("Role Status is Undefined");
+              if (!values.roleStatus || values.roleStatus === "") {
+                values.roleStatus = "Enable"
+              }
               
               if (role) {
 
@@ -288,7 +290,7 @@ export default function NewUserForm({ setEmpList, handleClickClose, role }) {
 
                 {errors.submit && (
                   <Grid item xs={12}>
-                    <FormHelperText error>{errors.submit}</FormHelperText>
+                    <FormHelperText error>{t(errors.submit)}</FormHelperText>
                   </Grid>
                 )}
 

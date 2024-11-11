@@ -200,7 +200,11 @@ const EditableTable = ({ data }) => {
       }
 
       if (selectedStayList) {
-        searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
+        if (selectedStayList === 'Other') {
+          searchedData = searchedData.filter((item) => item.stayPlace === 'Select');
+        } else {
+          searchedData = searchedData.filter((item) => item.stayPlace === selectedStayList);
+        }
       }
 
       if (selectedDayStay) {
