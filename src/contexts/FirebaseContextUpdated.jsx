@@ -9,9 +9,9 @@ import { LOGIN, LOGOUT } from 'contexts/auth-reducer/actions';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useLocalStorageFunctions from 'hooks/useLocalStorageFunctions';
 import { set } from 'lodash';
-import { compare, hash } from 'bcryptjs';
+// import { compare, hash } from 'bcryptjs';
 import { SHA256 } from 'crypto-js';
-import { decryptData, encryptData } from 'utils/security';
+import { decryptData, encryptData, compare } from 'utils/security';
 
 const FirebaseContext = createContext({
   isLoggedIn: false,
@@ -87,7 +87,7 @@ export const FirebaseProvider = ({ children }) => {
         let rolePermissions = {};
 
         // Compare hashed password
-        const passwordMatch = await compare(password, userData.password);
+        const passwordMatch = compare(password, userData.password);
 
         if (!passwordMatch) {
           // TODO: Critical - Uncomment following code
@@ -180,7 +180,7 @@ export const FirebaseProvider = ({ children }) => {
     const userDoc = doc(firestore, 'users', uuid);
 
     // Encrypt password
-    const encryptedPassword = await hash(password, 10);
+    const encryptedPassword = encryptData(password);
 
     await setDoc(userDoc, {
       uid: uuid,
