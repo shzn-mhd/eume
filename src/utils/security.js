@@ -16,3 +16,10 @@ export const decryptData = (encryptedData) => {
     return null;
   }
 };
+
+export const compare = (data, encryptedData) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
+  const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+
+  return data === decryptedString;
+};
